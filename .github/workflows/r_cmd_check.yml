@@ -48,8 +48,9 @@ jobs:
 
       - name: Install lhs
         run: |
-          R CMD build --no-build-vignettes lhs
-          R CMD INSTALL lhs_*.tar.gz
+          lhs_pack <- devtools::build("lhs", args = c("--no-build-vignettes"))
+          install.packages(lhs_pack, repos = NULL)
+        shell: Rscript {0}
 
       - name: Install SOAs dependencies
         run: |
