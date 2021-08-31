@@ -43,13 +43,13 @@ jobs:
 
       - name: Install lhs dependencies
         run: |
-          install.packages(c("remotes", "rcmdcheck", "devtools"))
+          install.packages(c("remotes", "rcmdcheck", "pkgbuild"))
           remotes::install_deps(pkgdir = "lhs", dependencies = TRUE)
         shell: Rscript {0}
 
       - name: Install lhs
         run: |
-          lhs_pack <- devtools::build("lhs", args = c("--no-build-vignettes"))
+          lhs_pack <- pkgbuild::build("lhs", args = c("--no-build-vignettes"))
           install.packages(lhs_pack, repos = NULL)
         shell: Rscript {0}
 
