@@ -1,3 +1,16 @@
+
+#' TODO
+#'
+#' @param s TODO
+#' @param k TODO
+#'
+#' @importFrom lhs create_galois_field
+#' 
+#' @return TODO
+#' @export
+#'
+#' @examples
+#' print("TODO")
 createSaturated <- function(s, k=2){
   ## uses the gf functionality from lhs
   ## symmetric array from k basic vectors
@@ -43,6 +56,16 @@ createSaturated <- function(s, k=2){
 }
 
 
+#' TODO
+#'
+#' @param s TODO
+#' @param k TODO
+#' @param m TODO
+#'
+#' @return TODO
+#'
+#' @examples
+#' print("TODO")
 createAB <- function(s, k=3, m=NULL){
   ## uses gf functionality from lhs
   ## symmetric array from k basic vectors
@@ -127,7 +150,7 @@ createAB <- function(s, k=3, m=NULL){
   for (i in 1:ncol(paare)){
     hilf <- A[,paare[,i]]
     for (j in 1:ncol(R)){
-      if (round(length3(cbind(hilf, R[,j])),8)>0){
+      if (round(DoE.base::length3(cbind(hilf, R[,j])),8)>0){
         Bcollist[[paare[1,i]]] <- setdiff(Bcollist[[paare[1,i]]],
                                           j)
         Bcollist[[paare[2,i]]] <- setdiff(Bcollist[[paare[2,i]]],
@@ -143,6 +166,18 @@ createAB <- function(s, k=3, m=NULL){
   ## if B has strength 2, the result is an OSOA
 }
 
+#' TODO
+#'
+#' @param B TODO
+#' @param s TODO
+#' @param r TODO
+#' @param permlist TODO
+#' @param oneonly TODO
+#'
+#' @return TODO
+#'
+#' @examples
+#' print("tODO")
 BsFromB <- function(B, s=NULL, r=NULL, permlist=NULL, oneonly=TRUE){
   ## currently not used
   
@@ -205,6 +240,17 @@ BsFromB <- function(B, s=NULL, r=NULL, permlist=NULL, oneonly=TRUE){
 }
 
 
+#' TODO
+#'
+#' @param Bcollist TODO
+#'
+#' @return TODO
+#' 
+#' @importFrom igraph "vertex_attr<-" 
+#' @importFrom igraph graph_from_edgelist max_bipartite_match
+#'
+#' @examples
+#' print("TODO")
 BcolsFromBcolllist <- function(Bcollist){
   ## function to pick as diverse a set of columns as possible
   ## uses bipartite matching algorithm from igraph
@@ -219,11 +265,11 @@ BcolsFromBcolllist <- function(Bcollist){
   for (i in 1:m)
     el <- rbind(el, cbind(i, Bcollist[[i]] + m))
 
-  G <- graph_from_edgelist(el)
-  vertex_attr(G) <- list(type=
+  G <- igraph::graph_from_edgelist(el)
+  igraph::vertex_attr(G) <- list(type=
                            c(rep(1,m),
                              rep(2, max(el)-m)))
-  matches <- max_bipartite_match(G)
+  matches <- igraph::max_bipartite_match(G)
   if (matches$matching_size==m)
     Bcols <- matches$matching[1:m]-m
   else{

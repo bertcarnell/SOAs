@@ -18,6 +18,19 @@
 #end for
 #Return Dmin
 
+#' TODO
+#'
+#' @param oa TODO
+#' @param ell TODO
+#' @param optimize.oa TODO
+#' @param nseq TODO
+#' @param nrounds TODO
+#' @param nsteps TODO
+#'
+#' @return TODO
+#'
+#' @examples
+#' print("TODO")
 XiaoXuMDLE <- function(oa, ell, optimize.oa=TRUE, nseq=2000, nrounds=50, nsteps=3000){
   ## implements the original Xiao and Xu algorithm
   s <- levels.no(oa)[1]
@@ -57,6 +70,19 @@ XiaoXuMDLE <- function(oa, ell, optimize.oa=TRUE, nseq=2000, nrounds=50, nsteps=
 
 ## functions permopt and DcFromDp are in MDLEs.R
 
+#' TODO
+#'
+#' @param Dc TOIO
+#' @param Dp TODO
+#' @param s TODO
+#' @param ell TODO
+#' @param nseq TODO
+#'
+#' @return TODO
+#' @importFrom stats ecdf
+#'
+#' @examples
+#' print("TODO")
 createF <- function(Dc, Dp, s, ell, nseq=2000){
   ## Xiao Xu: nseq = 2000
   ## for obtaining the threshold tau_r in the TA algorithm
@@ -73,9 +99,25 @@ createF <- function(Dc, Dp, s, ell, nseq=2000){
     hilf[Dp[,colsamp]==levsamp[2],colsamp] <- Dc[Dp[,colsamp]==levsamp[1], colsamp]
     dists[i] <- abs(phi_p(hilf, method="manhattan") - phi0)
   }
-  ecdf(dists)
+  stats::ecdf(dists)
 }
 
+### TODO Might want to change the argument F to something else
+
+#' TODO
+#'
+#' @param Dc TODO
+#' @param s TODO
+#' @param ell TODO
+#' @param F TODO
+#' @param nrounds TODO
+#' @param nsteps TODO
+#'
+#' @return TODO
+#' @importFrom stats quantile
+#'
+#' @examples
+#' print("tODO")
 optimize <- function(Dc, s, ell, F, nrounds=50, nsteps=3000){
   ## Xiao Xu: nrounds 30 to 75
   ##          nsteps 3000 to 7500
@@ -84,7 +126,7 @@ optimize <- function(Dc, s, ell, F, nrounds=50, nsteps=3000){
   Dmin <- Dc
   m <- ncol(Dc)
   for (r in 1:nrounds){
-     tau <- quantile(F, 0.5*(1-r/nrounds))
+     tau <- stats::quantile(F, 0.5*(1-r/nrounds))
      for (j in 1:nsteps){
        Dn <- Dc
        colsamp <- sample(m, 1)

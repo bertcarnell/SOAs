@@ -26,10 +26,10 @@ OSOA_LiuLiut <- function(oa, t=NULL, m=NULL, permlist=NULL, random=TRUE){
   ## check or determine t
   if (!is.null(t)) stopifnot(t %in% c(2,3,4)) else{
     t <- 2
-    if (round(length3(oa),8)==0) t <- 3
-    if (t==3 && round(length4(oa),8)==0) t <- 4
+    if (round(DoE.base::length3(oa),8)==0) t <- 3
+    if (t==3 && round(DoE.base::length4(oa),8)==0) t <- 4
   }
-  stopifnot(all(round(GWLP(oa, kmax=t),8)[-1]==0))
+  stopifnot(all(round(DoE.base::GWLP(oa, kmax=t),8)[-1]==0))
   
   moa <- ncol(oa)
   boundm <- mbound_LiuLiu(moa, t)

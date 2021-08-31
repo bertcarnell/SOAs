@@ -1,3 +1,64 @@
+#' Function to create an OSOA from an OA
+#'
+#' An OSOA in ns runs of strength 2* (s^3 levels) or 2+ (s^2 levels) is created from an OA(n,m,s,2).
+#' 
+#' @param oa an ingoing OA
+#' @param el the exponent of the number of levels, \code{el=3} yields a 
+#' strength 2* OSOA in s^3 levels, \code{el=2} a strength 2+ OSOA in s^2 levels
+#' @param m the desired number of columns of the resulting array; odd values of 
+#' m will be reduced by one, so specify the next largest even m, if you need an 
+#' odd number of columns (the function will do so, if possible; if \code{m=NULL}, 
+#' the maximum possible value is used.
+#' @param noptim.rounds the number of optimization rounds for the expansion process
+#' @param optimize logical: should space filling be optimized by level permutations?
+#' @param dmethod distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
+#' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
+#'
+#' @return List with the following elements
+#' \describe{
+#' \item{array }{the array}
+#' \item{type }{the type of array}
+#' \item{strength}{character string that gives the strength}
+#' \item{phi_p}{the phi_p value (smaller=better)}
+#' \item{optimized}{logical indicating whether optimization was applied}
+#' \item{permpick}{matrix that lists the id numbers of the permutations used}
+#' \item{perms2pickfrom}{optional element, when optimization was conducted: 
+#' the overall permutation list to which the numbers in permlist refer}
+#' }
+#' @references 
+#' Li, Liu and Yang (2021)
+#' Zhou and Tang (2019)
+#' Weng (2014)
+#' @author Ulrike Groemping
+#' @export
+#' 
+#' @importFrom combinat permn
+#' @rawNamespace import(DoE.base, except=c("lm", "aov", "lm.design", "aov.design", "lm.formula", "aov.formula"))
+#'
+#' @examples
+#' ## run with optimization for actual use!
+#' ## 54 runs with seven 9-level columns
+#' 
+#' ## TODO:  contr.XuWu not found in DoE.base
+#' #OSOAs(DoE.base::L18[,3:8], el=2, optimize=FALSE)
+#' ## 54 runs with six 27-level columns
+#' 
+#' ## TODO:  contr.XuWu not fount in DoE.base
+#' #OSOAs(DoE.base::L18[,3:8], el=3, optimize=FALSE)
+#' ## 81 runs with four 9-level columns
+#' 
+#' ## TODO: L27.3.4 Not found
+#' #OSOAs(DoE.base::L27.3.4, el=2, optimize=FALSE)
+#' ## An OA with 9-level factors (L81.9.10) 
+#' ## has complete balance in 2D,
+#' ## however does not achieve 3D projection for 
+#' ## all four collapsed triples
+#' ## It is up to the user to decide what is more important.
+#' ## I would go for the OA.
+#' ## 81 runs with four 27-level columns
+#' 
+#' ## TODO: L27.3.4 not found
+#' #OSOAs(DoE.base::L27.3.4, el=3, optimize=FALSE)
 OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, optimize=TRUE, dmethod="manhattan", p=50){
   ## the function calls OSOAarbitrary
   ## together with the optimization dmethod
@@ -33,7 +94,7 @@ OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, optimize=TRUE, dmethod="man
   r <- 2
 
   t <- 2  ## trust that user uses oa of at least strength 2
-  if (length2(oa)==0 && length3(oa)==0) t <- 3
+  if (DoE.base::length2(oa)==0 && DoE.base::length3(oa)==0) t <- 3
 
   curpos <- curpos2 <- Inf    ## start indicator
   ende <- FALSE

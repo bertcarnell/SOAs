@@ -1,3 +1,37 @@
+#' Function to create maximin distance level expanded arrays
+#'
+#' Maximin distance level expansion similar to Xiao and Xu is implemented, 
+#' using an optimization algorithm that is less demanding than the TA algorithm 
+#' of Xiao and Xu
+#' 
+#' @param oa an array to start from
+#' @param ell the multiplier for each number of levels
+#' @param noptim.rounds the number of optimization rounds; optimization may 
+#' take very long, therefore the default is 1, although more rounds are beneficial.
+#' @param optimize logical: if \code{FALSE}, suppress optimization of expansion levels
+#' @param optimize.oa logical: if \code{FALSE}, suppress optimization of initial 
+#' oa (e.g. because it was already optimized)
+#' 
+#' @param dmethod distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
+#' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
+#' @param storeperms logical: should candidate permutations be stored? This can 
+#' blow up the size of the output object enormously.
+#'
+#' @return A list of class \code{MDLE}
+#' \describe{
+#'   \item{array}{TODO:  Description}
+#'   \item{phi_p}{TODO:  Description}
+#'   \item{optimized}{TODO:  Description}
+#' }
+#' @export
+#' 
+#' @importFrom arrangements npermutations permutations
+#' 
+#' @references Xiao and Xu
+#' @author Ulrike Groemping
+#'
+#' @examples
+#' dim(MDLEs(DoE.base::L16.4.5, 2, noptim.rounds = 1)$array)
 MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, optimize.oa=TRUE,
                   dmethod="manhattan", p=50, storeperms=FALSE){
   ### implements the Weng optimization
@@ -77,6 +111,16 @@ MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, optimize.oa=TRUE,
 }
 
 ## start from a GWLP optimized OA oa
+#' TODO
+#'
+#' @param oa TODO
+#' @param s TODO
+#' @param m TODO
+#'
+#' @return TODO
+#'
+#' @examples
+#' print("TODO")
 permopt <- function(oa, s, m){
   ## optimize GWLP optimal oa for maximin criterion phi_p
   if (min(oa)==0) oa <- oa + 1
@@ -116,6 +160,17 @@ permopt <- function(oa, s, m){
 }
 
 #### create the expansions
+#' TODO
+#'
+#' @param Dp TODO
+#' @param s TODO
+#' @param ell TODO
+#' @param permlist TODO
+#'
+#' @return TODO
+#'
+#' @examples
+#' print("TODO")
 DcFromDp <- function(Dp, s, ell,
                      permlist=rep(list(rep(list(rep(0:(ell-1), each=nrow(Dp)/(s*ell))),s)),ncol(Dp))){
   ## Dp is an OA (ideally maximin optimized GMA OA)

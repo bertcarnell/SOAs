@@ -1,3 +1,17 @@
+#' TODO
+#'
+#' @param funname TODO
+#' @param mperm TODO
+#' @param r TODO
+#' @param ... TODO
+#' @param startperm TODO
+#' @param allpermlist TODO
+#' @param neighbordist TODO
+#'
+#' @return TODO
+#'
+#' @examples
+#' print("TODO")
 NeighbourcalcUniversal <- function(funname, mperm, r, ...,
                                    startperm=NULL, allpermlist=NULL,
                                    neighbordist=1){

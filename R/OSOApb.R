@@ -3,6 +3,32 @@
 ### I believe it would not
 ### the outcome array is an OSOA(n, m, 8, 3)
 
+#' function to create a strength 3 OSOA with 8-level columns from a Hadamard matrix
+#' 
+#' A Hadamard matrix in m runs is used for creating an OSOA in n=2m runs for at most m-2 columns.
+#'
+#' @param m the number of columns to be created; 
+#' if \code{n} is also given, \code{m} must be compatible with it
+#' @param n the number of runs to be created (must be a multiple of 8);
+#' if \code{m} is also given, \code{n} must be compatible with it
+#' @param el exponent for 2, can be 2 or 3: the OSOA will have columns with 
+#' 2^el (4 or 8) levels
+#'
+#' @details At least one of \code{m} or \code{n} must be provided. For \code{el=2}, 
+#' Zhou and Tang (2019) strength 3- designs are created, for \code{el=3} strength 
+#' 3 designs by Li, Liu and Yang (2021).
+#' @return an OSOA of strength 3- or 3 (matrix)
+#' @export
+#' 
+#' @references Li, Liu and Yang (2021)
+#' @author Ulrike Groemping
+#' 
+#' @note ???So far, this function does not use optimization - check whether optimization would change anything.???
+#' 
+#' @examples
+#' dim(OSOApb(9))  ## 9 8-level factors in 24 runs
+#' dim(OSOApb(n=16)) ## 6 8-level factors in 16 runs
+#' dim(OSOApb(m=35)) ## 35 8-level factors in 80 runs
 OSOApb <- function(m=NULL, n=NULL, el=3){
   ## m the target number of columns
   ## n the target number of runs
@@ -48,11 +74,11 @@ OSOApb <- function(m=NULL, n=NULL, el=3){
   ## because the algorithm drops a column for uneven no. of columns
   if (el==3)
     X <- suppressMessages({ 
-      (desnum(pb(nruns=n/2, nfactors=min(mmax, 2*ceiling(m/2))))+1)/2
+      (DoE.base::desnum(pb(nruns=n/2, nfactors=min(mmax, 2*ceiling(m/2))))+1)/2
       })   
   else
     X <- suppressMessages({ 
-      (desnum(pb(nruns=n/2, nfactors=min(mmax, m))) + 1)/2
+      (DoE.base::desnum(pb(nruns=n/2, nfactors=min(mmax, m))) + 1)/2
     })   
   
     A <- rbind(X, (1+X)%%2)

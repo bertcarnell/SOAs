@@ -1,3 +1,11 @@
+#' TODO
+#'
+#' @param k TODO
+#'
+#' @return TODO
+#'
+#' @examples
+#' print("TODO")
 createYcols <- function(k){
   ## for the Shi and Tang strength 3+ construction
   ## initialize recursive construction of X, Y and Z
@@ -38,6 +46,14 @@ createYcols <- function(k){
   list(xcols=xcols, ycols=ycols, zcols=zcols)
 }
 
+#' TODO
+#'
+#' @param k TODO
+#'
+#' @return TODO
+#'
+#' @examples
+#' print("TODO")
 createABcols <- function(k){
   ## for the Shi and Tang Family 1 construction
   ## initialize recursive construction of A,B,C
@@ -87,6 +103,16 @@ createABcols <- function(k){
 }
 
 
+#' TODO
+#'
+#' @param k TODO
+#' @param m TODO
+#' @param constr TODO
+#'
+#' @return TODO
+#'
+#' @examples
+#' print("TODO")
 create_ABC <- function(k, m=NULL, constr=c("ShiTang_alphabeta", "ShiTang_alpha")){
   ## incorporate other constructions
   constr <- constr[1]
@@ -136,6 +162,17 @@ create_ABC <- function(k, m=NULL, constr=c("ShiTang_alphabeta", "ShiTang_alpha")
               Yates.columns=list(A=spaltenA, B=spaltenB, C=spaltenC)))
 }
 
+#' TODO
+#'
+#' @param listABC TODO
+#' @param permlist TODO
+#' @param random TODO
+#' @param ... TODO
+#'
+#' @return TODO
+#'
+#' @examples
+#' print("TODO")
 create_DfromABC <- function(listABC, permlist=NULL, random=FALSE, ...){
   ## listABC has elements A, B, C and Yates.columns with elements A,B,C
   ## permlist is a list of length m with three elements each
@@ -172,6 +209,69 @@ create_DfromABC <- function(listABC, permlist=NULL, random=FALSE, ...){
 
 ### the following function must be enhanced with the optimization of level permutations
 ### does it possibly make sense to use BsFromB in this creation?
+
+#' Function to create 8-level SOAs according to Shi and Tang 2020
+#'
+#' creates strength 3 or 3+ SOAs with 8-level factors in 2^k runs, k at least 4. 
+#' These SOAs have at least some more balance than guaranteed by strength 3.
+#' 
+#' @param n run size of the SOA; power of 2, at least 16
+#' @param m number of colums; at most 5n/16 for \code{constr="ShiTang_alpha"}, 
+#' at most \code{n/4} for \code{constr="ShiTang_alphabeta"}; for \code{m=NULL}, 
+#' defaults are \code{m=5n/16} and \code{m=n/4-1}, respectively; the latter yields 
+#' strength 3+.
+#' @param constr construction method, see Details section
+#' @param noptim.rounds the number of optimization rounds for the expansion process (1 is often sufficient)
+#' @param optimize logical: should space filling be optimized by level permutations?
+#' @param dmethod distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
+#' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
+#'
+#' @details 
+#' The 8-level SOAs created by this construction have strength 3 and at least 
+#' the additional property alpha, which means that all pairs of columns achieve 
+#' perfect 4x4 balance, if consecutive level pairs (01, 23, 45, 67) are collapsed.
+#' 
+#' The "ShiTang_alphabeta" construction additionally yields perfect 4x2x2 balance, 
+#' if one column is collapsed to 4 levels, while two further columns are collapsed 
+#' to 2 levels (0123 vs 4567). For m <= n/4 - 1, it also yields perfect balance for 
+#' 8x2 projections in 2D (i.e. if one original column with another column collapsed 
+#' to two levels). 
+#' 
+#' Thus, it yields all strength 4 properties in 2D and 3D, which is called 
+#' strength 3+.
+#' 
+#' The construction is implemented in the equivalent form as described in ...
+#' @return List with the following elements
+#' \describe{
+#'   \item{array}{the array}
+#'   \item{type}{the type of array}
+#'   \item{strength}{character string that gives the strength}
+#'   \item{phi_p}{the phi_p value (smaller=better)}
+#'   \item{optimized}{logical indicating whether optimization was applied}
+#'   \item{permpick}{matrix that lists the id numbers of the permutations used}
+#'   \item{perms2pickfrom}{optional element, when optimization was conducted: the 
+#'   overall permutation list to which the numbers in permlist refer}
+#' }
+#' @references 
+#' Shi and Tang (2020)
+#' Weng (2014)
+#' @author Ulrike Groemping
+#' @export
+#'
+#' @examples
+#' ## use with optimization for actually using such designs
+#' ## n/4 - 1 = 7 columns, strength 3+
+#' SOAs8level(32, optimize=FALSE)
+#' 
+#' ## n/4 = 8 columns, strength 3 with alpha and beta 
+#' SOAs8level(32, m=8, optimize=FALSE)   
+#' 
+#' ## 9 columns (special case n=32), strength 3 with alpha
+#' SOAs8level(32, constr="ShiTang_alpha", optimize=FALSE)
+#' 
+#' ## 5*n/16 = 5 columns, strength 3 with alpha
+#' SOAs8level(16, constr="ShiTang_alpha", optimize=FALSE)
+#' 
 SOAs8level <- function(n, m=NULL, 
                        constr=c("ShiTang_alphabeta", "ShiTang_alpha"),
                        noptim.rounds=1, optimize=TRUE, dmethod="manhattan", p=50){

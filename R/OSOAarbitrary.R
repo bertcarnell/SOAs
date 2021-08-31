@@ -2,6 +2,18 @@
 ### using the Li et al. algorithm for arbitrary inital OA
 ### the optimization is done with function NeighbourcalcUniversal.R
 
+#' TODO
+#'
+#' @param oa TODO
+#' @param el TODO
+#' @param m TODO
+#' @param permlist TODO
+#' @param random TODO
+#'
+#' @return TODO
+#'
+#' @examples
+#' print("TODO")
 OSOAarbitrary <- function(oa, el=3, m=NULL, permlist=NULL, random=TRUE){
   stopifnot(is.matrix(oa) || is.data.frame(oa))
   stopifnot(el %in% c(2,3))  ## el=3: Li et al; el=2: Zhou and Tang
@@ -47,7 +59,7 @@ OSOAarbitrary <- function(oa, el=3, m=NULL, permlist=NULL, random=TRUE){
   if (min(oa)==1) oa <- oa-1
   if (!max(oa)==s-1) stop("oa must be in 0 to s-1 or 1 to s coding.")
 
-  stopifnot(round(length2(oa),8)==0)
+  stopifnot(round(DoE.base::length2(oa),8)==0)
   N <- s*nrow(oa)
 
   oaA <- oaB <- oa[,1:m]

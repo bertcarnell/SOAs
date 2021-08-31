@@ -2,6 +2,19 @@
 ### The resulting OSOA has s^k runs in s^t=s^3 levels.
 ### The resulting OSOA has strength 2*
 
+#' TODO
+#'
+#' @param s TODO
+#' @param k TODO 
+#' @param el  TODO
+#' @param m TODO 
+#' @param permlist  TODO
+#' @param random TODO 
+#'
+#' @return TODO
+#'
+#' @examples
+#' print("TODO")
 OSOAregulart <- function(s, k=3, el=3, m=NULL, permlist=NULL, random=TRUE){
   ## random=TRUE is needed for the call from OSOAs_regular
   ## OSOAregulart is not meant for direct use
