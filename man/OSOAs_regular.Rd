@@ -2,7 +2,7 @@
 % Please edit documentation in R/OSOAs_regular.R
 \name{OSOAs_regular}
 \alias{OSOAs_regular}
-\title{Function to create an OSOA in s^k runs with m=(s^(k-1)-1)/(s-1) columns in 
+\title{Function to create an OSOA in s^k runs with m=(s^(k-1)-1)/(s-1) columns in
 s^2 levels or m'=2*floor(m/2) columns in s^3 levels}
 \usage{
 OSOAs_regular(
@@ -17,18 +17,18 @@ OSOAs_regular(
 )
 }
 \arguments{
-\item{s}{the prime or prime power to use (do not use for s=2, because other 
+\item{s}{the prime or prime power to use (do not use for s=2, because other
 method is better); the resulting array will have pairwise orthogonal columns in s^t levels}
 
 \item{k}{integer >=\code{el}; determines the run size: the resulting array will have s^k runs}
 
-\item{el}{2 or 3; the exponent of the number of levels, \code{el=3} yields a 
+\item{el}{2 or 3; the exponent of the number of levels, \code{el=3} yields a
 strength 2* or 3 OSOA in s^3 levels, \code{el=2} a strength 2+ or 3- OSOA in s^2 levels}
 
-\item{m}{the desired number of columns of the resulting array; for 
-\code{el=3}, odd values of \code{m} will be reduced by one, so specify the 
-next largest even \code{m}, if you need an odd number of columns (the function 
-will do so, if possible); if \code{m=NULL}, the maximum possible value is used. 
+\item{m}{the desired number of columns of the resulting array; for
+\code{el=3}, odd values of \code{m} will be reduced by one, so specify the
+next largest even \code{m}, if you need an odd number of columns (the function
+will do so, if possible); if \code{m=NULL}, the maximum possible value is used.
 This is at most (s^(k-1)-1)/(s-1), or one less if this is odd and \code{el=3}.}
 
 \item{noptim.rounds}{the number of optimization rounds for the expansion process (1 is often sufficient)}
@@ -42,18 +42,18 @@ This is at most (s^(k-1)-1)/(s-1), or one less if this is odd and \code{el=3}.}
 \value{
 List with the following elements
 \describe{
-  \item{array}{the array}
-  \item{type}{the type of array}
-  \item{strength}{character string that gives the strength}
-  \item{phi_p}{the phi_p value (smaller=better)}
-  \item{optimized}{logical indicating whether optimization was applied}
-  \item{permpick}{matrix that lists the id numbers of the permutations used}
-  \item{perms2pickfrom}{optional element, when optimization was conducted: 
-  the overall permutation list to which the numbers in permlist refer}
+\item{array}{the array}
+\item{type}{the type of array}
+\item{strength}{character string that gives the strength}
+\item{phi_p}{the phi_p value (smaller=better)}
+\item{optimized}{logical indicating whether optimization was applied}
+\item{permpick}{matrix that lists the id numbers of the permutations used}
+\item{perms2pickfrom}{optional element, when optimization was conducted:
+the overall permutation list to which the numbers in permlist refer}
 }
 }
 \description{
-The function implements the algorithms proposed by Zhou and Tang 2018 
+The function implements the algorithms proposed by Zhou and Tang 2018
 (s^2 levels) or Li, Liu and Yang 2021 (s^3 levels).
 }
 \examples{

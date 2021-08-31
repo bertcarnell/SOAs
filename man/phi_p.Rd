@@ -34,7 +34,7 @@ a number
 phi_p calculates the discrepancy
 }
 \details{
-small values of phi_p are associated with good performance on the 
+small values of phi_p are associated with good performance on the
 maximin distance criterion
 }
 \examples{

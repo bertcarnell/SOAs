@@ -32,35 +32,35 @@ OSOAs_LiuLiu(
 \value{
 List with the following elements
 \describe{
-  \item{array }{the array}
-  \item{type }{the type of array}
-  \item{strength}{character string that gives the strength}
-  \item{phi_p}{the phi_p value (smaller=better)}
-  \item{optimized}{logical indicating whether optimization was applied}
-  \item{permpick}{matrix that lists the id numbers of the permutations used}
-  \item{perms2pickfrom}{optional element, when optimization was conducted: the 
-  overall permutation list to which the numbers in permlist refer}
-  }
+\item{array }{the array}
+\item{type }{the type of array}
+\item{strength}{character string that gives the strength}
+\item{phi_p}{the phi_p value (smaller=better)}
+\item{optimized}{logical indicating whether optimization was applied}
+\item{permpick}{matrix that lists the id numbers of the permutations used}
+\item{perms2pickfrom}{optional element, when optimization was conducted: the
+overall permutation list to which the numbers in permlist refer}
+}
 }
 \description{
-Creates OSOAs from an OA according to the construction by Liu and Liu (2015). 
+Creates OSOAs from an OA according to the construction by Liu and Liu (2015).
 Strengths 2 to 4 are covered. Strengths 3 and 4 guarantee 3-orthogonality.
 }
 \details{
-The number of columns goes down dramatically with the requested strength. 
-However, the strength 3 or 4 arrays may be worthwhile, 
-because they guarantee 3-orthogonality, which implies that (quantitative) 
-linear models with main effects and second order effects can be robustly estimated. 
+The number of columns goes down dramatically with the requested strength.
+However, the strength 3 or 4 arrays may be worthwhile,
+because they guarantee 3-orthogonality, which implies that (quantitative)
+linear models with main effects and second order effects can be robustly estimated.
 
-Optimization is less successful for this construction of OSOAs; for small 
-arrays, the level permutations make (almost) no difference. 
+Optimization is less successful for this construction of OSOAs; for small
+arrays, the level permutations make (almost) no difference.
 
-Function \code{mbound_LiuLiu(moa, t)} calculates the number of columns that can be 
-obtained from a strength \code{t} OA with \code{moa} columns (if such an array 
-exists, the function does not check that). 
+Function \code{mbound_LiuLiu(moa, t)} calculates the number of columns that can be
+obtained from a strength \code{t} OA with \code{moa} columns (if such an array
+exists, the function does not check that).
 
-Ingoing arrays can be obtained 
-from oa-generating functions like \code{createBoseBush}, or from OAs in 
+Ingoing arrays can be obtained
+from oa-generating functions like \code{createBoseBush}, or from OAs in
 R package \pkg{DoE.base}, or from 2-level designs created with R package \pkg{FrF2}.
 }
 \examples{

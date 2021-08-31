@@ -9,12 +9,12 @@ mbound_LiuLiu(moa, t)
 \arguments{
 \item{moa}{number of oa columns}
 
-\item{t}{strength used in the construction in function \code{OSOAs_LiuLiu} 
+\item{t}{strength used in the construction in function \code{OSOAs_LiuLiu}
 (it is assumed that the \code{oa} used has at least that strength)}
 }
 \value{
-the maximum number of columns that can be obtained by the command 
-\code{OSOAs_LiuLiu(oa, t=t)} where oa has at least strength \code{t} and 
+the maximum number of columns that can be obtained by the command
+\code{OSOAs_LiuLiu(oa, t=t)} where oa has at least strength \code{t} and
 consists of \code{moa} columns
 }
 \description{

@@ -76,11 +76,11 @@ soacheck3D(D, s = 3, el = 3, t = 3, verbose = FALSE, ...)
 \method{soacheck3D}{OSOA}(D, s = 3, el = 3, t = 3, verbose = FALSE, ...)
 }
 \arguments{
-\item{D}{a matrix with factor levels or a list object of class \code{SOA} 
-or \code{OSOA} the element \code{array} of which contains the matrix; \cr 
+\item{D}{a matrix with factor levels or a list object of class \code{SOA}
+or \code{OSOA} the element \code{array} of which contains the matrix; \cr
 factor levels can start with 0 or with 1, and need to be consecutively numbered}
 
-\item{verbose}{logical; if \code{TRUE}, additional information is printed 
+\item{verbose}{logical; if \code{TRUE}, additional information is printed
 (confounded pair or triple projections with A2 or A3, respectively, or table of correlations)}
 
 \item{...}{currently not used}
@@ -89,61 +89,61 @@ factor levels can start with 0 or with 1, and need to be consecutively numbered}
 
 \item{ns}{vector of numbers of levels for each column}
 
-\item{s}{the prime or prime power according to which the array is checked; 
-NULL for mixed level arrays, or where the SOA was constructed using the level 
+\item{s}{the prime or prime power according to which the array is checked;
+NULL for mixed level arrays, or where the SOA was constructed using the level
 expansion implementation according to He, Chang and Tang for strength 2+}
 
-\item{el}{the exponent so that the number of levels of the array is \code{s^el} 
+\item{el}{the exponent so that the number of levels of the array is \code{s^el}
 (if \code{s} is not NULL)}
 
-\item{t}{the strength for which to look (2, 3, or 4), equal to the sum of the 
-exponents in the stratification dimensions; for example, \code{soacheck2D} considers \cr 
-sxs 2D projections with \code{t=2}, \cr 
-s^2xs and sxs^2 projections with \code{t=3} (or alpha*s_1 x s_2 and s_1 x alpha*s_2 
-for \code{s=NULL} and non-NULL alpha), \cr 
+\item{t}{the strength for which to look (2, 3, or 4), equal to the sum of the
+exponents in the stratification dimensions; for example, \code{soacheck2D} considers \cr
+sxs 2D projections with \code{t=2}, \cr
+s^2xs and sxs^2 projections with \code{t=3} (or alpha\emph{s_1 x s_2 and s_1 x alpha}s_2
+for \code{s=NULL} and non-NULL alpha), \cr
 and s^3xs, s^2xs^2 and sxs^3 projections with \code{t=4}.\cr
-If \code{t=4} and \code{el=2}, property gamma (s^xs and sxs^3) is obviously 
+If \code{t=4} and \code{el=2}, property gamma (s^xs and sxs^3) is obviously
 impossible and will not be part of the checks.}
 
-\item{alpha}{the integer number to use instead of s, see the explanation for 
-\code{t} (for SOAs that have been constructed from juxtaposition of alpha 
+\item{alpha}{the integer number to use instead of s, see the explanation for
+\code{t} (for SOAs that have been constructed from juxtaposition of alpha
 \code{s^el} designs, e.g. with function \code{\link{SOAs}})}
 }
 \value{
 Functions whose names contain "\code{check}" return a logical.
 
-Functions \code{count_npairs} and \code{count_npairs} return a vector of 
-counts for level combinations in factor pairs (in the order of the columns of 
-\code{DoE.base:::nchoosek(ncol(D),2)}), either for the array in D, or for 
+Functions \code{count_npairs} and \code{count_npairs} return a vector of
+counts for level combinations in factor pairs (in the order of the columns of
+\code{DoE.base:::nchoosek(ncol(D),2)}), either for the array in D, or for
 designs with numbers of levels given in \code{ns}.
 }
 \description{
-soacheck2D and soacheck3D evaluate 2D and 3D projections, ocheck and ocheck3  
-evaluate pairwise or 3-orthogonality of columns, and count_npairs evaluates 
+soacheck2D and soacheck3D evaluate 2D and 3D projections, ocheck and ocheck3
+evaluate pairwise or 3-orthogonality of columns, and count_npairs evaluates
 the number of level pairs in 2D projections
 }
 \details{
-Functions \code{soacheck2D} and \code{soacheck3D} inspect 2D and 3D 
-stratification, respectively. Each column must have \code{s^el} levels. 
+Functions \code{soacheck2D} and \code{soacheck3D} inspect 2D and 3D
+stratification, respectively. Each column must have \code{s^el} levels.
 \code{t} specifies the degree of balance the functions are asked to look for.
 
 Function \code{soacheck2D},
 \itemize{
-  \item with el=t=2, looks for strength 2 conditions (s^2 levels, sxs balance), 
-  \item with el=2, t=3, looks for strength 2+ / 3- conditions (s^2 levels, s^2xs balance), 
-  \item with el=t=3, looks for strength 2* / 3 conditions (s^3 levels, s^2xs balance).
-  \item with el=2, t=4, looks for the enhanced strength 2+ / 3-  property alpha (s^2 levels, s^2xs^2 balance).
-  \item and with el=3, t=4, looks for strength 3+ / 4 conditions (s^3 levels, s^3xs and s^2xs^2 balance).
+\item with el=t=2, looks for strength 2 conditions (s^2 levels, sxs balance),
+\item with el=2, t=3, looks for strength 2+ / 3- conditions (s^2 levels, s^2xs balance),
+\item with el=t=3, looks for strength 2* / 3 conditions (s^3 levels, s^2xs balance).
+\item with el=2, t=4, looks for the enhanced strength 2+ / 3-  property alpha (s^2 levels, s^2xs^2 balance).
+\item and with el=3, t=4, looks for strength 3+ / 4 conditions (s^3 levels, s^3xs and s^2xs^2 balance).
 }
 
 Function \code{soacheck3D},
 \itemize{
-  \item with el=2, t=3, looks for strength 3- conditions (s^2 levels, sxsxs balance), 
-  \item with el=t=3, looks for strength 3 conditions (s^3 levels, sxsxs balance), 
-  \item and with el=3, t=4, looks for strength 3+ / 4 conditions (s^3 levels, s^2xsxs balance).
+\item with el=2, t=3, looks for strength 3- conditions (s^2 levels, sxsxs balance),
+\item with el=t=3, looks for strength 3 conditions (s^3 levels, sxsxs balance),
+\item and with el=3, t=4, looks for strength 3+ / 4 conditions (s^3 levels, s^2xsxs balance).
 }
 
-If \code{verbose=TRUE}, the functions print the pairs or triples that violate 
+If \code{verbose=TRUE}, the functions print the pairs or triples that violate
 the projection requirements for 2D or 3D.
 }
 \examples{

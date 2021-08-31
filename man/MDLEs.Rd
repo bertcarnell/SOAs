@@ -20,32 +20,32 @@ MDLEs(
 
 \item{ell}{the multiplier for each number of levels}
 
-\item{noptim.rounds}{the number of optimization rounds; optimization may 
+\item{noptim.rounds}{the number of optimization rounds; optimization may
 take very long, therefore the default is 1, although more rounds are beneficial.}
 
 \item{optimize}{logical: if \code{FALSE}, suppress optimization of expansion levels}
 
-\item{optimize.oa}{logical: if \code{FALSE}, suppress optimization of initial 
+\item{optimize.oa}{logical: if \code{FALSE}, suppress optimization of initial
 oa (e.g. because it was already optimized)}
 
 \item{dmethod}{distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"}
 
 \item{p}{p for \code{\link{phi_p}} (the larger, the closer to maximin distance)}
 
-\item{storeperms}{logical: should candidate permutations be stored? This can 
+\item{storeperms}{logical: should candidate permutations be stored? This can
 blow up the size of the output object enormously.}
 }
 \value{
 A list of class \code{MDLE}
 \describe{
-  \item{array}{TODO:  Description}
-  \item{phi_p}{TODO:  Description}
-  \item{optimized}{TODO:  Description}
+\item{array}{TODO:  Description}
+\item{phi_p}{TODO:  Description}
+\item{optimized}{TODO:  Description}
 }
 }
 \description{
-Maximin distance level expansion similar to Xiao and Xu is implemented, 
-using an optimization algorithm that is less demanding than the TA algorithm 
+Maximin distance level expansion similar to Xiao and Xu is implemented,
+using an optimization algorithm that is less demanding than the TA algorithm
 of Xiao and Xu
 }
 \examples{
