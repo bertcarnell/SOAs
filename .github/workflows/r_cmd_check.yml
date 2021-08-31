@@ -49,8 +49,8 @@ jobs:
       - name: Linux System Dependencies
         if: runner.os == 'Linux'
         run: |
-          apt-get update
-          apt-get install libgmp3-dev -y
+          sudo apt-get update
+          sudo apt-get install libgmp3-dev -y
 
       - name: MacOS System dependencies and source gmp
         # from the arrangements package github actions script
