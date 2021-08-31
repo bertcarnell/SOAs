@@ -54,7 +54,7 @@ jobs:
 
       - name: MacOS System dependencies and source gmp
         # from the arrangements package github actions script
-        if: runner.os == "macOS"
+        if: runner.os == 'macOS'
         run: |
           brew install gmp
           Rscript -e "remotes::install_cran('gmp', type = 'source')"
