@@ -1,0 +1,140 @@
+MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, optimize.oa=TRUE,
+                  dmethod="manhattan", p=50, storeperms=FALSE){
+  ### implements the Weng optimization
+  ### for performance reasons, there are noptim.rounds repetitions
+  ### of the algorithm
+  ### for L27.3.4, performance with 5 rounds was as good as XiaoXu and
+  ###            much much faster
+  s <- levels.no(oa)[1]
+  n <- nrow(oa); m <- ncol(oa)
+  Dp <- oa
+  if (optimize.oa) Dp <- permopt(oa, s, m)
+
+  ### initialize Dc
+  ## obtain potential replacements
+  replacement <- rep(1:ell, each=n/(s*ell)) - 1
+  tabrepl <- table(replacement)
+  nperms <- arrangements::npermutations(as.numeric(x=names(tabrepl)),
+                              freq=tabrepl, bigz=TRUE)
+  ## make sure that at most 20000 permutations are inspected
+  if (nperms <= 20000)
+    allpermlist <-
+      arrangements::permutations(as.numeric(x=names(tabrepl)),
+                               freq=tabrepl)
+  else
+    allpermlist <- t(sapply(1:20000, function(obj) sample(replacement)))
+
+  ## number of permutations used
+  nperms <- nrow(allpermlist)
+  allpermlist <- lapply(1:nperms,
+                        function(obj) allpermlist[obj,])
+
+  ## for NeighbourcalcUniversal
+  # m <- m
+  r <- s
+
+  curpos <- curpos2 <- Inf    ## start indicator
+  ende <- FALSE
+
+  if (optimize){
+    for (i in 1:noptim.rounds){
+      message("Optimization round ", i, " of ", noptim.rounds, " started")
+
+    while(curpos2 > 1){
+      while (curpos > 1){
+        if (curpos==Inf) curpermpick <- matrix(sample(nperms, m*s, replace = TRUE), nrow=s)
+        cur <- NeighbourcalcUniversal(DcFromDp, m, r, s=s, ell=ell, Dp=Dp,
+                                      startperm = curpermpick,
+                                      allpermlist = allpermlist)   ## one-neighbors only
+        phi_pvals <- round(sapply(cur$arrays, function(obj) phi_p(obj, dmethod=dmethod, p=p)), 8)
+        (curpos <- which.min(phi_pvals))
+        curpermpick <- cur$docpermlist[[curpos]]
+      }
+      cur <- NeighbourcalcUniversal(DcFromDp, m, r, s=s, ell=ell, Dp=Dp,
+                                    startperm = curpermpick,
+                                    allpermlist = allpermlist,
+                                    neighbordist = 2)
+      phi_pvals <- round(sapply(cur$arrays, function(obj) phi_p(obj, dmethod=dmethod, p=p)), 8)
+      (curpos2 <- which.min(phi_pvals))
+      curpermpick <- cur$docpermlist[[curpos2]]
+      curpos <- 999 ## arbitrary nonInf positive integer
+    }
+      curpos2 <- 999
+    }
+    aus <- list(MDLE=cur$arrays[[1]], phi_p=phi_pvals[1],
+                optimized=TRUE)
+    if (storeperms){
+      aus$permpick <- curpermpick
+      aus$perms2pickfrom <- allpermlist
+    }
+  }else{
+    MDLE <- DcFromDp(Dp, s, ell)
+    aus <- list(array=MDLE, phi_p=phi_p(MDLE, dmethod=dmethod, p=p),
+                optimized=FALSE)
+  }
+  class(aus) <- c("MDLE", "list")
+  aus
+}
+
+## start from a GWLP optimized OA oa
+permopt <- function(oa, s, m){
+  ## optimize GWLP optimal oa for maximin criterion phi_p
+  if (min(oa)==0) oa <- oa + 1
+  nfact <- factorial(s)
+  allperms <- combinat::permn(0:(s-1))
+  if (nfact^m <= 20000){
+    permcombis <- ff(rep(nfact,m)) + 1
+  phis <- rep(NA, nfact^m)
+  for (i in 1:(nfact^m)){
+    hilf <- oa
+    for (j in 1:m)
+      hilf[,j] <- allperms[[permcombis[i,j]]][oa[,j]]
+    phis[i] <- phi_p(hilf, dmethod="manhattan")
+  }
+  pick <- which.min(phis)
+  permcombi <- permcombis[pick,]
+  }else{
+    ## try random selections only
+    cur <- curmin <- sample(nfact, m, replace = TRUE)
+    phimin <- Inf
+    for (r in 1:20000){
+    hilf <- oa
+    for (j in 1:m)
+      hilf[,j] <- allperms[[cur[j]]][oa[,j]]
+    phicur <- phi_p(hilf, dmethod="manhattan")
+    if (phicur < phimin){
+      phimin <- phicur
+      curmin <- cur
+    }
+    }
+    permcombi <- curmin
+  }
+  Dp <- oa
+  for (j in 1:m)
+    Dp[,j] <- allperms[[permcombi[j]]][Dp[,j]]
+  Dp
+}
+
+#### create the expansions
+DcFromDp <- function(Dp, s, ell,
+                     permlist=rep(list(rep(list(rep(0:(ell-1), each=nrow(Dp)/(s*ell))),s)),ncol(Dp))){
+  ## Dp is an OA (ideally maximin optimized GMA OA)
+  ## s is the number of levels of each column in Dp
+  ## ell*s is the target number of levels of the outgoing Dc
+  ## permlist is a list of m lists of length s permutations
+  ##    of the elements of the replacement vector
+
+  ## this function is used in each step of the Weng optimization
+  ## and for the initialization of the XiaoXu optimization
+  if (min(Dp)==1) Dp <- Dp-1
+  stopifnot(all(Dp %in% 0:(s-1)))
+  n <- nrow(Dp); m <- ncol(Dp)
+  stopifnot((n/(s*ell))%%1==0)
+  Dc <- Dp
+  for (i in 1:s)
+    for (j in 1:m){
+      Dc[Dp[,j]==i-1,j] <- (ell*(i-1)) + permlist[[j]][[i]]
+    }
+  Dc
+}
+

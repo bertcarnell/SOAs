@@ -1,0 +1,19 @@
+Change log for package SOAs
+
+Version 0.5, 23 August 2021
+
+* implemented various SOAs and OSOAs
+* implemented MDLE (is a little bit out of spec)
+* implemented various check functions
+* TODOs
+  * write test cases
+  * improve output objects in terms of unified column names etc.
+  * should soacheck2D really keep the argument alpha ? So far, no designs are created for which this is useful.
+  * avoid "Depends" for DoE.base by selective exporting of imported functions and objects
+  * remove second export statement
+  * documentation:
+    * key words and concepts
+    * complete reference sections
+    * check intelligibility and correctness
+    * explanatory page for (O)SOAs?
+    * fill or drop empty sections

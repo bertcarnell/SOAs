@@ -1,0 +1,17 @@
+Package: SOAs
+Title: Creation of Stratum Orthogonal Arrays
+Version: 0.06
+Authors@R: 
+    c(person(given = "Ulrike",
+           family = "Groemping",
+           role = c("aut", "cre"),
+           email = "groemping@bht-berlin.de"),
+      person(given = "Rob",
+             family = "Carnell",
+             role = c("ctb", "cre"),
+             email = "bertcarnell@gmail.com")
+Description: Creates stratum orthogonal arrays (also known as strong orthogonal arrays).
+License: GPL (>= 2)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
