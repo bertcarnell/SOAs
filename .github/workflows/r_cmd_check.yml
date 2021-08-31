@@ -42,7 +42,7 @@ jobs:
 
       - name: Install lhs dependencies
         run: |
-          install.packages(c("remotes", "rcmdcheck"))
+          install.packages(c("remotes", "rcmdcheck", "devtools"))
           remotes::install_deps(pkgdir = "lhs", dependencies = TRUE)
         shell: Rscript {0}
 
