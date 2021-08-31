@@ -11,31 +11,51 @@ jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
-    
+
     strategy:
       matrix:
         config:
-          - {os: windows-latest, r: 'release'}
-          - {os: windows-latest, r: 'devel'}
-          - {os: macOS-latest, r: 'release'}
-          - {os: macOS-latest, r: 'devel'}
-          - {os: ubuntu-latest, r: 'release'}
+#          - {os: windows-latest, r: 'release'}
+#          - {os: windows-latest, r: 'devel'}
+#          - {os: macOS-latest, r: 'release'}
+#          - {os: macOS-latest, r: 'devel'}
+#          - {os: ubuntu-latest, r: 'release'}
           - {os: ubuntu-latest, r: 'devel'}
 
     steps:
-      - uses: actions/checkout@v2
-      
+      - name: Check out SOAs
+        uses: actions/checkout@v2
+        with:
+          path: ./SOAs
+
+      - name: Check out Development lhs
+        uses: actions/checkout@v2
+        with:
+          repository: 'bertcarnell/lhs'
+          ref: galoisfield
+          path: ./lhs
+
       - name: Set up R ${{ matrix.r-version }}
         uses: r-lib/actions/setup-r@master
         with:
           r-version: ${{ matrix.config.r }}
-          
-      - name: Install dependencies
+
+      - name: Install lhs dependencies
         run: |
           install.packages(c("remotes", "rcmdcheck"))
-          remotes::install_deps(dependencies = TRUE)
+          remotes::install_deps(pkgdir = "lhs", dependencies = TRUE)
         shell: Rscript {0}
-        
+
+      - name: Install lhs
+        run: |
+          R CMD build lhs
+          R CMD INSTALL lhs-*.tar.gz
+
+      - name: Install SOAs dependencies
+        run: |
+          remotes::install_deps(pkgdir = "SOAs", dependencies = TRUE)
+        shell: Rscript {0}
+
       - name: Check
         run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
         shell: Rscript {0}
