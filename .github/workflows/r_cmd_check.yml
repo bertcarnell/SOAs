@@ -48,7 +48,7 @@ jobs:
 
       - name: Install lhs
         run: |
-          R CMD build lhs --no-build-vignettes
+          R CMD build --no-build-vignettes lhs
           R CMD INSTALL lhs_*.tar.gz
 
       - name: Install SOAs dependencies
