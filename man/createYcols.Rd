@@ -20,6 +20,4 @@ a list of three components, each of length 2^k-1
 \description{
 Used in the Shi and Tang strength 3+ construction
 }
-\examples{
-M <- createYcols(3)
-}
+\keyword{internal}

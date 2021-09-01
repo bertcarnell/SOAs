@@ -12,6 +12,8 @@
 #'
 #' @examples
 #' print("TODO")
+#'
+#' @keywords internal
 NeighbourcalcUniversal <- function(funname, mperm, r, ...,
                                    startperm=NULL, allpermlist=NULL,
                                    neighbordist=1){
@@ -26,7 +28,7 @@ NeighbourcalcUniversal <- function(funname, mperm, r, ...,
   ##     m = (s^(k-1) - 1)/(s-1) (or a smaller value),  r=2 (and n=s^k)
   ## SOAs2plus_regular calls function SOA2plus_regular_fast with arguments s, A, B
   ##     m = ncol(A), r=2
-  ## 
+  ##
   ##  ... thus the above either contain oa or s;
   ##      in the former case, s is calculated from oa
   ##
@@ -41,8 +43,8 @@ NeighbourcalcUniversal <- function(funname, mperm, r, ...,
 
   ## funname is the name of the function that calculates the array
   ##    (i.e. soa, OSOAarbitrary or OSOAregulart, not quoted)
-  ## ... are the named arguments to be handed to that function 
-  ##               (problems may occur if those names permit confusion 
+  ## ... are the named arguments to be handed to that function
+  ##               (problems may occur if those names permit confusion
   ##                by having the same start sequence)
   ## startperm is an rxm matrix of positions in permutations list
   ## returned by combinat::permn(s), or NULL

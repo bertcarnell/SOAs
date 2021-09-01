@@ -31,6 +31,8 @@
 #'
 #' @examples
 #' print("TODO")
+#'
+#' @keywords internal
 XiaoXuMDLE <- function(oa, ell, optimize.oa=TRUE, nseq=2000, nrounds=50, nsteps=3000){
   ## implements the original Xiao and Xu algorithm
   s <- levels.no(oa)[1]
@@ -83,6 +85,8 @@ XiaoXuMDLE <- function(oa, ell, optimize.oa=TRUE, nseq=2000, nrounds=50, nsteps=
 #'
 #' @examples
 #' print("TODO")
+#'
+#' @keywords internal
 createF <- function(Dc, Dp, s, ell, nseq=2000){
   ## Xiao Xu: nseq = 2000
   ## for obtaining the threshold tau_r in the TA algorithm
@@ -118,6 +122,8 @@ createF <- function(Dc, Dp, s, ell, nseq=2000){
 #'
 #' @examples
 #' print("tODO")
+#'
+#' @keywords internal
 optimize <- function(Dc, s, ell, F, nrounds=50, nsteps=3000){
   ## Xiao Xu: nrounds 30 to 75
   ##          nsteps 3000 to 7500

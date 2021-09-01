@@ -27,7 +27,7 @@ moa <- rep(seq(4,40),3)
 ##      the oa must have at least this strength
 t <- rep(2:4, each=37)
 ## numbers of columns for the combination
-mbounds <- mapply(mbound_LiuLiu, moa, t)   
+mbounds <- mapply(mbound_LiuLiu, moa, t)
 ## depending on the number of levels
 ## the number of runs can be excessive
 ## for larger values of moa with larger t!

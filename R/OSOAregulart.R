@@ -5,16 +5,18 @@
 #' TODO
 #'
 #' @param s TODO
-#' @param k TODO 
+#' @param k TODO
 #' @param el  TODO
-#' @param m TODO 
+#' @param m TODO
 #' @param permlist  TODO
-#' @param random TODO 
+#' @param random TODO
 #'
 #' @return TODO
 #'
 #' @examples
 #' print("TODO")
+#'
+#' @keywords internal
 OSOAregulart <- function(s, k=3, el=3, m=NULL, permlist=NULL, random=TRUE){
   ## random=TRUE is needed for the call from OSOAs_regular
   ## OSOAregulart is not meant for direct use
@@ -25,7 +27,7 @@ OSOAregulart <- function(s, k=3, el=3, m=NULL, permlist=NULL, random=TRUE){
   ### permlist needs (s+1)*m or 2m permutations
   ### either
   ### for A and each of the s blocks times the m columns of Bs
-  ###      (m depends on k, number of columns in a saturated strength 2 OA 
+  ###      (m depends on k, number of columns in a saturated strength 2 OA
   ###       in s^(k-1) runs)
   ### or
   ### for A and the entire B (preserves strength 3, but worse on space filling)
@@ -45,7 +47,7 @@ OSOAregulart <- function(s, k=3, el=3, m=NULL, permlist=NULL, random=TRUE){
   } else
   m <- (s^(k-1)-1)/(s-1)
   if (el==3) m <- 2*floor(m/2)
-  
+
   ## now m holds the m' for which design construction is to be done
 
   pow <- 1
@@ -64,7 +66,7 @@ OSOAregulart <- function(s, k=3, el=3, m=NULL, permlist=NULL, random=TRUE){
       if (pow > 5) stop("powers of 3 must not be larger than s=2^5")
     }
   }
-  
+
   if (pow>1) gf <- lhs::create_galois_field(s)
 
   ## saturated strength 2 from k-1 basic columns
@@ -85,8 +87,8 @@ OSOAregulart <- function(s, k=3, el=3, m=NULL, permlist=NULL, random=TRUE){
     for (i in 1:m) permlistA[[i]] <- sample(0:(s-1))
     permlistB <- NULL   ## random
   }
-  } 
-  
+  }
+
   ## stack B s times and permute the columns
   Bs <- B
   for (i in 2:s) Bs <- rbind(Bs, B)
@@ -94,15 +96,15 @@ OSOAregulart <- function(s, k=3, el=3, m=NULL, permlist=NULL, random=TRUE){
   ## create A with added independent column, permuted independently for each column
   addmatrix <- sapply(permlistA, function(obj) rep(obj[[1]], each=s^(k-1)))
 
-  if (pow==1) 
+  if (pow==1)
     A <- (Bs + addmatrix)%%s
-  else 
+  else
     A <- matrix(gf_sum(Bs, addmatrix, gf), nrow=nrow(Bs))
   if (el==2) {
     return(s*A + Bs)   ## Zhou and Tang
   }
   ## construction 1 with A and B
   ## in the simplified version described in Grömping
-    C <- interleavecols(A[,seq(2,m,2)], s-1-A[,seq(1,m-1,2)]) 
+    C <- interleavecols(A[,seq(2,m,2)], s-1-A[,seq(1,m-1,2)])
     return(s^2*A + s*Bs + C)   ## Li et al., el=3
 }

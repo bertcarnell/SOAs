@@ -25,6 +25,4 @@ A list of components
 \description{
 Create ABC object
 }
-\examples{
-M <- create_ABC(4)
-}
+\keyword{internal}

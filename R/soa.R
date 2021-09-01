@@ -14,6 +14,8 @@
 #'
 #' @examples
 #' print("TODO")
+#'
+#' @keywords internal
 soa <- function(oa, t=3, permlist=NULL, random=TRUE){
   ## The function implements the algorithm by He and Tang (2013)
   ## If oa has strength at least t,

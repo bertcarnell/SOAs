@@ -19,6 +19,4 @@ a matrix of the same dimension as \code{oa}
 \description{
 optimize GWLP optimal oa for maximin criterion phi_p
 }
-\examples{
-M <- permopt(matrix(c(0,0,1,1,0,1,0,1), nrow = 4), 2, 2)
-}
+\keyword{internal}

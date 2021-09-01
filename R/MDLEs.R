@@ -119,8 +119,7 @@ MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, optimize.oa=TRUE,
 #'
 #' @return a matrix of the same dimension as \code{oa}
 #'
-#' @examples
-#' M <- permopt(matrix(c(0,0,1,1,0,1,0,1), nrow = 4), 2, 2)
+#' @keywords internal
 permopt <- function(oa, s, m){
   if (min(oa)==0) oa <- oa + 1
   nfact <- factorial(s)
@@ -171,8 +170,7 @@ permopt <- function(oa, s, m){
 #'
 #' @return a matrix of the same size as \code{Dp}
 #'
-#' @examples
-#' DcFromDp(matrix(c(0,0,1,1,0,1,0,1), nrow = 4), 2, 2)
+#' @keywords internal
 DcFromDp <- function(Dp, s, ell,
                      permlist=rep(list(rep(list(rep(0:(ell-1), each=nrow(Dp)/(s*ell))),s)),ncol(Dp))){
   if (min(Dp)==1) Dp <- Dp-1

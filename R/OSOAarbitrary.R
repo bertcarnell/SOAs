@@ -14,6 +14,8 @@
 #'
 #' @examples
 #' print("TODO")
+#'
+#' @keywords internal
 OSOAarbitrary <- function(oa, el=3, m=NULL, permlist=NULL, random=TRUE){
   stopifnot(is.matrix(oa) || is.data.frame(oa))
   stopifnot(el %in% c(2,3))  ## el=3: Li et al; el=2: Zhou and Tang
@@ -35,9 +37,9 @@ OSOAarbitrary <- function(oa, el=3, m=NULL, permlist=NULL, random=TRUE){
   else{
     if (m%%2==1){
       if (m < ncol(oa)) {
-        m <- m+1 
+        m <- m+1
         message("odd m has been increased by 1")
-        }else 
+        }else
         stop("with this oa, at most ", 2*floor(ncol(oa)/2), " columns are possible" )
     }
   }

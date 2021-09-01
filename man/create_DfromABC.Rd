@@ -21,6 +21,4 @@ a matrix
 \description{
 Create object D from an ABC object
 }
-\examples{
-D <- create_DfromABC(create_ABC(4))
-}
+\keyword{internal}

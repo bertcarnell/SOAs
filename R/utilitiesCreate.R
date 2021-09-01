@@ -5,7 +5,7 @@
 #' @param k TODO
 #'
 #' @importFrom lhs create_galois_field
-#' 
+#'
 #' @return TODO
 #' @export
 #'
@@ -20,11 +20,11 @@ createSaturated <- function(s, k=2){
   ## output:
   ## s=2: returns columns in Yates order
   ## s>2: main effects first, interactions afterwards
-  
-  
+
+
   if (!s %in% c(2,3,4,5,7,8,9,11,13,16,17,19,27,32,81))
     stop("not implemented for s = ", s)
-  
+
   prime <- TRUE
   if (s %in% c(4,8,9,16,27,32,81)) {
     prime <- FALSE
@@ -34,7 +34,7 @@ createSaturated <- function(s, k=2){
   aus <- ff(rep(s,k))[,k:1]   ## fast to slow
   ## intcoeffs
   intcoeffs <- ff(rep(s, k))  ## slow to fast
-  
+
   if (s>2){
     ## eliminate rows that refer to only one or no factors
     intcoeffs <- intcoeffs[rowSums(intcoeffs>0)>=2,, drop=FALSE]
@@ -44,7 +44,7 @@ createSaturated <- function(s, k=2){
       intcoeffs <- intcoeffs[!(apply(intcoeffs[,1:(i-1), drop=FALSE], 1,
                                      function(obj) all(obj==0)) &
                                  intcoeffs[,i]>1),, drop=FALSE]
-    
+
     if (prime) aus <- cbind(aus, (aus%*%t(intcoeffs))%%s)
     else {
       hilf <- gf_matmult(aus, t(intcoeffs), gf=gf, checks=FALSE)
@@ -66,6 +66,8 @@ createSaturated <- function(s, k=2){
 #'
 #' @examples
 #' print("TODO")
+#'
+#' @keywords internal
 createAB <- function(s, k=3, m=NULL){
   ## uses gf functionality from lhs
   ## symmetric array from k basic vectors
@@ -83,7 +85,7 @@ createAB <- function(s, k=3, m=NULL){
   }
   stopifnot(k>=3)
   if (s==2 && k==3) stop("For s=2, k>=4 is required")
-  
+
   if (s==2){
     k1 <- k%/%2
     k2 <- k - k1
@@ -92,12 +94,12 @@ createAB <- function(s, k=3, m=NULL){
     if (s>2) m <- (s^k-1)/(s-1) - ((s-1)^k-1)/(s-2)
     else m <- 2^k - 2^k1 - 2^k2 + 2
   }
-  
-  ## aus is the full factorial s^k, 
+
+  ## aus is the full factorial s^k,
   ## intcoeffs starts out the same and is reduced to linear combinations
   ##      for interactions in saturated oa
   aus <- intcoeffs <- ff(rep(s, k))
-  
+
   if (s>2){
     ## eliminate rows that refer to only one or no factors
     intcoeffs <- intcoeffs[rowSums(intcoeffs>0)>=2,, drop=FALSE]
@@ -113,7 +115,7 @@ createAB <- function(s, k=3, m=NULL){
     ## Acols columns for which at least one u_j
     ##           equals the largest element of GF(s)
     stopifnot(length(Acols)>=m)
-    
+
     if (prime) aus <- cbind(aus, (aus%*%t(intcoeffs))%%s)
     else {
       hilf <- gf_matmult(aus, t(intcoeffs), gf, checks=FALSE)
@@ -126,22 +128,22 @@ createAB <- function(s, k=3, m=NULL){
     ## now s==2
     ## prepare saturated design in Yates order
     satu <- createSaturated(s,k)
-    
+
     ## construction C2
-    
+
     ## column numbers in Yates order for P and Q
     P_nos <- 1:(s^(k1) - 1)
-    
+
     ## only the effects for Q (nonzero entries in leftmost k2 columns only)
     intcoeffs <- intcoeffs[which(rowSums(intcoeffs[,(k2+1):k,drop=FALSE])==0 &
                                    !rowSums(intcoeffs[,1:k2,drop=FALSE])==0),]
     Q_nos <- intcoeffs%*%(2^((k-1):0))
-    
+
     Rcols <- c(P_nos[-1], Q_nos[-1], P_nos[1] + Q_nos[1])
     R <- satu[, Rcols, drop=FALSE]
     A <- satu[, setdiff(1:(2^k - 1), Rcols), drop=FALSE][,1:m]
   }
-  
+
   ## brute force selection of columns from R for B
   ## should be possible to do this more elegantly
   ## for large s and n, length3 is much faster than GWLP(...,kmax=3)[4]
@@ -178,22 +180,24 @@ createAB <- function(s, k=3, m=NULL){
 #'
 #' @examples
 #' print("tODO")
+#'
+#' @keywords internal
 BsFromB <- function(B, s=NULL, r=NULL, permlist=NULL, oneonly=TRUE){
   ## currently not used
-  
+
   ## the function stacks r copies of the s-level matrix B (m columns)
   ## on top of each other,
   ## permuting the levels for each column in each stacked block
   ## by an individual permutation
   ##    or if oneonly, by the same permutation for each block
-  
+
   ## permlist is a list of m lists with r or one elements per list
-  ## oneonly determines whether each block uses a different permutation (FALSE) 
-  ##      or only one permutation is used for all blocks 
-  
+  ## oneonly determines whether each block uses a different permutation (FALSE)
+  ##      or only one permutation is used for all blocks
+
   ## if it turns out that the separate permutation is not needed any more
   ## may be simplified ??
-  
+
   stopifnot(is.matrix(B))
   if (min(B)==1) B <- B-1
   levs <- levels.no(B)
@@ -245,12 +249,14 @@ BsFromB <- function(B, s=NULL, r=NULL, permlist=NULL, oneonly=TRUE){
 #' @param Bcollist TODO
 #'
 #' @return TODO
-#' 
-#' @importFrom igraph "vertex_attr<-" 
+#'
+#' @importFrom igraph "vertex_attr<-"
 #' @importFrom igraph graph_from_edgelist max_bipartite_match
 #'
 #' @examples
 #' print("TODO")
+#'
+#' @keywords internal
 BcolsFromBcolllist <- function(Bcollist){
   ## function to pick as diverse a set of columns as possible
   ## uses bipartite matching algorithm from igraph

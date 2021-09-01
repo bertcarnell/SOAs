@@ -20,6 +20,4 @@ a list containing
 \description{
 Used in the Shi and Tang Family 1 construction
 }
-\examples{
-M <- createABcols(3)
-}
+\keyword{internal}

@@ -11,8 +11,7 @@
 #'   \item{zcols}{}
 #' }
 #'
-#' @examples
-#' M <- createYcols(3)
+#' @keywords internal
 createYcols <- function(k){
   ##
   if (k%%2==0){
@@ -65,8 +64,7 @@ createYcols <- function(k){
 #'   \item{Ccols}{}
 #' }
 #'
-#' @examples
-#' M <- createABcols(3)
+#' @keywords internal
 createABcols <- function(k){
   if (k==5)
     return(list(Acols=c(1, 2, 4, 8, 16, 7, 11, 19, 29),
@@ -131,8 +129,7 @@ createABcols <- function(k){
 #'   \item{Yates.columns}{A list with components \code{A, B, C}}
 #' }
 #'
-#' @examples
-#' M <- create_ABC(4)
+#' @keywords internal
 create_ABC <- function(k, m=NULL, constr="ShiTang_alphabeta"){
   ## incorporate other constructions
   stopifnot(constr %in% c("ShiTang_alphabeta", "ShiTang_alpha"))
@@ -193,8 +190,7 @@ create_ABC <- function(k, m=NULL, constr="ShiTang_alphabeta"){
 #'
 #' @return a matrix
 #'
-#' @examples
-#' D <- create_DfromABC(create_ABC(4))
+#' @keywords internal
 create_DfromABC <- function(listABC, permlist=NULL, random=FALSE, ...){
   A <- listABC$A; B <- listABC$B; C <- listABC$C
   m <- ncol(A)

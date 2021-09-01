@@ -29,6 +29,4 @@ a matrix of the same size as \code{Dp}
 this function is used in each step of the Weng optimization and for
 the initialization of the XiaoXu optimization
 }
-\examples{
-DcFromDp(matrix(c(0,0,1,1,0,1,0,1), nrow = 4), 2, 2)
-}
+\keyword{internal}
