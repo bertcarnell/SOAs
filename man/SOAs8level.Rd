@@ -7,7 +7,7 @@
 SOAs8level(
   n,
   m = NULL,
-  constr = c("ShiTang_alphabeta", "ShiTang_alpha"),
+  constr = "ShiTang_alphabeta",
   noptim.rounds = 1,
   optimize = TRUE,
   dmethod = "manhattan",
@@ -22,7 +22,8 @@ at most \code{n/4} for \code{constr="ShiTang_alphabeta"}; for \code{m=NULL},
 defaults are \code{m=5n/16} and \code{m=n/4-1}, respectively; the latter yields
 strength 3+.}
 
-\item{constr}{construction method, see Details section}
+\item{constr}{construction method.  Must be one of \code{"ShiTang_alphabeta", "ShiTang_alpha"}.
+See Details section}
 
 \item{noptim.rounds}{the number of optimization rounds for the expansion process (1 is often sufficient)}
 
@@ -70,8 +71,8 @@ The construction is implemented in the equivalent form as described in ...
 ## n/4 - 1 = 7 columns, strength 3+
 SOAs8level(32, optimize=FALSE)
 
-## n/4 = 8 columns, strength 3 with alpha and beta 
-SOAs8level(32, m=8, optimize=FALSE)   
+## n/4 = 8 columns, strength 3 with alpha and beta
+SOAs8level(32, m=8, optimize=FALSE)
 
 ## 9 columns (special case n=32), strength 3 with alpha
 SOAs8level(32, constr="ShiTang_alpha", optimize=FALSE)

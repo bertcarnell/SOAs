@@ -2,19 +2,24 @@
 % Please edit documentation in R/createShiTang.R
 \name{createYcols}
 \alias{createYcols}
-\title{TODO}
+\title{Initial recursive construction of X, Y, and Z}
 \usage{
 createYcols(k)
 }
 \arguments{
-\item{k}{TODO}
+\item{k}{the log base 2 of the run size of the SOA: \code{n=2^k}}
 }
 \value{
-TODO
+a list of three components, each of length 2^k-1
+\describe{
+\item{xcols}{}
+\item{ycols}{}
+\item{zcols}{}
+}
 }
 \description{
-TODO
+Used in the Shi and Tang strength 3+ construction
 }
 \examples{
-print("TODO")
+M <- createYcols(3)
 }

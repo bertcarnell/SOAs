@@ -2,23 +2,23 @@
 % Please edit documentation in R/MDLEs.R
 \name{permopt}
 \alias{permopt}
-\title{TODO}
+\title{optimize GWLP optimal oa for maximin criterion phi_p}
 \usage{
 permopt(oa, s, m)
 }
 \arguments{
-\item{oa}{TODO}
+\item{oa}{GWLP optimal orthogonal array}
 
 \item{s}{TODO}
 
 \item{m}{TODO}
 }
 \value{
-TODO
+a matrix of the same dimension as \code{oa}
 }
 \description{
-TODO
+optimize GWLP optimal oa for maximin criterion phi_p
 }
 \examples{
-print("TODO")
+M <- permopt(matrix(c(0,0,1,1,0,1,0,1), nrow = 4), 2, 2)
 }

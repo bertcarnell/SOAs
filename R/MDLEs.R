@@ -1,32 +1,31 @@
 #' Function to create maximin distance level expanded arrays
 #'
-#' Maximin distance level expansion similar to Xiao and Xu is implemented, 
-#' using an optimization algorithm that is less demanding than the TA algorithm 
+#' Maximin distance level expansion similar to Xiao and Xu is implemented,
+#' using an optimization algorithm that is less demanding than the TA algorithm
 #' of Xiao and Xu
-#' 
+#'
 #' @param oa an array to start from
 #' @param ell the multiplier for each number of levels
-#' @param noptim.rounds the number of optimization rounds; optimization may 
+#' @param noptim.rounds the number of optimization rounds; optimization may
 #' take very long, therefore the default is 1, although more rounds are beneficial.
 #' @param optimize logical: if \code{FALSE}, suppress optimization of expansion levels
-#' @param optimize.oa logical: if \code{FALSE}, suppress optimization of initial 
+#' @param optimize.oa logical: if \code{FALSE}, suppress optimization of initial
 #' oa (e.g. because it was already optimized)
-#' 
 #' @param dmethod distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
-#' @param storeperms logical: should candidate permutations be stored? This can 
+#' @param storeperms logical: should candidate permutations be stored? This can
 #' blow up the size of the output object enormously.
 #'
 #' @return A list of class \code{MDLE}
 #' \describe{
 #'   \item{array}{TODO:  Description}
 #'   \item{phi_p}{TODO:  Description}
-#'   \item{optimized}{TODO:  Description}
+#'   \item{optimized}{logical: same as the input parameter}
 #' }
 #' @export
-#' 
+#'
 #' @importFrom arrangements npermutations permutations
-#' 
+#'
 #' @references Xiao and Xu
 #' @author Ulrike Groemping
 #'
@@ -111,18 +110,18 @@ MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, optimize.oa=TRUE,
 }
 
 ## start from a GWLP optimized OA oa
-#' TODO
+
+#' optimize GWLP optimal oa for maximin criterion phi_p
 #'
-#' @param oa TODO
+#' @param oa GWLP optimal orthogonal array
 #' @param s TODO
 #' @param m TODO
 #'
-#' @return TODO
+#' @return a matrix of the same dimension as \code{oa}
 #'
 #' @examples
-#' print("TODO")
+#' M <- permopt(matrix(c(0,0,1,1,0,1,0,1), nrow = 4), 2, 2)
 permopt <- function(oa, s, m){
-  ## optimize GWLP optimal oa for maximin criterion phi_p
   if (min(oa)==0) oa <- oa + 1
   nfact <- factorial(s)
   allperms <- combinat::permn(0:(s-1))
@@ -137,19 +136,19 @@ permopt <- function(oa, s, m){
   }
   pick <- which.min(phis)
   permcombi <- permcombis[pick,]
-  }else{
+  } else {
     ## try random selections only
     cur <- curmin <- sample(nfact, m, replace = TRUE)
     phimin <- Inf
     for (r in 1:20000){
-    hilf <- oa
-    for (j in 1:m)
-      hilf[,j] <- allperms[[cur[j]]][oa[,j]]
-    phicur <- phi_p(hilf, dmethod="manhattan")
-    if (phicur < phimin){
-      phimin <- phicur
-      curmin <- cur
-    }
+      hilf <- oa
+      for (j in 1:m)
+        hilf[,j] <- allperms[[cur[j]]][oa[,j]]
+      phicur <- phi_p(hilf, dmethod="manhattan")
+      if (phicur < phimin){
+        phimin <- phicur
+        curmin <- cur
+      }
     }
     permcombi <- curmin
   }
@@ -159,28 +158,23 @@ permopt <- function(oa, s, m){
   Dp
 }
 
-#### create the expansions
-#' TODO
+#' Create the expansions
 #'
-#' @param Dp TODO
-#' @param s TODO
-#' @param ell TODO
-#' @param permlist TODO
+#' this function is used in each step of the Weng optimization and for
+#' the initialization of the XiaoXu optimization
 #'
-#' @return TODO
+#' @param Dp an OA (ideally maximin optimized GMA OA)
+#' @param s the number of levels of each column in Dp
+#' @param ell \code{ell*s} is the target number of levels of the outgoing Dc
+#' @param permlist a list of m lists of length s permutations of the elements
+#' of the replacement vector
+#'
+#' @return a matrix of the same size as \code{Dp}
 #'
 #' @examples
-#' print("TODO")
+#' DcFromDp(matrix(c(0,0,1,1,0,1,0,1), nrow = 4), 2, 2)
 DcFromDp <- function(Dp, s, ell,
                      permlist=rep(list(rep(list(rep(0:(ell-1), each=nrow(Dp)/(s*ell))),s)),ncol(Dp))){
-  ## Dp is an OA (ideally maximin optimized GMA OA)
-  ## s is the number of levels of each column in Dp
-  ## ell*s is the target number of levels of the outgoing Dc
-  ## permlist is a list of m lists of length s permutations
-  ##    of the elements of the replacement vector
-
-  ## this function is used in each step of the Weng optimization
-  ## and for the initialization of the XiaoXu optimization
   if (min(Dp)==1) Dp <- Dp-1
   stopifnot(all(Dp %in% 0:(s-1)))
   n <- nrow(Dp); m <- ncol(Dp)

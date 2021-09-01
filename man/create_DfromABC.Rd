@@ -2,25 +2,25 @@
 % Please edit documentation in R/createShiTang.R
 \name{create_DfromABC}
 \alias{create_DfromABC}
-\title{TODO}
+\title{Create object D from an ABC object}
 \usage{
 create_DfromABC(listABC, permlist = NULL, random = FALSE, ...)
 }
 \arguments{
-\item{listABC}{TODO}
+\item{listABC}{an object with elements A, B, C and Yates.columns with elements A,B,C}
 
-\item{permlist}{TODO}
+\item{permlist}{a list of length m with three elements each}
 
-\item{random}{TODO}
+\item{random}{is the construction randomized?}
 
-\item{...}{TODO}
+\item{...}{Not used}
 }
 \value{
-TODO
+a matrix
 }
 \description{
-TODO
+Create object D from an ABC object
 }
 \examples{
-print("TODO")
+D <- create_DfromABC(create_ABC(4))
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/MDLEs.R
 \name{DcFromDp}
 \alias{DcFromDp}
-\title{TODO}
+\title{Create the expansions}
 \usage{
 DcFromDp(
   Dp,
@@ -13,20 +13,22 @@ DcFromDp(
 )
 }
 \arguments{
-\item{Dp}{TODO}
+\item{Dp}{an OA (ideally maximin optimized GMA OA)}
 
-\item{s}{TODO}
+\item{s}{the number of levels of each column in Dp}
 
-\item{ell}{TODO}
+\item{ell}{\code{ell*s} is the target number of levels of the outgoing Dc}
 
-\item{permlist}{TODO}
+\item{permlist}{a list of m lists of length s permutations of the elements
+of the replacement vector}
 }
 \value{
-TODO
+a matrix of the same size as \code{Dp}
 }
 \description{
-TODO
+this function is used in each step of the Weng optimization and for
+the initialization of the XiaoXu optimization
 }
 \examples{
-print("TODO")
+DcFromDp(matrix(c(0,0,1,1,0,1,0,1), nrow = 4), 2, 2)
 }

@@ -40,7 +40,7 @@ A list of class \code{MDLE}
 \describe{
 \item{array}{TODO:  Description}
 \item{phi_p}{TODO:  Description}
-\item{optimized}{TODO:  Description}
+\item{optimized}{logical: same as the input parameter}
 }
 }
 \description{

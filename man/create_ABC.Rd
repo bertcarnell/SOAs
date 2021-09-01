@@ -2,23 +2,29 @@
 % Please edit documentation in R/createShiTang.R
 \name{create_ABC}
 \alias{create_ABC}
-\title{TODO}
+\title{Create ABC object}
 \usage{
-create_ABC(k, m = NULL, constr = c("ShiTang_alphabeta", "ShiTang_alpha"))
+create_ABC(k, m = NULL, constr = "ShiTang_alphabeta")
 }
 \arguments{
-\item{k}{TODO}
+\item{k}{the log base 2 of the run size (n) of the SOA.  \code{k} must be greater or equal to 4}
 
 \item{m}{TODO}
 
-\item{constr}{TODO}
+\item{constr}{type of construction.  Must be one of \code{"ShiTang_alphabeta", "ShiTang_alpha"}}
 }
 \value{
-TODO
+A list of components
+\describe{
+\item{A}{}
+\item{B}{}
+\item{C}{}
+\item{Yates.columns}{A list with components \code{A, B, C}}
+}
 }
 \description{
-TODO
+Create ABC object
 }
 \examples{
-print("TODO")
+M <- create_ABC(4)
 }

@@ -2,19 +2,24 @@
 % Please edit documentation in R/createShiTang.R
 \name{createABcols}
 \alias{createABcols}
-\title{TODO}
+\title{initialize recursive construction of A,B,C}
 \usage{
 createABcols(k)
 }
 \arguments{
-\item{k}{TODO}
+\item{k}{the log base 2 of the run size (n) of the SOA.  \code{k >= 4}}
 }
 \value{
-TODO
+a list containing
+\describe{
+\item{Acols}{}
+\item{Bcols}{}
+\item{Ccols}{}
+}
 }
 \description{
-TODO
+Used in the Shi and Tang Family 1 construction
 }
 \examples{
-print("TODO")
+M <- createABcols(3)
 }
