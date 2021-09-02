@@ -60,11 +60,11 @@ gf_matmult <- function (M1, M2, gf, checks = TRUE)
     stopifnot(is.matrix(M2))
     stopifnot(ncol(M1) == nrow(M2))
   }
-  aus <- matrix(NA, nrow = nrow(M1), ncol = ncol(M2))
-  for (i in 1:nrow(M1)) 
-    for (j in 1:ncol(M2)) {
-      hilf <- gf_prod(M1[i, ], M2[, j], gf=gf)
-      aus[i, j] <- gf_sum_list(as.list(hilf), gf=gf, checks = FALSE)
-    }
-  aus
+  nc1 <- ncol(M1)
+  nr1 <- nrow(M1)
+  summanden <- vector(mode="list")
+  for (i in 1:nc1)
+    summanden[[i]] <- outer(M1[,i], M2[i,], gf_prod, gf)
+  aus <- gf_sum_list(summanden, gf)
+  matrix(aus, nrow=nr1)
 }
