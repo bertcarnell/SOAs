@@ -83,7 +83,7 @@ OSOAarbitrary <- function(oa, el=3, m=NULL, permlist=NULL, random=TRUE){
     C <- interleavecols(A[,seq(2,m,2)], s-1-A[,seq(1,m-1,2)])
     aus <- s^2*A + s*Bs + C
   }
-  else aus <- s*Bs+A
+  else aus <- s*A + Bs
   rownames(aus) <- NULL
   aus
 }
