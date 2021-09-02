@@ -35,7 +35,7 @@ OSOAarbitrary <- function(oa, el=3, m=NULL, permlist=NULL, random=TRUE){
     if (m%%2==1) m <- m-1       ## m' from the paper
   }
   else{
-    if (m%%2==1){
+    if (m%%2==1 && el==3){
       if (m < ncol(oa)) {
         m <- m+1
         message("odd m has been increased by 1")
