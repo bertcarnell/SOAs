@@ -1,21 +1,21 @@
-#' Function to create an OSOA in s^k runs with m=(s^(k-1)-1)/(s-1) columns in 
+#' Function to create an OSOA in s^k runs with m=(s^(k-1)-1)/(s-1) columns in
 #' s^2 levels or m'=2*floor(m/2) columns in s^3 levels
 #'
-#' The function implements the algorithms proposed by Zhou and Tang 2018 
+#' The function implements the algorithms proposed by Zhou and Tang 2018
 #' (s^2 levels) or Li, Liu and Yang 2021 (s^3 levels).
-#' 
-#' @param s the prime or prime power to use (do not use for s=2, because other 
+#'
+#' @param s the prime or prime power to use (do not use for s=2, because other
 #' method is better); the resulting array will have pairwise orthogonal columns in s^t levels
 #' @param k integer >=\code{el}; determines the run size: the resulting array will have s^k runs
-#' @param el 2 or 3; the exponent of the number of levels, \code{el=3} yields a 
+#' @param el 2 or 3; the exponent of the number of levels, \code{el=3} yields a
 #' strength 2* or 3 OSOA in s^3 levels, \code{el=2} a strength 2+ or 3- OSOA in s^2 levels
-#' @param m the desired number of columns of the resulting array; for 
-#' \code{el=3}, odd values of \code{m} will be reduced by one, so specify the 
-#' next largest even \code{m}, if you need an odd number of columns (the function 
-#' will do so, if possible); if \code{m=NULL}, the maximum possible value is used. 
-#' This is at most (s^(k-1)-1)/(s-1), or one less if this is odd and \code{el=3}. 
+#' @param m the desired number of columns of the resulting array; for
+#' \code{el=3}, odd values of \code{m} will be reduced by one, so specify the
+#' next largest even \code{m}, if you need an odd number of columns (the function
+#' will do so, if possible); if \code{m=NULL}, the maximum possible value is used.
+#' This is at most (s^(k-1)-1)/(s-1), or one less if this is odd and \code{el=3}.
 #' @param noptim.rounds the number of optimization rounds for the expansion process (1 is often sufficient)
-#' @param optimize logical: should space filling be optimized by level permutations? 
+#' @param optimize logical: should space filling be optimized by level permutations?
 #' @param dmethod distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
 #'
@@ -27,11 +27,11 @@
 #'   \item{phi_p}{the phi_p value (smaller=better)}
 #'   \item{optimized}{logical indicating whether optimization was applied}
 #'   \item{permpick}{matrix that lists the id numbers of the permutations used}
-#'   \item{perms2pickfrom}{optional element, when optimization was conducted: 
+#'   \item{perms2pickfrom}{optional element, when optimization was conducted:
 #'   the overall permutation list to which the numbers in permlist refer}
 #' }
 #' @export
-#' @references 
+#' @references
 #' Li, Liu and Yang (2021)
 #' Weng (2014)
 #' Zhou and Tang (2019)
@@ -40,9 +40,9 @@
 #' @examples
 #' ## 13 columns in 9 levels each
 #' OSOAs_regular(3, 4, el=2, optimize=FALSE) ## 13 columns, phi_p about 0.117
-#' # optimizing level permutations typically improves phi_p a lot 
+#' # optimizing level permutations typically improves phi_p a lot
 #' # OSOAs_regular(3, 4, el=2) ## 13 columns, phi_p typically below 0.055
-OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1, 
+OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1,
                     optimize = TRUE, dmethod="manhattan", p=50){
   ## the function calls OSOAregulart
   ## together with the optimization method
@@ -61,7 +61,7 @@ OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1,
        if (m%%2==1){
          m <- m + 1
          message("odd m was increased by one to make it even")
-       } 
+       }
      }
   }
   r <- s
@@ -75,15 +75,15 @@ OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1,
       while(curpos2 > 1){
       while (curpos > 1){
       if (curpos==Inf) curpermpick <- NULL
-      cur <- NeighbourcalcUniversal(OSOAregulart, mperm=m, r, s=s, k=k, 
-                                    el=el, m=m, 
+      cur <- NeighbourcalcUniversal(OSOAregulart, mperm=m, r, s=s, k=k,
+                                    el=el, m=m,
                       startperm = curpermpick)   ## one-neighbors only
       phi_pvals <- round(sapply(cur$arrays, function(obj) phi_p(obj, dmethod=dmethod, p=p)), 8)
       (curpos <- which.min(phi_pvals))
       curpermpick <- cur$docpermlist[[curpos]]
     }
-    cur <- NeighbourcalcUniversal(OSOAregulart, mperm=m, r, s=s, k=k, 
-                                  el=el, m=m, 
+    cur <- NeighbourcalcUniversal(OSOAregulart, mperm=m, r, s=s, k=k,
+                                  el=el, m=m,
                       startperm = curpermpick, neighbordist = 2)
     phi_pvals <- round(sapply(cur$arrays, function(obj) phi_p(obj, dmethod=dmethod, p=p)), 8)
     (curpos2 <- which.min(phi_pvals))
@@ -92,14 +92,23 @@ OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1,
     }
     curpos2 <- 999
   }
-  aus <- list(array=cur$arrays[[1]], type="OSOA", strength=ifelse(el==3, "2* or 3", "2+ or 3-"), 
+    aus <- cur$arrays[[1]]  ## best array
+    t <- 2  ## A has at least strength 2
+    if (round(DoE.base::length3(attr(aus, "A")),8) == 0) t <- 3
+    attr(aus, "A") <- NULL
+    aus <- list(array = aus, type="OSOA", strength=ifelse(t==2 || m<3, ifelse(el==2,"2+","2*"),
+                                                          ifelse(el==2,"3-","3")),
               phi_p=phi_pvals[1], optimized=TRUE, permpick = curpermpick,
               perms2pickfrom =
                 lapply(combinat::permn(s), function(obj) obj-1))
   }else{
-  OSOA <- OSOAregulart(s, k, el=el, m=m, random=FALSE)
-  aus <- list(array=OSOA, type="OSOA", strength=ifelse(el==3, "2* or 3", "2+ or 3-"), 
-              phi_p=phi_p(OSOA, dmethod=dmethod, p=p), optimized=FALSE)
+  aus <- OSOAregulart(s, k, el=el, m=m, random=FALSE)
+  t <- 2  ## A has at least strength 2
+  if (round(DoE.base::length3(attr(aus, "A")),8) == 0) t <- 3
+  attr(aus, "A") <- NULL
+  aus <- list(array=aus, type="OSOA", strength=ifelse(t==2 || m<3, ifelse(el==2,"2+","2*"),
+                                                      ifelse(el==2,"3-","3")),
+              phi_p=phi_p(aus, dmethod=dmethod, p=p), optimized=FALSE)
   }
   class(aus) <- c("OSOA", "list")
   aus

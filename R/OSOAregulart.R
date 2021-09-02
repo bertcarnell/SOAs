@@ -101,10 +101,14 @@ OSOAregulart <- function(s, k=3, el=3, m=NULL, permlist=NULL, random=TRUE){
   else
     A <- matrix(gf_sum(Bs, addmatrix, gf), nrow=nrow(Bs))
   if (el==2) {
-    return(s*A + Bs)   ## Zhou and Tang
+    aus <- s*A + Bs           ## Zhou and Tang
+    attr(aus, "A") <- A
+    return(aus)
   }
   ## construction 1 with A and B
   ## in the simplified version described in Grömping
     C <- interleavecols(A[,seq(2,m,2), drop=FALSE], s-1-A[,seq(1,m-1,2), drop=FALSE])
-    return(s^2*A + s*Bs + C)   ## Li et al., el=3
+    aus <- s^2*A + s*Bs + C   ## Li et al., el=3
+    attr(aus, "A") <- A
+    return(aus)
 }
