@@ -121,19 +121,30 @@ OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, optimize=TRUE, dmethod="man
     curpos <- 999 ## arbitrary positive integer
   }
       curpos2 <- 999
-  }
-  aus <- list(array=cur$arrays[[1]], type="OSOA", strength=ifelse(t==2,ifelse(el==2,"2+","2*"),
+    }
+    aus <- cur$arrays[[1]]  ## best array
+    if (t==2){
+      ## check whether strength has improved by constructing A
+      if (round(DoE.base::length3(attr(aus, "A")),8) == 0) t <- 3
+    }
+    attr(aus, "A") <- NULL
+    aus <- list(array=aus, type="OSOA", strength=ifelse(t==2 || m<3, ifelse(el==2,"2+","2*"),
                                                                   ifelse(el==2,"3-","3")),
               phi_p=phi_pvals[1], optimized=TRUE, permpick = curpermpick,
               perms2pickfrom =
                 lapply(combinat::permn(s), function(obj) obj-1))
   }else{
-  OSOA <- OSOAarbitrary(oa=oa, el=el, m=m,  random=FALSE)
-  aus <- list(array=OSOA, type="OSOA", strength=ifelse(t==2,ifelse(el==2,"2+","2*"),
+    aus <- OSOAarbitrary(oa=oa, el=el, m=m,  random=FALSE)
+    if (t==2)
+      if (round(DoE.base::length3(attr(aus, "A")),8) == 0) t <- 3
+    attr(aus, "A") <- NULL
+
+    aus <- list(array=aus, type="OSOA", strength=ifelse(t==2 || m<3, ifelse(el==2,"2+","2*"),
                                                        ifelse(el==2,"3-","3")),
-              phi_p=phi_p(OSOA, dmethod=dmethod, p=p),
+              phi_p=phi_p(aus, dmethod=dmethod, p=p),
               optimized=FALSE)
   }
   class(aus) <- c("OSOA", "list")
   aus
 }
+

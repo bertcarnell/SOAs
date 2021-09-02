@@ -85,5 +85,6 @@ OSOAarbitrary <- function(oa, el=3, m=NULL, permlist=NULL, random=TRUE){
   }
   else aus <- s*A + Bs
   rownames(aus) <- NULL
+  attr(aus, "A") <- A ## for determining the strength
   aus
 }
