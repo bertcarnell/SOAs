@@ -81,10 +81,10 @@ OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, optimize=TRUE, dmethod="man
   ## for NeighbourcalcUniversal
   if (is.null(m)){
     m <- ncol(oa)
-    if (m%%2==1) m <- m-1       ## m' from the paper
+    if (m%%2==1 && el==3) m <- m-1       ## m' from the paper
   }
   else{
-    if (m%%2==1){
+    if (m%%2==1 && el==3){
       if (m < ncol(oa)) {
         m <- m+1
         message("odd m has been increased by 1")
