@@ -65,6 +65,6 @@ gf_matmult <- function (M1, M2, gf, checks = TRUE)
   summanden <- vector(mode="list")
   for (i in 1:nc1)
     summanden[[i]] <- outer(M1[,i], M2[i,], gf_prod, gf)
-  aus <- gf_sum_list(summanden, gf)
+  aus <- gf_sum_list(summanden, gf, checks=FALSE)
   matrix(aus, nrow=nr1)
 }
