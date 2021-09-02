@@ -80,7 +80,7 @@ OSOAarbitrary <- function(oa, el=3, m=NULL, permlist=NULL, random=TRUE){
   }
   ## construction 1 with A and Bs
   if (el==3){
-    C <- interleavecols(A[,seq(2,m,2)], s-1-A[,seq(1,m-1,2)])
+    C <- interleavecols(A[,seq(2,m,2), drop=FALSE], s-1-A[,seq(1,m-1,2), drop=FALSE])
     aus <- s^2*A + s*Bs + C
   }
   else aus <- s*A + Bs

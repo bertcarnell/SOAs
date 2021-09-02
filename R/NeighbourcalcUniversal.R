@@ -1,17 +1,19 @@
-#' TODO
+#' Function to do level permutations according to Weng's algorithm
 #'
-#' @param funname TODO
-#' @param mperm TODO
-#' @param r TODO
-#' @param ... TODO
-#' @param startperm TODO
-#' @param allpermlist TODO
-#' @param neighbordist TODO
+#' Takes a workhorse function and creates random one- or two-neighbors
 #'
-#' @return TODO
+#' @param funname function that creates the individual (O)SOAs
+#' @param mperm number of columns of \code{startperm}
+#' @param r number of rows of \code{startperm}
+#' @param ... arguments for function \code{funname}
+#' @param startperm matrix with position numbers of level permutations (refers to \code{allpermlist})
+#' @param allpermlist list of all permutations
+#' @param neighbordist 1 or 2: one- or two-neighbors in Weng's algorithm
+#'
+#' @return list of arrays and corresponding permutations
 #'
 #' @examples
-#' print("TODO")
+#' print("none")
 #'
 #' @keywords internal
 NeighbourcalcUniversal <- function(funname, mperm, r, ...,
@@ -28,6 +30,8 @@ NeighbourcalcUniversal <- function(funname, mperm, r, ...,
   ##     m = (s^(k-1) - 1)/(s-1) (or a smaller value),  r=2 (and n=s^k)
   ## SOAs2plus_regular calls function SOA2plus_regular_fast with arguments s, A, B
   ##     m = ncol(A), r=2
+  ## OSOAs_LiuLiu calls function OSOA_LiuLiut with arguments oa and optionally m and t
+  ##     m = ncol(oa) (slightly wasteful), r=1
   ##
   ##  ... thus the above either contain oa or s;
   ##      in the former case, s is calculated from oa
