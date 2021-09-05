@@ -2,7 +2,7 @@
 % Please edit documentation in R/NeighbourcalcUniversal.R
 \name{NeighbourcalcUniversal}
 \alias{NeighbourcalcUniversal}
-\title{TODO}
+\title{Function to do level permutations according to Weng's algorithm}
 \usage{
 NeighbourcalcUniversal(
   funname,
@@ -15,28 +15,28 @@ NeighbourcalcUniversal(
 )
 }
 \arguments{
-\item{funname}{TODO}
+\item{funname}{function that creates the individual (O)SOAs}
 
-\item{mperm}{TODO}
+\item{mperm}{number of columns of \code{startperm}}
 
-\item{r}{TODO}
+\item{r}{number of rows of \code{startperm}}
 
-\item{...}{TODO}
+\item{...}{arguments for function \code{funname}}
 
-\item{startperm}{TODO}
+\item{startperm}{matrix with position numbers of level permutations (refers to \code{allpermlist})}
 
-\item{allpermlist}{TODO}
+\item{allpermlist}{list of all permutations}
 
-\item{neighbordist}{TODO}
+\item{neighbordist}{1 or 2: one- or two-neighbors in Weng's algorithm}
 }
 \value{
-TODO
+list of arrays and corresponding permutations
 }
 \description{
-TODO
+Takes a workhorse function and creates random one- or two-neighbors
 }
 \examples{
-print("TODO")
+print("none")
 
 }
 \keyword{internal}

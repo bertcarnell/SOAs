@@ -59,7 +59,7 @@ The function implements the algorithms proposed by Zhou and Tang 2018
 \examples{
 ## 13 columns in 9 levels each
 OSOAs_regular(3, 4, el=2, optimize=FALSE) ## 13 columns, phi_p about 0.117
-# optimizing level permutations typically improves phi_p a lot 
+# optimizing level permutations typically improves phi_p a lot
 # OSOAs_regular(3, 4, el=2) ## 13 columns, phi_p typically below 0.055
 }
 \references{
