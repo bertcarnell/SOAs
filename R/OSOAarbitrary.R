@@ -64,20 +64,24 @@ OSOAarbitrary <- function(oa, el=3, m=NULL, permlist=NULL, random=TRUE){
   stopifnot(round(DoE.base::length2(oa),8)==0)
   N <- s*nrow(oa)
 
-  oaA <- oaB <- oa[,1:m]
+  oaB <- oa[,1:m]
 
-  for (i in 1:m){
-    oaA[,i] <- permlist[[i]][[1]][oaA[,i]+1]
+  for (i in 1:m)
     oaB[,i] <- permlist[[i]][[2]][oaB[,i]+1]
-  }
 
-  A <- oaA
   Bs <- oaB
 
-  for (i in 1:(s-1)){
+  for (i in 1:(s-1))
     Bs <- rbind(Bs, oaB)
-    A <- rbind(A, (i+oaA)%%s)
-  }
+
+  ## create A with added independent column, permuted independently for each column
+
+  permlistA <- lapply(permlist, function(obj) obj[1])
+  addmatrix <- sapply(permlistA, function(obj) rep(obj[[1]], each=nrow(oa)))
+
+  A <- (Bs + addmatrix)%%s   ## need not be Galois field, thus modulo regardless of s
+
+
   ## construction 1 with A and Bs
   if (el==3){
     C <- interleavecols(A[,seq(2,m,2), drop=FALSE], s-1-A[,seq(1,m-1,2), drop=FALSE])
