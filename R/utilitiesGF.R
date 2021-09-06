@@ -99,7 +99,7 @@ gf_sum_list <- function (ll, gf, checks = TRUE)
 #'
 #' @return an integer matrix
 #'
-#' @keyword internal
+#' @keywords internal
 gf_matmult <- function (M1, M2, gf, checks = TRUE)
 {
   if (checks) {
