@@ -1,18 +1,19 @@
 #' @title Print Methods
-#' 
+#'
 #' @rdname printsoa
 #' @method print SOA
 #'
-#' @param x Strong Orthogonal Array
-#' @param ... Not used
+#' @param x object to be printed (SOA, OSOA, MDLE)
+#' @param ... further arguments for function \code{print}
 #'
 #' @export
 #'
 #' @examples
-#' ## TODO
-#' print(1)
+#' myOSOA <- OSOAs_regular(s=3, k=3, optimize=FALSE)
+#' print(myOSOA)
+#' str(myOSOA)  ## structure for comparison
 print.SOA <- function(x, ...){
-  print(x$array)
+  print(x$array, ...)
   cat(paste0(x$type, ", strength ", x$strength,"\n"))
 }
 
@@ -25,6 +26,6 @@ print.OSOA <- print.SOA
 #' @method print MDLE
 #' @export
 print.MDLE <- function(x, ...){
-  print(x$array)
+  print(x$array, ...)
   cat(paste0(x$type, " array\n"))
 }
