@@ -65,17 +65,17 @@ R package \pkg{DoE.base}, or from 2-level designs created with R package \pkg{Fr
 }
 \examples{
 ## strength 2, very small (four 9-level columns in 9 runs)
-OSOA9 <- OSOAs_LiuLiu(DoE.base::L9.3.4)  
+OSOA9 <- OSOAs_LiuLiu(DoE.base::L9.3.4)
 
 ## strength 3, from a Plackett-Burman design of FrF2
 ## 10 8-level columns in 40 runs with OSOA strength 3
-oa <- suppressWarnings(FrF2::pb(40)[,c(1:19,39)])  
+oa <- suppressWarnings(FrF2::pb(40)[,c(1:19,39)])
 ### columns 1 to 19 and 39 together are the largest possible strength 3 set
 OSOA40 <- OSOAs_LiuLiu(oa, optimize=FALSE)  ## strength 3, 8 levels
 ### optimize would improve phi_p, but suppressed for saving run time
 
 ## 9 8-level columns in 40 runs with OSOA strength 3
-oa <- FrF2::pb(40,19)    
+oa <- FrF2::pb(40,19)
 ### 9 columns would be obtained without the final column in oa
 mbound_LiuLiu(19, t=3)     ## example for which q=3
 mbound_LiuLiu(19, t=4)     ## t=3 has one more column than t=4
@@ -83,7 +83,7 @@ OSOA40_2 <- OSOAs_LiuLiu(oa, optimize=FALSE)  ## strength 3, 8 levels
 ### optimize would improve phi_p, but suppressed for saving run time
 
 ## starting from a strength 4 OA
-oa <- FrF2::FrF2(64,8)    
+oa <- FrF2::FrF2(64,8)
 ## four 16 level columns in 64 runs with OSOA strength 4
 OSOA64 <- OSOAs_LiuLiu(oa, optimize=FALSE)  ## strength 4, 16 levels
 
@@ -92,7 +92,7 @@ mbound_LiuLiu(8, t=3)
 ### reducing the strength to 2 doubles the number of columns
 mbound_LiuLiu(8, t=2)
 ## eight 4-level columns in 64 runs with OSOA strength 2
-OSOA64_2 <- OSOAs_LiuLiu(oa, t=2, optimize=FALSE)  
+OSOA64_2 <- OSOAs_LiuLiu(oa, t=2, optimize=FALSE)
 ## fulfills the 2D strength 2 property
 soacheck2D(OSOA64_2, s=2, el=2, t=2)
 ### fulfills also the 3D strength 3 property

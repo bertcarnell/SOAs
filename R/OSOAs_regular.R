@@ -51,7 +51,7 @@
 #' # optimizing level permutations typically improves phi_p a lot
 #' # OSOAs_regular(3, 4, el=2) ## 13 columns, phi_p typically below 0.055
 OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1,
-                    optimize = TRUE, dmethod="manhattan", p=50){
+                          optimize = TRUE, dmethod="manhattan", p=50){
   ## the function calls OSOAregulart
   ## together with the optimization method
   ## analogous to the master thesis by J. Weng
@@ -63,14 +63,14 @@ OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1,
   if (is.null(m)){
     m <- morig <- (s^(k-1)-1)/(s-1)
     if (el==3) m <- morig <- 2*floor(m/2)
-   }else{
-     stopifnot(m <= 2*floor((s^(k-1)-1)/(2*(s-1))))
-     morig <- m
-     if (el==3) {
-       if (m%%2==1)
-         m <- m + 1
-       }
-     }
+  }else{
+    stopifnot(m <= 2*floor((s^(k-1)-1)/(2*(s-1))))
+    morig <- m
+    if (el==3) {
+      if (m%%2==1)
+        m <- m + 1
+    }
+  }
   oa <- createSaturated(s, k-1)[,1:m]
   if (m<=50) colnames(oa) <- DoE.base::Letters[1:m] else
     colnames <- paste0("F", 1:m)
