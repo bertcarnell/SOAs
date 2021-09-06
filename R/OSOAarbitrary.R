@@ -31,15 +31,15 @@ OSOAarbitrary <- function(oa, el=3, m=NULL, permlist=NULL, random=TRUE){
 
   s <- lev[1]                 ## number of levels
   if (is.null(m)){
-    m <- ncol(oa)
+    m <- origm <- ncol(oa)
     if (m%%2==1 && el==3) m <- m-1       ## m' from the Li et al. paper
   }
   else{
+    origm <- m
     if (m%%2==1 && el==3){
-      if (m < ncol(oa)) {
+      if (m < ncol(oa))
         m <- m+1
-        message("odd m has been increased by 1")
-        }else
+        else
         stop("with this oa, at most ", 2*floor(ncol(oa)/2), " columns are possible" )
     }
   }
@@ -88,7 +88,8 @@ OSOAarbitrary <- function(oa, el=3, m=NULL, permlist=NULL, random=TRUE){
     aus <- s^2*A + s*Bs + C
   }
   else aus <- s*A + Bs
+  aus <- aus[,1:origm]
   rownames(aus) <- NULL
-  attr(aus, "A") <- A ## for determining the strength
+  attr(aus, "A") <- A[,1:origm] ## for determining the strength
   aus
 }

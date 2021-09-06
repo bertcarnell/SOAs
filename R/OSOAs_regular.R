@@ -1,8 +1,8 @@
-#' Function to create an OSOA in s^k runs with m=(s^(k-1)-1)/(s-1) columns in
-#' s^2 levels or m'=2*floor(m/2) columns in s^3 levels
+#' Function to create an OSOA in s^2 or s^3 levels and s^k runs
+#' from a basic number of levels s and a power k
 #'
-#' The function implements the algorithms proposed by Zhou and Tang 2018
-#' (s^2 levels) or Li, Liu and Yang 2021 (s^3 levels).
+#' The OSOA in s^k runs accommodates at most m=(s^(k-1)-1)/(s-1) columns in
+#' s^2 levels or m'=2*floor(m/2) columns in s^3 levels.
 #'
 #' @param s the prime or prime power to use (do not use for s=2, because other
 #' method is better); the resulting array will have pairwise orthogonal columns in s^t levels
@@ -30,8 +30,16 @@
 #'   \item{perms2pickfrom}{optional element, when optimization was conducted:
 #'   the overall permutation list to which the numbers in permlist refer}
 #' }
+#'
+#' @details
+#' The function implements the algorithms proposed by Zhou and Tang 2018
+#' (s^2 levels) or Li, Liu and Yang 2021 (s^3 levels), enhanced with the
+#' modification for matrix A by Groemping 2021. Level permutations are optimized
+#' using an adaptation of the algorithm by Weng (2014).
+#'
 #' @export
 #' @references
+#' Groemping (2021)
 #' Li, Liu and Yang (2021)
 #' Weng (2014)
 #' Zhou and Tang (2019)
@@ -51,65 +59,19 @@ OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1,
   stopifnot(s %in% c(2,3,4,5,7,8,9,11,13,16,17,19,23,27,29,31,32,37))
   stopifnot(el %in% c(2,3))  ## 3 for Li Liu and Yang (2021), 2 for Zhou and Tang (2019)
 
-  ## for NeighbourcalcUniversal
+  ## create ingoing array with m columns, and call OSOAs with morig
   if (is.null(m)){
-    m <- (s^(k-1)-1)/(s-1)
-    if (el==3) m <- 2*floor(m/2)
+    m <- morig <- (s^(k-1)-1)/(s-1)
+    if (el==3) m <- morig <- 2*floor(m/2)
    }else{
      stopifnot(m <= 2*floor((s^(k-1)-1)/(2*(s-1))))
+     morig <- m
      if (el==3) {
-       if (m%%2==1){
+       if (m%%2==1)
          m <- m + 1
-         message("odd m was increased by one to make it even")
        }
      }
-  }
-  r <- s
-
-  curpos <- curpos2 <- Inf    ## start indicator
-  ende <- FALSE
-
-  if (optimize){
-    for (i in 1:noptim.rounds){
-      message("Optimization round ", i, " of ", noptim.rounds, " started")
-      while(curpos2 > 1){
-      while (curpos > 1){
-      if (curpos==Inf) curpermpick <- NULL
-      cur <- NeighbourcalcUniversal(OSOAregulart, mperm=m, r, s=s, k=k,
-                                    el=el, m=m,
-                      startperm = curpermpick)   ## one-neighbors only
-      phi_pvals <- round(sapply(cur$arrays, function(obj) phi_p(obj, dmethod=dmethod, p=p)), 8)
-      (curpos <- which.min(phi_pvals))
-      curpermpick <- cur$docpermlist[[curpos]]
-    }
-    cur <- NeighbourcalcUniversal(OSOAregulart, mperm=m, r, s=s, k=k,
-                                  el=el, m=m,
-                      startperm = curpermpick, neighbordist = 2)
-    phi_pvals <- round(sapply(cur$arrays, function(obj) phi_p(obj, dmethod=dmethod, p=p)), 8)
-    (curpos2 <- which.min(phi_pvals))
-    curpermpick <- cur$docpermlist[[curpos2]]
-    curpos <- 999 ## arbitrary positive integer
-    }
-    curpos2 <- 999
-  }
-    aus <- cur$arrays[[1]]  ## best array
-    t <- 2  ## A has at least strength 2
-    if (round(DoE.base::length3(attr(aus, "A")),8) == 0) t <- 3
-    attr(aus, "A") <- NULL
-    aus <- list(array = aus, type="OSOA", strength=ifelse(t==2 || m<3, ifelse(el==2,"2+","2*"),
-                                                          ifelse(el==2,"3-","3")),
-              phi_p=phi_pvals[1], optimized=TRUE, permpick = curpermpick,
-              perms2pickfrom =
-                lapply(combinat::permn(s), function(obj) obj-1))
-  }else{
-  aus <- OSOAregulart(s, k, el=el, m=m, random=FALSE)
-  t <- 2  ## A has at least strength 2
-  if (round(DoE.base::length3(attr(aus, "A")),8) == 0) t <- 3
-  attr(aus, "A") <- NULL
-  aus <- list(array=aus, type="OSOA", strength=ifelse(t==2 || m<3, ifelse(el==2,"2+","2*"),
-                                                      ifelse(el==2,"3-","3")),
-              phi_p=phi_p(aus, dmethod=dmethod, p=p), optimized=FALSE)
-  }
-  class(aus) <- c("OSOA", "list")
-  aus
+  oa <- createSaturated(s, k-1)[,1:m]
+  OSOAs(oa, el=el, m=morig,
+        noptim.rounds=noptim.rounds, optimize = optimize, dmethod=dmethod, p=p)
 }

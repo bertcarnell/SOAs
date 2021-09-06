@@ -25,6 +25,9 @@ TODO
 \description{
 TODO
 }
+\note{
+eventually remove, since function OSOAs_regular now uses OSOAs
+}
 \examples{
 print("TODO")
 

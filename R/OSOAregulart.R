@@ -16,6 +16,8 @@
 #' @examples
 #' print("TODO")
 #'
+#' @note eventually remove, since function OSOAs_regular now uses OSOAs
+#'
 #' @keywords internal
 OSOAregulart <- function(s, k=3, el=3, m=NULL, permlist=NULL, random=TRUE){
   ## random=TRUE is needed for the call from OSOAs_regular

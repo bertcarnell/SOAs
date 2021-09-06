@@ -71,10 +71,10 @@ An OSOA in ns runs of strength 2* (s^3 levels) or 2+ (s^2 levels) is created fro
 ## I would go for the OA.
 ## 81 runs with four 27-level columns
 
-## TODO: L27.3.4 not found
-#OSOAs(DoE.base::L27.3.4, el=3, optimize=FALSE)
+OSOAs(DoE.base::L27.3.4, el=3, optimize=FALSE)
 }
 \references{
+Groemping (2021)
 Li, Liu and Yang (2021)
 Zhou and Tang (2019)
 Weng (2014)

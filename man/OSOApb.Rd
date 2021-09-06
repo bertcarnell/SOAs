@@ -28,12 +28,13 @@ Zhou and Tang (2019) strength 3- designs are created, for \code{el=3} strength
 3 designs by Li, Liu and Yang (2021).
 }
 \note{
-???So far, this function does not use optimization - check whether optimization would change anything.???
+Replaced by OSOAs_hadamard; eventually remove
 }
 \examples{
 dim(OSOApb(9))  ## 9 8-level factors in 24 runs
 dim(OSOApb(n=16)) ## 6 8-level factors in 16 runs
 dim(OSOApb(m=35)) ## 35 8-level factors in 80 runs
+
 }
 \references{
 Li, Liu and Yang (2021)
@@ -41,3 +42,4 @@ Li, Liu and Yang (2021)
 \author{
 Ulrike Groemping
 }
+\keyword{internal}

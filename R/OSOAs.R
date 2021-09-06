@@ -14,6 +14,12 @@
 #' @param dmethod distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
 #'
+#' @details
+#' The function implements the algorithms proposed by Zhou and Tang 2018
+#' (s^2 levels) or Li, Liu and Yang 2021 (s^3 levels), enhanced with the
+#' modification for matrix A by Groemping 2021. Level permutations are optimized
+#' using an adaptation of the algorithm by Weng (2014).
+#'
 #' @return List with the following elements
 #' \describe{
 #' \item{array }{the array}
@@ -26,6 +32,7 @@
 #' the overall permutation list to which the numbers in permlist refer}
 #' }
 #' @references
+#' Groemping (2021)
 #' Li, Liu and Yang (2021)
 #' Zhou and Tang (2019)
 #' Weng (2014)
@@ -58,8 +65,7 @@
 #' ## I would go for the OA.
 #' ## 81 runs with four 27-level columns
 #'
-#' ## TODO: L27.3.4 not found
-#' #OSOAs(DoE.base::L27.3.4, el=3, optimize=FALSE)
+#' OSOAs(DoE.base::L27.3.4, el=3, optimize=FALSE)
 OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, optimize=TRUE, dmethod="manhattan", p=50){
   ## the function calls OSOAarbitrary
   ## together with the optimization dmethod
@@ -80,16 +86,16 @@ OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, optimize=TRUE, dmethod="man
   if (max(oa)==s) oa <- oa-1
   ## for NeighbourcalcUniversal
   if (is.null(m)){
-    m <- ncol(oa)
-    if (m%%2==1 && el==3) m <- m-1       ## m' from the paper
+    m <- origm <- ncol(oa)
+    if (m%%2==1 && el==3) m <- origm <- m-1       ## m' from the paper
   }
   else{
+    origm <- m
     if (m%%2==1 && el==3){
-      if (m < ncol(oa)) {
+      if (m < ncol(oa))
         m <- m+1
-        message("odd m has been increased by 1")
-      }else
-        stop("with this oa, at most ", 2*floor(ncol(oa)/2), " columns are possible" )
+      else
+      stop("with this oa, at most ", 2*floor(ncol(oa)/2), " columns are possible" )
     }
   }
   r <- 2
@@ -107,13 +113,13 @@ OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, optimize=TRUE, dmethod="man
   while(curpos2 > 1){
     while (curpos > 1){
       if (curpos==Inf) curpermpick <- NULL
-      cur <- NeighbourcalcUniversal(OSOAarbitrary, mperm=m, r, oa=oa, el=el, m=m,
+      cur <- NeighbourcalcUniversal(OSOAarbitrary, mperm=m, r, oa=oa, el=el, m=origm,
                       startperm = curpermpick)   ## one-neighbors only
       phi_pvals <- round(sapply(cur$arrays, function(obj) phi_p(obj, dmethod=dmethod, p=p)), 8)
       (curpos <- which.min(phi_pvals))
       curpermpick <- cur$docpermlist[[curpos]]
     }
-    cur <- NeighbourcalcUniversal(OSOAarbitrary, mperm=m, r, oa=oa, el=el, m=m,
+    cur <- NeighbourcalcUniversal(OSOAarbitrary, mperm=m, r, oa=oa, el=el, m=origm,
                       startperm = curpermpick, neighbordist = 2)
     phi_pvals <- round(sapply(cur$arrays, function(obj) phi_p(obj, dmethod=dmethod, p=p)), 8)
     (curpos2 <- which.min(phi_pvals))

@@ -2,8 +2,8 @@
 % Please edit documentation in R/OSOAs_regular.R
 \name{OSOAs_regular}
 \alias{OSOAs_regular}
-\title{Function to create an OSOA in s^k runs with m=(s^(k-1)-1)/(s-1) columns in
-s^2 levels or m'=2*floor(m/2) columns in s^3 levels}
+\title{Function to create an OSOA in s^2 or s^3 levels and s^k runs
+from a basic number of levels s and a power k}
 \usage{
 OSOAs_regular(
   s,
@@ -53,8 +53,14 @@ the overall permutation list to which the numbers in permlist refer}
 }
 }
 \description{
+The OSOA in s^k runs accommodates at most m=(s^(k-1)-1)/(s-1) columns in
+s^2 levels or m'=2*floor(m/2) columns in s^3 levels.
+}
+\details{
 The function implements the algorithms proposed by Zhou and Tang 2018
-(s^2 levels) or Li, Liu and Yang 2021 (s^3 levels).
+(s^2 levels) or Li, Liu and Yang 2021 (s^3 levels), enhanced with the
+modification for matrix A by Groemping 2021. Level permutations are optimized
+using an adaptation of the algorithm by Weng (2014).
 }
 \examples{
 ## 13 columns in 9 levels each
@@ -63,6 +69,7 @@ OSOAs_regular(3, 4, el=2, optimize=FALSE) ## 13 columns, phi_p about 0.117
 # OSOAs_regular(3, 4, el=2) ## 13 columns, phi_p typically below 0.055
 }
 \references{
+Groemping (2021)
 Li, Liu and Yang (2021)
 Weng (2014)
 Zhou and Tang (2019)
