@@ -25,9 +25,9 @@ NeighbourcalcUniversal <- function(funname, mperm, r, ...,
   ##     m = m(ncol(oa),t), r=t
   ## OSOAs calls function OSOAarbitrary with the only mandatory arguments oa and optionally el, m
   ## (oa symmetric at least strength 2, result may be strength 3)
-  ##     m = 2*floor(ncol(oa)/2) or specified differently, r=2
-  ## OSOAs_regular calls OSOAregulart with arguments s and optionally k, el, m
-  ##     m = (s^(k-1) - 1)/(s-1) (or a smaller value),  r=2 (and n=s^k)
+  ##     m = ncol(oa) (el=2) or 2*floor(ncol(oa)/2 (el=3)
+  ##     or specified differently,
+  ##     r=2
   ## SOAs2plus_regular calls function SOA2plus_regular_fast with arguments s, A, B
   ##     m = ncol(A), r=2
   ## OSOAs_LiuLiu calls function OSOA_LiuLiut with arguments oa and optionally m and t
