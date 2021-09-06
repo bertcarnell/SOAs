@@ -1,9 +1,9 @@
-#' Integer to Galois field polynomial
-#'
-#' @param x integer vector with e elements
+#' Functions for Galois field calculations
+#' @rdname utilitiesGF
+#' @param x a vector of e elements in \code{0:(q-1)}
 #' @param gf Galois field object
 #'
-#' @return e x n matrix or length n vector (if x is scalar)
+#' @return \code{int2poly} returns an e x n matrix or a length n vector (if x is scalar)
 #'
 #' @keywords internal
 int2poly <- function(x, gf){
@@ -11,13 +11,14 @@ int2poly <- function(x, gf){
 }
 
 
-#' Galois field polynomial to an integer
+# Galois field polynomial to an integer
+#' @rdname utilitiesGF
 #'
-#' @param poly takes e x n matrix of polygon rows or a
+#' @param poly takes an e x n matrix of polygon rows or a
 #' length n vector for a single polygon (e=1)
 #' @param gf Galois field object
 #'
-#' @return e element vector of integers
+#' @return \code{poly2int} returns an e element vector of integers in \code{0:(q-1)}
 #'
 #' @keywords internal
 poly2int <- function(poly, gf){
@@ -29,13 +30,14 @@ poly2int <- function(poly, gf){
   poly%*%c(p^(0:(n-1)))
 }
 
-#' Sum of a two elements of a Galois field
+# Sum of a two elements of a Galois field
+#' @rdname utilitiesGF
 #'
-#' @param x first element in \code{0:(q-1)}
-#' @param y second element in \code{0:(q-1)}
+#' @param x a vector of e elements in \code{0:(q-1)}
+#' @param y a second vector of e elements in \code{0:(q-1)}
 #' @param gf Galois field of characteristic \code{q}
 #'
-#' @return the sum
+#' @return \code{gf_sum} returns the sum (e elements in \code{0:(q-1)})
 #'
 #' @keywords internal
 gf_sum <- function(x, y, gf){
@@ -47,13 +49,14 @@ gf_sum <- function(x, y, gf){
     gf$plus[x[obj]+1, y[obj]+1])
 }
 
-#' Product of two elements of a Galois field
+# Product of two elements of a Galois field
+#' @rdname utilitiesGF
 #'
-#' @param x the first element in \code{0:(q-1)}
-#' @param y the second element in \code{0:(q-1)}
+#' @param x a vector of e elements in \code{0:(q-1)}
+#' @param y a second vector of e elements in \code{0:(q-1)}
 #' @param gf the Galois field of characteristic \code{q}
 #'
-#' @return the product
+#' @return \code{gf_prod} returns the product (e elements in \code{0:(q-1)})
 #'
 #' @keywords internal
 gf_prod <- function(x, y, gf){
@@ -65,13 +68,14 @@ gf_prod <- function(x, y, gf){
     gf$times[x[obj]+1, y[obj]+1])
 }
 
-#' Sum over a list of integer vectors in a Galois field
+# Sum over a list of integer vectors in a Galois field
+#' @rdname utilitiesGF
 #'
 #' @param ll a list of integer vectors in \code{0:(q-1)}
 #' @param gf a Galois field of characteristic \code{q}
 #' @param checks should input checks be performed
 #'
-#' @return a integer vector
+#' @return \code{gf_sum_list} returns the sum (an integer vector in \code{0:(q-1)})
 #'
 #' @keywords internal
 gf_sum_list <- function (ll, gf, checks = TRUE)
@@ -90,14 +94,15 @@ gf_sum_list <- function (ll, gf, checks = TRUE)
   apply(hilf, 1, function(obj) lhs::poly2int(gf$p, gf$n, obj))
 }
 
-#' Multiple matrices over Galois fields
+# Multiply matrices over Galois fields
+#' @rdname utilitiesGF
 #'
 #' @param M1 matrix 1 with elements in \code{0:(q-1)}
 #' @param M2 matrix 2 with elements in \code{0:(q-1)}
 #' @param gf Galois field object with characteristic \code{q}
-#' @param checks should checks be performed
+#' @param checks logical: should checks be performed
 #'
-#' @return an integer matrix
+#' @return \code{gf_matmult} returns the matrix product with elements from \code{0:(q-1)}
 #'
 #' @keywords internal
 gf_matmult <- function (M1, M2, gf, checks = TRUE)
