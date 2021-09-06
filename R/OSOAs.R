@@ -45,26 +45,23 @@
 #'
 #' @examples
 #' ## run with optimization for actual use!
+#'
 #' ## 54 runs with seven 9-level columns
+#' OSOAs(DoE.base::L18[,3:8], el=2, optimize=FALSE)
 #'
-#' ## TODO:  contr.XuWu not found in DoE.base
-#' #OSOAs(DoE.base::L18[,3:8], el=2, optimize=FALSE)
 #' ## 54 runs with six 27-level columns
+#' OSOAs(DoE.base::L18[,3:8], el=3, optimize=FALSE)
 #'
-#' ## TODO:  contr.XuWu not fount in DoE.base
-#' #OSOAs(DoE.base::L18[,3:8], el=3, optimize=FALSE)
 #' ## 81 runs with four 9-level columns
-#'
-#' ## TODO: L27.3.4 Not found
-#' #OSOAs(DoE.base::L27.3.4, el=2, optimize=FALSE)
+#' OSOAs(DoE.base::L27.3.4, el=2, optimize=FALSE)
 #' ## An OA with 9-level factors (L81.9.10)
 #' ## has complete balance in 2D,
 #' ## however does not achieve 3D projection for
 #' ## all four collapsed triples
 #' ## It is up to the user to decide what is more important.
 #' ## I would go for the OA.
-#' ## 81 runs with four 27-level columns
 #'
+#' ## 81 runs with four 27-level columns
 #' OSOAs(DoE.base::L27.3.4, el=3, optimize=FALSE)
 OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, optimize=TRUE, dmethod="manhattan", p=50){
   ## the function calls OSOAarbitrary

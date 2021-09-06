@@ -72,6 +72,8 @@ OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1,
        }
      }
   oa <- createSaturated(s, k-1)[,1:m]
+  if (m<=50) colnames(oa) <- DoE.base::Letters[1:m] else
+    colnames <- paste0("F", 1:m)
   OSOAs(oa, el=el, m=morig,
         noptim.rounds=noptim.rounds, optimize = optimize, dmethod=dmethod, p=p)
 }
