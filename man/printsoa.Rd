@@ -13,14 +13,15 @@
 \method{print}{MDLE}(x, ...)
 }
 \arguments{
-\item{x}{Strong Orthogonal Array}
+\item{x}{object to be printed (SOA, OSOA, MDLE)}
 
-\item{...}{Not used}
+\item{...}{further arguments for function \code{print}}
 }
 \description{
 Print Methods
 }
 \examples{
-## TODO
-print(1)
+myOSOA <- OSOAs_regular(s=3, k=3, optimize=FALSE)
+print(myOSOA)
+str(myOSOA)  ## structure for comparison
 }
