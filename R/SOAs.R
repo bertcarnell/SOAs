@@ -2,21 +2,21 @@
 ### according to He and Tang 2013
 
 #' function to create SOAs of strength t with the GOA construction by He and Tang.
-#' 
+#'
 #' takes an OA(n,m,s,t) and creates an SOA(n,m',s^t',t') with t'<=t.
 #'
-#' @param oa a symmetric OA of strength t, e.g. obtained from the arrays 
+#' @param oa a symmetric OA of strength t, e.g. obtained from the arrays
 #' listed in \code{oacat3} of package \pkg{DoE.base}. The number of levels of oa is denoted as s.
-#' @param t the strength the SOA should have, can be 2, 3, 4, or 5. Must not 
+#' @param t the strength the SOA should have, can be 2, 3, 4, or 5. Must not
 #' be larger than the strength of \code{oa}, but can be smaller. The resulting SOA will have s^t levels
 #' @param noptim.rounds number of rounds to apply the approach by Weng (2014)
 #' @param optimize logical, default \code{TRUE}; if \code{FALSE}, suppresses optimization
 #' @param dmethod method for the calculation of \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
-#' 
-#' @details The resulting SOA will have m' columns in s^t levels and will be of 
-#' strength t. m'(m, t) is a function of the number of columns of \code{oa} 
-#' (denoted as m) and the strength t: m'(m,2)=m, m'(m,3)=m-1, m'(m,4)=floor(m/2), 
+#'
+#' @details The resulting SOA will have m' columns in s^t levels and will be of
+#' strength t. m'(m, t) is a function of the number of columns of \code{oa}
+#' (denoted as m) and the strength t: m'(m,2)=m, m'(m,3)=m-1, m'(m,4)=floor(m/2),
 #' m'(m,5)=floor((m-1)/2).
 #'
 #' @return List with the following elements
@@ -30,25 +30,23 @@
 #'   \item{perms2pickfrom}{optional element, when optimization was conducted: the overall permutation list to which the numbers in permlist refer}
 #'   }
 #' @export
-#' @references 
+#' @references
 #' He and Tang (2013) Biometrika.
 #' Weng (2014) Master's thesis.
 #' @author Ulrike Groemping
 #'
 #' @examples
-#' ## TODO L27.3.4 not found
-#' #aus <- SOAs(DoE.base::L27.3.4, optimize=FALSE)  ## t=3 is the default
-#' #dim(aus$array)
-#' #soacheck2D(aus, s=3, el=3) ## check for 2*
-#' #soacheck3D(aus, s=3, el=3) ## check for 3
-#' 
-#' ## TODO L27.3.4 not found
-#' #aus2 <- SOAs(DoE.base::L27.3.4, t=2, optimize=FALSE)
+#' aus <- SOAs(DoE.base::L27.3.4, optimize=FALSE)  ## t=3 is the default
+#' dim(aus$array)
+#' soacheck2D(aus, s=3, el=3) ## check for 2*
+#' soacheck3D(aus, s=3, el=3) ## check for 3
+#'
+#' aus2 <- SOAs(DoE.base::L27.3.4, t=2, optimize=FALSE)
 #' ## t can be smaller than the array strength
 #' ##     --> more columns with fewer levels each
-#' #dim(aus2$array)
-#' #soacheck2D(aus2, s=3, el=2, t=2) # check for 2
-#' #soacheck3D(aus2, s=3, el=2)      # t=3 is the default (check for 3-)
+#' dim(aus2$array)
+#' soacheck2D(aus2, s=3, el=2, t=2) # check for 2
+#' soacheck3D(aus2, s=3, el=2)      # t=3 is the default (check for 3-)
 SOAs <- function(oa, t=3, noptim.rounds=1, optimize=TRUE, dmethod="manhattan", p=50){
   stopifnot(is.matrix(oa))
   stopifnot(length(s <- unique(levels.no(oa)))==1)
