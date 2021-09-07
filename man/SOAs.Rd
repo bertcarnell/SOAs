@@ -50,19 +50,17 @@ strength t. m'(m, t) is a function of the number of columns of \code{oa}
 m'(m,5)=floor((m-1)/2).
 }
 \examples{
-## TODO L27.3.4 not found
-#aus <- SOAs(DoE.base::L27.3.4, optimize=FALSE)  ## t=3 is the default
-#dim(aus$array)
-#soacheck2D(aus, s=3, el=3) ## check for 2*
-#soacheck3D(aus, s=3, el=3) ## check for 3
+aus <- SOAs(DoE.base::L27.3.4, optimize=FALSE)  ## t=3 is the default
+dim(aus$array)
+soacheck2D(aus, s=3, el=3) ## check for 2*
+soacheck3D(aus, s=3, el=3) ## check for 3
 
-## TODO L27.3.4 not found
-#aus2 <- SOAs(DoE.base::L27.3.4, t=2, optimize=FALSE)
+aus2 <- SOAs(DoE.base::L27.3.4, t=2, optimize=FALSE)
 ## t can be smaller than the array strength
 ##     --> more columns with fewer levels each
-#dim(aus2$array)
-#soacheck2D(aus2, s=3, el=2, t=2) # check for 2
-#soacheck3D(aus2, s=3, el=2)      # t=3 is the default (check for 3-)
+dim(aus2$array)
+soacheck2D(aus2, s=3, el=2, t=2) # check for 2
+soacheck3D(aus2, s=3, el=2)      # t=3 is the default (check for 3-)
 }
 \references{
 He and Tang (2013) Biometrika.
