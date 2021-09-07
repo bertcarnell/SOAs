@@ -1,42 +1,53 @@
 #' function to create SOAs of strength 2+ from regular s-level designs
-#' 
+#'
 #' creates an array in s^k runs with columns in s^2 levels for prime or prime power s
 #'
-#' @param s prime or prime power; if s is not a prime, the function is slower than otherwise
+#' @param s prime or prime power
 #' @param k array will have n=s^k runs; for s=2, k>=4 is needed, for s>2, k>=3 is sufficient
-#' @param m optional integer: number of columns requested; if \code{NULL}, 
-#' the maximum possible number of columns is created, which is (s^k-1)/(s-1) - ((s-1)^k-1)/(s-2) 
-#' for s>2 and s^k-s^k1 - s^(k-k1) + 2, with k1=floor(k/2), for s=2; specifying a 
-#' smaller m is beneficial not only for run time but also for possibly achieving a 
-#' column-orthogonal array (see Details section) 
+#' @param m optional integer: number of columns requested; if \code{NULL},
+#' the maximum possible number of columns is created, which is (s^k-1)/(s-1) - ((s-1)^k-1)/(s-2)
+#' for s>2 and s^k-s^k1 - s^(k-k1) + 2, with k1=floor(k/2), for s=2; specifying a
+#' smaller m is beneficial not only for run time but also for possibly achieving a
+#' column-orthogonal array (see Details section)
 #' @param noptim.rounds number of rounds for applying the optimization according to Weng 2014
 #' @param optimize logical: should optimization be applied? default \code{TRUE}
 #' @param dmethod method for the distance in \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
-#' 
-#' @details 
-#' The construction is by He, Cheng and Tang (2018), Prop.1 (C2) / Theorem 2 
+#'
+#' @details
+#' The construction is by He, Cheng and Tang (2018), Prop.1 (C2) / Theorem 2
 #' for s=2 and Theorem 4 for s>2. \cr
-#' B is chosen as an OA of strength 2, if possible, which yields orthogonal 
-#' columns according to Zhou and Tang (2019). This is implemented using a matching 
-#' algorithm for bipartite graphs from package \pkg{igraph}; the smaller m, the 
-#' more likely that orthogonality can be achieved. However, strength 2+ SOAs are 
+#' B is chosen as an OA of strength 2, if possible, which yields orthogonal
+#' columns according to Zhou and Tang (2019). This is implemented using a matching
+#' algorithm for bipartite graphs from package \pkg{igraph}; the smaller m, the
+#' more likely that orthogonality can be achieved. However, strength 2+ SOAs are
 #' not usually advisable for m small enough that a strength 3 OA exists.\cr
-#' Optimization according to Weng has been added (separate level permutations 
-#' in columns of A and B, \code{noptim.rounds} times). Limited tests suggest 
-#' that a single round often does a very good job (e.g. for s=2 and k=4), and 
-#' further rounds do not yield too much improvement; there are also cases 
-#' (e.g. s=5 with k=3), for which the unoptimized array has a better phi_p than 
+#' Optimization according to Weng has been added (separate level permutations
+#' in columns of A and B, \code{noptim.rounds} times). Limited tests suggest
+#' that a single round (\code{noptim.rounds=1}) often does a very good job
+#' (e.g. for s=2 and k=4), and
+#' further rounds do not yield too much improvement; there are also cases
+#' (e.g. s=5 with k=3), for which the unoptimized array has a better phi_p than
 #' what can be achieved by most optimization attempts from a random start.
 #'
-#' @return list object of class \code{SOA}
-#' @references 
+#' @return List with the following elements
+#' \describe{
+#'   \item{array }{the array}
+#'   \item{type }{the type of array}
+#'   \item{strength}{character string that gives the strength}
+#'   \item{phi_p}{the phi_p value (smaller=better)}
+#'   \item{optimized}{logical indicating whether optimization was applied}
+#'   \item{permpick}{matrix that lists the id numbers of the permutations used}
+#'   \item{perms2pickfrom}{optional element, when optimization was conducted: the
+#'   overall permutation list to which the numbers in permlist refer}
+#' }
+#' @references
 #' He, Cheng and Tang (2018)
 #' Weng (2014)
 #' Zhou and Tang (2019)
 #' @author Ulrike Groemping
-#' @note Strength 2+ SOAs can accommodate a large number of factors with 
-#' reasonable stratified balance behavior.  Note that their use is not usually 
+#' @note Strength 2+ SOAs can accommodate a large number of factors with
+#' reasonable stratified balance behavior.  Note that their use is not usually
 #' advisable for m small enough that a strength 3 OA with s^2 level factors exists.
 #' @export
 #'
@@ -44,8 +55,15 @@
 #' ## unoptimized SOA with 20 9-level columns in 81 runs
 #' ## (up to 25 columns are possible)
 #' plan <- SOAs2plus_regular(3, 4, 20, optimize=FALSE)
-#' plan$phi_p
-#' DoE.base::GWLP(plan$array, kmax=5)
+#' ## many column pairs have only 27 level pairs covered
+#' count_npairs(plan)
+#' ## an OA would exist for 10 9-level factors (DoE.base::L81.9.10)
+#' ## it would cover all pairs
+#'
+#' ## unoptimized OSOA with 8 16-level columns in 64 runs
+#' ## (maximum possible number of columns)
+#' plan64 <- SOAs2plus_regular(4, 3, optimize=FALSE)
+#' ocheck(plan64)   ## the array has indeed orthogonal columns
 SOAs2plus_regular <- function(s, k, m=NULL,
                           noptim.rounds=1,
                           optimize=TRUE, dmethod="manhattan", p=50){
@@ -120,15 +138,19 @@ SOAs2plus_regular <- function(s, k, m=NULL,
     curpos <- Inf ## arbitrary positive integer
     }
     curpos2 <- Inf
-  }
-  aus <- list(array=cur$arrays[[1]], type="SOA", strength="2+",
+    }
+    type <- "SOA"
+    if (ocheck(cur$arrays[[1]])) type <- "OSOA"
+  aus <- list(array=cur$arrays[[1]], type=type, strength="2+",
               phi_p=phi_pvals[1], optimized=TRUE,
               permpick = curpermpick,
               perms2pickfrom =
                 lapply(combinat::permn(s), function(obj) obj-1))
   }else{
   SOA <- SOA2plus_regulart(s, k, m, random=FALSE)
-  aus <- list(array=SOA, type="SOA", strength="2+",
+  type <- "SOA"
+  if (ocheck(SOA)) type <- "OSOA"
+  aus <- list(array=SOA, type=type, strength="2+",
               phi_p=phi_p(SOA, dmethod=dmethod, p=p), optimized=FALSE)
   }
   class(aus) <- c("SOA", "list")
