@@ -1,16 +1,15 @@
-
-#' TODO
+#' Utilities for array creation
+#' @rdname utilitiesCreate
 #'
-#' @param s TODO
-#' @param k TODO
+#' @param s the prime or prime power to use
+#' @param k integer; determines the run size: the resulting array will have s^k runs
 #'
 #' @importFrom lhs create_galois_field
 #'
-#' @return TODO
+#' @return \code{createSaturated} returns an s^k times (s^k-1)/(s-1) matrix (saturated regular OA with s-level columns)
 #' @export
-#'
 #' @examples
-#' print("TODO")
+#' createSaturated(3, k=3)  ## 27 x 13 array in 3 levels
 createSaturated <- function(s, k=2){
   ## uses the gf functionality from lhs
   ## symmetric array from k basic vectors
@@ -52,20 +51,19 @@ createSaturated <- function(s, k=2){
     }
   }else  ## s == 2 (Yates order)
     aus <- ((aus%*%t(intcoeffs))%%s)[,-1]
+  colnames(aus) <- NULL
   return(aus)
 }
 
 
-#' TODO
+## function for the Hedayat et al. 2018 construction
+#' @rdname utilitiesCreate
 #'
-#' @param s TODO
-#' @param k TODO
-#' @param m TODO
+#' @param s the prime or prime power to use
+#' @param k integer; determines the run size: the resulting array will have s^k runs
+#' @param m the number of columns to be created
 #'
-#' @return TODO
-#'
-#' @examples
-#' print("TODO")
+#' @return \code{createAB} returns a list of s^k times m matrices A, B and D
 #'
 #' @keywords internal
 createAB <- function(s, k=3, m=NULL){
@@ -168,18 +166,17 @@ createAB <- function(s, k=3, m=NULL){
   ## if B has strength 2, the result is an OSOA
 }
 
-#' TODO
+## function to stack separately permuted matrices
+## presumably not needed any more
+#' @rdname utilitiesCreate
 #'
-#' @param B TODO
-#' @param s TODO
-#' @param r TODO
-#' @param permlist TODO
-#' @param oneonly TODO
+#' @param B n x m matrix
+#' @param s levels
+#' @param r number of copies
+#' @param permlist permutation list
+#' @param oneonly logical: permute all copies in the same way?
 #'
-#' @return TODO
-#'
-#' @examples
-#' print("tODO")
+#' @return \code{BsFromB} returns an rn x m matrix
 #'
 #' @keywords internal
 BsFromB <- function(B, s=NULL, r=NULL, permlist=NULL, oneonly=TRUE){
@@ -244,17 +241,16 @@ BsFromB <- function(B, s=NULL, r=NULL, permlist=NULL, oneonly=TRUE){
 }
 
 
-#' TODO
+## function to extract columns for B
+## from list of candidate columns for He et al. (2018) construction
+#' @rdname utilitiesCreate
 #'
-#' @param Bcollist TODO
+#' @param Bcollist list of candidate columns for He et al. (2018) construction
 #'
-#' @return TODO
+#' @return \code{BcolsFromBcolllist} returns column numbers selected for matrix B
 #'
 #' @importFrom igraph "vertex_attr<-"
 #' @importFrom igraph graph_from_edgelist max_bipartite_match
-#'
-#' @examples
-#' print("TODO")
 #'
 #' @keywords internal
 BcolsFromBcolllist <- function(Bcollist){
