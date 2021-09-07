@@ -15,7 +15,7 @@ SOAs2plus_regular(
 )
 }
 \arguments{
-\item{s}{prime or prime power; if s is not a prime, the function is slower than otherwise}
+\item{s}{prime or prime power}
 
 \item{k}{array will have n=s^k runs; for s=2, k>=4 is needed, for s>2, k>=3 is sufficient}
 
@@ -34,7 +34,17 @@ column-orthogonal array (see Details section)}
 \item{p}{p for \code{\link{phi_p}} (the larger, the closer to maximin distance)}
 }
 \value{
-list object of class \code{SOA}
+List with the following elements
+\describe{
+\item{array }{the array}
+\item{type }{the type of array}
+\item{strength}{character string that gives the strength}
+\item{phi_p}{the phi_p value (smaller=better)}
+\item{optimized}{logical indicating whether optimization was applied}
+\item{permpick}{matrix that lists the id numbers of the permutations used}
+\item{perms2pickfrom}{optional element, when optimization was conducted: the
+overall permutation list to which the numbers in permlist refer}
+}
 }
 \description{
 creates an array in s^k runs with columns in s^2 levels for prime or prime power s
@@ -49,7 +59,8 @@ more likely that orthogonality can be achieved. However, strength 2+ SOAs are
 not usually advisable for m small enough that a strength 3 OA exists.\cr
 Optimization according to Weng has been added (separate level permutations
 in columns of A and B, \code{noptim.rounds} times). Limited tests suggest
-that a single round often does a very good job (e.g. for s=2 and k=4), and
+that a single round (\code{noptim.rounds=1}) often does a very good job
+(e.g. for s=2 and k=4), and
 further rounds do not yield too much improvement; there are also cases
 (e.g. s=5 with k=3), for which the unoptimized array has a better phi_p than
 what can be achieved by most optimization attempts from a random start.
@@ -63,8 +74,15 @@ advisable for m small enough that a strength 3 OA with s^2 level factors exists.
 ## unoptimized SOA with 20 9-level columns in 81 runs
 ## (up to 25 columns are possible)
 plan <- SOAs2plus_regular(3, 4, 20, optimize=FALSE)
-plan$phi_p
-DoE.base::GWLP(plan$array, kmax=5)
+## many column pairs have only 27 level pairs covered
+count_npairs(plan)
+## an OA would exist for 10 9-level factors (DoE.base::L81.9.10)
+## it would cover all pairs
+
+## unoptimized OSOA with 8 16-level columns in 64 runs
+## (maximum possible number of columns)
+plan64 <- SOAs2plus_regular(4, 3, optimize=FALSE)
+ocheck(plan64)   ## the array has indeed orthogonal columns
 }
 \references{
 He, Cheng and Tang (2018)
