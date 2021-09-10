@@ -48,6 +48,8 @@
 #' @examples
 #' dim(OSOAs_hadamard(9, optimize=FALSE)$array)  ## 9 8-level factors in 24 runs
 #' dim(OSOAs_hadamard(n=16, optimize=FALSE)$array) ## 6 8-level factors in 16 runs
+#' OSOAs_hadamard(n=24, m=6, optimize=FALSE) ## 6 8-level factors in 24 runs
+#'                                           ## (though 10 would be possible)
 #' dim(OSOAs_hadamard(m=35, optimize=FALSE)$array) ## 35 8-level factors in 80 runs
 OSOAs_hadamard <- function(m=NULL, n=NULL, el=3, noptim.rounds=1, optimize=TRUE, dmethod="manhattan", p=50){
   ## m the target number of columns
@@ -64,6 +66,7 @@ OSOAs_hadamard <- function(m=NULL, n=NULL, el=3, noptim.rounds=1, optimize=TRUE,
   if (!is.null(n) && !is.null(m)){
     stopifnot(m < n/2)   ## el=2: can use all pb columns
     if (el==3) stopifnot(m < n/2 - 1)
+    mmax <- m
   }
   if (is.null(m)){
     ## make m the largest possible for the specified array size
