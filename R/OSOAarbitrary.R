@@ -1,19 +1,19 @@
-### auxiliary function for optimized creation of OSOAs (function OSOAs)
-### using the Li et al. algorithm for arbitrary inital OA
-### the optimization is done with function NeighbourcalcUniversal.R
-
-#' TODO
+#' Auxiliary function for optimized creation of OSOAs (function OSOAs)
+#' using the Li et al. algorithm for arbitrary initial OA
 #'
-#' @param oa TODO
-#' @param el TODO
-#' @param m TODO
-#' @param permlist TODO
-#' @param random TODO
+#' The optimization is done with function \code{NeighbourcalcUniversal.R}
 #'
-#' @return TODO
+#' @param oa matrix (preferred) or data.frame
+#' @param el must be 2 or 3.  \code{el=3}: Li et al; \code{el=2}: Zhou and Tang
+#' @param m desired number of columns.  Defaults to the maximum possible.
+#' @param permlist a list of length m of lists of length 1 of permutations of the levels
+#' @param random a logical (a random draw of permutations is used if \code{permlist} is \code{NULL})
 #'
-#' @examples
-#' print("TODO")
+#' @references
+#' Li et al.
+#' Zhou and Tang
+#'
+#' @return an orthogonal array
 #'
 #' @keywords internal
 OSOAarbitrary <- function(oa, el=3, m=NULL, permlist=NULL, random=TRUE){
@@ -80,7 +80,6 @@ OSOAarbitrary <- function(oa, el=3, m=NULL, permlist=NULL, random=TRUE){
   addmatrix <- sapply(permlistA, function(obj) rep(obj[[1]], each=nrow(oa)))
 
   A <- (Bs + addmatrix)%%s   ## need not be Galois field, thus modulo regardless of s
-
 
   ## construction 1 with A and Bs
   if (el==3){

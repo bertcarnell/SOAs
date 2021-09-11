@@ -2,29 +2,30 @@
 % Please edit documentation in R/OSOAarbitrary.R
 \name{OSOAarbitrary}
 \alias{OSOAarbitrary}
-\title{TODO}
+\title{Auxiliary function for optimized creation of OSOAs (function OSOAs)
+using the Li et al. algorithm for arbitrary initial OA}
 \usage{
 OSOAarbitrary(oa, el = 3, m = NULL, permlist = NULL, random = TRUE)
 }
 \arguments{
-\item{oa}{TODO}
+\item{oa}{matrix (preferred) or data.frame}
 
-\item{el}{TODO}
+\item{el}{must be 2 or 3.  \code{el=3}: Li et al; \code{el=2}: Zhou and Tang}
 
-\item{m}{TODO}
+\item{m}{desired number of columns.  Defaults to the maximum possible.}
 
-\item{permlist}{TODO}
+\item{permlist}{a list of length m of lists of length 1 of permutations of the levels}
 
-\item{random}{TODO}
+\item{random}{a logical (a random draw of permutations is used if \code{permlist} is \code{NULL})}
 }
 \value{
-TODO
+an orthogonal array
 }
 \description{
-TODO
+The optimization is done with function \code{NeighbourcalcUniversal.R}
 }
-\examples{
-print("TODO")
-
+\references{
+Li et al.
+Zhou and Tang
 }
 \keyword{internal}

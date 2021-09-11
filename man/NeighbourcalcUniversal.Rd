@@ -35,8 +35,4 @@ list of arrays and corresponding permutations
 \description{
 Takes a workhorse function and creates random one- or two-neighbors
 }
-\examples{
-print("none")
-
-}
 \keyword{internal}
