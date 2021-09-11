@@ -26,15 +26,6 @@ jobs:
     steps:
       - name: Check out SOAs
         uses: actions/checkout@v2
-        with:
-          path: ./SOAs
-
-      - name: Check out Development lhs
-        uses: actions/checkout@v2
-        with:
-          repository: 'bertcarnell/lhs'
-          ref: galoisfield
-          path: ./lhs
 
       - name: Set up R ${{ matrix.r-version }}
         uses: r-lib/actions/setup-r@master
@@ -58,17 +49,6 @@ jobs:
         run: |
           brew install gmp
           Rscript -e "remotes::install_cran('gmp', type = 'source')"
-
-      - name: Install lhs dependencies
-        run: |
-          remotes::install_deps(pkgdir = "lhs", dependencies = TRUE)
-        shell: Rscript {0}
-
-      - name: Install lhs
-        run: |
-          lhs_pack <- pkgbuild::build("lhs", args = c("--no-build-vignettes"))
-          install.packages(lhs_pack, repos = NULL)
-        shell: Rscript {0}
 
       - name: Install SOAs dependencies
         run: |
