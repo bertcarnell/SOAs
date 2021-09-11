@@ -14,7 +14,8 @@
 #' next largest even \code{m}, if you need an odd number of columns (the function
 #' will do so, if possible); if \code{m=NULL}, the maximum possible value is used.
 #' This is at most (s^(k-1)-1)/(s-1), or one less if this is odd and \code{el=3}.
-#' @param noptim.rounds the number of optimization rounds for the expansion process (1 is often sufficient)
+#' @param noptim.rounds the number of optimization rounds for each independent restart
+#' @param noptim.repeats the number of independent restarts of optimizations with \code{noptim.rounds} rounds each
 #' @param optimize logical: should space filling be optimized by level permutations?
 #' @param dmethod distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
@@ -50,7 +51,7 @@
 #' OSOAs_regular(3, 4, el=2, optimize=FALSE) ## 13 columns, phi_p about 0.117
 #' # optimizing level permutations typically improves phi_p a lot
 #' # OSOAs_regular(3, 4, el=2) ## 13 columns, phi_p typically below 0.055
-OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1,
+OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1, noptim.repeats=1,
                           optimize = TRUE, dmethod="manhattan", p=50){
   ## the function calls OSOAregulart
   ## together with the optimization method
@@ -75,5 +76,5 @@ OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1,
   if (m<=50) colnames(oa) <- DoE.base::Letters[1:m] else
     colnames <- paste0("F", 1:m)
   OSOAs(oa, el=el, m=morig,
-        noptim.rounds=noptim.rounds, optimize = optimize, dmethod=dmethod, p=p)
+        noptim.rounds=noptim.rounds, noptim.repeats=noptim.repeats, optimize = optimize, dmethod=dmethod, p=p)
 }

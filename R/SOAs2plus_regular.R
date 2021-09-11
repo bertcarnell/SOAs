@@ -9,7 +9,8 @@
 #' for s>2 and s^k-s^k1 - s^(k-k1) + 2, with k1=floor(k/2), for s=2; specifying a
 #' smaller m is beneficial not only for run time but also for possibly achieving a
 #' column-orthogonal array (see Details section)
-#' @param noptim.rounds number of rounds for applying the optimization according to Weng 2014
+#' @param noptim.rounds the number of optimization rounds for each independent restart
+#' @param noptim.repeats the number of independent restarts of optimizations with \code{noptim.rounds} rounds each
 #' @param optimize logical: should optimization be applied? default \code{TRUE}
 #' @param dmethod method for the distance in \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
@@ -65,7 +66,7 @@
 #' plan64 <- SOAs2plus_regular(4, 3, optimize=FALSE)
 #' ocheck(plan64)   ## the array has indeed orthogonal columns
 SOAs2plus_regular <- function(s, k, m=NULL,
-                          noptim.rounds=1,
+                          noptim.rounds=1, noptim.repeats=1,
                           optimize=TRUE, dmethod="manhattan", p=50){
   ## the function calls SOAplus2_regular_fast (with optimization)
   ##                   or SOA2plus_regulart (without optimization)
@@ -118,7 +119,10 @@ SOAs2plus_regular <- function(s, k, m=NULL,
     AB <- createAB(s, k, m=m)
     A <- AB$A; B <- AB$B
 
-    for (i in 1:noptim.rounds){
+    aus_repeats <- vector(mode="list")
+    for (ii in 1:noptim.repeats){
+      message("Optimization ", ii, " of ", noptim.repeats, " started")
+      for (i in 1:noptim.rounds){
       message("Optimization round ", i, " of ", noptim.rounds, " started")
       while(curpos2 > 1){
       while (curpos > 1){
@@ -138,11 +142,17 @@ SOAs2plus_regular <- function(s, k, m=NULL,
     curpos <- Inf ## arbitrary positive integer
     }
     curpos2 <- Inf
-    }
+      } ## end of optimization round i
+
+      aus_repeats[[ii]] <- list(array=cur$arrays[[1]], phi_p=phi_pvals[1])  ## best array
+    } ## end of repeat ii
+    ## currently, phi_p decides
+    pickmin <- which.min(sapply(aus_repeats, function(obj) obj$phi_p))
+    aus <- aus_repeats[[pickmin]]
     type <- "SOA"
-    if (ocheck(cur$arrays[[1]])) type <- "OSOA"
-  aus <- list(array=cur$arrays[[1]], type=type, strength="2+",
-              phi_p=phi_pvals[1], optimized=TRUE,
+    if (ocheck(aus$array)) type <- "OSOA"
+  aus <- list(array=aus$array, type=type, strength="2+",
+              phi_p=aus$phi_p, optimized=TRUE,
               permpick = curpermpick,
               perms2pickfrom =
                 lapply(combinat::permn(s), function(obj) obj-1))

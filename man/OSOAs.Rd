@@ -9,6 +9,7 @@ OSOAs(
   el = 3,
   m = NULL,
   noptim.rounds = 1,
+  noptim.repeats = 1,
   optimize = TRUE,
   dmethod = "manhattan",
   p = 50
@@ -25,7 +26,9 @@ m will be reduced by one, so specify the next largest even m, if you need an
 odd number of columns (the function will do so, if possible; if \code{m=NULL},
 the maximum possible value is used.}
 
-\item{noptim.rounds}{the number of optimization rounds for the expansion process}
+\item{noptim.rounds}{the number of optimization rounds for each independent restart}
+
+\item{noptim.repeats}{the number of independent restarts of optimizations with \code{noptim.rounds} rounds each}
 
 \item{optimize}{logical: should space filling be optimized by level permutations?}
 

@@ -11,6 +11,7 @@ OSOAs_regular(
   el = 3,
   m = NULL,
   noptim.rounds = 1,
+  noptim.repeats = 1,
   optimize = TRUE,
   dmethod = "manhattan",
   p = 50
@@ -31,7 +32,9 @@ next largest even \code{m}, if you need an odd number of columns (the function
 will do so, if possible); if \code{m=NULL}, the maximum possible value is used.
 This is at most (s^(k-1)-1)/(s-1), or one less if this is odd and \code{el=3}.}
 
-\item{noptim.rounds}{the number of optimization rounds for the expansion process (1 is often sufficient)}
+\item{noptim.rounds}{the number of optimization rounds for each independent restart}
+
+\item{noptim.repeats}{the number of independent restarts of optimizations with \code{noptim.rounds} rounds each}
 
 \item{optimize}{logical: should space filling be optimized by level permutations?}
 

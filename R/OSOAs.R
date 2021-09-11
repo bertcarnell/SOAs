@@ -9,7 +9,8 @@
 #' m will be reduced by one, so specify the next largest even m, if you need an
 #' odd number of columns (the function will do so, if possible; if \code{m=NULL},
 #' the maximum possible value is used.
-#' @param noptim.rounds the number of optimization rounds for the expansion process
+#' @param noptim.rounds the number of optimization rounds for each independent restart
+#' @param noptim.repeats the number of independent restarts of optimizations with \code{noptim.rounds} rounds each
 #' @param optimize logical: should space filling be optimized by level permutations?
 #' @param dmethod distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
@@ -63,7 +64,7 @@
 #'
 #' ## 81 runs with four 27-level columns
 #' OSOAs(DoE.base::L27.3.4, el=3, optimize=FALSE)
-OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, optimize=TRUE, dmethod="manhattan", p=50){
+OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, noptim.repeats=1, optimize=TRUE, dmethod="manhattan", p=50){
   ## the function calls OSOAarbitrary
   ## together with the optimization dmethod
   ## analogous to the master thesis by J. Weng
@@ -104,36 +105,44 @@ OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, optimize=TRUE, dmethod="man
   ende <- FALSE
 
   if (optimize){
-    for (i in 1:noptim.rounds){
+    aus_repeats <- vector(mode="list")
+    for (ii in 1:noptim.repeats){
+      message("Optimization ", ii, " of ", noptim.repeats, " started")
+      for (i in 1:noptim.rounds){
       message("Optimization round ", i, " of ", noptim.rounds, " started")
-
-  while(curpos2 > 1){
-    while (curpos > 1){
-      if (curpos==Inf) curpermpick <- NULL
-      cur <- NeighbourcalcUniversal(OSOAarbitrary, mperm=m, r, oa=oa, el=el, m=origm,
-                      startperm = curpermpick)   ## one-neighbors only
-      phi_pvals <- round(sapply(cur$arrays, function(obj) phi_p(obj, dmethod=dmethod, p=p)), 8)
-      (curpos <- which.min(phi_pvals))
-      curpermpick <- cur$docpermlist[[curpos]]
-    }
-    cur <- NeighbourcalcUniversal(OSOAarbitrary, mperm=m, r, oa=oa, el=el, m=origm,
-                      startperm = curpermpick, neighbordist = 2)
-    phi_pvals <- round(sapply(cur$arrays, function(obj) phi_p(obj, dmethod=dmethod, p=p)), 8)
-    (curpos2 <- which.min(phi_pvals))
-    curpermpick <- cur$docpermlist[[curpos2]]
-    curpos <- 999 ## arbitrary positive integer
-  }
+      while(curpos2 > 1){
+        while (curpos > 1){
+          if (curpos==Inf) curpermpick <- NULL
+          cur <- NeighbourcalcUniversal(OSOAarbitrary, mperm=m, r, oa=oa, el=el, m=origm,
+                          startperm = curpermpick)   ## one-neighbors only
+          phi_pvals <- round(sapply(cur$arrays, function(obj) phi_p(obj, dmethod=dmethod, p=p)), 8)
+          (curpos <- which.min(phi_pvals))
+          curpermpick <- cur$docpermlist[[curpos]]
+        }
+        cur <- NeighbourcalcUniversal(OSOAarbitrary, mperm=m, r, oa=oa, el=el, m=origm,
+                          startperm = curpermpick, neighbordist = 2)
+        phi_pvals <- round(sapply(cur$arrays, function(obj) phi_p(obj, dmethod=dmethod, p=p)), 8)
+        (curpos2 <- which.min(phi_pvals))
+        curpermpick <- cur$docpermlist[[curpos2]]
+        curpos <- 999 ## arbitrary positive integer
+      }
       curpos2 <- 999
-    }
-    aus <- cur$arrays[[1]]  ## best array
+    } ## end of optimization round i
+
+    aus_repeats[[ii]] <- list(array=cur$arrays[[1]], phi_p=phi_pvals[1])  ## best array
+    } ## end of repeat ii
+    ## currently, phi_p decides
+    pickmin <- which.min(sapply(aus_repeats, function(obj) obj$phi_p))
+    aus <- aus_repeats[[pickmin]]
+
     if (t==2){
-      ## check whether strength has improved by constructing A
-      if (round(DoE.base::length3(attr(aus, "A")),8) == 0) t <- 3
+         ## check whether strength has improved by constructing A
+         if(round(DoE.base::length3(attr(aus$array, "A")),8) == 0) t <- 3
     }
-    attr(aus, "A") <- NULL
-    aus <- list(array=aus, type="OSOA", strength=ifelse(t==2 || m<3, ifelse(el==2,"2+","2*"),
+    attr(aus$array, "A") <- NULL
+    aus <- list(array=aus$array, type="OSOA", strength=ifelse(t==2 || m<3, ifelse(el==2,"2+","2*"),
                                                                   ifelse(el==2,"3-","3")),
-              phi_p=phi_pvals[1], optimized=TRUE, permpick = curpermpick,
+              phi_p=aus$phi_p, optimized=TRUE, permpick = curpermpick,
               perms2pickfrom =
                 lapply(combinat::permn(s), function(obj) obj-1))
   }else{

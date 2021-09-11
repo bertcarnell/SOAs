@@ -9,6 +9,7 @@ OSOAs_LiuLiu(
   t = NULL,
   m = NULL,
   noptim.rounds = 1,
+  noptim.repeats = 1,
   optimize = TRUE,
   dmethod = "manhattan",
   p = 50
@@ -21,7 +22,9 @@ OSOAs_LiuLiu(
 
 \item{m}{the requested number of columns of the OSOA (at most \code{mbound_LiuLiu(ncol(oa), t)}).}
 
-\item{noptim.rounds}{the number of optimization rounds for the expansion process (1 is often sufficient)}
+\item{noptim.rounds}{the number of optimization rounds for each independent restart}
+
+\item{noptim.repeats}{the number of independent restarts of optimizations with \code{noptim.rounds} rounds each}
 
 \item{optimize}{logical: should space filling be optimized by level permutations?}
 

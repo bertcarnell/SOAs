@@ -9,7 +9,8 @@
 #' listed in \code{oacat3} of package \pkg{DoE.base}. The number of levels of oa is denoted as s.
 #' @param t the strength the SOA should have, can be 2, 3, 4, or 5. Must not
 #' be larger than the strength of \code{oa}, but can be smaller. The resulting SOA will have s^t levels
-#' @param noptim.rounds number of rounds to apply the approach by Weng (2014)
+#' @param noptim.rounds the number of optimization rounds for each independent restart
+#' @param noptim.repeats the number of independent restarts of optimizations with \code{noptim.rounds} rounds each
 #' @param optimize logical, default \code{TRUE}; if \code{FALSE}, suppresses optimization
 #' @param dmethod method for the calculation of \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
@@ -47,7 +48,7 @@
 #' dim(aus2$array)
 #' soacheck2D(aus2, s=3, el=2, t=2) # check for 2
 #' soacheck3D(aus2, s=3, el=2)      # t=3 is the default (check for 3-)
-SOAs <- function(oa, t=3, noptim.rounds=1, optimize=TRUE, dmethod="manhattan", p=50){
+SOAs <- function(oa, t=3, noptim.rounds=1, noptim.repeats=1, optimize=TRUE, dmethod="manhattan", p=50){
   stopifnot(is.matrix(oa))
   stopifnot(length(s <- unique(levels.no(oa)))==1)
   stopifnot(s%%1 == 0) ## integer
@@ -68,7 +69,10 @@ SOAs <- function(oa, t=3, noptim.rounds=1, optimize=TRUE, dmethod="manhattan", p
   ende <- FALSE
 
   if (optimize){
-    for (i in 1:noptim.rounds){
+    aus_repeats <- vector(mode="list")
+    for (ii in 1:noptim.repeats){
+      message("Optimization ", ii, " of ", noptim.repeats, " started")
+      for (i in 1:noptim.rounds){
       message("Optimization round ", i, " of ", noptim.rounds, " started")
       while(curpos2 > 1){
     while (curpos > 1){
@@ -89,9 +93,16 @@ SOAs <- function(oa, t=3, noptim.rounds=1, optimize=TRUE, dmethod="manhattan", p
     curpos <- 999 ## arbitrary positive integer
   }
       curpos2 <- 999
-  }
-  aus <- list(array=cur$arrays[[1]], type="SOA", strength=as.character(t),
-              phi_p=phi_pvals[1], optimized=TRUE, permpick = curpermpick,
+      } ## end of optimization round i
+
+      aus_repeats[[ii]] <- list(array=cur$arrays[[1]], phi_p=phi_pvals[1])  ## best array
+    } ## end of repeat ii
+    ## currently, phi_p decides
+    pickmin <- which.min(sapply(aus_repeats, function(obj) obj$phi_p))
+    aus <- aus_repeats[[pickmin]]
+
+    aus <- list(array=aus$array, type="SOA", strength=as.character(t),
+              phi_p=aus$phi_p, optimized=TRUE, permpick = curpermpick,
               perms2pickfrom =
                 lapply(combinat::permn(s), function(obj) obj-1))
   }else{

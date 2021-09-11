@@ -6,7 +6,8 @@
 #' @param oa a symmetric orthogonal array of strength at least \code{t}
 #' @param t the requested strength of the OSOA
 #' @param m the requested number of columns of the OSOA (at most \code{mbound_LiuLiu(ncol(oa), t)}).
-#' @param noptim.rounds the number of optimization rounds for the expansion process (1 is often sufficient)
+#' @param noptim.rounds the number of optimization rounds for each independent restart
+#' @param noptim.repeats the number of independent restarts of optimizations with \code{noptim.rounds} rounds each
 #' @param optimize logical: should space filling be optimized by level permutations?
 #' @param dmethod distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
@@ -89,7 +90,7 @@
 #' ## six 36-level columns in 72 runs with OSOA strength 2
 #' oa <- DoE.base::L72.2.5.3.3.4.1.6.7[,10:16]
 #' OSOA72 <- OSOAs_LiuLiu(oa, t=2, optimize=FALSE)
-OSOAs_LiuLiu <- function(oa, t=NULL, m=NULL, noptim.rounds=1,
+OSOAs_LiuLiu <- function(oa, t=NULL, m=NULL, noptim.rounds=1, noptim.repeats=1,
                          optimize = TRUE, dmethod="manhattan", p=50){
   ## the function calls OSOA_LiuLiut
   ## together with the optimization method
@@ -129,7 +130,10 @@ OSOAs_LiuLiu <- function(oa, t=NULL, m=NULL, noptim.rounds=1,
   ende <- FALSE
 
   if (optimize){
-    for (i in 1:noptim.rounds){
+    aus_repeats <- vector(mode="list")
+    for (ii in 1:noptim.repeats){
+      message("Optimization ", ii, " of ", noptim.repeats, " started")
+      for (i in 1:noptim.rounds){
       message("Optimization round ", i, " of ", noptim.rounds, " started")
       while(curpos2 > 1){
         while (curpos > 1){
@@ -148,9 +152,16 @@ OSOAs_LiuLiu <- function(oa, t=NULL, m=NULL, noptim.rounds=1,
         curpos <- 999 ## arbitrary positive integer
       }
       curpos2 <- 999
-    }
-    aus <- list(array=cur$arrays[[1]], type="OSOA", strength=t,
-                phi_p=phi_pvals[1], optimized=TRUE, permpick = curpermpick,
+      } ## end of optimization round i
+
+      aus_repeats[[ii]] <- list(array=cur$arrays[[1]], phi_p=phi_pvals[1])  ## best array
+    } ## end of repeat ii
+    ## currently, phi_p decides
+    pickmin <- which.min(sapply(aus_repeats, function(obj) obj$phi_p))
+    aus <- aus_repeats[[pickmin]]
+
+    aus <- list(array=aus$array, type="OSOA", strength=t,
+                phi_p=aus$phi_p, optimized=TRUE, permpick = curpermpick,
                 perms2pickfrom =
                   lapply(combinat::permn(s), function(obj) obj-1))
   }else{

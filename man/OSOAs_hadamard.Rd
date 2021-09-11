@@ -9,6 +9,7 @@ OSOAs_hadamard(
   n = NULL,
   el = 3,
   noptim.rounds = 1,
+  noptim.repeats = 1,
   optimize = TRUE,
   dmethod = "manhattan",
   p = 50
@@ -16,15 +17,17 @@ OSOAs_hadamard(
 }
 \arguments{
 \item{m}{the number of columns to be created;
-if \code{n} is also given, \code{m} must be compatible with it}
+if \code{n} is also given, \code{m} must be compatible with it; at present, \code{m} can be at most 98.}
 
-\item{n}{the number of runs to be created (must be a multiple of 8);
-if \code{m} is also given, \code{n} must be compatible with it}
+\item{n}{the number of runs to be created; \code{n} must be a multiple of 8 and can (at present) be at most 200;
+if \code{m} is also given, \code{n} must be compatible with it.}
 
 \item{el}{exponent for 2, can be 2 or 3: the OSOA will have columns with
 2^el (4 or 8) levels}
 
-\item{noptim.rounds}{the number of optimization rounds for the expansion process}
+\item{noptim.rounds}{the number of optimization rounds for each independent restart}
+
+\item{noptim.repeats}{the number of independent restarts of optimizations with \code{noptim.rounds} rounds each}
 
 \item{optimize}{logical: should space filling be optimized by level permutations?}
 
@@ -46,7 +49,7 @@ the overall permutation list to which the numbers in permlist refer}
 }
 }
 \description{
-A Hadamard matrix in m runs is used for creating an OSOA in n=2m runs for at most m-2 columns.
+A Hadamard matrix in k runs is used for creating an OSOA in n=2k runs for at most m=k-2 columns.
 }
 \details{
 At least one of \code{m} or \code{n} must be provided. For \code{el=2},
@@ -58,7 +61,8 @@ fold-over, which is beneficial for the space-filling properties (see Groemping 2
 \examples{
 dim(OSOAs_hadamard(9, optimize=FALSE)$array)  ## 9 8-level factors in 24 runs
 dim(OSOAs_hadamard(n=16, optimize=FALSE)$array) ## 6 8-level factors in 16 runs
-OSOAs_hadamard(n=24, m=6, optimize=FALSE) ## 6 8-level factors in 24 runs (though 10 would be possible)
+OSOAs_hadamard(n=24, m=6, optimize=FALSE) ## 6 8-level factors in 24 runs
+                                          ## (though 10 would be possible)
 dim(OSOAs_hadamard(m=35, optimize=FALSE)$array) ## 35 8-level factors in 80 runs
 }
 \references{

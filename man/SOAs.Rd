@@ -8,6 +8,7 @@ SOAs(
   oa,
   t = 3,
   noptim.rounds = 1,
+  noptim.repeats = 1,
   optimize = TRUE,
   dmethod = "manhattan",
   p = 50
@@ -20,7 +21,9 @@ listed in \code{oacat3} of package \pkg{DoE.base}. The number of levels of oa is
 \item{t}{the strength the SOA should have, can be 2, 3, 4, or 5. Must not
 be larger than the strength of \code{oa}, but can be smaller. The resulting SOA will have s^t levels}
 
-\item{noptim.rounds}{number of rounds to apply the approach by Weng (2014)}
+\item{noptim.rounds}{the number of optimization rounds for each independent restart}
+
+\item{noptim.repeats}{the number of independent restarts of optimizations with \code{noptim.rounds} rounds each}
 
 \item{optimize}{logical, default \code{TRUE}; if \code{FALSE}, suppresses optimization}
 

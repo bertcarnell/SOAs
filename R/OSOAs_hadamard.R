@@ -4,15 +4,16 @@
 
 #' function to create a strength 3 OSOA with 8-level columns from a Hadamard matrix
 #'
-#' A Hadamard matrix in m runs is used for creating an OSOA in n=2m runs for at most m-2 columns.
+#' A Hadamard matrix in k runs is used for creating an OSOA in n=2k runs for at most m=k-2 columns.
 #'
 #' @param m the number of columns to be created;
-#' if \code{n} is also given, \code{m} must be compatible with it
-#' @param n the number of runs to be created (must be a multiple of 8);
-#' if \code{m} is also given, \code{n} must be compatible with it
+#' if \code{n} is also given, \code{m} must be compatible with it; at present, \code{m} can be at most 98.
+#' @param n the number of runs to be created; \code{n} must be a multiple of 8 and can (at present) be at most 200;
+#' if \code{m} is also given, \code{n} must be compatible with it.
 #' @param el exponent for 2, can be 2 or 3: the OSOA will have columns with
 #' 2^el (4 or 8) levels
-#' @param noptim.rounds the number of optimization rounds for the expansion process
+#' @param noptim.rounds the number of optimization rounds for each independent restart
+#' @param noptim.repeats the number of independent restarts of optimizations with \code{noptim.rounds} rounds each
 #' @param optimize logical: should space filling be optimized by level permutations?
 #' @param dmethod distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
@@ -51,7 +52,7 @@
 #' OSOAs_hadamard(n=24, m=6, optimize=FALSE) ## 6 8-level factors in 24 runs
 #'                                           ## (though 10 would be possible)
 #' dim(OSOAs_hadamard(m=35, optimize=FALSE)$array) ## 35 8-level factors in 80 runs
-OSOAs_hadamard <- function(m=NULL, n=NULL, el=3, noptim.rounds=1, optimize=TRUE, dmethod="manhattan", p=50){
+OSOAs_hadamard <- function(m=NULL, n=NULL, el=3, noptim.rounds=1, noptim.repeats=1, optimize=TRUE, dmethod="manhattan", p=50){
   ## m the target number of columns
   ## n the target number of runs
   ## el the exponent of 2 for the number of levels in the OSOA (2 or 3)
@@ -105,6 +106,6 @@ OSOAs_hadamard <- function(m=NULL, n=NULL, el=3, noptim.rounds=1, optimize=TRUE,
     }, classes=c("message","warning"))
 
   ## the function for arbitrary oa does the rest of the work
-  OSOAs(X, el=el, m=m, noptim.rounds = noptim.rounds, optimize = optimize,
+  OSOAs(X, el=el, m=m, noptim.rounds = noptim.rounds, noptim.repeats=noptim.repeats, optimize = optimize,
         dmethod = dmethod, p=p)
 }

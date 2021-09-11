@@ -9,6 +9,7 @@ SOAs2plus_regular(
   k,
   m = NULL,
   noptim.rounds = 1,
+  noptim.repeats = 1,
   optimize = TRUE,
   dmethod = "manhattan",
   p = 50
@@ -25,7 +26,9 @@ for s>2 and s^k-s^k1 - s^(k-k1) + 2, with k1=floor(k/2), for s=2; specifying a
 smaller m is beneficial not only for run time but also for possibly achieving a
 column-orthogonal array (see Details section)}
 
-\item{noptim.rounds}{number of rounds for applying the optimization according to Weng 2014}
+\item{noptim.rounds}{the number of optimization rounds for each independent restart}
+
+\item{noptim.repeats}{the number of independent restarts of optimizations with \code{noptim.rounds} rounds each}
 
 \item{optimize}{logical: should optimization be applied? default \code{TRUE}}
 
