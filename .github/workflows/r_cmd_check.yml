@@ -52,9 +52,9 @@ jobs:
 
       - name: Install SOAs dependencies
         run: |
-          remotes::install_deps(pkgdir = "SOAs", dependencies = TRUE)
+          remotes::install_deps(pkgdir = ".", dependencies = TRUE)
         shell: Rscript {0}
 
       - name: Check
-        run: rcmdcheck::rcmdcheck("SOAs", args = c("--as-cran", "--no-manual"), error_on = "warning")
+        run: rcmdcheck::rcmdcheck(".", args = c("--as-cran", "--no-manual"), error_on = "warning")
         shell: Rscript {0}
