@@ -12,9 +12,6 @@
 #'
 #' @return list of arrays and corresponding permutations
 #'
-#' @examples
-#' print("none")
-#'
 #' @keywords internal
 NeighbourcalcUniversal <- function(funname, mperm, r, ...,
                                    startperm=NULL, allpermlist=NULL,

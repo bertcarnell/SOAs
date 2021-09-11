@@ -1,13 +1,22 @@
+#' Strong Orthogonal Arrays of Strength t using the method of Liu and Liu
+#'
+#' @param oa input matrix or dataframe
+#' @param t strength of \code{oa}.  If \code{NULL} (default), \code{t} will be
+#' determined.  \code{t} can be chosen smaller than the input strength if
+#' additional columns are desired.
+#' @param m desired number of columns.  Defaults to the maximum possible.
+#' @param permlist a list of length m of lists of length 1 of permutations of the levels
+#' @param random a logical (a random draw of permutations is used if \code{permlist} is \code{NULL})
+#'
+#' @return an orthogonal array
+#'
+#' @references Liu and Liu (2015)
+#'
+#' @keywords internal
 OSOA_LiuLiut <- function(oa, t=NULL, m=NULL, permlist=NULL, random=TRUE){
-  ## t is the strength of oa per default
-  ## can be chosen smaller, for getting more columns
-  ## m is the desired number of columns (default maximum possible)
-  ## permlist is a list of length moa lists of length 1 of permutations of the levels
-  ## random is a logical (random draw of permutations, if permlist is NULL)
-  
   ## mperm is moa (could be reduced to 2*k, except of t=3 with q=3; slight waste of time)
   ## r is 1 (permute the columns of the ingoing oa only)
-  
+
   stopifnot(is.matrix(oa) || is.data.frame(oa))
   ## matrix is preferred!
   if (is.data.frame(oa)){
@@ -19,10 +28,10 @@ OSOA_LiuLiut <- function(oa, t=NULL, m=NULL, permlist=NULL, random=TRUE){
   }
   stopifnot(length(table(lev <- levels.no(oa)))==1)
   if (min(oa)==1) oa <- oa - 1
-  
+
   s <- lev[1]
   n <- nrow(oa)
-  
+
   ## check or determine t
   if (!is.null(t)) stopifnot(t %in% c(2,3,4)) else{
     t <- 2
@@ -30,10 +39,10 @@ OSOA_LiuLiut <- function(oa, t=NULL, m=NULL, permlist=NULL, random=TRUE){
     if (t==3 && round(DoE.base::length4(oa),8)==0) t <- 4
   }
   stopifnot(all(round(DoE.base::GWLP(oa, kmax=t),8)[-1]==0))
-  
+
   moa <- ncol(oa)
   boundm <- mbound_LiuLiu(moa, t)
-  if (is.null(m)) m <- boundm else stopifnot(m<=boundm) 
+  if (is.null(m)) m <- boundm else stopifnot(m<=boundm)
 
   if (is.null(permlist)){
     if (!random) permlist <- rep(list(list(0:(s-1))), moa) else{
@@ -42,11 +51,11 @@ OSOA_LiuLiut <- function(oa, t=NULL, m=NULL, permlist=NULL, random=TRUE){
       for (i in 1:moa) permlist[[i]] <- list(sample(0:(s-1)))
     }
   }
-  
+
   ## permuted oa in order to keep all consequences of construction intact
   roa <- oa
   for (i in 1:moa) roa[,i] <- permlist[[i]][[1]][roa[,i]+1]
-  
+
   ## determine k
   if (t==2){
     k <- floor(moa/2)
@@ -55,7 +64,7 @@ OSOA_LiuLiut <- function(oa, t=NULL, m=NULL, permlist=NULL, random=TRUE){
     k <- floor(moa/4)
     q <- moa - k*4  ## needed for additional column
   }
-  
+
   ## strength 2
   if (t==2){
     A <- interleavecols(roa[,seq(2,2*k,2)], roa[,seq(1,2*k,2)])
