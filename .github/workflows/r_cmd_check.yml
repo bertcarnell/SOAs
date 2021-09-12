@@ -18,7 +18,7 @@ jobs:
         config:
           - {os: windows-latest, r: 'release'}
           - {os: windows-latest, r: 'devel'}
-          #- {os: macOS-latest, r: 'release'} # macOS is failing for release as of 8/31/2021
+          - {os: macOS-latest, r: 'release'}
           - {os: macOS-latest, r: 'devel'}
           - {os: ubuntu-latest, r: 'release'}
           - {os: ubuntu-latest, r: 'devel'}
@@ -27,14 +27,14 @@ jobs:
       - name: Check out SOAs
         uses: actions/checkout@v2
 
-      - name: Set up R ${{ matrix.r-version }}
+      - name: Set up R ${{ matrix.config.r }}
         uses: r-lib/actions/setup-r@master
         with:
           r-version: ${{ matrix.config.r }}
 
       - name: Install R build Dependencies
         run: |
-          install.packages(c("remotes", "rcmdcheck", "pkgbuild"))
+          install.packages(c("remotes", "rcmdcheck"))
         shell: Rscript {0}
 
       - name: Linux System Dependencies
@@ -58,3 +58,9 @@ jobs:
       - name: Check
         run: rcmdcheck::rcmdcheck(".", args = c("--as-cran", "--no-manual"), error_on = "warning")
         shell: Rscript {0}
+
+      - name: Code Coverage
+        if: ${{ matrix.config.os }} == 'ubuntu-latest' && ${{ matrix.config.r }} == 'release'
+        run: covr::codecov()
+        shell: Rscript {0}
+
