@@ -3,7 +3,6 @@
 \name{phi_p}
 \alias{phi_p}
 \alias{phi_p.default}
-\alias{phi_p.OSOA}
 \alias{phi_p.SOA}
 \alias{phi_p.MDLE}
 \title{Functions to evaluate uniformity of an array}
@@ -12,14 +11,12 @@ phi_p(D, dmethod, p, ...)
 
 \method{phi_p}{default}(D, dmethod = "euclidean", p = 50, ...)
 
-\method{phi_p}{OSOA}(D, dmethod = "euclidean", p = 50, ...)
-
 \method{phi_p}{SOA}(D, dmethod = "euclidean", p = 50, ...)
 
 \method{phi_p}{MDLE}(D, dmethod = "manhattan", p = 50, ...)
 }
 \arguments{
-\item{D}{an array or a list object of class SOA, OSOA or MDLE}
+\item{D}{an array or a list object of class SOA or MDLE}
 
 \item{dmethod}{the distance to use, \code{"euclidean"} or \code{"manhattan"}}
 

@@ -4,27 +4,22 @@
 \alias{ocheck}
 \alias{ocheck.default}
 \alias{ocheck.SOA}
-\alias{ocheck.OSOA}
 \alias{ocheck.MDLE}
 \alias{ocheck3}
 \alias{ocheck3.default}
 \alias{ocheck3.SOA}
-\alias{ocheck3.OSOA}
 \alias{ocheck3.MDLE}
 \alias{count_npairs}
 \alias{count_npairs.default}
 \alias{count_npairs.SOA}
-\alias{count_npairs.OSOA}
 \alias{count_npairs.MDLE}
 \alias{count_nallpairs}
 \alias{soacheck2D}
 \alias{soacheck2D.default}
 \alias{soacheck2D.SOA}
-\alias{soacheck2D.OSOA}
 \alias{soacheck3D}
 \alias{soacheck3D.default}
 \alias{soacheck3D.SOA}
-\alias{soacheck3D.OSOA}
 \title{functions to evaluate low order projection properties of (O)SOAs}
 \usage{
 ocheck(D, verbose = FALSE, ...)
@@ -32,8 +27,6 @@ ocheck(D, verbose = FALSE, ...)
 \method{ocheck}{default}(D, verbose = FALSE, ...)
 
 \method{ocheck}{SOA}(D, verbose = FALSE, ...)
-
-\method{ocheck}{OSOA}(D, verbose = FALSE, ...)
 
 \method{ocheck}{MDLE}(D, verbose = FALSE, ...)
 
@@ -43,8 +36,6 @@ ocheck3(D, verbose = FALSE, ...)
 
 \method{ocheck3}{SOA}(D, verbose = FALSE, ...)
 
-\method{ocheck3}{OSOA}(D, verbose = FALSE, ...)
-
 \method{ocheck3}{MDLE}(D, verbose = FALSE, ...)
 
 count_npairs(D, minn = 1, ...)
@@ -52,8 +43,6 @@ count_npairs(D, minn = 1, ...)
 \method{count_npairs}{default}(D, minn = 1, ...)
 
 \method{count_npairs}{SOA}(D, minn = 1, ...)
-
-\method{count_npairs}{OSOA}(D, minn = 1, ...)
 
 \method{count_npairs}{MDLE}(D, minn = 1, ...)
 
@@ -65,19 +54,15 @@ soacheck2D(D, s = 3, el = 3, t = 3, alpha = NULL, verbose = FALSE, ...)
 
 \method{soacheck2D}{SOA}(D, s = 3, el = 3, t = 3, alpha = NULL, verbose = FALSE, ...)
 
-\method{soacheck2D}{OSOA}(D, s = 3, el = 3, t = 3, alpha = NULL, verbose = FALSE, ...)
-
 soacheck3D(D, s = 3, el = 3, t = 3, verbose = FALSE, ...)
 
 \method{soacheck3D}{default}(D, s = 3, el = 3, t = 3, verbose = FALSE, ...)
 
 \method{soacheck3D}{SOA}(D, s = 3, el = 3, t = 3, verbose = FALSE, ...)
-
-\method{soacheck3D}{OSOA}(D, s = 3, el = 3, t = 3, verbose = FALSE, ...)
 }
 \arguments{
 \item{D}{a matrix with factor levels or a list object of class \code{SOA}
-or \code{OSOA} the element \code{array} of which contains the matrix; \cr
+the element \code{array} of which contains the matrix; \cr
 factor levels can start with 0 or with 1, and need to be consecutively numbered}
 
 \item{verbose}{logical; if \code{TRUE}, additional information is printed
@@ -166,7 +151,6 @@ ocheck(D)
 ## 4 columns in 27 levels each
 ## second order model matrix
 
-## TODO L81.3.10 not found
 #D_o <- OSOAs_LiuLiu(DoE.base::L81.3.10, optimize=FALSE)$array
 #ocheck3(D_o)
 

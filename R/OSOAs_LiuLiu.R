@@ -169,6 +169,6 @@ OSOAs_LiuLiu <- function(oa, t=NULL, m=NULL, noptim.rounds=1, noptim.repeats=1,
     aus <- list(array=OSOA, type="OSOA", strength=t,
                 phi_p=phi_p(OSOA, dmethod=dmethod, p=p), optimized=FALSE)
   }
-  class(aus) <- c("OSOA", "list")
+  class(aus) <- c("SOA", "list")
   aus
 }

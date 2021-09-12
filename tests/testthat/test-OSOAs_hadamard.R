@@ -1,6 +1,6 @@
 test_that("OSOAs_hadamard", {
   temp <- OSOAs_hadamard(m = 6)
-  expect_equal(class(temp), c("OSOA", "list"))
+  expect_equal(class(temp), c("SOA", "list"))
   expect_equal(dim(temp$array), c(16, 6))
   expect_equal(temp$type, "OSOA")
 

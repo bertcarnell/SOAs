@@ -9,7 +9,7 @@
 #' the number of level pairs in 2D projections
 #'
 #' @param D a matrix with factor levels or a list object of class \code{SOA}
-#' or \code{OSOA} the element \code{array} of which contains the matrix; \cr
+#' the element \code{array} of which contains the matrix; \cr
 #' factor levels can start with 0 or with 1, and need to be consecutively numbered
 #' @param s the prime or prime power according to which the array is checked;
 #' NULL for mixed level arrays, or where the SOA was constructed using the level
@@ -96,7 +96,6 @@
 #' ## 4 columns in 27 levels each
 #' ## second order model matrix
 #'
-#' ## TODO L81.3.10 not found
 #' #D_o <- OSOAs_LiuLiu(DoE.base::L81.3.10, optimize=FALSE)$array
 #' #ocheck3(D_o)
 #'
@@ -133,11 +132,6 @@ ocheck.default <- function(D, verbose=FALSE, ...){
 #' @export
 ocheck.SOA <- function(D, verbose=FALSE, ...)
   ocheck.default(D$array, verbose=verbose, ...)
-
-#' @rdname ocheck
-#' @method ocheck OSOA
-#' @export
-ocheck.OSOA <- ocheck.SOA
 
 #' @rdname ocheck
 #' @method ocheck MDLE
@@ -179,11 +173,6 @@ ocheck3.SOA <- function(D, verbose=FALSE, ...)
   ocheck3.default(D$array, verbose=verbose, ...)
 
 #' @rdname ocheck
-#' @method ocheck3 OSOA
-#' @export
-ocheck3.OSOA <- ocheck3.SOA
-
-#' @rdname ocheck
 #' @method ocheck3 MDLE
 #' @export
 ocheck3.MDLE <- ocheck3.SOA
@@ -217,11 +206,6 @@ count_npairs.SOA <- function(D, minn=1, ...)
   count_npairs.default(D$array, minn=minn, ...)
 
 #' @rdname ocheck
-#' @method count_npairs OSOA
-#' @export
-count_npairs.OSOA <- count_npairs.SOA
-
-#' @rdname ocheck
 #' @method count_npairs MDLE
 #' @export
 count_npairs.MDLE <- count_npairs.SOA
@@ -241,7 +225,7 @@ count_nallpairs <- function(ns){
 #'
 #' phi_p calculates the discrepancy
 #'
-#' @param D an array or a list object of class SOA, OSOA or MDLE
+#' @param D an array or a list object of class SOA or MDLE
 #' @param dmethod the distance to use, \code{"euclidean"} or \code{"manhattan"}
 #' @param p the value for p to use in the formula for phi_p
 #' @param ... currently not used
@@ -284,16 +268,11 @@ phi_p.default <- function(D, dmethod="euclidean", p=50, ...){
 }
 
 #' @rdname phi_p
-#' @method phi_p OSOA
-#' @export
-phi_p.OSOA <- function(D, dmethod="euclidean", p=50, ...){
-  phi_p.default(D$array, dmethod=dmethod, p=p, ...)
-}
-
-#' @rdname phi_p
 #' @method phi_p SOA
 #' @export
-phi_p.SOA <- phi_p.OSOA
+phi_p.SOA <- function(D, dmethod="euclidean", p=50, ...){
+  phi_p.default(D$array, dmethod=dmethod, p=p, ...)
+}
 
 #' @rdname phi_p
 #' @method phi_p MDLE
@@ -444,11 +423,6 @@ soacheck2D.SOA <- function(D, s=3, el=3, t=3, alpha=NULL, verbose=FALSE, ...){
   soacheck2D.default(D$array, s=s, el=el, t=t, alpha=alpha, verbose=verbose, ...)
 }
 
-#' @rdname ocheck
-#' @method soacheck2D OSOA
-#' @export
-soacheck2D.OSOA <- soacheck2D.SOA
-
 ################################################################################
 
 #' @rdname ocheck
@@ -540,8 +514,3 @@ soacheck3D.default <- function(D, s=3, el=3, t=3, verbose=FALSE, ...){
 soacheck3D.SOA <- function(D, s=3, el=3, t=3, verbose=FALSE, ...){
   soacheck3D.default(D$array, s=s, el=el, t=t, verbose=verbose, ...)
 }
-
-#' @rdname ocheck
-#' @method soacheck3D OSOA
-#' @export
-soacheck3D.OSOA <- soacheck3D.SOA

@@ -157,7 +157,7 @@ OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, noptim.repeats=1, optimize=
               phi_p=phi_p(aus, dmethod=dmethod, p=p),
               optimized=FALSE)
   }
-  class(aus) <- c("OSOA", "list")
+  class(aus) <- c("SOA", "list")
   aus
 }
 
