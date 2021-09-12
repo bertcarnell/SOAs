@@ -59,11 +59,11 @@ Li et al.'s creation of the matrix A has been enhanced by using a column specifi
 fold-over, which is beneficial for the space-filling properties (see Groemping 2021).
 }
 \examples{
-dim(OSOAs_hadamard(9, optimize=FALSE)$array)  ## 9 8-level factors in 24 runs
-dim(OSOAs_hadamard(n=16, optimize=FALSE)$array) ## 6 8-level factors in 16 runs
+dim(OSOAs_hadamard(9, optimize=FALSE))  ## 9 8-level factors in 24 runs
+dim(OSOAs_hadamard(n=16, optimize=FALSE)) ## 6 8-level factors in 16 runs
 OSOAs_hadamard(n=24, m=6, optimize=FALSE) ## 6 8-level factors in 24 runs
                                           ## (though 10 would be possible)
-dim(OSOAs_hadamard(m=35, optimize=FALSE)$array) ## 35 8-level factors in 80 runs
+dim(OSOAs_hadamard(m=35, optimize=FALSE)) ## 35 8-level factors in 80 runs
 }
 \references{
 Groemping (2021)

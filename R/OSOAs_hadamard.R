@@ -47,11 +47,11 @@
 #' @author Ulrike Groemping
 #'
 #' @examples
-#' dim(OSOAs_hadamard(9, optimize=FALSE)$array)  ## 9 8-level factors in 24 runs
-#' dim(OSOAs_hadamard(n=16, optimize=FALSE)$array) ## 6 8-level factors in 16 runs
+#' dim(OSOAs_hadamard(9, optimize=FALSE))  ## 9 8-level factors in 24 runs
+#' dim(OSOAs_hadamard(n=16, optimize=FALSE)) ## 6 8-level factors in 16 runs
 #' OSOAs_hadamard(n=24, m=6, optimize=FALSE) ## 6 8-level factors in 24 runs
 #'                                           ## (though 10 would be possible)
-#' dim(OSOAs_hadamard(m=35, optimize=FALSE)$array) ## 35 8-level factors in 80 runs
+#' dim(OSOAs_hadamard(m=35, optimize=FALSE)) ## 35 8-level factors in 80 runs
 OSOAs_hadamard <- function(m=NULL, n=NULL, el=3, noptim.rounds=1, noptim.repeats=1, optimize=TRUE, dmethod="manhattan", p=50){
   ## m the target number of columns
   ## n the target number of runs

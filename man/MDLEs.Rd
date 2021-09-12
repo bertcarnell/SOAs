@@ -39,6 +39,7 @@ blow up the size of the output object enormously.}
 A matrix of class \code{MDLE} with attributes
 \describe{
 \item{phi_p}{the phi_p value that was achieved}
+\item{type}{MDLE}
 \item{optimized}{logical: same as the input parameter}
 \item{call}{the call that produced the matrix}
 \item{permpick}{matrix that lists the id numbers of the permutations used}
@@ -52,7 +53,7 @@ using an optimization algorithm that is less demanding than the TA algorithm
 of Xiao and Xu
 }
 \examples{
-dim(MDLEs(DoE.base::L16.4.5, 2, noptim.rounds = 1)$array)
+dim(MDLEs(DoE.base::L16.4.5, 2, noptim.rounds = 1))
 }
 \references{
 Xiao and Xu

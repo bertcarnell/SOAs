@@ -101,7 +101,7 @@ soacheck2D(OSOA64_2, s=2, el=2, t=2)
 ### fulfills also the 3D strength 3 property
 soacheck3D(OSOA64_2, s=2, el=2, t=3)
 ### fulfills also the 4D strength 4 property
-DoE.base::GWLP(OSOA64$array/2)
+DoE.base::GWLP(OSOA64/2)
 ### but not the 3D strength 4 property
 soacheck3D(OSOA64_2, s=2, el=2, t=4)
 ### and not the 2D 4x2 and 2x4 stratification balance

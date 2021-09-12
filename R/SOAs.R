@@ -39,14 +39,14 @@
 #'
 #' @examples
 #' aus <- SOAs(DoE.base::L27.3.4, optimize=FALSE)  ## t=3 is the default
-#' dim(aus$array)
+#' dim(aus)
 #' soacheck2D(aus, s=3, el=3) ## check for 2*
 #' soacheck3D(aus, s=3, el=3) ## check for 3
 #'
 #' aus2 <- SOAs(DoE.base::L27.3.4, t=2, optimize=FALSE)
 #' ## t can be smaller than the array strength
 #' ##     --> more columns with fewer levels each
-#' dim(aus2$array)
+#' dim(aus2)
 #' soacheck2D(aus2, s=3, el=2, t=2) # check for 2
 #' soacheck3D(aus2, s=3, el=2)      # t=3 is the default (check for 3-)
 SOAs <- function(oa, t=3, noptim.rounds=1, noptim.repeats=1, optimize=TRUE, dmethod="manhattan", p=50){

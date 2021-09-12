@@ -82,7 +82,7 @@
 #' ### fulfills also the 3D strength 3 property
 #' soacheck3D(OSOA64_2, s=2, el=2, t=3)
 #' ### fulfills also the 4D strength 4 property
-#' DoE.base::GWLP(OSOA64$array/2)
+#' DoE.base::GWLP(OSOA64/2)
 #' ### but not the 3D strength 4 property
 #' soacheck3D(OSOA64_2, s=2, el=2, t=4)
 #' ### and not the 2D 4x2 and 2x4 stratification balance
@@ -169,7 +169,7 @@ OSOAs_LiuLiu <- function(oa, t=NULL, m=NULL, noptim.rounds=1, noptim.repeats=1,
   }else{
     aus <- OSOA_LiuLiut(oa=oa, t=t, m=m, random=FALSE)
     attrs <- list(type="OSOA", strength=t,
-                  phi_p(aus, dmethod=dmethod, p=p), optimized=FALSE, call=mycall)
+                  phi_p=phi_p(aus, dmethod=dmethod, p=p), optimized=FALSE, call=mycall)
   }
   class(aus) <- c("SOA", class(aus))
   attributes(aus) <- c(attributes(aus), attrs)
