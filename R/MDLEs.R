@@ -94,7 +94,8 @@ MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, optimize.oa=TRUE,
     }
       curpos2 <- 999
     }
-    aus <- list(MDLE=cur$arrays[[1]], phi_p=phi_pvals[1],
+    aus <- list(array=cur$arrays[[1]],
+                phi_p=phi_pvals[1],
                 optimized=TRUE)
     if (storeperms){
       aus$permpick <- curpermpick
@@ -102,7 +103,8 @@ MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, optimize.oa=TRUE,
     }
   }else{
     MDLE <- DcFromDp(Dp, s, ell)
-    aus <- list(array=MDLE, phi_p=phi_p(MDLE, dmethod=dmethod, p=p),
+    aus <- list(array=MDLE,
+                phi_p=phi_p(MDLE, dmethod=dmethod, p=p),
                 optimized=FALSE)
   }
   class(aus) <- c("MDLE", "list")

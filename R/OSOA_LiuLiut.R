@@ -1,6 +1,6 @@
 #' Strong Orthogonal Arrays of Strength t using the method of Liu and Liu
 #'
-#' @param oa input matrix or dataframe
+#' @param oa input matrix or data.frame
 #' @param t strength of \code{oa}.  If \code{NULL} (default), \code{t} will be
 #' determined.  \code{t} can be chosen smaller than the input strength if
 #' additional columns are desired.

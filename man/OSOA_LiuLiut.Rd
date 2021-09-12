@@ -7,7 +7,7 @@
 OSOA_LiuLiut(oa, t = NULL, m = NULL, permlist = NULL, random = TRUE)
 }
 \arguments{
-\item{oa}{input matrix or dataframe}
+\item{oa}{input matrix or data.frame}
 
 \item{t}{strength of \code{oa}.  If \code{NULL} (default), \code{t} will be
 determined.  \code{t} can be chosen smaller than the input strength if
