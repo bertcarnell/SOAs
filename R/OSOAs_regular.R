@@ -38,6 +38,14 @@
 #' modification for matrix A by Groemping 2021. Level permutations are optimized
 #' using an adaptation of the algorithm by Weng (2014).
 #'
+#' If \code{m} is specified, the function uses the last \code{m} columns of
+#' a saturated OA produced by function \code{\link{createSaturated}(s, k-1)}. \cr
+#' If \code{m} is small enough that a resolution IV / strength 3 OA for \code{s} levels in \code{s^(k-1)} runs exists,
+#' function \code{\link{OSOAs}} should be used with such an OA (which can be obtained from package \pkg{FrF2}
+#' for \code{s=2} or from package \pkg{DoE.base} for \code{s>2}). For \code{s=2},
+#' function \code{\link{OSOAs_hadamard}} may also be a better choice than \code{\link{OSOAs_regular} for
+#' up to 192 runs}.
+#'
 #' @export
 #' @references
 #' Groemping (2021)
@@ -62,9 +70,10 @@ OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1, noptim.repeats=1,
   stopifnot(s %in% c(2,3,4,5,7,8,9,11,13,16,17,19,23,27,29,31,32,37))
   stopifnot(el %in% c(2,3))  ## 3 for Li Liu and Yang (2021), 2 for Zhou and Tang (2019)
 
+  mmax <- (s^(k-1)-1)/(s-1)
   ## create ingoing array with m columns, and call OSOAs with morig
   if (is.null(m)){
-    m <- morig <- (s^(k-1)-1)/(s-1)
+    m <- morig <- mmax
     if (el==3) m <- morig <- 2*floor(m/2)
   }else{
     if (m > (s^(k-1)-1)/(s-1)) stop("m is too large")
@@ -75,7 +84,7 @@ OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1, noptim.repeats=1,
         m <- m + 1
     }
   }
-  oa <- createSaturated(s, k-1)[,1:m]
+  oa <- createSaturated(s, k-1)[,mmax:(mmax-m+1), drop=FALSE]
   if (m<=50) colnames(oa) <- DoE.base::Letters[1:m] else
     colnames <- paste0("F", 1:m)
   aus <- OSOAs(oa, el=el, m=morig,

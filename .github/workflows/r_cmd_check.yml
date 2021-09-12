@@ -18,7 +18,7 @@ jobs:
         config:
           - {os: windows-latest, r: 'release'}
           - {os: windows-latest, r: 'devel'}
-          - {os: macOS-latest, r: 'release'}
+          #- {os: macOS-latest, r: 'release'} # still erroring on 9/12/2021 with a system issue
           - {os: macOS-latest, r: 'devel'}
           - {os: ubuntu-latest, r: 'release'}
           - {os: ubuntu-latest, r: 'devel'}
@@ -60,7 +60,9 @@ jobs:
         shell: Rscript {0}
 
       - name: Code Coverage
-        if: ${{ matrix.config.os }} == 'ubuntu-latest' && ${{ matrix.config.r }} == 'release'
-        run: covr::codecov()
+        if: matrix.config.os == 'windows-latest' && matrix.config.r == 'release'
+        run: |
+          install.packages("covr")
+          covr::codecov()
         shell: Rscript {0}
 
