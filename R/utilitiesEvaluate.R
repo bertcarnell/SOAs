@@ -105,15 +105,11 @@
 #' #mylm <- stats::lm(y~(X1+X2+X3+X4)^2 + I(X1^2)+I(X2^2)+I(X3^2)+I(X4^2),
 #' #                   data=as.data.frame(scale(D_o, scale=FALSE)))
 #' #crossprod(stats:model.matrix(mylm))
-ocheck <- function(D, verbose=FALSE, ...){
-  UseMethod("ocheck")
-}
 
 #' @rdname ocheck
-#' @method ocheck default
 #' @importFrom stats cor
 #' @export
-ocheck.default <- function(D, verbose=FALSE, ...){
+ocheck <- function(D, verbose=FALSE, ...){
   if (is.data.frame(D)) D <- as.matrix(D)
   stopifnot(is.matrix(D))
   stopifnot(is.numeric(D))
@@ -127,27 +123,10 @@ ocheck.default <- function(D, verbose=FALSE, ...){
   }
 }
 
-#' @rdname ocheck
-#' @method ocheck SOA
-#' @export
-ocheck.SOA <- function(D, verbose=FALSE, ...)
-  ocheck.default(D$array, verbose=verbose, ...)
-
-#' @rdname ocheck
-#' @method ocheck MDLE
-#' @export
-ocheck.MDLE <- ocheck.SOA
 
 #' @rdname ocheck
 #' @export
 ocheck3 <- function(D, verbose=FALSE, ...){
-  UseMethod("ocheck3")
-}
-
-#' @rdname ocheck
-#' @method ocheck3 default
-#' @export
-ocheck3.default <- function(D, verbose=FALSE, ...){
   if (is.data.frame(D)) D <- as.matrix(D)
   stopifnot(is.matrix(D))
   stopifnot(is.numeric(D))
@@ -166,28 +145,10 @@ ocheck3.default <- function(D, verbose=FALSE, ...){
   return(aus)
 }
 
-#' @rdname ocheck
-#' @method ocheck3 SOA
-#' @export
-ocheck3.SOA <- function(D, verbose=FALSE, ...)
-  ocheck3.default(D$array, verbose=verbose, ...)
-
-#' @rdname ocheck
-#' @method ocheck3 MDLE
-#' @export
-ocheck3.MDLE <- ocheck3.SOA
-
-
 ## count number of distinct pairs
 #' @rdname ocheck
 #' @export
-count_npairs <- function(D, minn=1, ...)
-  UseMethod("count_npairs")
-
-#' @rdname ocheck
-#' @method count_npairs default
-#' @export
-count_npairs.default <- function(D, minn=1, ...){
+count_npairs <- function(D, minn=1, ...){
   paare <- nchoosek(ncol(D), 2)
   ## pick pairs in which each column is involved
   colposs <- lapply(1:ncol(D), function(obj)
@@ -198,17 +159,6 @@ count_npairs.default <- function(D, minn=1, ...){
   columnpaircounts <- sapply(colposs, function(obj) sum(paircounts[obj]))
   return(list(paircounts=paircounts, columnpaircounts=columnpaircounts))
 }
-
-#' @rdname ocheck
-#' @method count_npairs SOA
-#' @export
-count_npairs.SOA <- function(D, minn=1, ...)
-  count_npairs.default(D$array, minn=minn, ...)
-
-#' @rdname ocheck
-#' @method count_npairs MDLE
-#' @export
-count_npairs.MDLE <- count_npairs.SOA
 
 #' @rdname ocheck
 #' @export
@@ -250,14 +200,9 @@ count_nallpairs <- function(ns){
 #'   hist(dist(A), xlim=c(2,6), ylim=c(0,40))
 #'   hist(dist(A2), xlim=c(2,6), ylim=c(0,40))
 #' }
-phi_p <- function(D, dmethod, p, ...)
-  UseMethod("phi_p")
-
-#' @rdname phi_p
-#' @method phi_p default
 #' @export
 #' @importFrom stats dist
-phi_p.default <- function(D, dmethod="euclidean", p=50, ...){
+phi_p <- function(D, dmethod="euclidean", p=50, ...){
   stopifnot(p>=1)
   stopifnot(dmethod %in% c("euclidean", "manhattan"))
   stopifnot(is.matrix(D) || is.data.frame(D))
@@ -267,31 +212,11 @@ phi_p.default <- function(D, dmethod="euclidean", p=50, ...){
   sum(distmat^(-p))^(1/p)
 }
 
-#' @rdname phi_p
-#' @method phi_p SOA
-#' @export
-phi_p.SOA <- function(D, dmethod="euclidean", p=50, ...){
-  phi_p.default(D$array, dmethod=dmethod, p=p, ...)
-}
-
-#' @rdname phi_p
-#' @method phi_p MDLE
-#' @export
-phi_p.MDLE <- function(D, dmethod="manhattan", p=50, ...){
-  phi_p.default(D$array, dmethod=dmethod, p=p, ...)
-}
-
 ################################################################################
 
 #' @rdname ocheck
 #' @export
-soacheck2D <- function(D, s=3, el=3, t=3, alpha=NULL, verbose=FALSE, ...)
-  UseMethod("soacheck2D")
-
-#' @rdname ocheck
-#' @method soacheck2D default
-#' @export
-soacheck2D.default <- function(D, s=3, el=3, t=3, alpha=NULL, verbose=FALSE, ...){
+soacheck2D <- function(D, s=3, el=3, t=3, alpha=NULL, verbose=FALSE, ...){
   if (!is.null(s)){
   stopifnot(all(levels.no(D)==s^el))
   if (el==2 && t==4) message("property gamma is not possible, ",
@@ -416,24 +341,11 @@ soacheck2D.default <- function(D, s=3, el=3, t=3, alpha=NULL, verbose=FALSE, ...
   }
 }
 
-#' @rdname ocheck
-#' @method soacheck2D SOA
-#' @export
-soacheck2D.SOA <- function(D, s=3, el=3, t=3, alpha=NULL, verbose=FALSE, ...){
-  soacheck2D.default(D$array, s=s, el=el, t=t, alpha=alpha, verbose=verbose, ...)
-}
-
 ################################################################################
 
 #' @rdname ocheck
 #' @export
-soacheck3D <- function(D, s=3, el=3, t=3, verbose=FALSE, ...)
-  UseMethod("soacheck3D")
-
-#' @rdname ocheck
-#' @method soacheck3D default
-#' @export
-soacheck3D.default <- function(D, s=3, el=3, t=3, verbose=FALSE, ...){
+soacheck3D <- function(D, s=3, el=3, t=3, verbose=FALSE, ...){
   stopifnot(all(levels.no(D)==s^el))
 
   k <- el  ## renamed k to el, because el is the logical name, code has still k
@@ -506,11 +418,4 @@ soacheck3D.default <- function(D, s=3, el=3, t=3, verbose=FALSE, ...){
 
   }
   aus
-}
-
-#' @rdname ocheck
-#' @method soacheck3D SOA
-#' @export
-soacheck3D.SOA <- function(D, s=3, el=3, t=3, verbose=FALSE, ...){
-  soacheck3D.default(D$array, s=s, el=el, t=t, verbose=verbose, ...)
 }

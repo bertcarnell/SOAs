@@ -36,11 +36,14 @@ oa (e.g. because it was already optimized)}
 blow up the size of the output object enormously.}
 }
 \value{
-A list of class \code{MDLE}
+A matrix of class \code{MDLE} with attributes
 \describe{
-\item{array}{TODO:  Description}
-\item{phi_p}{TODO:  Description}
+\item{phi_p}{the phi_p value that was achieved}
 \item{optimized}{logical: same as the input parameter}
+\item{call}{the call that produced the matrix}
+\item{permpick}{matrix that lists the id numbers of the permutations used}
+\item{perms2pickfrom}{optional element, when optimization was conducted: the
+overall permutation list to which the numbers in permlist refer}
 }
 }
 \description{

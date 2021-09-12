@@ -21,17 +21,17 @@
 #' modification for matrix A by Groemping 2021. Level permutations are optimized
 #' using an adaptation of the algorithm by Weng (2014).
 #'
-#' @return List with the following elements
+#' @return matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
 #' \describe{
-#' \item{array }{the array}
-#' \item{type }{the type of array}
-#' \item{strength}{character string that gives the strength}
-#' \item{phi_p}{the phi_p value (smaller=better)}
-#' \item{optimized}{logical indicating whether optimization was applied}
-#' \item{permpick}{matrix that lists the id numbers of the permutations used}
-#' \item{perms2pickfrom}{optional element, when optimization was conducted:
-#' the overall permutation list to which the numbers in permlist refer}
-#' }
+#'   \item{type}{the type of array (\code{SOA} or \code{OSOA})}
+#'   \item{strength}{character string that gives the strength}
+#'   \item{phi_p}{the phi_p value (smaller=better)}
+#'   \item{optimized}{logical indicating whether optimization was applied}
+#'   \item{permpick}{matrix that lists the id numbers of the permutations used}
+#'   \item{perms2pickfrom}{optional element, when optimization was conducted: the
+#'   overall permutation list to which the numbers in permlist refer}
+#'   \item{call}{the call that created the object}
+#'   }
 #' @references
 #' Groemping (2021)
 #' Li, Liu and Yang (2021)
@@ -69,6 +69,8 @@ OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, noptim.repeats=1, optimize=
   ## together with the optimization dmethod
   ## analogous to the master thesis by J. Weng
   ##    as implemented in NeighbourcalcUniversal
+  mycall <- sys.call()
+
   stopifnot(el %in% c(2,3))  ## el=3: Li et al; el=2: Zhou and Tang
   stopifnot(is.matrix(oa) || is.data.frame(oa))
 
@@ -141,23 +143,26 @@ OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, noptim.repeats=1, optimize=
          if(round(DoE.base::length3(attr(aus$array, "A")),8) == 0) t <- 3
     }
     attr(aus$array, "A") <- NULL
-    aus <- list(array=aus$array, type="OSOA", strength=ifelse(t==2 || m<3, ifelse(el==2,"2+","2*"),
+
+    attrs <- list(type="OSOA", strength=ifelse(t==2 || m<3, ifelse(el==2,"2+","2*"),
                                                                   ifelse(el==2,"3-","3")),
               phi_p=aus$phi_p, optimized=TRUE, permpick = curpermpick,
               perms2pickfrom =
-                lapply(combinat::permn(s), function(obj) obj-1))
+                lapply(combinat::permn(s), function(obj) obj-1), call=mycall)
+    aus <- aus$array
   }else{
     aus <- OSOAarbitrary(oa=oa, el=el, m=origm,  random=FALSE)
     if (t==2)
       if (round(DoE.base::length3(attr(aus, "A")),8) == 0) t <- 3
     attr(aus, "A") <- NULL
 
-    aus <- list(array=aus, type="OSOA", strength=ifelse(t==2 || origm<3, ifelse(el==2,"2+","2*"),
+    attrs <- list(type="OSOA", strength=ifelse(t==2 || origm<3, ifelse(el==2,"2+","2*"),
                                                        ifelse(el==2,"3-","3")),
               phi_p=phi_p(aus, dmethod=dmethod, p=p),
-              optimized=FALSE)
+              optimized=FALSE, call=mycall)
   }
   class(aus) <- c("SOA", "list")
+  attributes(aus) <- c(attributes(aus), attrs)
   aus
 }
 

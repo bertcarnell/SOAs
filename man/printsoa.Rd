@@ -2,13 +2,10 @@
 % Please edit documentation in R/print-methods.R
 \name{print.SOA}
 \alias{print.SOA}
-\alias{print.OSOA}
 \alias{print.MDLE}
 \title{Print Methods}
 \usage{
 \method{print}{SOA}(x, ...)
-
-\method{print}{OSOA}(x, ...)
 
 \method{print}{MDLE}(x, ...)
 }

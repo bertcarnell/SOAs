@@ -2,63 +2,24 @@
 % Please edit documentation in R/utilitiesEvaluate.R
 \name{ocheck}
 \alias{ocheck}
-\alias{ocheck.default}
-\alias{ocheck.SOA}
-\alias{ocheck.MDLE}
 \alias{ocheck3}
-\alias{ocheck3.default}
-\alias{ocheck3.SOA}
-\alias{ocheck3.MDLE}
 \alias{count_npairs}
-\alias{count_npairs.default}
-\alias{count_npairs.SOA}
-\alias{count_npairs.MDLE}
 \alias{count_nallpairs}
 \alias{soacheck2D}
-\alias{soacheck2D.default}
-\alias{soacheck2D.SOA}
 \alias{soacheck3D}
-\alias{soacheck3D.default}
-\alias{soacheck3D.SOA}
 \title{functions to evaluate low order projection properties of (O)SOAs}
 \usage{
 ocheck(D, verbose = FALSE, ...)
 
-\method{ocheck}{default}(D, verbose = FALSE, ...)
-
-\method{ocheck}{SOA}(D, verbose = FALSE, ...)
-
-\method{ocheck}{MDLE}(D, verbose = FALSE, ...)
-
 ocheck3(D, verbose = FALSE, ...)
 
-\method{ocheck3}{default}(D, verbose = FALSE, ...)
-
-\method{ocheck3}{SOA}(D, verbose = FALSE, ...)
-
-\method{ocheck3}{MDLE}(D, verbose = FALSE, ...)
-
 count_npairs(D, minn = 1, ...)
-
-\method{count_npairs}{default}(D, minn = 1, ...)
-
-\method{count_npairs}{SOA}(D, minn = 1, ...)
-
-\method{count_npairs}{MDLE}(D, minn = 1, ...)
 
 count_nallpairs(ns)
 
 soacheck2D(D, s = 3, el = 3, t = 3, alpha = NULL, verbose = FALSE, ...)
 
-\method{soacheck2D}{default}(D, s = 3, el = 3, t = 3, alpha = NULL, verbose = FALSE, ...)
-
-\method{soacheck2D}{SOA}(D, s = 3, el = 3, t = 3, alpha = NULL, verbose = FALSE, ...)
-
 soacheck3D(D, s = 3, el = 3, t = 3, verbose = FALSE, ...)
-
-\method{soacheck3D}{default}(D, s = 3, el = 3, t = 3, verbose = FALSE, ...)
-
-\method{soacheck3D}{SOA}(D, s = 3, el = 3, t = 3, verbose = FALSE, ...)
 }
 \arguments{
 \item{D}{a matrix with factor levels or a list object of class \code{SOA}

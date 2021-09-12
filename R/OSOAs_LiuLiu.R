@@ -28,16 +28,16 @@
 #' Ingoing arrays can be obtained
 #' from oa-generating functions like \code{createBoseBush}, or from OAs in
 #' R package \pkg{DoE.base}, or from 2-level designs created with R package \pkg{FrF2}.
-#' @return List with the following elements
+#' @return matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
 #' \describe{
-#'   \item{array }{the array}
-#'   \item{type }{the type of array}
+#'   \item{type}{the type of array (\code{SOA} or \code{OSOA})}
 #'   \item{strength}{character string that gives the strength}
 #'   \item{phi_p}{the phi_p value (smaller=better)}
 #'   \item{optimized}{logical indicating whether optimization was applied}
 #'   \item{permpick}{matrix that lists the id numbers of the permutations used}
 #'   \item{perms2pickfrom}{optional element, when optimization was conducted: the
 #'   overall permutation list to which the numbers in permlist refer}
+#'   \item{call}{the call that created the object}
 #'   }
 #' @export
 #'
@@ -96,6 +96,8 @@ OSOAs_LiuLiu <- function(oa, t=NULL, m=NULL, noptim.rounds=1, noptim.repeats=1,
   ## together with the optimization method
   ## analogous to the master thesis by J. Weng
   ##    as implemented in NeighbourcalcUniversal
+
+  mycall <- sys.call()
 
   stopifnot(is.matrix(oa) || is.data.frame(oa))
   ## matrix is preferred!
@@ -159,16 +161,17 @@ OSOAs_LiuLiu <- function(oa, t=NULL, m=NULL, noptim.rounds=1, noptim.repeats=1,
     ## currently, phi_p decides
     pickmin <- which.min(sapply(aus_repeats, function(obj) obj$phi_p))
     aus <- aus_repeats[[pickmin]]
-
-    aus <- list(array=aus$array, type="OSOA", strength=t,
-                phi_p=aus$phi_p, optimized=TRUE, permpick = curpermpick,
-                perms2pickfrom =
-                  lapply(combinat::permn(s), function(obj) obj-1))
+    attrs <- list(type="OSOA", strength=t,
+                  phi_p=aus$phi_p, optimized=TRUE, permpick = curpermpick,
+                  perms2pickfrom =
+                    lapply(combinat::permn(s), function(obj) obj-1), call=mycall)
+    aus <- aus$array
   }else{
-    OSOA <- OSOA_LiuLiut(oa=oa, t=t, m=m, random=FALSE)
-    aus <- list(array=OSOA, type="OSOA", strength=t,
-                phi_p=phi_p(OSOA, dmethod=dmethod, p=p), optimized=FALSE)
+    aus <- OSOA_LiuLiut(oa=oa, t=t, m=m, random=FALSE)
+    attrs <- list(type="OSOA", strength=t,
+                  phi_p(OSOA, dmethod=dmethod, p=p), optimized=FALSE, call=mycall)
   }
-  class(aus) <- c("SOA", "list")
+  class(aus) <- c("SOA", class(aus))
+  attributes(aus) <- c(attributes(aus), attrs)
   aus
 }

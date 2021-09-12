@@ -37,16 +37,16 @@ See Details section}
 \item{p}{p for \code{\link{phi_p}} (the larger, the closer to maximin distance)}
 }
 \value{
-List with the following elements
+matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
 \describe{
-\item{array}{the array}
-\item{type}{the type of array}
+\item{type}{the type of array (\code{SOA} or \code{OSOA})}
 \item{strength}{character string that gives the strength}
 \item{phi_p}{the phi_p value (smaller=better)}
 \item{optimized}{logical indicating whether optimization was applied}
 \item{permpick}{matrix that lists the id numbers of the permutations used}
 \item{perms2pickfrom}{optional element, when optimization was conducted: the
 overall permutation list to which the numbers in permlist refer}
+\item{call}{the call that created the object}
 }
 }
 \description{
