@@ -110,7 +110,7 @@ SOAs <- function(oa, t=3, noptim.rounds=1, noptim.repeats=1, optimize=TRUE, dmet
   }else{
     aus <- soa(oa, t=t, random=FALSE)
     attrs <- list(type="SOA", strength=as.character(t),
-                phi_p=phi_p(SOA, dmethod=dmethod, p=p),
+                phi_p=phi_p(aus, dmethod=dmethod, p=p),
                 optimized=FALSE, call=mycall)
   }
   class(aus) <- c("SOA", "list")

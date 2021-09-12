@@ -169,7 +169,7 @@ OSOAs_LiuLiu <- function(oa, t=NULL, m=NULL, noptim.rounds=1, noptim.repeats=1,
   }else{
     aus <- OSOA_LiuLiut(oa=oa, t=t, m=m, random=FALSE)
     attrs <- list(type="OSOA", strength=t,
-                  phi_p(OSOA, dmethod=dmethod, p=p), optimized=FALSE, call=mycall)
+                  phi_p(aus, dmethod=dmethod, p=p), optimized=FALSE, call=mycall)
   }
   class(aus) <- c("SOA", class(aus))
   attributes(aus) <- c(attributes(aus), attrs)

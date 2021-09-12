@@ -34,7 +34,7 @@
 #' @author Ulrike Groemping
 #'
 #' @examples
-#' dim(MDLEs(DoE.base::L16.4.5, 2, noptim.rounds = 1)$array)
+#' dim(MDLEs(DoE.base::L16.4.5, 2, noptim.rounds = 1))
 MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, optimize.oa=TRUE,
                   dmethod="manhattan", p=50, storeperms=FALSE){
   ### implements the Weng optimization
