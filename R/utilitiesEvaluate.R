@@ -82,7 +82,7 @@
 #' soacheck3D(nullcase, s=2)
 #'
 #' ## Shi and Tang strength 3+ construction in 7 8-level factors for 32 runs
-#' D <- SOAs8level(32, optimize=FALSE)
+#' D <- SOAs_8level(32, optimize=FALSE)
 #'
 #' ## check for strength 3+ (default el=3 is OK)
 #' ## 2D check

@@ -1,7 +1,7 @@
 oa1 <- lhs::createBusht(3, 4, 3)
 nullcase <- matrix(0:7, nrow=8, ncol=4)
 ## Shi and Tang strength 3+ construction in 7 8-level factors for 32 runs
-st1 <- SOAs8level(32, optimize=FALSE)
+st1 <- SOAs_8level(32, optimize=FALSE)
 
 test_that("ocheck.default", {
   expect_true(ocheck(oa1))
