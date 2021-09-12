@@ -89,11 +89,12 @@ OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, noptim.repeats=1, optimize=
   }
   else{
     origm <- m
+    if (m > ncol(oa)) stop("m is too large, ", "oa has only ", ncol(oa), " columns")
     if (m%%2==1 && el==3){
       if (m < ncol(oa))
         m <- m+1
       else
-      stop("with this oa, at most ", 2*floor(ncol(oa)/2), " columns are possible" )
+      stop("with this oa and el=3, at most ", 2*floor(ncol(oa)/2), " columns are possible" )
     }
   }
   r <- 2
@@ -146,12 +147,12 @@ OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, noptim.repeats=1, optimize=
               perms2pickfrom =
                 lapply(combinat::permn(s), function(obj) obj-1))
   }else{
-    aus <- OSOAarbitrary(oa=oa, el=el, m=m,  random=FALSE)
+    aus <- OSOAarbitrary(oa=oa, el=el, m=origm,  random=FALSE)
     if (t==2)
       if (round(DoE.base::length3(attr(aus, "A")),8) == 0) t <- 3
     attr(aus, "A") <- NULL
 
-    aus <- list(array=aus, type="OSOA", strength=ifelse(t==2 || m<3, ifelse(el==2,"2+","2*"),
+    aus <- list(array=aus, type="OSOA", strength=ifelse(t==2 || origm<3, ifelse(el==2,"2+","2*"),
                                                        ifelse(el==2,"3-","3")),
               phi_p=phi_p(aus, dmethod=dmethod, p=p),
               optimized=FALSE)

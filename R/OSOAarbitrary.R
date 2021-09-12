@@ -36,11 +36,12 @@ OSOAarbitrary <- function(oa, el=3, m=NULL, permlist=NULL, random=TRUE){
   }
   else{
     origm <- m
+    if (m > ncol(oa)) stop("m is too large, ", "oa has only ", ncol(oa), " columns")
     if (m%%2==1 && el==3){
       if (m < ncol(oa))
         m <- m+1
         else
-        stop("with this oa, at most ", 2*floor(ncol(oa)/2), " columns are possible" )
+        stop("with this oa and el=3, at most ", 2*floor(ncol(oa)/2), " columns are possible" )
     }
   }
 

@@ -65,7 +65,8 @@ OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1, noptim.repeats=1,
     m <- morig <- (s^(k-1)-1)/(s-1)
     if (el==3) m <- morig <- 2*floor(m/2)
   }else{
-    stopifnot(m <= 2*floor((s^(k-1)-1)/(2*(s-1))))
+    if (m > (s^(k-1)-1)/(s-1)) stop("m is too large")
+    if (m > 2*floor((s^(k-1)-1)/(2*(s-1)))) stop("m is too large in combination with el=3")
     morig <- m
     if (el==3) {
       if (m%%2==1)

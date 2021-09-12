@@ -66,29 +66,27 @@ OSOAs_hadamard <- function(m=NULL, n=NULL, el=3, noptim.rounds=1, noptim.repeats
   }
   if (!is.null(n) && !is.null(m)){
     stopifnot(m < n/2)   ## el=2: can use all pb columns
-    if (el==3) stopifnot(m < n/2 - 1)
+    if (el==3 && m > n/2 - 1) stop("For this n with el=3, m is too large")
     mmax <- m
   }
   if (is.null(m)){
     ## make m the largest possible for the specified array size
     if (el==2) {
-      m <- n/2 - 1
-      mmax <- m
+        m <- n/2 - 1
+        mmax <- m
       }else {
         m <- n/2 - 2
         mmax <- m+1  ## number of columns of the pb to use
       }
   }
   if (is.null(n)){
-    ## determine necessary mmax for m factors in pb
-    if (el==2){
+    ## determine necessary n for m factors in pb
+    if (el==2)
        n <- 8*ceiling((m+1)/4)
-       mmax <- n/2 - 1
-    }else{
-       ## at most mmax-1 columns can be accommodated in the OSOA for el=3
+    else
        n <- 8*ceiling((m+2)/4)
-       mmax <- n/2 - 1
-    }
+       ## at most mmax-1 columns can be accommodated in the OSOA for el=3
+    mmax <- n/2 - 1
   }
 
   s <- 2
