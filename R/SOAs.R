@@ -20,15 +20,16 @@
 #' (denoted as m) and the strength t: m'(m,2)=m, m'(m,3)=m-1, m'(m,4)=floor(m/2),
 #' m'(m,5)=floor((m-1)/2).
 #'
-#' @return List with the following elements
+#' @return matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
 #' \describe{
-#'   \item{array }{the array}
-#'   \item{type }{the type of array}
+#'   \item{type}{the type of array (\code{SOA} or \code{OSOA})}
 #'   \item{strength}{character string that gives the strength}
 #'   \item{phi_p}{the phi_p value (smaller=better)}
 #'   \item{optimized}{logical indicating whether optimization was applied}
 #'   \item{permpick}{matrix that lists the id numbers of the permutations used}
-#'   \item{perms2pickfrom}{optional element, when optimization was conducted: the overall permutation list to which the numbers in permlist refer}
+#'   \item{perms2pickfrom}{optional element, when optimization was conducted: the
+#'   overall permutation list to which the numbers in permlist refer}
+#'   \item{call}{the call that created the object}
 #'   }
 #' @export
 #' @references
@@ -49,6 +50,7 @@
 #' soacheck2D(aus2, s=3, el=2, t=2) # check for 2
 #' soacheck3D(aus2, s=3, el=2)      # t=3 is the default (check for 3-)
 SOAs <- function(oa, t=3, noptim.rounds=1, noptim.repeats=1, optimize=TRUE, dmethod="manhattan", p=50){
+  mycall <- sys.call()
   stopifnot(is.matrix(oa))
   stopifnot(length(s <- unique(levels.no(oa)))==1)
   stopifnot(s%%1 == 0) ## integer
@@ -100,17 +102,18 @@ SOAs <- function(oa, t=3, noptim.rounds=1, noptim.repeats=1, optimize=TRUE, dmet
     ## currently, phi_p decides
     pickmin <- which.min(sapply(aus_repeats, function(obj) obj$phi_p))
     aus <- aus_repeats[[pickmin]]
-
-    aus <- list(array=aus$array, type="SOA", strength=as.character(t),
+    attrs <- list(type="SOA", strength=as.character(t),
               phi_p=aus$phi_p, optimized=TRUE, permpick = curpermpick,
               perms2pickfrom =
-                lapply(combinat::permn(s), function(obj) obj-1))
+                lapply(combinat::permn(s), function(obj) obj-1), call=mycall)
+    aus <- aus$array
   }else{
-    SOA <- soa(oa, t=t, random=FALSE)
-    aus <- list(array=SOA, type="SOA", strength=as.character(t),
+    aus <- soa(oa, t=t, random=FALSE)
+    attrs <- list(type="SOA", strength=as.character(t),
                 phi_p=phi_p(SOA, dmethod=dmethod, p=p),
-                optimized=FALSE)
+                optimized=FALSE, call=mycall)
   }
   class(aus) <- c("SOA", "list")
+  attributes(aus) <- c(attributes(aus), attrs)
   aus
 }

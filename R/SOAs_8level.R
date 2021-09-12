@@ -31,17 +31,17 @@
 #' strength 3+.
 #'
 #' The construction is implemented in the equivalent form as described in ...
-#' @return List with the following elements
+#' @return matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
 #' \describe{
-#'   \item{array}{the array}
-#'   \item{type}{the type of array}
+#'   \item{type}{the type of array (\code{SOA} or \code{OSOA})}
 #'   \item{strength}{character string that gives the strength}
 #'   \item{phi_p}{the phi_p value (smaller=better)}
 #'   \item{optimized}{logical indicating whether optimization was applied}
 #'   \item{permpick}{matrix that lists the id numbers of the permutations used}
 #'   \item{perms2pickfrom}{optional element, when optimization was conducted: the
 #'   overall permutation list to which the numbers in permlist refer}
-#' }
+#'   \item{call}{the call that created the object}
+#'   }
 #' @references
 #' Shi and Tang (2020)
 #' Weng (2014)
@@ -65,6 +65,7 @@
 SOAs_8level <- function(n, m=NULL,
                        constr="ShiTang_alphabeta",
                        noptim.rounds=1, noptim.repeats=1, optimize=TRUE, dmethod="manhattan", p=50){
+  mycall <- sys.call()
   stopifnot(constr %in% c("ShiTang_alphabeta", "ShiTang_alpha"))
   stopifnot(dmethod %in% c("manhattan", "euclidean"))
   stopifnot(n >= 16)
@@ -116,19 +117,21 @@ SOAs_8level <- function(n, m=NULL,
     pickmin <- which.min(sapply(aus_repeats, function(obj) obj$phi_p))
     aus <- aus_repeats[[pickmin]]
 
-    aus <- list(array=aus$array, type="SOA",
+    attrs <- list(type="SOA",
                 strength=ifelse(constr=="ShiTang_alphabeta" && m<n/4,
                                                                    "3+", "3"),
                 phi_p=aus$phi_p, optimized=TRUE, permpick = curpermpick,
                 perms2pickfrom =
-                  lapply(combinat::permn(s), function(obj) obj-1))
+                  lapply(combinat::permn(s), function(obj) obj-1), call=mycall)
+    aus <- aus$array
   }else{
-    hilf <- create_DfromABC(ABC)
-    aus <- list(array=hilf, type="SOA",
+    aus <- create_DfromABC(ABC)
+    attrs <- list(type="SOA",
                 strength=ifelse(constr=="ShiTang_alphabeta" && m < n/4,
                                                         "3+", "3"),
-                phi_p=phi_p(hilf), optimized=FALSE, permpick=matrix(1, nrow=3, ncol=m))
+                phi_p=phi_p(aus), optimized=FALSE, permpick=matrix(1, nrow=3, ncol=m), call=mycall)
   }
   class(aus) <- c("SOA", "list")
+  attributes(aus) <- c(attributes(aus), attrs)
   aus
 }

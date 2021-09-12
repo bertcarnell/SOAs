@@ -31,16 +31,16 @@
 #' (e.g. s=5 with k=3), for which the unoptimized array has a better phi_p than
 #' what can be achieved by most optimization attempts from a random start.
 #'
-#' @return List with the following elements
+#' @return matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
 #' \describe{
-#'   \item{array }{the array}
-#'   \item{type }{the type of array}
+#'   \item{type}{the type of array (\code{SOA} or \code{OSOA})}
 #'   \item{strength}{character string that gives the strength}
 #'   \item{phi_p}{the phi_p value (smaller=better)}
 #'   \item{optimized}{logical indicating whether optimization was applied}
 #'   \item{permpick}{matrix that lists the id numbers of the permutations used}
 #'   \item{perms2pickfrom}{optional element, when optimization was conducted: the
 #'   overall permutation list to which the numbers in permlist refer}
+#'   \item{call}{the call that created the object}
 #' }
 #' @references
 #' He, Cheng and Tang (2018)
@@ -75,6 +75,8 @@ SOAs2plus_regular <- function(s, k, m=NULL,
   ##    as implemented in NeighbourcalcUniversal
   ## A single optimization round is often very beneficial,
   ## further rounds do not yield much improvement.
+  mycall <- sys.call()
+
   stopifnot(s %in% c(2,3,4,5,7,8,9,11,13,16,17,19,23,27,29,31,32,37))
   stopifnot(k >= 3)
   if (s==2 && k<4) stop("s=2 requires k >= 4")
@@ -151,18 +153,21 @@ SOAs2plus_regular <- function(s, k, m=NULL,
     aus <- aus_repeats[[pickmin]]
     type <- "SOA"
     if (ocheck(aus$array)) type <- "OSOA"
-  aus <- list(array=aus$array, type=type, strength="2+",
+    attrs <- list(type=type, strength="2+",
               phi_p=aus$phi_p, optimized=TRUE,
               permpick = curpermpick,
               perms2pickfrom =
-                lapply(combinat::permn(s), function(obj) obj-1))
+                lapply(combinat::permn(s), function(obj) obj-1), call=mycall)
+    aus <- aus$array
   }else{
   SOA <- SOA2plus_regulart(s, k, m, random=FALSE)
   type <- "SOA"
   if (ocheck(SOA)) type <- "OSOA"
-  aus <- list(array=SOA, type=type, strength="2+",
-              phi_p=phi_p(SOA, dmethod=dmethod, p=p), optimized=FALSE)
+  aus <- SOA
+  attrs <- list(type=type, strength="2+",
+              phi_p=phi_p(SOA, dmethod=dmethod, p=p), optimized=FALSE, call=mycall)
   }
   class(aus) <- c("SOA", "list")
+  attributes(aus) <- c(attributes(aus), attrs)
   aus
 }

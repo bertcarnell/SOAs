@@ -13,19 +13,26 @@
 #' print(myOSOA)
 #' str(myOSOA)  ## structure for comparison
 print.SOA <- function(x, ...){
-  print(x$array, ...)
-  cat(paste0(x$type, ", strength ", x$strength,"\n"))
+  hilf <- x
+  dx <- dim(x)
+  dnx <- dimnames(x)
+  attributes(hilf) <- NULL
+  dim(hilf) <- dx
+  dimnames(hilf) <- dnx
+  print(hilf, ...)
+  cat(paste0(attr(x, "type"), ", strength ", attr(x, "strength"),"\n"))
 }
-
-#' @rdname printsoa
-#' @method print OSOA
-#' @export
-print.OSOA <- print.SOA
 
 #' @rdname printsoa
 #' @method print MDLE
 #' @export
 print.MDLE <- function(x, ...){
-  print(x$array, ...)
-  cat(paste0(x$type, " array\n"))
+  hilf <- x
+  dx <- dim(x)
+  dnx <- dimnames(x)
+  attributes(hilf) <- NULL
+  dim(hilf) <- dx
+  dimnames(hilf) <- dnx
+  print(hilf, ...)
+  cat(paste0(attr(x, "type"), " array\n"))
 }

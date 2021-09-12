@@ -24,16 +24,16 @@
 #' Li et al.'s creation of the matrix A has been enhanced by using a column specific
 #' fold-over, which is beneficial for the space-filling properties (see Groemping 2021).
 #'
-#' @return an OSOA of strength 3- or 3. List with the following elements
+#' @return matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
 #' \describe{
-#' \item{array }{the array}
-#' \item{type }{the type of array}
-#' \item{strength}{character string that gives the strength}
-#' \item{phi_p}{the phi_p value (smaller=better)}
-#' \item{optimized}{logical indicating whether optimization was applied}
-#' \item{permpick}{matrix that lists the id numbers of the permutations used}
-#' \item{perms2pickfrom}{optional element, when optimization was conducted:
-#' the overall permutation list to which the numbers in permlist refer}
+#'   \item{type}{the type of array (\code{SOA} or \code{OSOA})}
+#'   \item{strength}{character string that gives the strength}
+#'   \item{phi_p}{the phi_p value (smaller=better)}
+#'   \item{optimized}{logical indicating whether optimization was applied}
+#'   \item{permpick}{matrix that lists the id numbers of the permutations used}
+#'   \item{perms2pickfrom}{optional element, when optimization was conducted: the
+#'   overall permutation list to which the numbers in permlist refer}
+#'   \item{call}{the call that created the object}
 #' }
 #'
 #' @export
@@ -56,6 +56,7 @@ OSOAs_hadamard <- function(m=NULL, n=NULL, el=3, noptim.rounds=1, noptim.repeats
   ## m the target number of columns
   ## n the target number of runs
   ## el the exponent of 2 for the number of levels in the OSOA (2 or 3)
+  mycall <- sys.call()
   stopifnot(el %in% c(2,3))
   if (is.null(m) && is.null(n))
     stop("At least one of n and m must be specified")
@@ -104,6 +105,8 @@ OSOAs_hadamard <- function(m=NULL, n=NULL, el=3, noptim.rounds=1, noptim.repeats
     }, classes=c("message","warning"))
 
   ## the function for arbitrary oa does the rest of the work
-  OSOAs(X, el=el, m=m, noptim.rounds = noptim.rounds, noptim.repeats=noptim.repeats, optimize = optimize,
+  aus <- OSOAs(X, el=el, m=m, noptim.rounds = noptim.rounds, noptim.repeats=noptim.repeats, optimize = optimize,
         dmethod = dmethod, p=p)
+  attr(aus, "call") <- mycall
+  aus
 }

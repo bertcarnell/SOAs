@@ -16,11 +16,15 @@
 #' @param storeperms logical: should candidate permutations be stored? This can
 #' blow up the size of the output object enormously.
 #'
-#' @return A list of class \code{MDLE}
+#' @return A matrix of class \code{MDLE} with attributes
 #' \describe{
-#'   \item{array}{TODO:  Description}
-#'   \item{phi_p}{TODO:  Description}
+#'   \item{phi_p}{the phi_p value that was achieved}
+#'   \item{type}{MDLE}
 #'   \item{optimized}{logical: same as the input parameter}
+#'   \item{call}{the call that produced the matrix}
+#'   \item{permpick}{matrix that lists the id numbers of the permutations used}
+#'   \item{perms2pickfrom}{optional element, when optimization was conducted: the
+#'   overall permutation list to which the numbers in permlist refer}
 #' }
 #' @export
 #'
@@ -38,6 +42,8 @@ MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, optimize.oa=TRUE,
   ### of the algorithm
   ### for L27.3.4, performance with 5 rounds was as good as XiaoXu and
   ###            much much faster
+  mycall <- sys.call()
+
   s <- levels.no(oa)[1]
   n <- nrow(oa); m <- ncol(oa)
   Dp <- oa
@@ -94,20 +100,24 @@ MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, optimize.oa=TRUE,
     }
       curpos2 <- 999
     }
-    aus <- list(array=cur$arrays[[1]],
-                phi_p=phi_pvals[1],
-                optimized=TRUE)
+    aus <- cur$arrays[[1]]
+    attrs <- list(phi_p=phi_pvals[1],
+                  type="MDLE",
+                optimized=TRUE,
+                call=mycall)
     if (storeperms){
-      aus$permpick <- curpermpick
-      aus$perms2pickfrom <- allpermlist
+      attrs$permpick <- curpermpick
+      attrs$perms2pickfrom <- allpermlist
     }
   }else{
-    MDLE <- DcFromDp(Dp, s, ell)
-    aus <- list(array=MDLE,
-                phi_p=phi_p(MDLE, dmethod=dmethod, p=p),
-                optimized=FALSE)
+    aus <- DcFromDp(Dp, s, ell)
+    attrs <- list(phi_p=phi_p(aus, dmethod=dmethod, p=p),
+                  type="MDLE",
+                  optimized=FALSE,
+                call=mycall)
   }
-  class(aus) <- c("MDLE", "list")
+  class(aus) <- c("MDLE", "matrix", "array")
+  attributes(aus) <- c(attributes(aus), attrs)
   aus
 }
 

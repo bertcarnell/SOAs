@@ -20,16 +20,16 @@
 #' @param dmethod distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
 #'
-#' @return List with the following elements
+#' @return matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
 #' \describe{
-#'   \item{array}{the array}
-#'   \item{type}{the type of array}
+#'   \item{type}{the type of array (\code{SOA} or \code{OSOA})}
 #'   \item{strength}{character string that gives the strength}
 #'   \item{phi_p}{the phi_p value (smaller=better)}
 #'   \item{optimized}{logical indicating whether optimization was applied}
 #'   \item{permpick}{matrix that lists the id numbers of the permutations used}
-#'   \item{perms2pickfrom}{optional element, when optimization was conducted:
-#'   the overall permutation list to which the numbers in permlist refer}
+#'   \item{perms2pickfrom}{optional element, when optimization was conducted: the
+#'   overall permutation list to which the numbers in permlist refer}
+#'   \item{call}{the call that created the object}
 #' }
 #'
 #' @details
@@ -57,6 +57,8 @@ OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1, noptim.repeats=1,
   ## together with the optimization method
   ## analogous to the master thesis by J. Weng
   ##    as implemented in NeighbourcalcUniversal
+  mycall <- sys.call()
+
   stopifnot(s %in% c(2,3,4,5,7,8,9,11,13,16,17,19,23,27,29,31,32,37))
   stopifnot(el %in% c(2,3))  ## 3 for Li Liu and Yang (2021), 2 for Zhou and Tang (2019)
 
@@ -76,6 +78,8 @@ OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1, noptim.repeats=1,
   oa <- createSaturated(s, k-1)[,1:m]
   if (m<=50) colnames(oa) <- DoE.base::Letters[1:m] else
     colnames <- paste0("F", 1:m)
-  OSOAs(oa, el=el, m=morig,
+  aus <- OSOAs(oa, el=el, m=morig,
         noptim.rounds=noptim.rounds, noptim.repeats=noptim.repeats, optimize = optimize, dmethod=dmethod, p=p)
+  attr(aus, "call") <- mycall
+  aus
 }
