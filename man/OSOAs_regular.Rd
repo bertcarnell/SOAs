@@ -64,6 +64,14 @@ The function implements the algorithms proposed by Zhou and Tang 2018
 (s^2 levels) or Li, Liu and Yang 2021 (s^3 levels), enhanced with the
 modification for matrix A by Groemping 2021. Level permutations are optimized
 using an adaptation of the algorithm by Weng (2014).
+
+If \code{m} is specified, the function uses the last \code{m} columns of
+a saturated OA produced by function \code{\link{createSaturated}(s, k-1)}. \cr
+If \code{m} is small enough that a resolution IV / strength 3 OA for \code{s} levels in \code{s^(k-1)} runs exists,
+function \code{\link{OSOAs}} should be used with such an OA (which can be obtained from package \pkg{FrF2}
+for \code{s=2} or from package \pkg{DoE.base} for \code{s>2}). For \code{s=2},
+function \code{\link{OSOAs_hadamard}} may also be a better choice than \code{\link{OSOAs_regular} for
+up to 192 runs}.
 }
 \examples{
 ## 13 columns in 9 levels each
