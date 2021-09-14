@@ -9,13 +9,14 @@
 #' listed in \code{oacat3} of package \pkg{DoE.base}. The number of levels of oa is denoted as s.
 #' @param t the strength the SOA should have, can be 2, 3, 4, or 5. Must not
 #' be larger than the strength of \code{oa}, but can be smaller. The resulting SOA will have s^t levels
+#' @param m the requested number of columns (see details for permitted numbers of columns)
 #' @param noptim.rounds the number of optimization rounds for each independent restart
 #' @param noptim.repeats the number of independent restarts of optimizations with \code{noptim.rounds} rounds each
 #' @param optimize logical, default \code{TRUE}; if \code{FALSE}, suppresses optimization
 #' @param dmethod method for the calculation of \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
 #'
-#' @details The resulting SOA will have m' columns in s^t levels and will be of
+#' @details The resulting SOA will have at most m' columns in s^t levels and will be of
 #' strength t. m'(m, t) is a function of the number of columns of \code{oa}
 #' (denoted as m) and the strength t: m'(m,2)=m, m'(m,3)=m-1, m'(m,4)=floor(m/2),
 #' m'(m,5)=floor((m-1)/2).
@@ -49,7 +50,7 @@
 #' dim(aus2)
 #' soacheck2D(aus2, s=3, el=2, t=2) # check for 2
 #' soacheck3D(aus2, s=3, el=2)      # t=3 is the default (check for 3-)
-SOAs <- function(oa, t=3, noptim.rounds=1, noptim.repeats=1, optimize=TRUE, dmethod="manhattan", p=50){
+SOAs <- function(oa, t=3, m=NULL, noptim.rounds=1, noptim.repeats=1, optimize=TRUE, dmethod="manhattan", p=50){
   mycall <- sys.call()
   stopifnot(is.matrix(oa))
   stopifnot(length(s <- unique(levels.no(oa)))==1)
@@ -60,10 +61,14 @@ SOAs <- function(oa, t=3, noptim.rounds=1, noptim.repeats=1, optimize=TRUE, dmet
 
   if (max(oa)==s) oa <- oa-1
   ## for NeighbourcalcUniversal
+  morig <- m   ## user-requested m
   if (t==2) m <- ncol(oa)
   if (t==3) m <- ncol(oa) - 1
   if (t==4) m <- floor(ncol(oa)/2)
   if (t==5) m <- floor((ncol(oa)-1)/2)
+
+  if(!is.null(morig)) if (morig > m) stop("m is larger than ", m)
+  if (!is.null(morig)) m <- morig  ## reduce to requested number
 
   r <- t
   ## initialize
@@ -80,13 +85,13 @@ SOAs <- function(oa, t=3, noptim.rounds=1, noptim.repeats=1, optimize=TRUE, dmet
     while (curpos > 1){
       if (curpos==Inf) curpermpick <- NULL
       #cur <- SOAneighbourcalc(oa, startperm = curpermpick)   ## one-neighbors only
-      cur <- NeighbourcalcUniversal(soa, m, r, oa=oa, t=t,
+      cur <- NeighbourcalcUniversal(soa, mperm=m, r, oa=oa, t=t, m=m,
                                     startperm = curpermpick)   ## one-neighbors only
       phi_pvals <- round(sapply(cur$arrays, function(obj) phi_p(obj, dmethod=dmethod, p=p)), 8)
       (curpos <- which.min(phi_pvals))
       curpermpick <- cur$docpermlist[[curpos]]
     }
-    cur <- NeighbourcalcUniversal(soa, m, r, oa=oa, t=t,
+    cur <- NeighbourcalcUniversal(soa, mperm=m, r, oa=oa, t=t, m=m,
                                   startperm = curpermpick, neighbordist = 2)
     phi_pvals <- round(sapply(cur$arrays, function(obj)
       phi_p(obj, dmethod=dmethod, p=p)), 8)
@@ -108,7 +113,7 @@ SOAs <- function(oa, t=3, noptim.rounds=1, noptim.repeats=1, optimize=TRUE, dmet
                 lapply(combinat::permn(s), function(obj) obj-1), call=mycall)
     aus <- aus$array
   }else{
-    aus <- soa(oa, t=t, random=FALSE)
+    aus <- soa(oa, t=t, m=m, random=FALSE)
     attrs <- list(type="SOA", strength=as.character(t),
                 phi_p=phi_p(aus, dmethod=dmethod, p=p),
                 optimized=FALSE, call=mycall)

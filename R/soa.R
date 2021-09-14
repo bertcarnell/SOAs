@@ -3,10 +3,11 @@
 ##    level permutations are optimized with function
 ##    NeighbourcalcUniversal
 
-#' TODO
+#' work horse function for SOAs
 #'
 #' @param oa TODO
 #' @param t TODO
+#' @param m TODO
 #' @param permlist TODO
 #' @param random TODO
 #'
@@ -16,7 +17,7 @@
 #' print("TODO")
 #'
 #' @keywords internal
-soa <- function(oa, t=3, permlist=NULL, random=TRUE){
+soa <- function(oa, t=3, m=NULL, permlist=NULL, random=TRUE){
   ## The function implements the algorithm by He and Tang (2013)
   ## If oa has strength at least t,
   ## it creates a strength t SOA with m s^t level columns.
@@ -29,14 +30,18 @@ soa <- function(oa, t=3, permlist=NULL, random=TRUE){
   ## this function relies on the calling function to have
   ##    done all necessary error checking
   A <- oa
+  morig <- m
   if (t==2) m <- ncol(A)
   if (t==3) m <- ncol(A) - 1
   if (t==4) m <- floor(ncol(A)/2)
   if (t==5) m <- floor((ncol(A)-1)/2)
+  if (!is.null(morig)) stopifnot(morig<=m)
+  m <- morig
+
   s <- length(unique(A[,1]))
   if (is.null(permlist)){
     if (!random){
-      permlist <- rep(list(rep(list(0:(s-1)),t)),m)
+      permlist <- rep(list(rep(list(0:(s-1)),t)), m)
     }else{
       permlist <- vector(mode="list")
       for (i in 1:m){
