@@ -2,14 +2,16 @@
 % Please edit documentation in R/soa.R
 \name{soa}
 \alias{soa}
-\title{TODO}
+\title{work horse function for SOAs}
 \usage{
-soa(oa, t = 3, permlist = NULL, random = TRUE)
+soa(oa, t = 3, m = NULL, permlist = NULL, random = TRUE)
 }
 \arguments{
 \item{oa}{TODO}
 
 \item{t}{TODO}
+
+\item{m}{TODO}
 
 \item{permlist}{TODO}
 
@@ -19,7 +21,7 @@ soa(oa, t = 3, permlist = NULL, random = TRUE)
 TODO
 }
 \description{
-TODO
+work horse function for SOAs
 }
 \examples{
 print("TODO")
