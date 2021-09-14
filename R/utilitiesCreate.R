@@ -3,69 +3,12 @@
 #'
 #' @param s the prime or prime power to use
 #' @param k integer; determines the run size: the resulting array will have s^k runs
-#'
-#' @importFrom lhs create_galois_field
-#'
-#' @return \code{createSaturated} returns an s^k times (s^k-1)/(s-1) matrix (saturated regular OA with s-level columns)
-#' @export
-#' @examples
-#' createSaturated(3, k=3)  ## 27 x 13 array in 3 levels
-createSaturated <- function(s, k=2){
-  ## uses the gf functionality from lhs
-  ## symmetric array from k basic vectors
-  ## "saturated" strength 2 OA
-  ## s^k runs
-
-  ## output:
-  ## s=2: returns columns in Yates order
-  ## s>2: main effects first, interactions afterwards
-
-
-  if (!s %in% c(2,3,4,5,7,8,9,11,13,16,17,19,27,32,81))
-    stop("not implemented for s = ", s)
-
-  prime <- TRUE
-  if (s %in% c(4,8,9,16,27,32,81)) {
-    prime <- FALSE
-    gf <- lhs::create_galois_field(s)
-  }
-
-  aus <- ff(rep(s,k))[,k:1]   ## fast to slow
-  ## intcoeffs
-  intcoeffs <- ff(rep(s, k))  ## slow to fast
-
-  if (s>2){
-    ## eliminate rows that refer to only one or no factors
-    intcoeffs <- intcoeffs[rowSums(intcoeffs>0)>=2,, drop=FALSE]
-    ## eliminate rows whose first coefficient is not 1
-    intcoeffs <- intcoeffs[!intcoeffs[,1]>1, , drop=FALSE]
-    for (i in 2:k)
-      intcoeffs <- intcoeffs[!(apply(intcoeffs[,1:(i-1), drop=FALSE], 1,
-                                     function(obj) all(obj==0)) &
-                                 intcoeffs[,i]>1),, drop=FALSE]
-
-    if (prime) aus <- cbind(aus, (aus%*%t(intcoeffs))%%s)
-    else {
-      hilf <- gf_matmult(aus, t(intcoeffs), gf=gf, checks=FALSE)
-      aus <- cbind(aus, hilf)
-    }
-  }else  ## s == 2 (Yates order)
-    aus <- ((aus%*%t(intcoeffs))%%s)[,-1]
-  colnames(aus) <- NULL
-  return(aus)
-}
-
-
-## function for the Hedayat et al. 2018 construction
-#' @rdname utilitiesCreate
-#'
-#' @param s the prime or prime power to use
-#' @param k integer; determines the run size: the resulting array will have s^k runs
 #' @param m the number of columns to be created
 #'
 #' @return \code{createAB} returns a list of s^k times m matrices A, B and D
 #'
 #' @keywords internal
+## function for the Hedayat et al. 2018 construction
 createAB <- function(s, k=3, m=NULL){
   ## uses gf functionality from lhs
   ## symmetric array from k basic vectors
@@ -179,6 +122,7 @@ createAB <- function(s, k=3, m=NULL){
 #' @return \code{BsFromB} returns an rn x m matrix
 #'
 #' @keywords internal
+#' @note \code{BsFromB} is currently not used.
 BsFromB <- function(B, s=NULL, r=NULL, permlist=NULL, oneonly=TRUE){
   ## currently not used
 
@@ -239,7 +183,6 @@ BsFromB <- function(B, s=NULL, r=NULL, permlist=NULL, oneonly=TRUE){
   }
   Bs
 }
-
 
 ## function to extract columns for B
 ## from list of candidate columns for He et al. (2018) construction
