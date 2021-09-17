@@ -59,7 +59,7 @@ SOAs <- function(oa, t=3, m=NULL, noptim.rounds=1, noptim.repeats=1, optimize=TR
   stopifnot(s%%1 == 0) ## integer
   stopifnot(min(oa)==0 || max(oa)==s)
   if (!all(round(DoE.base::GWLP(oa, kmax=t),8)[-1]==0))
-    stop("t=", t, " requires a strength ", t, "oa")
+    stop("t=", t, " requires a strength ", t, " oa")
 
   if (max(oa)==s) oa <- oa-1
   ## for NeighbourcalcUniversal

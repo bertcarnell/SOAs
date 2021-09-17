@@ -81,12 +81,12 @@ SOAs2plus_regular <- function(s, k, m=NULL,
   stopifnot(k >= 3)
   if (s==2 && k<4) stop("s=2 requires k >= 4")
 
+  if (s==2) mbound <- s^k - s^floor(k/2) - s^(k-floor(k/2)) + 2 else
+    mbound <- (s^k-1)/(s-1) - ((s-1)^k-1)/(s-2)
+
   ## for NeighbourcalcUniversal
   ## maximum possible number of columns
-  if (is.null(m)){
-    if (s > 2) m <- (s^k-1)/(s-1) - ((s-1)^k-1)/(s-2)
-    else m <- s^k - s^floor(k/2) - s^(k-floor(k/2)) + 2
-  }
+  if (!is.null(m)) stopifnot(m <= mbound) else m <- mbound
   r <- s
 
   curpos <- curpos2 <- Inf    ## start indicator
