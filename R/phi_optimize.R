@@ -41,7 +41,7 @@ phi_optimize <- function(D, noptim.rounds=1, noptim.repeats=1, dmethod="manhatta
   D <- as.matrix(D)
   stopifnot(is.numeric(D))
   stopifnot(all(D%%1==0))
-  stopifnot(length(nl <- unique(levels.no(D)))==1)
+  if (length(nl <- unique(levels.no(D)))>1) stop("All columns of D must have the same number of levels")
   stopifnot(nl > 2)
   if (min(D)==1) D <- D - 1
   stopifnot(all(D %in% 0:(nl-1)))

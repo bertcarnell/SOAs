@@ -32,7 +32,7 @@ OSOAarbitrary <- function(oa, el=3, m=NULL, permlist=NULL, random=TRUE){
   s <- lev[1]                 ## number of levels
   if (is.null(m)){
     m <- origm <- ncol(oa)
-    if (m%%2==1 && el==3) m <- m-1       ## m' from the Li et al. paper
+    if (m%%2==1 && el==3) m <- origm <- m-1       ## m' from the Li et al. paper
   }
   else{
     origm <- m
