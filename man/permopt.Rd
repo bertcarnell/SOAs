@@ -19,4 +19,7 @@ a matrix of the same dimension as \code{oa}
 \description{
 optimize GWLP optimal oa for maximin criterion phi_p
 }
+\note{
+not used any more
+}
 \keyword{internal}

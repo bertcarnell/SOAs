@@ -9,14 +9,14 @@ MDLEs(
   ell,
   noptim.rounds = 1,
   optimize = TRUE,
-  optimize.oa = TRUE,
+  noptim.oa = 1,
   dmethod = "manhattan",
   p = 50,
   storeperms = FALSE
 )
 }
 \arguments{
-\item{oa}{an array to start from}
+\item{oa}{matrix or data.frame that contains an ingoing symmetric OA. Levels must be denoted as 0 to s-1 or as 1 to s.}
 
 \item{ell}{the multiplier for each number of levels}
 
@@ -25,8 +25,7 @@ take very long, therefore the default is 1, although more rounds are beneficial.
 
 \item{optimize}{logical: if \code{FALSE}, suppress optimization of expansion levels}
 
-\item{optimize.oa}{logical: if \code{FALSE}, suppress optimization of initial
-oa (e.g. because it was already optimized)}
+\item{noptim.oa}{integer: number of optimization rounds applied to initial oa itself before starting expansion}
 
 \item{dmethod}{distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"}
 
@@ -52,11 +51,17 @@ Maximin distance level expansion similar to Xiao and Xu is implemented,
 using an optimization algorithm that is less demanding than the TA algorithm
 of Xiao and Xu
 }
+\details{
+The ingoing oa is possibly optimized for space-filling, using function \code{\link{phi_optimize}}
+with \code{noptim.oa} optimization rounds. The expansions themselves are again optimized for improving phi_p,
+using an algorithm which is a variant of Weng (2014), instead of the more powerful but also much more demanding
+algorithm proposed by Xiao and Xu.
+}
 \examples{
 dim(MDLEs(DoE.base::L16.4.5, 2, noptim.rounds = 1))
 }
 \references{
-Xiao and Xu
+Weng (2014), Xiao and Xu
 }
 \author{
 Ulrike Groemping

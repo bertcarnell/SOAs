@@ -4,17 +4,21 @@
 #' using an optimization algorithm that is less demanding than the TA algorithm
 #' of Xiao and Xu
 #'
-#' @param oa an array to start from
+#' @param oa matrix or data.frame that contains an ingoing symmetric OA. Levels must be denoted as 0 to s-1 or as 1 to s.
 #' @param ell the multiplier for each number of levels
 #' @param noptim.rounds the number of optimization rounds; optimization may
 #' take very long, therefore the default is 1, although more rounds are beneficial.
 #' @param optimize logical: if \code{FALSE}, suppress optimization of expansion levels
-#' @param optimize.oa logical: if \code{FALSE}, suppress optimization of initial
-#' oa (e.g. because it was already optimized)
+#' @param noptim.oa integer: number of optimization rounds applied to initial oa itself before starting expansion
 #' @param dmethod distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
 #' @param storeperms logical: should candidate permutations be stored? This can
 #' blow up the size of the output object enormously.
+#'
+#' @details The ingoing oa is possibly optimized for space-filling, using function \code{\link{phi_optimize}}
+#' with \code{noptim.oa} optimization rounds. The expansions themselves are again optimized for improving phi_p,
+#' using an algorithm which is a variant of Weng (2014), instead of the more powerful but also much more demanding
+#' algorithm proposed by Xiao and Xu.
 #'
 #' @return A matrix of class \code{MDLE} with attributes
 #' \describe{
@@ -30,12 +34,12 @@
 #'
 #' @importFrom arrangements npermutations permutations
 #'
-#' @references Xiao and Xu
+#' @references Weng (2014), Xiao and Xu
 #' @author Ulrike Groemping
 #'
 #' @examples
 #' dim(MDLEs(DoE.base::L16.4.5, 2, noptim.rounds = 1))
-MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, optimize.oa=TRUE,
+MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, noptim.oa=1,
                   dmethod="manhattan", p=50, storeperms=FALSE){
   ### implements the Weng optimization
   ### for performance reasons, there are noptim.rounds repetitions
@@ -47,7 +51,7 @@ MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, optimize.oa=TRUE,
   s <- levels.no(oa)[1]
   n <- nrow(oa); m <- ncol(oa)
   Dp <- oa
-  if (optimize.oa) Dp <- permopt(oa, s, m)
+  if (noptim.oa > 1) Dp <- phi_optimize(Dp, noptim.rounds = noptim.oa, dmethod=dmethod, p=p)
 
   ### initialize Dc
   ## obtain potential replacements
@@ -130,6 +134,8 @@ MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, optimize.oa=TRUE,
 #' @param m TODO
 #'
 #' @return a matrix of the same dimension as \code{oa}
+#'
+#' @note not used any more
 #'
 #' @keywords internal
 permopt <- function(oa, s, m){
