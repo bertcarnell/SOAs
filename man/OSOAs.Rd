@@ -16,7 +16,7 @@ OSOAs(
 )
 }
 \arguments{
-\item{oa}{an ingoing OA}
+\item{oa}{matrix or data.frame that contains an ingoing symmetric OA. Levels must be denoted as 0 to s-1 or as 1 to s.}
 
 \item{el}{the exponent of the number of levels, \code{el=3} yields a
 strength 2* OSOA in s^3 levels, \code{el=2} a strength 2+ OSOA in s^2 levels}
@@ -54,9 +54,13 @@ An OSOA in ns runs of strength 2* (s^3 levels) or 2+ (s^2 levels) is created fro
 }
 \details{
 The function implements the algorithms proposed by Zhou and Tang 2018
-(s^2 levels) or Li, Liu and Yang 2021 (s^3 levels), enhanced with the
-modification for matrix A by Groemping 2021. Level permutations are optimized
+(s^2 levels; enhanced with the modification for matrix A by Groemping 2021)
+or Li, Liu and Yang 2021 (s^3 levels). Level permutations are optimized
 using an adaptation of the algorithm by Weng (2014).
+
+Suitable OAs for argument \code{oa} can e.g. be constructed with OA creation functions
+from package \pkg{lhs} or can be obtained
+from arrays listed in R package \pkg{DoE.base}
 }
 \examples{
 ## run with optimization for actual use!

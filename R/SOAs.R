@@ -5,8 +5,7 @@
 #'
 #' takes an OA(n,m,s,t) and creates an SOA(n,m',s^t',t') with t'<=t.
 #'
-#' @param oa a symmetric OA of strength t, e.g. obtained from the arrays
-#' listed in \code{oacat3} of package \pkg{DoE.base}. The number of levels of oa is denoted as s.
+#' @param oa matrix or data.frame that contains an ingoing symmetric OA. Levels must be denoted as 0 to s-1 or as 1 to s.
 #' @param t the strength the SOA should have, can be 2, 3, 4, or 5. Must not
 #' be larger than the strength of \code{oa}, but can be smaller. The resulting SOA will have s^t levels
 #' @param m the requested number of columns (see details for permitted numbers of columns)
@@ -20,6 +19,9 @@
 #' strength t. m'(m, t) is a function of the number of columns of \code{oa}
 #' (denoted as m) and the strength t: m'(m,2)=m, m'(m,3)=m-1, m'(m,4)=floor(m/2),
 #' m'(m,5)=floor((m-1)/2).
+#'
+#' Suitable OAs for argument \code{oa} can e.g. be constructed with OA creation functions
+#' from package \pkg{lhs} or can be obtained from arrays listed in R package \pkg{DoE.base}.
 #'
 #' @return matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
 #' \describe{
@@ -118,7 +120,7 @@ SOAs <- function(oa, t=3, m=NULL, noptim.rounds=1, noptim.repeats=1, optimize=TR
                 phi_p=phi_p(aus, dmethod=dmethod, p=p),
                 optimized=FALSE, call=mycall)
   }
-  class(aus) <- c("SOA", "list")
+  class(aus) <- c("SOA", class(aus))
   attributes(aus) <- c(attributes(aus), attrs)
   aus
 }

@@ -3,7 +3,7 @@
 #' Creates OSOAs from an OA according to the construction by Liu and Liu (2015).
 #' Strengths 2 to 4 are covered. Strengths 3 and 4 guarantee 3-orthogonality.
 #'
-#' @param oa a symmetric orthogonal array of strength at least \code{t}
+#' @param oa matrix or data.frame; a symmetric orthogonal array of strength at least \code{t}
 #' @param t the requested strength of the OSOA
 #' @param m the requested number of columns of the OSOA (at most \code{mbound_LiuLiu(ncol(oa), t)}).
 #' @param noptim.rounds the number of optimization rounds for each independent restart
@@ -26,8 +26,8 @@
 #' exists, the function does not check that).
 #'
 #' Ingoing arrays can be obtained
-#' from oa-generating functions like \code{createBoseBush}, or from OAs in
-#' R package \pkg{DoE.base}, or from 2-level designs created with R package \pkg{FrF2}.
+#' from oa-generating functions of R package \pkg{lhs} like \code{createBoseBush}, or from OAs in
+#' R package \pkg{DoE.base}, or from 2-level designs created with R package \pkg{FrF2} (see example section).
 #' @return matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
 #' \describe{
 #'   \item{type}{the type of array (\code{SOA} or \code{OSOA})}

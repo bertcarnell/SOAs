@@ -16,8 +16,7 @@ SOAs(
 )
 }
 \arguments{
-\item{oa}{a symmetric OA of strength t, e.g. obtained from the arrays
-listed in \code{oacat3} of package \pkg{DoE.base}. The number of levels of oa is denoted as s.}
+\item{oa}{matrix or data.frame that contains an ingoing symmetric OA. Levels must be denoted as 0 to s-1 or as 1 to s.}
 
 \item{t}{the strength the SOA should have, can be 2, 3, 4, or 5. Must not
 be larger than the strength of \code{oa}, but can be smaller. The resulting SOA will have s^t levels}
@@ -55,6 +54,9 @@ The resulting SOA will have at most m' columns in s^t levels and will be of
 strength t. m'(m, t) is a function of the number of columns of \code{oa}
 (denoted as m) and the strength t: m'(m,2)=m, m'(m,3)=m-1, m'(m,4)=floor(m/2),
 m'(m,5)=floor((m-1)/2).
+
+Suitable OAs for argument \code{oa} can e.g. be constructed with OA creation functions
+from package \pkg{lhs} or can be obtained from arrays listed in R package \pkg{DoE.base}.
 }
 \examples{
 aus <- SOAs(DoE.base::L27.3.4, optimize=FALSE)  ## t=3 is the default

@@ -7,7 +7,7 @@
 OSOA_LiuLiut(oa, t = NULL, m = NULL, permlist = NULL, random = TRUE)
 }
 \arguments{
-\item{oa}{input matrix or data.frame}
+\item{oa}{matrix or data.frame that contains an ingoing symmetric OA. Levels must be denoted as 0 to s-1 or as 1 to s.}
 
 \item{t}{strength of \code{oa}.  If \code{NULL} (default), \code{t} will be
 determined.  \code{t} can be chosen smaller than the input strength if
@@ -24,6 +24,10 @@ an orthogonal array
 }
 \description{
 Strong Orthogonal Arrays of Strength t using the method of Liu and Liu
+}
+\details{
+Suitable OAs for argument \code{oa} can e.g. be constructed with OA creation functions
+from package \pkg{lhs} or can be obtained from arrays listed in R package \pkg{DoE.base}.
 }
 \references{
 Liu and Liu (2015)

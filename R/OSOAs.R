@@ -2,7 +2,7 @@
 #'
 #' An OSOA in ns runs of strength 2* (s^3 levels) or 2+ (s^2 levels) is created from an OA(n,m,s,2).
 #'
-#' @param oa an ingoing OA
+#' @param oa matrix or data.frame that contains an ingoing symmetric OA. Levels must be denoted as 0 to s-1 or as 1 to s.
 #' @param el the exponent of the number of levels, \code{el=3} yields a
 #' strength 2* OSOA in s^3 levels, \code{el=2} a strength 2+ OSOA in s^2 levels
 #' @param m the desired number of columns of the resulting array; odd values of
@@ -17,9 +17,13 @@
 #'
 #' @details
 #' The function implements the algorithms proposed by Zhou and Tang 2018
-#' (s^2 levels) or Li, Liu and Yang 2021 (s^3 levels), enhanced with the
-#' modification for matrix A by Groemping 2021. Level permutations are optimized
+#' (s^2 levels; enhanced with the modification for matrix A by Groemping 2021)
+#' or Li, Liu and Yang 2021 (s^3 levels). Level permutations are optimized
 #' using an adaptation of the algorithm by Weng (2014).
+#'
+#' Suitable OAs for argument \code{oa} can e.g. be constructed with OA creation functions
+#' from package \pkg{lhs} or can be obtained
+#' from arrays listed in R package \pkg{DoE.base}
 #'
 #' @return matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
 #' \describe{
@@ -161,7 +165,7 @@ OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, noptim.repeats=1, optimize=
               phi_p=phi_p(aus, dmethod=dmethod, p=p),
               optimized=FALSE, call=mycall)
   }
-  class(aus) <- c("SOA", "list")
+  class(aus) <- c("SOA", class(aus))
   attributes(aus) <- c(attributes(aus), attrs)
   aus
 }

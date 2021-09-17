@@ -16,7 +16,7 @@ OSOAs_LiuLiu(
 )
 }
 \arguments{
-\item{oa}{a symmetric orthogonal array of strength at least \code{t}}
+\item{oa}{matrix or data.frame; a symmetric orthogonal array of strength at least \code{t}}
 
 \item{t}{the requested strength of the OSOA}
 
@@ -63,8 +63,8 @@ obtained from a strength \code{t} OA with \code{moa} columns (if such an array
 exists, the function does not check that).
 
 Ingoing arrays can be obtained
-from oa-generating functions like \code{createBoseBush}, or from OAs in
-R package \pkg{DoE.base}, or from 2-level designs created with R package \pkg{FrF2}.
+from oa-generating functions of R package \pkg{lhs} like \code{createBoseBush}, or from OAs in
+R package \pkg{DoE.base}, or from 2-level designs created with R package \pkg{FrF2} (see example section).
 }
 \examples{
 ## strength 2, very small (four 9-level columns in 9 runs)

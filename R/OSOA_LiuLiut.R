@@ -1,12 +1,15 @@
 #' Strong Orthogonal Arrays of Strength t using the method of Liu and Liu
 #'
-#' @param oa input matrix or data.frame
+#' @param oa matrix or data.frame that contains an ingoing symmetric OA. Levels must be denoted as 0 to s-1 or as 1 to s.
 #' @param t strength of \code{oa}.  If \code{NULL} (default), \code{t} will be
 #' determined.  \code{t} can be chosen smaller than the input strength if
 #' additional columns are desired.
 #' @param m desired number of columns.  Defaults to the maximum possible.
 #' @param permlist a list of length m of lists of length 1 of permutations of the levels
 #' @param random a logical (a random draw of permutations is used if \code{permlist} is \code{NULL})
+#'
+#' @details Suitable OAs for argument \code{oa} can e.g. be constructed with OA creation functions
+#' from package \pkg{lhs} or can be obtained from arrays listed in R package \pkg{DoE.base}.
 #'
 #' @return an orthogonal array
 #'

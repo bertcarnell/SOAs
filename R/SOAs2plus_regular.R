@@ -167,7 +167,7 @@ SOAs2plus_regular <- function(s, k, m=NULL,
   attrs <- list(type=type, strength="2+",
               phi_p=phi_p(SOA, dmethod=dmethod, p=p), optimized=FALSE, call=mycall)
   }
-  class(aus) <- c("SOA", "list")
+  class(aus) <- c("SOA", class(aus))
   attributes(aus) <- c(attributes(aus), attrs)
   aus
 }

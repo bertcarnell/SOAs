@@ -131,7 +131,7 @@ SOAs_8level <- function(n, m=NULL,
                                                         "3+", "3"),
                 phi_p=phi_p(aus), optimized=FALSE, permpick=matrix(1, nrow=3, ncol=m), call=mycall)
   }
-  class(aus) <- c("SOA", "list")
+  class(aus) <- c("SOA", class(aus))
   attributes(aus) <- c(attributes(aus), attrs)
   aus
 }
