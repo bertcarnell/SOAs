@@ -51,7 +51,8 @@ MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, noptim.oa=1,
   s <- levels.no(oa)[1]
   n <- nrow(oa); m <- ncol(oa)
   Dp <- oa
-  if (noptim.oa > 1) Dp <- phi_optimize(Dp, noptim.rounds = noptim.oa, dmethod=dmethod, p=p)
+  if (noptim.oa > 1) Dp <- phi_optimize(Dp, noptim.rounds = noptim.oa,
+                                        dmethod=dmethod, p=p)
 
   ### initialize Dc
   ## obtain potential replacements

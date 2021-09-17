@@ -27,18 +27,23 @@
 #' @param nrounds TODO
 #' @param nsteps TODO
 #'
-#' @return TODO
+#' @details deviates from Xiao and Xu by optimizing the ingoing OA for
+#' phi_p instead of for the GWLP
+#'
+#' @return a matrix
 #'
 #' @examples
 #' print("TODO")
 #'
 #' @keywords internal
-XiaoXuMDLE <- function(oa, ell, optimize.oa=TRUE, nseq=2000, nrounds=50, nsteps=3000){
+XiaoXuMDLE <- function(oa, ell, noptim.oa=1, nseq=2000, nrounds=50,
+                       nsteps=3000, dmethod="manhattan", p=50){
   ## implements the original Xiao and Xu algorithm
   s <- levels.no(oa)[1]
   n <- nrow(oa); m <- ncol(oa)
   Dp <- oa
-  if (optimize.oa) Dp <- permopt(oa, s, m)
+  if (noptim.oa>0) Dp <- phi_optimize(oa, noptim.rounds = noptim.oa,
+                                        dmethod = dmethod, p=p)
 
   ### initialize Dc
   ## obtain potential replacements
@@ -128,7 +133,7 @@ optimize <- function(Dc, s, ell, F, nrounds=50, nsteps=3000){
   ## Xiao Xu: nrounds 30 to 75
   ##          nsteps 3000 to 7500
   ### this should be for Dc
-  phi0 <- phi_p(Dc, method="manhattan")
+  phi0 <- phi_p(Dc, dmethod="manhattan")
   Dmin <- Dc
   m <- ncol(Dc)
   for (r in 1:nrounds){
@@ -141,13 +146,15 @@ optimize <- function(Dc, s, ell, F, nrounds=50, nsteps=3000){
        levsamp <- levsamp_coarse*ell + levsamp_fine
        Dn[Dc[,colsamp]==levsamp[1],colsamp] <- levsamp[2]
        Dn[Dc[,colsamp]==levsamp[2],colsamp] <- levsamp[1]
-       if (phi_p(Dn, method="manhattan") -
-           phi_p(Dc, method="manhattan") < tau) Dc <- Dn
-       if (phi_p(Dc, method="manhattan") < phi0){
+       if (phi_p(Dn, dmethod="manhattan") -
+           phi_p(Dc, dmethod="manhattan") < tau) Dc <- Dn
+       if (phi_p(Dc, dmethod="manhattan") < phi0){
          Dmin <- Dc
-         phi0 <- phi_p(Dmin, method="manhattan")
+         phi0 <- phi_p(Dmin, dmethod="manhattan")
        }
      }
   }
+  class(Dmin) <- c("matrix", "array")
+  attr(Dmin, "phi_p") <- phi_p(Dmin, dmethod="manhattan")
   Dmin
 }

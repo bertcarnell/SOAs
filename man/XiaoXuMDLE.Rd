@@ -7,10 +7,12 @@
 XiaoXuMDLE(
   oa,
   ell,
-  optimize.oa = TRUE,
+  noptim.oa = 1,
   nseq = 2000,
   nrounds = 50,
-  nsteps = 3000
+  nsteps = 3000,
+  dmethod = "manhattan",
+  p = 50
 )
 }
 \arguments{
@@ -18,19 +20,23 @@ XiaoXuMDLE(
 
 \item{ell}{TODO}
 
-\item{optimize.oa}{TODO}
-
 \item{nseq}{TODO}
 
 \item{nrounds}{TODO}
 
 \item{nsteps}{TODO}
+
+\item{optimize.oa}{TODO}
 }
 \value{
-TODO
+a matrix
 }
 \description{
 TODO
+}
+\details{
+deviates from Xiao and Xu by optimizing the ingoing OA for
+phi_p instead of for the GWLP
 }
 \examples{
 print("TODO")
