@@ -36,7 +36,7 @@ test_that("soacheck3D", {
   expect_true(soacheck3D(st1, s=2, el=3, t=4))
 
   # test when min(OA) == 1
-  expect_true(soacheck3D(lhs::createBose(8, ncol=3) + 1, s=2, el=3, t=4))
+  expect_false(soacheck3D(lhs::createBose(8, ncol=3) + 1, s=2, el=3, t=4))
   # test verbose output
   expect_output(expect_true(soacheck3D(st1, s=2, el=3, t=4, verbose=TRUE)))
 })
