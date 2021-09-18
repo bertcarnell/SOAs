@@ -75,6 +75,7 @@
 #' Shi and Tang (2020)
 #'
 #' @importFrom stats lm rnorm model.matrix
+#' @importFrom stats cor
 #'
 #' @examples
 #' nullcase <- matrix(0:7, nrow=8, ncol=4)
@@ -96,19 +97,15 @@
 #' ## 4 columns in 27 levels each
 #' ## second order model matrix
 #'
-#' #D_o <- OSOAs_LiuLiu(DoE.base::L81.3.10, optimize=FALSE)$array
-#' #ocheck3(D_o)
+#' D_o <- OSOAs_LiuLiu(DoE.base::L81.3.10, optimize=FALSE)
+#' ocheck3(D_o)
 #'
 #' ## benefit of 3-orthogonality for second order linear models
-#' #colnames(D_o) <- paste0("X", 1:4)
-#' #y <- stats::rnorm(81)
-#' #mylm <- stats::lm(y~(X1+X2+X3+X4)^2 + I(X1^2)+I(X2^2)+I(X3^2)+I(X4^2),
-#' #                   data=as.data.frame(scale(D_o, scale=FALSE)))
-#' #crossprod(stats:model.matrix(mylm))
-
-#' @rdname ocheck
-#' @importFrom stats cor
-#' @export
+#' colnames(D_o) <- paste0("X", 1:4)
+#' y <- stats::rnorm(81)
+#' mylm <- stats::lm(y~(X1+X2+X3+X4)^2 + I(X1^2)+I(X2^2)+I(X3^2)+I(X4^2),
+#'                    data=as.data.frame(scale(D_o, scale=FALSE)))
+#' crossprod(stats::model.matrix(mylm))
 ocheck <- function(D, verbose=FALSE, ...){
   if (is.data.frame(D)) D <- as.matrix(D)
   stopifnot(is.matrix(D))
@@ -200,7 +197,6 @@ count_nallpairs <- function(ns){
 #'   hist(dist(A), xlim=c(2,6), ylim=c(0,40))
 #'   hist(dist(A2), xlim=c(2,6), ylim=c(0,40))
 #' }
-#' @export
 #' @importFrom stats dist
 phi_p <- function(D, dmethod="euclidean", p=50, ...){
   stopifnot(p>=1)

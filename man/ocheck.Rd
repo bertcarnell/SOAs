@@ -112,15 +112,15 @@ ocheck(D)
 ## 4 columns in 27 levels each
 ## second order model matrix
 
-#D_o <- OSOAs_LiuLiu(DoE.base::L81.3.10, optimize=FALSE)$array
-#ocheck3(D_o)
+D_o <- OSOAs_LiuLiu(DoE.base::L81.3.10, optimize=FALSE)
+ocheck3(D_o)
 
 ## benefit of 3-orthogonality for second order linear models
-#colnames(D_o) <- paste0("X", 1:4)
-#y <- stats::rnorm(81)
-#mylm <- stats::lm(y~(X1+X2+X3+X4)^2 + I(X1^2)+I(X2^2)+I(X3^2)+I(X4^2),
-#                   data=as.data.frame(scale(D_o, scale=FALSE)))
-#crossprod(stats:model.matrix(mylm))
+colnames(D_o) <- paste0("X", 1:4)
+y <- stats::rnorm(81)
+mylm <- stats::lm(y~(X1+X2+X3+X4)^2 + I(X1^2)+I(X2^2)+I(X3^2)+I(X4^2),
+                   data=as.data.frame(scale(D_o, scale=FALSE)))
+crossprod(stats::model.matrix(mylm))
 }
 \references{
 He and Tang (2013)
