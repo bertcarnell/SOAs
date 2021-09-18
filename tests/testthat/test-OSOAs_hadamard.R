@@ -1,5 +1,5 @@
 test_that("OSOAs_hadamard", {
-  temp <- OSOAs_hadamard(m = 6)
+  suppressMessages(temp <- OSOAs_hadamard(m = 6))
   expect_s3_class(temp, "SOA")
   expect_equal(dim(temp), c(16, 6))
   expect_equal(attr(temp, "type"), "OSOA")

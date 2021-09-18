@@ -6,7 +6,7 @@ test_that("SOAs", {
   expect_equal(dim(temp), c(64, 5))
   expect_equal(length(unique(c(temp))), 64)
 
-  temp <- SOAs(DoE.base::L64.4.6, t=2, noptim.rounds=2, dmethod = "euclidean")
+  suppressMessages(temp <- SOAs(DoE.base::L64.4.6, t=2, noptim.rounds=2, dmethod = "euclidean"))
   expect_s3_class(temp, "SOA")
   expect_equal(attr(temp, "type"), "SOA")
   expect_equal(attr(temp, "strength"), "2")
