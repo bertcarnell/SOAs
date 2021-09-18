@@ -61,8 +61,9 @@ jobs:
 
       - name: Code Coverage
         if: matrix.config.os == 'windows-latest' && matrix.config.r == 'release'
+        # run code coverage, excluding functions that will be removed.
         run: |
           install.packages("covr")
-          covr::codecov()
+          covr::codecov(function_exclusions = c("OSOAregulart","OSOApb","permopt"))
         shell: Rscript {0}
 
