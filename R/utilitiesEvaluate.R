@@ -8,8 +8,7 @@
 #' evaluate pairwise or 3-orthogonality of columns, and count_npairs evaluates
 #' the number of level pairs in 2D projections
 #'
-#' @param D a matrix with factor levels or a list object of class \code{SOA}
-#' the element \code{array} of which contains the matrix; \cr
+#' @param D a matrix with factor levels or an object of class \code{SOA};\cr
 #' factor levels can start with 0 or with 1, and need to be consecutively numbered
 #' @param s the prime or prime power according to which the array is checked;
 #' NULL for mixed level arrays, or where the SOA was constructed using the level
@@ -172,7 +171,7 @@ count_nallpairs <- function(ns){
 #'
 #' phi_p calculates the discrepancy
 #'
-#' @param D an array or a list object of class SOA or MDLE
+#' @param D an array or an object of class SOA or MDLE
 #' @param dmethod the distance to use, \code{"euclidean"} or \code{"manhattan"}
 #' @param p the value for p to use in the formula for phi_p
 #' @param ... currently not used
@@ -223,6 +222,8 @@ soacheck2D <- function(D, s=3, el=3, t=3, alpha=NULL, verbose=FALSE, ...){
   stopifnot(all(D%%1==0))
   ## guarantee that the collapsing works properly
   if (min(D)==1) D <- D-1
+  stopifnot(all(D %in% 0:(s^el-1)))
+
   ## prevent invalid t
   stopifnot(t %in% c(2,3,4))
 
@@ -350,6 +351,8 @@ soacheck3D <- function(D, s=3, el=3, t=3, verbose=FALSE, ...){
   stopifnot(all(D%%1==0))
   ## guarantee that the collapsing works properly
   if (min(D)==1) D <- D-1
+  stopifnot(all(D %in% 0:(s^el-1)))
+
   ## prevent invalid t
   stopifnot(t %in% c(3,4))
 

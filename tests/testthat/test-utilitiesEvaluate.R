@@ -35,10 +35,15 @@ test_that("soacheck3D", {
   expect_false(soacheck3D(nullcase, s=2))
   expect_true(soacheck3D(st1, s=2, el=3, t=4))
 
-  # test when min(OA) == 1
+  # the result of this test depends on the random outcome of createBose;
+  # apparently, soacheck3D is sometimes TRUE
+  set.seed(12345)
   expect_false(soacheck3D(lhs::createBose(8, ncol=3) + 1, s=2, el=3, t=4))
   # test verbose output
   expect_output(expect_true(soacheck3D(st1, s=2, el=3, t=4, verbose=TRUE)))
+  # test error when min(OA) == 2 (not permitted)
+  expect_error(soacheck2D(lhs::createBose(8, ncol=3) + 2, s=2, el=3, t=4))
+  expect_error(soacheck3D(lhs::createBose(8, ncol=3) + 2, s=2, el=3, t=4))
 })
 
 test_that("count_npairs", {
