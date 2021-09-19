@@ -23,4 +23,15 @@ test_that("OSOAs_hadamard", {
   temp <- OSOAs_hadamard(m=35, optimize=FALSE)
   expect_equal(dim(temp), c(80, 35))
   expect_equal(length(unique(c(temp))), 8)
+
+  # test error with both m and n null
+  expect_error(OSOAs_hadamard(optimize = TRUE))
+
+  # test null m and el = 2
+  temp <- OSOAs_hadamard(m = NULL, n = 48, el = 2, optimize = FALSE)
+  expect_equal(dim(temp), c(48, 48 / 2 - 1))
+
+  # test with null n and el = 2
+  temp <- OSOAs_hadamard(m = 7, n = NULL, el = 2, optimize = FALSE)
+  expect_equal(dim(temp), c(16, 16 / 2 - 1))
 })
