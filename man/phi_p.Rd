@@ -7,7 +7,7 @@
 phi_p(D, dmethod = "euclidean", p = 50, ...)
 }
 \arguments{
-\item{D}{an array or a list object of class SOA or MDLE}
+\item{D}{an array or an object of class SOA or MDLE}
 
 \item{dmethod}{the distance to use, \code{"euclidean"} or \code{"manhattan"}}
 

@@ -22,8 +22,7 @@ soacheck2D(D, s = 3, el = 3, t = 3, alpha = NULL, verbose = FALSE, ...)
 soacheck3D(D, s = 3, el = 3, t = 3, verbose = FALSE, ...)
 }
 \arguments{
-\item{D}{a matrix with factor levels or a list object of class \code{SOA}
-the element \code{array} of which contains the matrix; \cr
+\item{D}{a matrix with factor levels or an object of class \code{SOA};\cr
 factor levels can start with 0 or with 1, and need to be consecutively numbered}
 
 \item{verbose}{logical; if \code{TRUE}, additional information is printed
