@@ -64,6 +64,6 @@ jobs:
         # run code coverage, excluding functions that will be removed.
         run: |
           install.packages("covr")
-          covr::codecov(function_exclusions = c("OSOAregulart","OSOApb","permopt"))
+          covr::codecov(function_exclusions = c("OSOAregulart","OSOApb","permopt","BsFromB"))
         shell: Rscript {0}
 
