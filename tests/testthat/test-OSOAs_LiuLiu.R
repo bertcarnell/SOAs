@@ -14,7 +14,8 @@ test_that("OSOAs_LiuLiu", {
   expect_equal(attr(temp, "type"), "OSOA")
   expect_equal(dim(temp), c(32, 2))
 
-  temp <- OSOAs_LiuLiu(FrF2::FrF2(32,6), t = 4, m = 2, optimize=FALSE)
+  temp <- OSOAs_LiuLiu(FrF2::FrF2(32, 6, randomize=FALSE), t = 4, m = 2, optimize=FALSE)
+  expect_snapshot_output(temp)
   expect_equal(attr(temp, "strength"), 4)
   expect_equal(attr(temp, "type"), "OSOA")
   expect_equal(dim(temp), c(32, 2))

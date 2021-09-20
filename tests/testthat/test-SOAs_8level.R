@@ -32,6 +32,7 @@ test_that("SOAs_8level", {
 
   suppressMessages(temp <- SOAs_8level(64, m = NULL, optimize = FALSE))
   expect_true(all(apply(temp, 2, sum) == sum(temp[,1])))
+  expect_snapshot_output(temp)
 
   suppressMessages(temp <- SOAs_8level(64, dmethod = "euclidean"))
   expect_true(all(apply(temp, 2, sum) == sum(temp[,1])))

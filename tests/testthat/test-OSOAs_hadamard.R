@@ -6,6 +6,7 @@ test_that("OSOAs_hadamard", {
 
   ## 9 8-level factors in 24 runs
   temp <- OSOAs_hadamard(9, optimize=FALSE)
+  expect_snapshot_output(temp)
   expect_equal(dim(temp), c(24, 9))
   expect_equal(length(unique(c(temp))), 8)
 

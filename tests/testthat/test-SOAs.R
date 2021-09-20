@@ -1,5 +1,6 @@
 test_that("SOAs", {
   temp <- SOAs(DoE.base::L64.4.6, optimize=FALSE)
+  expect_snapshot_output(temp)
   expect_s3_class(temp, "SOA")
   expect_equal(attr(temp, "type"), "SOA")
   expect_equal(attr(temp, "strength"), "3")
