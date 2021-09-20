@@ -211,11 +211,16 @@ BcolsFromBcolllist <- function(Bcollist){
   for (i in 1:m)
     el <- rbind(el, cbind(i, Bcollist[[i]] + m))
 
+  print(el)
+  print(m)
+
   G <- igraph::graph_from_edgelist(el)
   igraph::vertex_attr(G) <- list(type=
-                           c(rep(1,m),
-                             rep(2, max(el)-m)))
+                           c(rep(0,m),
+                             rep(1, max(el)-m)))
+  plot(G)
   matches <- igraph::max_bipartite_match(G)
+  print(matches)
   if (matches$matching_size==m)
     Bcols <- matches$matching[1:m]-m
   else{
