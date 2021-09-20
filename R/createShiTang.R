@@ -145,14 +145,14 @@ create_ABC <- function(k, m=NULL, constr="ShiTang_alphabeta"){
       spaltenB <- spalten[["ycols"]]+2^(k-2)
       spaltenAplusB <- spalten[["zcols"]]+2^(k-2)+2^(k-1)
       if (m==2^(k-2)) {
-        spaltenA <- c(spaltenA, 2^(k-1))
-        spaltenB <- c(spaltenB, 2^(k-2))
-        spaltenAplusB <- c(spaltenAplusB, 2^(k-1)+2^(k-2))
+        spaltenA <- c(2^(k-1), spaltenA)
+        spaltenB <- c(2^(k-2), spaltenB)
+        spaltenAplusB <- c(2^(k-1)+2^(k-2), spaltenAplusB)
       }
-      if (m==2^(k-2)-1) spaltenC <- rep(2^(k-1),length(spaltenA)) else
-        spaltenC <- sapply(1:length(spaltenA),
-                           function(obj) setdiff(1:(2^k-1),
-                                                 c(spaltenA[obj], spaltenB[obj], spaltenAplusB[obj]))[1])
+      ## this always works
+      ## for m=n/4, not quite orthogonal
+      ## for m<n/4, implies an OSOA
+      spaltenC <- 1:m
   }
   if (constr == "ShiTang_alpha"){
       ## k from 4

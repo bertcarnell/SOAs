@@ -3,7 +3,7 @@ test_that("SOAs_8level", {
   expect_equal(nrow(temp), 64)
   expect_true(all(apply(temp, 2, sum) == sum(temp[,1])))
   expect_s3_class(temp, "SOA")
-  expect_equal(attr(temp, "type"), "SOA")
+  expect_equal(attr(temp, "type"), "OSOA")
   expect_equal(attr(temp, "strength"), "3+")
   expect_equal(dim(temp), c(64, 15))
 

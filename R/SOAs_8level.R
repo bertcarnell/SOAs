@@ -23,12 +23,14 @@
 #'
 #' The "ShiTang_alphabeta" construction additionally yields perfect 4x2x2 balance,
 #' if one column is collapsed to 4 levels, while two further columns are collapsed
-#' to 2 levels (0123 vs 4567). For m <= n/4 - 1, it also yields perfect balance for
+#' to 2 levels (0123 vs 4567).
+#'
+#' For m <= n/4 - 1, the "ShiTang_alphabeta" construction also yields perfect balance for
 #' 8x2 projections in 2D (i.e. if one original column with another column collapsed
 #' to two levels).
-#'
 #' Thus, it yields all strength 4 properties in 2D and 3D, which is called
-#' strength 3+.
+#' strength 3+. Furthermore, Groemping (2021) proposed an improved choice of columns
+#' for matrix C that implies orthogonal columns in this case.
 #'
 #' The construction is implemented in the equivalent form as described in ...
 #' @return matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
@@ -43,6 +45,7 @@
 #'   \item{call}{the call that created the object}
 #'   }
 #' @references
+#' Groemping (2021)
 #' Shi and Tang (2020)
 #' Weng (2014)
 #' @author Ulrike Groemping
@@ -132,6 +135,7 @@ SOAs_8level <- function(n, m=NULL,
                 phi_p=phi_p(aus), optimized=FALSE, permpick=matrix(1, nrow=3, ncol=m), call=mycall)
   }
   class(aus) <- c("SOA", class(aus))
+  if (ocheck(aus)) attrs$type <- "OSOA"
   attributes(aus) <- c(attributes(aus), attrs)
   aus
 }

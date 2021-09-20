@@ -5,13 +5,14 @@ st1 <- SOAs_8level(32, optimize=FALSE)
 
 test_that("ocheck", {
   expect_true(ocheck(oa1))
-  expect_false(ocheck(st1))
+  expect_true(ocheck(st1))
   expect_true(ocheck(as.data.frame(oa1)))
   expect_output(ocheck(nullcase, verbose = TRUE))
 })
 
 test_that("ocheck3", {
   temp <- OSOAs_LiuLiu(DoE.base::L81.3.10, optimize=FALSE)
+  expect_false(ocheck3(st1))
   expect_true(ocheck3(temp))
   expect_true(ocheck3(as.data.frame(temp)))
 
