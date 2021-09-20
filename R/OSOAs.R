@@ -167,6 +167,7 @@ OSOAs <- function(oa, el=3, m=NULL, noptim.rounds=1, noptim.repeats=1, optimize=
   }
   class(aus) <- c("SOA", class(aus))
   attributes(aus) <- c(attributes(aus), attrs)
+  dimnames(aus) <- NULL
   aus
 }
 

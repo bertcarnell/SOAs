@@ -40,6 +40,7 @@ createAB <- function(s, k=3, m=NULL){
   ## intcoeffs starts out the same and is reduced to linear combinations
   ##      for interactions in saturated oa
   aus <- intcoeffs <- ff(rep(s, k))
+  colnames(aus) <- NULL
 
   if (s>2){
     ## eliminate rows that refer to only one or no factors

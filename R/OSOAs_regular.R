@@ -85,8 +85,6 @@ OSOAs_regular <- function(s, k, el=3, m=NULL, noptim.rounds=1, noptim.repeats=1,
     }
   }
   oa <- createSaturated(s, k-1)[,mmax:(mmax-m+1), drop=FALSE]
-  if (m<=50) colnames(oa) <- DoE.base::Letters[1:m] else
-    colnames(oa) <- paste0("F", 1:m)
   aus <- OSOAs(oa, el=el, m=morig,
         noptim.rounds=noptim.rounds, noptim.repeats=noptim.repeats, optimize = optimize, dmethod=dmethod, p=p)
   attr(aus, "call") <- mycall

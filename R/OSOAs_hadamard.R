@@ -108,5 +108,6 @@ OSOAs_hadamard <- function(m=NULL, n=NULL, el=3, noptim.rounds=1, noptim.repeats
   aus <- OSOAs(X, el=el, m=m, noptim.rounds = noptim.rounds, noptim.repeats=noptim.repeats, optimize = optimize,
         dmethod = dmethod, p=p)
   attr(aus, "call") <- mycall
+  dimnames(aus) <- NULL
   aus
 }
