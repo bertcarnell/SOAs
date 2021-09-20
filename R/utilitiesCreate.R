@@ -5,7 +5,7 @@
 #' @param k integer; determines the run size: the resulting array will have s^k runs
 #' @param m the number of columns to be created
 #'
-#' @return \code{createAB} returns a list of s^k times m matrices A, B and D
+#' @return \code{createAB} returns a list of s^k times m matrices A, B and D for the Hedayat et al. construction
 #'
 #' @keywords internal
 ## function for the Hedayat et al. 2018 construction
@@ -196,6 +196,12 @@ BsFromB <- function(B, s=NULL, r=NULL, permlist=NULL, oneonly=TRUE){
 #' @importFrom igraph "vertex_attr<-"
 #' @importFrom igraph graph_from_edgelist max_bipartite_match
 #'
+#' @examples
+#' ## A has 4 columns,
+#' ## the argument lists suitable matches from remaining columns
+#' ## the outcome picks perfect unique matches, if possible
+#' SOAs:::BcolsFromBcolllist(list(1:2, 1:3, 4:6, 1))
+#'
 #' @keywords internal
 BcolsFromBcolllist <- function(Bcollist){
   ## function to pick as diverse a set of columns as possible
@@ -211,16 +217,11 @@ BcolsFromBcolllist <- function(Bcollist){
   for (i in 1:m)
     el <- rbind(el, cbind(i, Bcollist[[i]] + m))
 
-  print(el)
-  print(m)
-
   G <- igraph::graph_from_edgelist(el)
   igraph::vertex_attr(G) <- list(type=
                            c(rep(0,m),
                              rep(1, max(el)-m)))
-  plot(G)
   matches <- igraph::max_bipartite_match(G)
-  print(matches)
   if (matches$matching_size==m)
     Bcols <- matches$matching[1:m]-m
   else{
