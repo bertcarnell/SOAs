@@ -97,11 +97,11 @@ OSOAs_hadamard <- function(m=NULL, n=NULL, el=3, noptim.rounds=1, noptim.repeats
   ## because the algorithm drops a column for uneven no. of columns
   if (el==3)
     X <- suppressWarnings({
-      (DoE.base::desnum(FrF2::pb(nruns=n/2, nfactors=min(mmax, 2*ceiling(m/2))))+1)/2
+      (DoE.base::desnum(FrF2::pb(nruns=n/2, nfactors=min(mmax, 2*ceiling(m/2)), randomize=FALSE))+1)/2
       }, classes=c("message","warning"))
   else
     X <- suppressWarnings({
-      (DoE.base::desnum(FrF2::pb(nruns=n/2, nfactors=min(mmax, m))) + 1)/2
+      (DoE.base::desnum(FrF2::pb(nruns=n/2, nfactors=min(mmax, m), randomize=FALSE)) + 1)/2
     }, classes=c("message","warning"))
 
   ## the function for arbitrary oa does the rest of the work
