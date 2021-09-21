@@ -1,4 +1,6 @@
+set.seed(123)
 oa1 <- lhs::createBusht(3, 4, 3)
+oa2 <- DoE.base:::L9.3.4-1
 nullcase <- matrix(0:7, nrow=8, ncol=4)
 ## Shi and Tang strength 3+ construction in 7 8-level factors for 32 runs
 st1 <- SOAs_8level(32, optimize=FALSE)
@@ -7,7 +9,7 @@ test_that("ocheck", {
   expect_true(ocheck(oa1))
   expect_true(ocheck(st1))
   expect_true(ocheck(as.data.frame(oa1)))
-  expect_output(ocheck(nullcase, verbose = TRUE))
+  expect_snapshot_output(ocheck(nullcase, verbose = TRUE))
 })
 
 test_that("ocheck3", {
@@ -17,11 +19,15 @@ test_that("ocheck3", {
   expect_true(ocheck3(as.data.frame(temp)))
 
   expect_true(ocheck3(oa1))
-  expect_output(ocheck3(oa1, verbose = TRUE))
+  expect_snapshot_output(ocheck3(oa1, verbose = TRUE))
+
+  expect_false(ocheck3(oa2))
+  expect_snapshot_output(ocheck3(oa2, verbose = TRUE))
 })
 
 test_that("soacheck2D", {
   expect_false(soacheck2D(nullcase, s=2))
+  expect_snapshot_output(soacheck2D(nullcase, s=2, verbose = TRUE))
   expect_true(soacheck2D(st1, s=2, el=3, t=4))
 
   # test when el = 2 and t = 4
@@ -29,7 +35,7 @@ test_that("soacheck2D", {
   # test when min(OA) == 1
   expect_true(soacheck2D(lhs::createBose(8, ncol=3) + 1, s=2, el=3, t=4))
   # test verbose output
-  expect_output(expect_true(soacheck2D(st1, s=2, el=3, t=4, verbose=TRUE)))
+  expect_snapshot_output(expect_true(soacheck2D(st1, s=2, el=3, t=4, verbose=TRUE)))
 })
 
 test_that("soacheck3D", {
@@ -41,7 +47,7 @@ test_that("soacheck3D", {
   set.seed(12345)
   expect_false(soacheck3D(lhs::createBose(8, ncol=3) + 1, s=2, el=3, t=4))
   # test verbose output
-  expect_output(expect_true(soacheck3D(st1, s=2, el=3, t=4, verbose=TRUE)))
+  expect_snapshot_output(expect_true(soacheck3D(st1, s=2, el=3, t=4, verbose=TRUE)))
   # test error when min(OA) == 2 (not permitted)
   expect_error(soacheck2D(lhs::createBose(8, ncol=3) + 2, s=2, el=3, t=4))
   expect_error(soacheck3D(lhs::createBose(8, ncol=3) + 2, s=2, el=3, t=4))
