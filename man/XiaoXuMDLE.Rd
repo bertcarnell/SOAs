@@ -2,7 +2,9 @@
 % Please edit documentation in R/XiaoXuMDLE.R
 \name{XiaoXuMDLE}
 \alias{XiaoXuMDLE}
-\title{TODO}
+\alias{createF}
+\alias{optimize}
+\title{Implementation of the Xiao Xu TA algorithm (experimental, for comparison with MDLEs only)}
 \usage{
 XiaoXuMDLE(
   oa,
@@ -14,32 +16,69 @@ XiaoXuMDLE(
   dmethod = "manhattan",
   p = 50
 )
+
+createF(Dc, Dp, s, ell, nseq = 2000)
+
+optimize(
+  Dc,
+  s,
+  ell,
+  F,
+  nrounds = 50,
+  nsteps = 3000,
+  dmethod = "manhattan",
+  p = 50
+)
 }
 \arguments{
-\item{oa}{TODO}
+\item{oa}{matrix or data.frame that contains an ingoing symmetric OA. Levels must be denoted as 0 to s-1 or as 1 to s.}
 
-\item{ell}{TODO}
+\item{ell}{the multiplier for each number of levels}
 
-\item{nseq}{TODO}
+\item{noptim.oa}{integer: number of optimization rounds applied to initial oa itself before starting expansion}
 
-\item{nrounds}{TODO}
+\item{nseq}{tuning parameters for TA algorithm}
 
-\item{nsteps}{TODO}
+\item{nrounds}{tuning parameters for TA algorithm}
 
-\item{optimize.oa}{TODO}
+\item{nsteps}{tuning parameters for TA algorithm}
+
+\item{dmethod}{distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"}
+
+\item{p}{p for \code{\link{phi_p}} (the larger, the closer to maximin distance)}
+
+\item{Dc}{matrix}
+
+\item{Dp}{matrix}
+
+\item{s}{original number of levels}
+
+\item{F}{distribution function (created with \code{createF})}
 }
 \value{
-a matrix
+\code{XiaoXuMDLE} returns a matrix with attribute \code{phi_p}.
+
+\code{createF} returns a distribution function.
+
+\code{optimize} returns a matrix with attribute \code{phi_p}.
 }
 \description{
-TODO
+Implementation of the Xiao Xu TA algorithm (experimental, for comparison with MDLEs only)
 }
 \details{
-deviates from Xiao and Xu by optimizing the ingoing OA for
-phi_p instead of for the GWLP
+The algorithm deviates from Xiao and Xu (2018) by optimizing the ingoing OA for
+phi_p instead of for the GWLP. Function \code{XiaoXuMDLE} returns the value
+that is produced by \code{optimize} using the distribution function calculated
+by \code{createF}.
 }
 \examples{
-print("TODO")
+## create 8-level columns from 4-level columns
+XiaoXuMDLE(DoE.base::L16.4.5, 2, nrounds = 5, nsteps=50)
 
+}
+\references{
+Xiao, Q. and Xu, H.  (2018).  Construction of Maximin Distance Designs
+via Level Permutation and Expansion. \emph{Statistica Sinica} \bold{28},
+1395-1414.
 }
 \keyword{internal}

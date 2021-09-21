@@ -18,24 +18,40 @@
 #end for
 #Return Dmin
 
-#' TODO
+#' Implementation of the Xiao Xu TA algorithm (experimental, for comparison with MDLEs only)
 #'
-#' @param oa TODO
-#' @param ell TODO
-#' @param optimize.oa TODO
-#' @param nseq TODO
-#' @param nrounds TODO
-#' @param nsteps TODO
+#' @param oa matrix or data.frame that contains an ingoing symmetric OA. Levels must be denoted as 0 to s-1 or as 1 to s.
+#' @param ell the multiplier for each number of levels
+#' @param noptim.oa integer: number of optimization rounds applied to initial oa itself before starting expansion
+#' @param nseq tuning parameters for TA algorithm
+#' @param nrounds tuning parameters for TA algorithm
+#' @param nsteps tuning parameters for TA algorithm
+#' @param dmethod distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
+#' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
+#' @param Dc matrix
+#' @param Dp matrix
+#' @param s original number of levels
+#' @param F distribution function (created with \code{createF})
 #'
-#' @details deviates from Xiao and Xu by optimizing the ingoing OA for
-#' phi_p instead of for the GWLP
+#' @details The algorithm deviates from Xiao and Xu (2018) by optimizing the ingoing OA for
+#' phi_p instead of for the GWLP. Function \code{XiaoXuMDLE} returns the value
+#' that is produced by \code{optimize} using the distribution function calculated
+#' by \code{createF}.
 #'
-#' @return a matrix
+#' @return \code{XiaoXuMDLE} returns a matrix with attribute \code{phi_p}.
+#'
+#' @export
 #'
 #' @examples
-#' print("TODO")
+#' ## create 8-level columns from 4-level columns
+#' XiaoXuMDLE(DoE.base::L16.4.5, 2, nrounds = 5, nsteps=50)
 #'
-#' @keywords internal
+#' @references
+#' Xiao, Q. and Xu, H.  (2018).  Construction of Maximin Distance Designs
+#' via Level Permutation and Expansion. \emph{Statistica Sinica} \bold{28},
+#' 1395-1414.
+#'
+
 XiaoXuMDLE <- function(oa, ell, noptim.oa=1, nseq=2000, nrounds=50,
                        nsteps=3000, dmethod="manhattan", p=50){
   ## implements the original Xiao and Xu algorithm
@@ -72,24 +88,17 @@ XiaoXuMDLE <- function(oa, ell, noptim.oa=1, nseq=2000, nrounds=50,
 
   Fdach <- createF(Dc, Dp, s, ell, nseq)
 
-  optimize(Dc, s, ell, Fdach, nrounds, nsteps)
+  optimize(Dc, s, ell, Fdach, nrounds, nsteps, dmethod=dmethod, p=p)
 }
 
-## functions permopt and DcFromDp are in MDLEs.R
+## function DcFromDp is in MDLEs.R
 
-#' TODO
+# internal function createF for use in XiaoXuMDLE
+#' @rdname XiaoXuMDLE
 #'
-#' @param Dc TOIO
-#' @param Dp TODO
-#' @param s TODO
-#' @param ell TODO
-#' @param nseq TODO
+#' @return \code{createF} returns a distribution function.
 #'
-#' @return TODO
 #' @importFrom stats ecdf
-#'
-#' @examples
-#' print("TODO")
 #'
 #' @keywords internal
 createF <- function(Dc, Dp, s, ell, nseq=2000){
@@ -111,29 +120,19 @@ createF <- function(Dc, Dp, s, ell, nseq=2000){
   stats::ecdf(dists)
 }
 
-### TODO Might want to change the argument F to something else
-
-#' TODO
+# function to optimize for XiaoXu TA algorithm
 #'
-#' @param Dc TODO
-#' @param s TODO
-#' @param ell TODO
-#' @param F TODO
-#' @param nrounds TODO
-#' @param nsteps TODO
+#' @rdname XiaoXuMDLE
 #'
-#' @return TODO
+#' @return \code{optimize} returns a matrix with attribute \code{phi_p}.
 #' @importFrom stats quantile
 #'
-#' @examples
-#' print("tODO")
-#'
 #' @keywords internal
-optimize <- function(Dc, s, ell, F, nrounds=50, nsteps=3000){
+optimize <- function(Dc, s, ell, F, nrounds=50, nsteps=3000, dmethod="manhattan", p=50){
   ## Xiao Xu: nrounds 30 to 75
   ##          nsteps 3000 to 7500
   ### this should be for Dc
-  phi0 <- phi_p(Dc, dmethod="manhattan")
+  phi0 <- phi_p(Dc, dmethod=dmethod, p=p)
   Dmin <- Dc
   m <- ncol(Dc)
   for (r in 1:nrounds){
@@ -146,15 +145,15 @@ optimize <- function(Dc, s, ell, F, nrounds=50, nsteps=3000){
        levsamp <- levsamp_coarse*ell + levsamp_fine
        Dn[Dc[,colsamp]==levsamp[1],colsamp] <- levsamp[2]
        Dn[Dc[,colsamp]==levsamp[2],colsamp] <- levsamp[1]
-       if (phi_p(Dn, dmethod="manhattan") -
-           phi_p(Dc, dmethod="manhattan") < tau) Dc <- Dn
-       if (phi_p(Dc, dmethod="manhattan") < phi0){
+       if (phi_p(Dn, dmethod=dmethod, p=p) -
+           phi_p(Dc, dmethod=dmethod, p=p) < tau) Dc <- Dn
+       if (phi_p(Dc, dmethod=dmethod, p=p) < phi0){
          Dmin <- Dc
-         phi0 <- phi_p(Dmin, dmethod="manhattan")
+         phi0 <- phi_p(Dmin, dmethod=dmethod, p=p)
        }
      }
   }
   class(Dmin) <- c("matrix", "array")
-  attr(Dmin, "phi_p") <- phi_p(Dmin, dmethod="manhattan")
+  attr(Dmin, "phi_p") <- phi_p(Dmin, dmethod=dmethod, p=p)
   Dmin
 }
