@@ -1,6 +1,6 @@
 test_that("soa", {
   ## t=5, random
-  oa <- (desnum(FrF2::FrF2(128, 9))+1)/2
+  oa <- (desnum(FrF2::FrF2(128, 9, randomize=FALSE))+1)/2
   temp <- soa(oa, t=5)
   expect_equal(dim(temp), c(128, 4))
   expect_equal(range(temp), c(0, 31))
