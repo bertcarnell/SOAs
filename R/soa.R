@@ -5,16 +5,21 @@
 
 #' work horse function for SOAs
 #'
-#' @param oa TODO
-#' @param t TODO
-#' @param m TODO
-#' @param permlist TODO
-#' @param random TODO
+#' @param oa matrix or data.frame that contains an ingoing symmetric OA. Levels must be denoted as 0 to s-1 or as 1 to s.
+#' @param t the strength the SOA should have, can be 2, 3, 4, or 5. Must not
+#' be larger than the strength of \code{oa}, but can be smaller. The resulting SOA will have s^t levels
+#' @param m the requested number of columns (see details for permitted numbers of columns)
+#' @param permlist list of lists of permutations
+#' @param random logical
 #'
-#' @return TODO
+#' @details The function is the workhorse function for function \code{\link{SOAs}}.
+#'
+#' @return a matrix
 #'
 #' @examples
-#' print("TODO")
+#' oa <- DoE.base::L81.3.10 - 1
+#' soa(oa, t=3)   ## 9 columns with 27 levels each
+
 #'
 #' @keywords internal
 soa <- function(oa, t=3, m=NULL, permlist=NULL, random=TRUE){
@@ -35,8 +40,10 @@ soa <- function(oa, t=3, m=NULL, permlist=NULL, random=TRUE){
   if (t==3) m <- ncol(A) - 1
   if (t==4) m <- floor(ncol(A)/2)
   if (t==5) m <- floor((ncol(A)-1)/2)
-  if (!is.null(morig)) stopifnot(morig<=m)
-  m <- morig
+  if (!is.null(morig)){
+    stopifnot(morig<=m)
+    m <- morig
+  }
 
   s <- length(unique(A[,1]))
   if (is.null(permlist)){
