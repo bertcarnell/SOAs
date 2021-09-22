@@ -17,7 +17,7 @@ count_npairs(D, minn = 1, ...)
 
 count_nallpairs(ns)
 
-soacheck2D(D, s = 3, el = 3, t = 3, alpha = NULL, verbose = FALSE, ...)
+soacheck2D(D, s = 3, el = 3, t = 3, verbose = FALSE, ...)
 
 soacheck3D(D, s = 3, el = 3, t = 3, verbose = FALSE, ...)
 }
@@ -34,9 +34,7 @@ factor levels can start with 0 or with 1, and need to be consecutively numbered}
 
 \item{ns}{vector of numbers of levels for each column}
 
-\item{s}{the prime or prime power according to which the array is checked;
-NULL for mixed level arrays, or where the SOA was constructed using the level
-expansion implementation according to He, Chang and Tang for strength 2+}
+\item{s}{the prime or prime power according to which the array is checked}
 
 \item{el}{the exponent so that the number of levels of the array is \code{s^el}
 (if \code{s} is not NULL)}
@@ -44,15 +42,10 @@ expansion implementation according to He, Chang and Tang for strength 2+}
 \item{t}{the strength for which to look (2, 3, or 4), equal to the sum of the
 exponents in the stratification dimensions; for example, \code{soacheck2D} considers \cr
 sxs 2D projections with \code{t=2}, \cr
-s^2xs and sxs^2 projections with \code{t=3} (or alpha\emph{s_1 x s_2 and s_1 x alpha}s_2
-for \code{s=NULL} and non-NULL alpha), \cr
+s^2xs and sxs^2 projections with \code{t=3}, \cr
 and s^3xs, s^2xs^2 and sxs^3 projections with \code{t=4}.\cr
-If \code{t=4} and \code{el=2}, property gamma (s^xs and sxs^3) is obviously
+If \code{t=4} and \code{el=2}, property gamma (s^3 x s and s x s^3) is obviously
 impossible and will not be part of the checks.}
-
-\item{alpha}{the integer number to use instead of s, see the explanation for
-\code{t} (for SOAs that have been constructed from juxtaposition of alpha
-\code{s^el} designs, e.g. with function \code{\link{SOAs}})}
 }
 \value{
 Functions whose names contain "\code{check}" return a logical.
@@ -122,7 +115,10 @@ mylm <- stats::lm(y~(X1+X2+X3+X4)^2 + I(X1^2)+I(X2^2)+I(X3^2)+I(X4^2),
 crossprod(stats::model.matrix(mylm))
 }
 \references{
-He and Tang (2013)
+For full detail, see \code{\link{SOAs-package}}.
+
+Groemping (2021)\cr
+He and Tang (2013)\cr
 Shi and Tang (2020)
 }
 \author{
