@@ -10,22 +10,16 @@
 #'
 #' @param D a matrix with factor levels or an object of class \code{SOA};\cr
 #' factor levels can start with 0 or with 1, and need to be consecutively numbered
-#' @param s the prime or prime power according to which the array is checked;
-#' NULL for mixed level arrays, or where the SOA was constructed using the level
-#' expansion implementation according to He, Chang and Tang for strength 2+
+#' @param s the prime or prime power according to which the array is checked
 #' @param el the exponent so that the number of levels of the array is \code{s^el}
 #' (if \code{s} is not NULL)
 #' @param t the strength for which to look (2, 3, or 4), equal to the sum of the
 #' exponents in the stratification dimensions; for example, \code{soacheck2D} considers \cr
 #' sxs 2D projections with \code{t=2}, \cr
-#' s^2xs and sxs^2 projections with \code{t=3} (or alpha*s_1 x s_2 and s_1 x alpha*s_2
-#' for \code{s=NULL} and non-NULL alpha), \cr
+#' s^2xs and sxs^2 projections with \code{t=3}, \cr
 #' and s^3xs, s^2xs^2 and sxs^3 projections with \code{t=4}.\cr
-#' If \code{t=4} and \code{el=2}, property gamma (s^xs and sxs^3) is obviously
+#' If \code{t=4} and \code{el=2}, property gamma (s^3 x s and s x s^3) is obviously
 #' impossible and will not be part of the checks.
-#' @param alpha the integer number to use instead of s, see the explanation for
-#' \code{t} (for SOAs that have been constructed from juxtaposition of alpha
-#' \code{s^el} designs, e.g. with function \code{\link{SOAs}})
 #' @param verbose logical; if \code{TRUE}, additional information is printed
 #' (confounded pair or triple projections with A2 or A3, respectively, or table of correlations)
 #' @param minn small integer number; the function counts pairs that are covered at least \code{minn} times
@@ -70,7 +64,10 @@
 #' @export
 #'
 #' @references
-#' He and Tang (2013)
+#' For full detail, see \code{\link{SOAs-package}}.
+#'
+#' Groemping (2021)\cr
+#' He and Tang (2013)\cr
 #' Shi and Tang (2020)
 #'
 #' @importFrom stats lm rnorm model.matrix
@@ -211,8 +208,7 @@ phi_p <- function(D, dmethod="euclidean", p=50, ...){
 
 #' @rdname ocheck
 #' @export
-soacheck2D <- function(D, s=3, el=3, t=3, alpha=NULL, verbose=FALSE, ...){
-  if (!is.null(s)){
+soacheck2D <- function(D, s=3, el=3, t=3, verbose=FALSE, ...){
   stopifnot(all(levels.no(D)==s^el))
   if (el==2 && t==4) message("property gamma is not possible, ",
                         "only property alpha is checked")
@@ -293,49 +289,6 @@ soacheck2D <- function(D, s=3, el=3, t=3, alpha=NULL, verbose=FALSE, ...){
       }
     }
   return(aus)
-  }else
-  { ## mixed level for strength 2+
-    ## kick out this case ???
-    if (is.null(alpha)) stop("for mixed level (O)SOAs, alpha must be given")
-    s <- levels.no(D)%/%alpha
-    stopifnot(t %in% c(2,3))
-
-    paare <- nchoosek(ncol(D), 2)
-    aus <- TRUE
-    if (verbose) cat("pairs for which SOA property in 2D is violated:\n")
-    if (t==3){
-      for (i in 1:ncol(paare)){
-        ## might be faster to use length2 instead of GWLP ?
-        suppressWarnings(twoone <- DoE.base::GWLP(
-          cbind(D[,paare[1,i]], D[,paare[2,i]]%/%alpha), kmax=2)[3])
-        suppressWarnings(onetwo <- DoE.base::GWLP(
-          cbind(D[,paare[1,i]], D[,paare[2,i]]%/%alpha), kmax=2)[3])
-        if (round(twoone,8) > 0 || round(onetwo,8) > 0){
-          if (!verbose) return(FALSE)
-          aus <- FALSE
-          print(paare[,i])
-          if (round(twoone,8)>0) {
-            print(paste0("alpha*sxs: A2 = ", round(twoone,8)))
-          }
-          if (round(onetwo,8)>0) {
-            print(paste0("sxalpha*s: A2 = ", round(onetwo,8)))
-          }
-        }
-      }
-    }else{
-      for (i in 1:ncol(paare)){
-        suppressWarnings(oneone <- DoE.base::GWLP(
-          cbind(D[,paare[1,i]]%/%alpha, D[,paare[2,i]]%/%alpha), kmax=2)[3])
-        if (round(oneone,8) > 0){
-          if (!verbose) return(FALSE)
-          aus <- FALSE
-          print(paare[,i])
-          print(paste0("1x1: A2 = ", round(oneone,8)))
-        }
-      }
-    }
-    return(aus)
-  }
 }
 
 ################################################################################

@@ -64,4 +64,8 @@
 # soacheck3D
 
     triples for which SOA property in 3D is violated:
+    [1] 1 2 3
+    2x1x1:
+        1     2     3 
+    0.000 0.000 0.031 
 
