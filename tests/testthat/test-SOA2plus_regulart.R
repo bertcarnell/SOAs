@@ -15,4 +15,27 @@ test_that("SOA2plus_regulart", {
   temp <- SOA2plus_regulart(4, 3)
   expect_equal(dim(temp), c(64, 8))
   expect_true(ocheck(temp))
+
+  temp <- SOA2plus_regulart(4, 3, m=3,
+                            permlist = list(
+                              list(0:3,0:3,0:3),
+                              list(0:3,0:3,0:3),
+                              list(0:3,0:3,0:3)))
+  expect_equal(dim(temp), c(64,3))
+  temp <- SOA2plus_regulart(4, 3,
+                            permlist = list(
+                              list(0:3,0:3,0:3),
+                              list(0:3,0:3,0:3),
+                              list(0:3,0:3,0:3),
+                              list(0:3,0:3,0:3),
+                              list(0:3,0:3,0:3),
+                              list(0:3,0:3,0:3),
+                              list(0:3,0:3,0:3),
+                              list(0:3,0:3,0:3)))
+  expect_equal(dim(temp), c(64,8))
+
+  expect_error(SOA2plus_regulart(64, 3),
+               regexp="must not be larger than 2^5", fixed=TRUE)
+  expect_error(SOA2plus_regulart(729, 3),
+               regexp="must not be larger than 3^5", fixed=TRUE)
 })
