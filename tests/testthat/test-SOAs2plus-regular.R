@@ -15,6 +15,13 @@ test_that("SOAs2plus_regular", {
   expect_equal(attr(temp, "strength"), "2+")
   expect_equal(length(unique(c(temp))), 9)
 
+  temp <- SOAs2plus_regular(s=4, k=3, optimize=FALSE)
+  expect_s3_class(temp, "SOA")
+  expect_equal(attr(temp, "type"), "OSOA")
+  expect_equal(attr(temp, "strength"), "2+")
+  expect_equal(dim(temp), c(64, (4^3-1)/(4-1) - ((4-1)^3-1)/(4-2)))
+  expect_equal(length(unique(c(temp))), 16)
+
   ## testing optimize
   set.seed(123)
   temp <- SOAs2plus_regular(s=4, k=3)
