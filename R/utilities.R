@@ -1,17 +1,17 @@
-### utility functions for SOAs
 
 # TODO:  Can't support internal methods for CRAN packages
 nchoosek <- DoE.base:::nchoosek
 levels.no <- DoE.base:::levels.no
 
-#' TODO
+#' Utility functions for SOAs
+#' @rdname utilities
 #'
-#' @param ... TODO
+#' @param ... list of integers or numeric vector with integers
 #'
-#' @return TODO
+#' @return ff returns a full factorial matrix
 #'
 #' @examples
-#' print("TODO")
+#' SOAs:::ff(3,2,4)
 #'
 #' @keywords internal
 ff <- function (...)
@@ -26,14 +26,14 @@ ff <- function (...)
     as.matrix(hilf[, ncol(hilf):1])
 }
 
-#' TODO
+#' @rdname utilities
 #'
-#' @param k TODO
+#' @param k determines dimension
 #'
-#' @return TODO
+#' @return Yatesmat2 returns a 2^k x (2^k - 1) matrix with 0/1 entries, Yates matrix
 #'
 #' @examples
-#' print("TODO")
+#' SOAs:::Yatesmat2(3)
 #'
 #' @keywords internal
 Yatesmat2 <- function(k){
@@ -41,46 +41,13 @@ Yatesmat2 <- function(k){
   (hilf%*%t(hilf))[,-1]%%2
 }
 
-#' TOOD
+#' @rdname utilities
 #'
-#' @param s TODO
-#' @param k TODO
-#' @param type TODO
+#' @param A n x m matrix A
+#' @param B n x m matrix B
 #'
-#' @return TODO
-#' @importFrom FrF2 res catlg
-#'
-#' @examples
-#' print("TODO")
-#'
-#' @keywords internal
-ncol_lb <- function(s, k, type="2+"){
-  stopifnot(k>=3)
-  if (type=="2+") return((s^k-1)/(s-1)-((s-1)^k-1)/(s-2))
-  if (type=="3") {
-      if (s==2) { ## He and Tang 2013 Theorem 2
-        fV <- NA
-        for (i in 1:2^(k/2)){
-          if (FrF2::res(FrF2::catlg[paste0(k+i,"-",i,".1")])>=4)
-            fV <- k+i
-          else break
-        }
-        return(fV-1)
-      }
-      if (k==3) return(s+1)  ## He Tang 2014 Prop.2
-  }
-}
-
-
-#' TODO
-#'
-#' @param A TODO
-#' @param B TODO
-#'
-#' @return TODO
-#'
-#' @examples
-#' print("TODO")
+#' @return interleavecols returns an n x (2m) matrix with columns \code{A[,1]}, \code{B[,1]},
+#' \code{A[,2]}, \code{B[,2]}, ...
 #'
 #' @keywords internal
 interleavecols <- function(A, B){
@@ -94,11 +61,7 @@ interleavecols <- function(A, B){
   C
 }
 
-#' utilities for SOAs and OSOAs
-#'
-#' utility functions around SOAs and OSOAs
-#'
-#' @rdname utilities
+#' bound for number of columns for LiuLiu OSOAs
 #'
 #' @param moa number of oa columns
 #' @param t strength used in the construction in function \code{OSOAs_LiuLiu}
@@ -109,7 +72,10 @@ interleavecols <- function(A, B){
 #' consists of \code{moa} columns
 #' @export
 #'
-#' @references Liu and Liu 2015
+#' @references
+#' #' For full detail, see \code{\link{SOAs-package}}.
+#'
+#' Liu and Liu 2015
 #' @author Ulrike Groemping
 #'
 #' @examples
