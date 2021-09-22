@@ -48,7 +48,9 @@ oa_optimized <- phi_optimize(oa)
 print(phi_p(oa_optimized, dmethod="manhattan"))
 }
 \references{
-Weng (2014) Master's thesis.
+For full detail, see \code{\link{SOAs-package}}.
+
+Weng (2014)
 }
 \author{
 Ulrike Groemping

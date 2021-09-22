@@ -61,7 +61,10 @@ algorithm proposed by Xiao and Xu.
 dim(MDLEs(DoE.base::L16.4.5, 2, noptim.rounds = 1))
 }
 \references{
-Weng (2014), Xiao and Xu
+For full detail, see \code{\link{SOAs-package}}.
+
+Weng (2014)\cr
+Xiao and Xu (2018)
 }
 \author{
 Ulrike Groemping

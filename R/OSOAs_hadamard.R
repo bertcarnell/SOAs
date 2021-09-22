@@ -39,10 +39,12 @@
 #' @export
 #'
 #' @references
-#' Groemping (2021)
-#' Li, Liu and Yang (2021)
+#' For full detail, see \code{\link{SOAs-package}}.
+#'
+#' Groemping (2021)\cr
+#' Li, Liu and Yang (2021)\cr
+#' Weng (2014)\cr
 #' Zhou and Tang (2019)
-#' Weng (2014)
 #'
 #' @author Ulrike Groemping
 #'

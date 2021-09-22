@@ -7,24 +7,29 @@
 soa(oa, t = 3, m = NULL, permlist = NULL, random = TRUE)
 }
 \arguments{
-\item{oa}{TODO}
+\item{oa}{matrix or data.frame that contains an ingoing symmetric OA. Levels must be denoted as 0 to s-1 or as 1 to s.}
 
-\item{t}{TODO}
+\item{t}{the strength the SOA should have, can be 2, 3, 4, or 5. Must not
+be larger than the strength of \code{oa}, but can be smaller. The resulting SOA will have s^t levels}
 
-\item{m}{TODO}
+\item{m}{the requested number of columns (see details for permitted numbers of columns)}
 
-\item{permlist}{TODO}
+\item{permlist}{list of lists of permutations}
 
-\item{random}{TODO}
+\item{random}{logical}
 }
 \value{
-TODO
+a matrix
 }
 \description{
 work horse function for SOAs
 }
+\details{
+The function is the workhorse function for function \code{\link{SOAs}}.
+}
 \examples{
-print("TODO")
+oa <- DoE.base::L81.3.10 - 1
+SOAs:::soa(oa, t=3)   ## 9 columns with 27 levels each
 
 }
 \keyword{internal}

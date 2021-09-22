@@ -18,7 +18,7 @@
 #'
 #' @examples
 #' oa <- DoE.base::L81.3.10 - 1
-#' soa(oa, t=3)   ## 9 columns with 27 levels each
+#' SOAs:::soa(oa, t=3)   ## 9 columns with 27 levels each
 
 #'
 #' @keywords internal

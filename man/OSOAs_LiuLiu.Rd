@@ -111,7 +111,9 @@ oa <- DoE.base::L72.2.5.3.3.4.1.6.7[,10:16]
 OSOA72 <- OSOAs_LiuLiu(oa, t=2, optimize=FALSE)
 }
 \references{
-Liu and Liu (2015)
+For full detail, see \code{\link{SOAs-package}}.
+
+Liu and Liu (2015)\cr
 Weng (2014)
 }
 \author{

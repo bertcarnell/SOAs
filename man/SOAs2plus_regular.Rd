@@ -88,8 +88,10 @@ plan64 <- SOAs2plus_regular(4, 3, optimize=FALSE)
 ocheck(plan64)   ## the array has indeed orthogonal columns
 }
 \references{
-He, Cheng and Tang (2018)
-Weng (2014)
+For full detail, see \code{\link{SOAs-package}}.
+
+He, Cheng and Tang (2018)\cr
+Weng (2014)\cr
 Zhou and Tang (2019)
 }
 \author{

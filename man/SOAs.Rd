@@ -72,8 +72,10 @@ soacheck2D(aus2, s=3, el=2, t=2) # check for 2
 soacheck3D(aus2, s=3, el=2)      # t=3 is the default (check for 3-)
 }
 \references{
-He and Tang (2013) Biometrika.
-Weng (2014) Master's thesis.
+For full detail, see \code{\link{SOAs-package}}.
+
+He and Tang (2013)\cr
+Weng (2014)
 }
 \author{
 Ulrike Groemping

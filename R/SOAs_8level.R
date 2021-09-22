@@ -45,8 +45,10 @@
 #'   \item{call}{the call that created the object}
 #'   }
 #' @references
-#' Groemping (2021)
-#' Shi and Tang (2020)
+#' For full detail, see \code{\link{SOAs-package}}.
+#'
+#' Groemping (2021)\cr
+#' Shi and Tang (2020)\cr
 #' Weng (2014)
 #' @author Ulrike Groemping
 #' @export

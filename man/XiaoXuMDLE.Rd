@@ -77,8 +77,8 @@ XiaoXuMDLE(DoE.base::L16.4.5, 2, nrounds = 5, nsteps=50)
 
 }
 \references{
-Xiao, Q. and Xu, H.  (2018).  Construction of Maximin Distance Designs
-via Level Permutation and Expansion. \emph{Statistica Sinica} \bold{28},
-1395-1414.
+For full detail, see \code{\link{SOAs-package}}.
+
+Xiao and Xu (2018)
 }
 \keyword{internal}

@@ -44,7 +44,9 @@
 #' @importFrom FrF2 pb FrF2
 #'
 #' @references
-#' Liu and Liu (2015)
+#' For full detail, see \code{\link{SOAs-package}}.
+#'
+#' Liu and Liu (2015)\cr
 #' Weng (2014)
 #' @author Ulrike Groemping
 #' @examples

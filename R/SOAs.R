@@ -36,8 +36,10 @@
 #'   }
 #' @export
 #' @references
-#' He and Tang (2013) Biometrika.
-#' Weng (2014) Master's thesis.
+#' For full detail, see \code{\link{SOAs-package}}.
+#'
+#' He and Tang (2013)\cr
+#' Weng (2014)
 #' @author Ulrike Groemping
 #'
 #' @examples

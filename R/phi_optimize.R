@@ -22,7 +22,9 @@
 #' @return an n x m matrix
 #' @export
 #' @references
-#' Weng (2014) Master's thesis.
+#' For full detail, see \code{\link{SOAs-package}}.
+#'
+#' Weng (2014)
 #' @author Ulrike Groemping
 #'
 #' @examples

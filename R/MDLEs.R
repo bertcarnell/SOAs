@@ -34,7 +34,11 @@
 #'
 #' @importFrom arrangements npermutations permutations
 #'
-#' @references Weng (2014), Xiao and Xu
+#' @references
+#' For full detail, see \code{\link{SOAs-package}}.
+#'
+#' Weng (2014)\cr
+#' Xiao and Xu (2018)
 #' @author Ulrike Groemping
 #'
 #' @examples

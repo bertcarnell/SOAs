@@ -43,8 +43,10 @@
 #'   \item{call}{the call that created the object}
 #' }
 #' @references
-#' He, Cheng and Tang (2018)
-#' Weng (2014)
+#' For full detail, see \code{\link{SOAs-package}}.
+#'
+#' He, Cheng and Tang (2018)\cr
+#' Weng (2014)\cr
 #' Zhou and Tang (2019)
 #' @author Ulrike Groemping
 #' @note Strength 2+ SOAs can accommodate a large number of factors with

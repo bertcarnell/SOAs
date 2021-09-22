@@ -80,9 +80,10 @@ OSOAs_regular(3, 4, el=2, optimize=FALSE) ## 13 columns, phi_p about 0.117
 # OSOAs_regular(3, 4, el=2) ## 13 columns, phi_p typically below 0.055
 }
 \references{
-Groemping (2021)
-Li, Liu and Yang (2021)
-Weng (2014)
+For full detail, see \code{\link{SOAs-package}}.
+Groemping (2021)\cr
+Li, Liu and Yang (2021)\cr
+Weng (2014)\cr
 Zhou and Tang (2019)
 }
 \author{
