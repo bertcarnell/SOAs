@@ -1,0 +1,11 @@
+test_that("createSaturated", {
+  temp <- createSaturated(2, 2)
+  expect_equal(dim(temp), c(4,3))
+  temp <- createSaturated(2, 4)
+  expect_equal(dim(temp), c(16,15))
+  temp <- createSaturated(3, 5)
+  expect_equal(dim(temp), c(243, (3^5-1)/2))
+  temp <- createSaturated(4, 3)
+  expect_equal(dim(temp), c(64, (4^3-1)/3))
+  expect_error(createSaturated(6,2))
+})
