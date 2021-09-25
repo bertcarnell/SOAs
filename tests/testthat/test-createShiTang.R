@@ -44,6 +44,9 @@ test_that("create_DfromABC", {
   temp <- create_DfromABC(create_ABC(7))
   expect_true(all(apply(temp, 2, sum) == sum(temp[,1])))
 
+  temp <- create_DfromABC(create_ABC(9), random=TRUE)
+  expect_equal(unname(c(table(temp))), rep(8192,8))
+
   temp <- create_DfromABC(create_ABC(9))
   expect_true(all(apply(temp, 2, sum) == sum(temp[,1])))
 

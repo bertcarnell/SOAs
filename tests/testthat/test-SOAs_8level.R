@@ -15,6 +15,10 @@ test_that("SOAs_8level", {
   expect_equal(attr(temp, "strength"), "3")
   expect_equal(dim(temp), c(16, 4))
 
+  ## m=NULL
+  suppressMessages(temp <- SOAs_8level(16, constr="ShiTang_alpha"))
+  expect_equal(dim(temp), c(16, 5))
+  # m=5
   suppressMessages(temp <- SOAs_8level(16, m = 5, constr="ShiTang_alpha"))
   expect_equal(nrow(temp), 16)
   expect_true(all(apply(temp, 2, sum) == sum(temp[,1])))
