@@ -57,6 +57,8 @@ test_that("soacheck2D", {
 test_that("soacheck3D", {
   expect_false(soacheck3D(nullcase, s=2))
   expect_false(soacheck3D(nullcase, s=2, verbose = TRUE))
+  expect_false(soacheck3D(nullcase, s=2, t=4))
+  expect_false(soacheck3D(nullcase, s=2, t=4, verbose = TRUE))
   expect_true(soacheck3D(st1, s=2, el=3, t=4))
   expect_true(soacheck3D(st1, s=2, el=3, t=3))
 

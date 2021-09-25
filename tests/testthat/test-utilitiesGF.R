@@ -50,6 +50,15 @@ test_that("gf_prod", {
 
 test_that("gf_sum_list", {
   expect_all_equal(gf_sum_list(list(a = c(1,0), b=c(2,5), d=c(0,8)), gf, checks = TRUE), c(0, 1))
+  expect_error(gf_sum_list(list(a = rep(0:9, each = 8),
+                           b=rep(0:9, times = 8)), gf, checks = TRUE),
+                           regexp="invalid numbers occur in ll",
+               fixed=TRUE)
+  expect_error(gf_sum_list(list(a = rep(0:8, each = 8),
+                                b=rep(0:8, times = 9)), gf, checks = TRUE),
+               regexp="all elements of ll must have the same length",
+               fixed=TRUE)
+
   temp <- gf_sum_list(list(a = rep(0:8, each = 81),
                            b=rep(0:8, each = 9, times = 9),
                            d=rep(0:8, times = 81)), gf, checks = TRUE)
