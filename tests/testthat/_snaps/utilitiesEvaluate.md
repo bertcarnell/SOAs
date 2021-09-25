@@ -61,6 +61,34 @@
 
     pairs for which SOA property in 2D is violated:
 
+---
+
+    pairs for which SOA property in 2D is violated:
+    [1] 1 2
+    [1] "3x1: A2 = 1"
+    [1] "2x2: A2 = 3"
+    [1] "1x3: A2 = 1"
+    [1] 1 3
+    [1] "3x1: A2 = 1"
+    [1] "2x2: A2 = 3"
+    [1] "1x3: A2 = 1"
+    [1] 1 4
+    [1] "3x1: A2 = 1"
+    [1] "2x2: A2 = 3"
+    [1] "1x3: A2 = 1"
+    [1] 2 3
+    [1] "3x1: A2 = 1"
+    [1] "2x2: A2 = 3"
+    [1] "1x3: A2 = 1"
+    [1] 2 4
+    [1] "3x1: A2 = 1"
+    [1] "2x2: A2 = 3"
+    [1] "1x3: A2 = 1"
+    [1] 3 4
+    [1] "3x1: A2 = 1"
+    [1] "2x2: A2 = 3"
+    [1] "1x3: A2 = 1"
+
 # soacheck3D
 
     triples for which SOA property in 3D is violated:
