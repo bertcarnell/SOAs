@@ -24,7 +24,7 @@ test_that("SOAs2plus_regular", {
 
   ## testing optimize
   set.seed(123)
-  temp <- SOAs2plus_regular(s=4, k=3)
+  suppressMessages(temp <- SOAs2plus_regular(s=4, k=3))
   expect_s3_class(temp, "SOA")
   expect_equal(attr(temp, "type"), "OSOA")
   expect_equal(attr(temp, "strength"), "2+")
