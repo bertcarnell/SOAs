@@ -32,7 +32,9 @@ test_that("ocheck3", {
 
 test_that("soacheck2D", {
   expect_false(soacheck2D(nullcase, s=2))
-  expect_snapshot_output(soacheck2D(nullcase, s=2, verbose = TRUE))
+  expect_false(soacheck2D(nullcase, s=2, verbose = TRUE))
+  expect_false(soacheck2D(nullcase, s=2, t=2))
+  expect_snapshot_output(soacheck2D(nullcase, s=2, t=2, verbose = TRUE))
   expect_true(soacheck2D(st1, s=2, el=3, t=4))
   expect_true(soacheck2D(st1, s=2, el=3, t=3))
 
@@ -58,10 +60,10 @@ test_that("soacheck3D", {
   expect_true(soacheck3D(st1, s=2, el=3, t=4))
   expect_true(soacheck3D(st1, s=2, el=3, t=3))
 
-  # the result of this test depends on the random outcome of createBose;
-  # apparently, soacheck3D is sometimes TRUE
+  ## t=4, FALSE
   expect_snapshot_output(expect_false(soacheck3D(oa3 + 1,
-                                                 s=2, el=3, t=4, verbose = TRUE)))
+                                s=2, el=3, t=4, verbose = TRUE)))
+  expect_false(soacheck3D(oa3 + 1, s=2, el=3, t=4))
   # test verbose output
   expect_true(soacheck3D(st1, s=2, el=3, t=4))
   # test error when min(OA) == 2 (not permitted)
