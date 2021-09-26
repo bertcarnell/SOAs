@@ -9,6 +9,17 @@ Creates Stratum Orthogonal Arrays (a.k.a. Strong OAs)
 |:-----:|:------:|
 |[![R-CMD-check](https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml/badge.svg)](https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml)|[![Codecov test coverage](https://codecov.io/gh/bertcarnell/SOAs/branch/main/graph/badge.svg)](https://codecov.io/gh/bertcarnell/SOAs?branch=main)|
 
+## Installation
+
+`SOAs` has not yet been released on [CRAN](https://CRAN.R-project.org) with:
+
+You can also install the development version of `SOAs` from here with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("bertcarnell/SOAs")
+```
+
 ## System Dependencies
 
 For the `arrangements` package:

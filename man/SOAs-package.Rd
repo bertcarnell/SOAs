@@ -55,6 +55,14 @@ Xiao, Q. and Xu, H.  (2018). Construction of Maximin Distance Designs #' via Lev
 
 Zhou, Y.D. and Tang, B. (2019). Column-orthogonal strong orthogonal arrays of strength two plus and three minus. \emph{Biometrika} \strong{106}, 997-1004. https://doi.org/10.1093/biomet/asz043
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/bertcarnell/SOAs}
+  \item Report bugs at \url{https://github.com/bertcarnell/SOAs/issues}
+}
+
+}
 \author{
 Author: Ulrike Groemping, BHT Berlin. Contributor: Rob Carnell.
 }
