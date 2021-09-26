@@ -69,35 +69,38 @@
 <div id="soas" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#soas" class="anchor"></a>SOAs</h1></div>
-<p>Creates Stratum Orthogonal Arrays (a.k.a. Strong OAs)</p>
+<p>Creates stratum orthogonal arrays (also known as strong orthogonal arrays).</p>
 <ul>
 <li>
-<strong>Author</strong>: Ulrike Groemping</li>
+<strong>Author</strong>: Ulrike Groemping, BHT Berlin.</li>
 <li>
-<strong>Contributor</strong>: Rob Carnell</li>
+<strong>Contributor</strong>: Rob Carnell.</li>
 </ul>
 <table class="table">
 <thead><tr class="header">
 <th align="center">Actions</th>
 <th align="center">Coverage</th>
+<th align="center">Website</th>
 </tr></thead>
 <tbody><tr class="odd">
-<td align="center"><a href="https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml"><img src="https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml/badge.svg" alt="R-CMD-check"></a></td>
+<td align="center">
+<a href="https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml"><img src="https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml/badge.svg" alt="R-CMD-check"></a><a href="https://github.com/bertcarnell/SOAs/actions/workflows/pkgdown.yaml"><img src="https://github.com/bertcarnell/SOAs/actions/workflows/pkgdown.yaml/badge.svg" alt="pkgdown"></a>
+</td>
 <td align="center"><a href="https://codecov.io/gh/bertcarnell/SOAs?branch=main"><img src="https://codecov.io/gh/bertcarnell/SOAs/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></td>
+<td align="center"><a href="https://bertcarnell.github.io/SOAs/"><img src="https://img.shields.io/badge/pkgdown-SOAs-blue.svg"></a></td>
 </tr></tbody>
 </table>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p><code>SOAs</code> has not yet been released on <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
-<p>You can also install the development version of <code>SOAs</code> from here with:</p>
+<p><code>SOAs</code> has not yet been released on <a href="https://CRAN.R-project.org">CRAN</a>.</p>
+<p>You can install the development version of <code>SOAs</code> from here with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va">devtools</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bertcarnell/SOAs"</span><span class="op">)</span></code></pre></div>
-</div>
-<div id="system-dependencies" class="section level2">
-<h2 class="hasAnchor">
-<a href="#system-dependencies" class="anchor"></a>System Dependencies</h2>
+<div id="system-dependencies" class="section level3">
+<h3 class="hasAnchor">
+<a href="#system-dependencies" class="anchor"></a>System Dependencies</h3>
 <p>For the <code>arrangements</code> package:</p>
 <ul>
 <li>Ubuntu: <code>apt-get update; apt-get install libgmp3-dev -y</code>
@@ -106,86 +109,70 @@
 </li>
 </ul>
 </div>
-<div id="development-process" class="section level2">
+</div>
+<div id="details" class="section level2">
 <h2 class="hasAnchor">
-<a href="#development-process" class="anchor"></a>Development Process</h2>
-<p>RStudio is highly recommended to make package development easier.</p>
-<ol>
-<li>Open the RStudio project <code>SOAs.Rproj</code>
-</li>
-<li>Pull from github
-<ul>
-<li>Resolve any issues</li>
-</ul>
-</li>
-<li>Make changes
-<ul>
-<li>If the package functions are needed during development, use Load All
-<ul>
-<li>Build tab -&gt; More -&gt; Load All (ctrl-shift-l)</li>
-<li>OR <code>devtools::load_all()</code>
-</li>
-</ul>
-</li>
-<li>Writing new tests
-<ul>
-<li>Open the <code>.R</code> file in RStudio that you would like to create a test for</li>
-<li><code>usethis::use_test()</code></li>
-</ul>
-</li>
-<li>Inserting Roxygen comments
-<ul>
-<li>In RStudio, position your cursor in the function to be documented</li>
-<li>Code -&gt; Insert Roxygen Skeleton</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<strong>Document</strong> using <code>roxygen2</code>:
-<ul>
-<li>Build tab -&gt; More -&gt; Document (ctrl-shift-d)</li>
-<li>OR <code>devtools::document()</code>
-</li>
-</ul>
-</li>
-<li>
-<strong>Test</strong> using <code>testthat</code>:
-<ul>
-<li>Build tab -&gt; More -&gt; Test (ctrl-shift-t)</li>
-<li>OR <code>devtools::test()</code>
-</li>
-</ul>
-</li>
-<li>
-<strong>Check</strong>:
-<ul>
-<li>Build tab -&gt; Check</li>
-<li>OR <code>rcmdcheck::rcmdcheck()</code>
-</li>
-<li>OR <code>R CMD build SOAs; R CMD check SOAs_x.y.z.tar.gz</code>
-</li>
-</ul>
-</li>
-<li>(If desired) <strong>Install</strong> the package locally
-<ul>
-<li>Build tab -&gt; Install and Restart</li>
-</ul>
-</li>
-<li>
-<strong>Git</strong> Process
-<ul>
-<li>Pull - to get the latest - <code>git pull</code>
-</li>
-<li>Add - changed files to be committed - <code>git add</code>
-</li>
-<li>Commit - to the local repo - <code>git commit -m "message"</code>
-</li>
-<li>Push - to the remote repo - <code>git push</code>
-</li>
-</ul>
-</li>
-</ol>
+<a href="#details" class="anchor"></a>Details</h2>
+<p>
+</p>
+<p>This package constructs arrays in <i>s^el</i> levels from orthogonal arrays in s levels. These are all based on equations of the type<br><i>D = s^{el-1} A_1 + … + s A_{el-1} + A_{el}</i>, or <br> for <i>s^2</i> levels, <i>D = s A + B</i> and <br> for <i>s^3</i> levels, <i>D = s^2 A + s B + C</i>. <br> The constructions differ in how they obtain the ingredient matrices, and what properties can be guaranteed for the resulting D. Where a construction function guarantees orthogonal columns for all matrices D it produces, its name starts with a OSOA, otherwise with SOA.<br></p>
+
+<p>
+</p>
+<p>If optimization is requested (default TRUE), space filling properties of D are improved using a level permutation algorithm by Weng (2014). This algorithm is applied for improving the <code>phi_p</code> criterion, which is often a reasonable surrogate for increasing the minimum distance.</p>
+
+<p>
+</p>
+<p>Groemping (2021) describes the constructions by He and Tang (2013, function <code>SOAs</code>), Liu and Liu (2015, function <code>OSOAs_LiuLiu</code>), He, Cheng and Tang (2018, function <code>SOAs2plus_regular</code>), Zhou and Tang (2019), Shi and Tang (2020, function <code>SOAs_8level</code>) and Li, Liu and Yang (2021) in unified notation. The constructions by Zhou and Tang (2019) and Li et al. (2021) are very close to each other and are both implemented in the three functions <code>OSOAs</code>, <code>OSOAs_hadamard</code> and <code>OSOAs_regular</code>.</p>
+
+<p>
+</p>
+<p>Besides the construction functions, properties of the resulting array D can be checked using the aforementioned function <code>phi_p</code> as well as check functions <code>ocheck</code>, <code>ocheck3</code> for orthogonality and <code>soacheck2D</code>, <code>soacheck3D</code> for (O)SOA stratification properties.</p>
+
+<p>
+</p>
+<p>There is one further construction, maximin distance level expansion (<code>XiaoXuMDLE</code>, <code>MDLEs</code>), that does not yield stratum (aka strong) orthogonal arrays and is available for comparison only (Xiao and Xu 2018).</p>
+
+</div>
+<div id="references" class="section level2">
+<h2 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h2>
+<p>
+</p>
+<p>Groemping, U. (2021). A unified implementation of stratum (aka strong) orthogonal arrays. Report 2021/01, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. <a href="http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf">http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf</a>.</p>
+
+<p>
+</p>
+<p>He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of strength two plus. <em>The Annals of Statistics</em> <b>46</b>, 457-468.</p>
+
+<p>
+</p>
+<p>He, Y. and Tang, B. (2013). Strong orthogonal arrays and associated Latin hypercubes for computer experiments. <em>Biometrika</em> <b>100</b>, 254-260.</p>
+
+<p>
+</p>
+<p>Li, W., Liu, M.-Q. and Yang, J.-F. (2021, in press). Construction of column-orthogonal strong orthogonal arrays. <em>Statistical Papers</em> <a href="https://doi.org/10.1007/s00362-021-01249-w">https://doi.org/10.1007/s00362-021-01249-w</a>.</p>
+
+<p>
+</p>
+<p>Liu, H. and Liu, M.-Q. (2015). Column-orthogonal strong orthogonal arrays and sliced strong orthogonal arrays. <em>Statistica Sinica</em> <strong>25</strong>, 1713-1734.</p>
+
+<p>
+</p>
+<p>Shi, L. and Tang, B. (2020). Construction results for strong orthogonal arrays of strength three. <em>Bernoulli</em> <strong>26</strong>, 418-431. <a href="https://doi.org/10.3150/19-BEJ1130">https://doi.org/10.3150/19-BEJ1130</a></p>
+
+<p>
+</p>
+<p>Weng, J. (2014). Maximin Strong Orthognal Arrays. <em>Master’s thesis</em> at Simon Fraser University under supervision of Boxin Tang and Jiguo Cao. <a href="https://summit.sfu.ca/item/14433">https://summit.sfu.ca/item/14433</a></p>
+
+<p>
+</p>
+<p>Xiao, Q. and Xu, H. (2018). Construction of Maximin Distance Designs #’ via Level Permutation and Expansion. <em>Statistica Sinica</em> <b>28</b>, 1395-1414.</p>
+
+<p>
+</p>
+<p>Zhou, Y.D. and Tang, B. (2019). Column-orthogonal strong orthogonal arrays of strength two plus and three minus. <em>Biometrika</em> <strong>106</strong>, 997-1004. <a href="https://doi.org/10.1093/biomet/asz043">https://doi.org/10.1093/biomet/asz043</a></p>
+
 </div>
 </div>
   </div>
