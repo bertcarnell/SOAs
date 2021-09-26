@@ -9,17 +9,17 @@
 \alias{soacheck3D}
 \title{functions to evaluate low order projection properties of (O)SOAs}
 \usage{
-ocheck(D, verbose = FALSE, ...)
+ocheck(D, verbose = FALSE)
 
-ocheck3(D, verbose = FALSE, ...)
+ocheck3(D, verbose = FALSE)
 
-count_npairs(D, minn = 1, ...)
+count_npairs(D, minn = 1)
 
 count_nallpairs(ns)
 
-soacheck2D(D, s = 3, el = 3, t = 3, verbose = FALSE, ...)
+soacheck2D(D, s = 3, el = 3, t = 3, verbose = FALSE)
 
-soacheck3D(D, s = 3, el = 3, t = 3, verbose = FALSE, ...)
+soacheck3D(D, s = 3, el = 3, t = 3, verbose = FALSE)
 }
 \arguments{
 \item{D}{a matrix with factor levels or an object of class \code{SOA};\cr
@@ -27,8 +27,6 @@ factor levels can start with 0 or with 1, and need to be consecutively numbered}
 
 \item{verbose}{logical; if \code{TRUE}, additional information is printed
 (confounded pair or triple projections with A2 or A3, respectively, or table of correlations)}
-
-\item{...}{currently not used}
 
 \item{minn}{small integer number; the function counts pairs that are covered at least \code{minn} times}
 

@@ -4,16 +4,14 @@
 \alias{phi_p}
 \title{Functions to evaluate uniformity of an array}
 \usage{
-phi_p(D, dmethod = "euclidean", p = 50, ...)
+phi_p(D, dmethod = "manhattan", p = 50)
 }
 \arguments{
 \item{D}{an array or an object of class SOA or MDLE}
 
-\item{dmethod}{the distance to use, \code{"euclidean"} or \code{"manhattan"}}
+\item{dmethod}{the distance to use, \code{"manhattan"} (default) or \code{"euclidean"}}
 
 \item{p}{the value for p to use in the formula for phi_p}
-
-\item{...}{currently not used}
 }
 \value{
 a number
@@ -28,10 +26,10 @@ maximin distance criterion
 \examples{
 A <- DoE.base::L16.4.5  ## levels 1:4 for each factor
 phi_p(A)
-phi_p(A, method="manhattan")
+phi_p(A, method="euclidean")
 A2 <- A
 A2[,4] <- c(2,4,3,1)[A[,4]]
-phi_p(A2, method="manhattan")
+phi_p(A2)
 \dontrun{
   ## A2 has fewer minimal distances
   par(mfrow=c(2,1))

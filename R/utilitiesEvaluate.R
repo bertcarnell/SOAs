@@ -24,7 +24,6 @@
 #' (confounded pair or triple projections with A2 or A3, respectively, or table of correlations)
 #' @param minn small integer number; the function counts pairs that are covered at least \code{minn} times
 #' @param ns vector of numbers of levels for each column
-#' @param ... currently not used
 #'
 #' @details
 #' Functions \code{soacheck2D} and \code{soacheck3D} inspect 2D and 3D
@@ -102,7 +101,7 @@
 #' mylm <- stats::lm(y~(X1+X2+X3+X4)^2 + I(X1^2)+I(X2^2)+I(X3^2)+I(X4^2),
 #'                    data=as.data.frame(scale(D_o, scale=FALSE)))
 #' crossprod(stats::model.matrix(mylm))
-ocheck <- function(D, verbose=FALSE, ...){
+ocheck <- function(D, verbose=FALSE){
   if (is.data.frame(D)) D <- as.matrix(D)
   stopifnot(is.matrix(D))
   stopifnot(is.numeric(D))
@@ -119,7 +118,7 @@ ocheck <- function(D, verbose=FALSE, ...){
 
 #' @rdname ocheck
 #' @export
-ocheck3 <- function(D, verbose=FALSE, ...){
+ocheck3 <- function(D, verbose=FALSE){
   if (is.data.frame(D)) D <- as.matrix(D)
   stopifnot(is.matrix(D))
   stopifnot(is.numeric(D))
@@ -141,7 +140,7 @@ ocheck3 <- function(D, verbose=FALSE, ...){
 ## count number of distinct pairs
 #' @rdname ocheck
 #' @export
-count_npairs <- function(D, minn=1, ...){
+count_npairs <- function(D, minn=1){
   paare <- nchoosek(ncol(D), 2)
   ## pick pairs in which each column is involved
   colposs <- lapply(1:ncol(D), function(obj)
@@ -169,9 +168,8 @@ count_nallpairs <- function(ns){
 #' phi_p calculates the discrepancy
 #'
 #' @param D an array or an object of class SOA or MDLE
-#' @param dmethod the distance to use, \code{"euclidean"} or \code{"manhattan"}
+#' @param dmethod the distance to use, \code{"manhattan"} (default) or \code{"euclidean"}
 #' @param p the value for p to use in the formula for phi_p
-#' @param ... currently not used
 #'
 #' @details
 #' small values of phi_p are associated with good performance on the
@@ -183,10 +181,10 @@ count_nallpairs <- function(ns){
 #' @examples
 #' A <- DoE.base::L16.4.5  ## levels 1:4 for each factor
 #' phi_p(A)
-#' phi_p(A, method="manhattan")
+#' phi_p(A, method="euclidean")
 #' A2 <- A
 #' A2[,4] <- c(2,4,3,1)[A[,4]]
-#' phi_p(A2, method="manhattan")
+#' phi_p(A2)
 #' \dontrun{
 #'   ## A2 has fewer minimal distances
 #'   par(mfrow=c(2,1))
@@ -194,7 +192,7 @@ count_nallpairs <- function(ns){
 #'   hist(dist(A2), xlim=c(2,6), ylim=c(0,40))
 #' }
 #' @importFrom stats dist
-phi_p <- function(D, dmethod="euclidean", p=50, ...){
+phi_p <- function(D, dmethod="manhattan", p=50){
   stopifnot(p>=1)
   stopifnot(dmethod %in% c("euclidean", "manhattan"))
   stopifnot(is.matrix(D) || is.data.frame(D))
@@ -208,7 +206,7 @@ phi_p <- function(D, dmethod="euclidean", p=50, ...){
 
 #' @rdname ocheck
 #' @export
-soacheck2D <- function(D, s=3, el=3, t=3, verbose=FALSE, ...){
+soacheck2D <- function(D, s=3, el=3, t=3, verbose=FALSE){
   stopifnot(all(levels.no(D)==s^el))
   if (el==2 && t==4) message("property gamma is not possible, ",
                         "only property alpha is checked")
@@ -295,7 +293,7 @@ soacheck2D <- function(D, s=3, el=3, t=3, verbose=FALSE, ...){
 
 #' @rdname ocheck
 #' @export
-soacheck3D <- function(D, s=3, el=3, t=3, verbose=FALSE, ...){
+soacheck3D <- function(D, s=3, el=3, t=3, verbose=FALSE){
   stopifnot(all(levels.no(D)==s^el))
 
   k <- el  ## renamed k to el, because el is the logical name, code has still k
