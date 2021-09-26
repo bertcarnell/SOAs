@@ -28,7 +28,7 @@
 #' @author Author: Ulrike Groemping, BHT Berlin. Contributor: Rob Carnell.
 #'
 #' @references
-#' Groemping, U. (2021). A unified implementation of stratum (aka strong) orthogonal arrays. Report 2021/01, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. \url{http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf}.
+#' Groemping, U. (2021 - soon). A unified implementation of stratum (aka strong) orthogonal arrays. Report 2021/01, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. \url{http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf}.
 #'
 #' He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of strength two plus. \emph{The Annals of Statistics} \bold{46}, 457-468.
 #'
@@ -42,7 +42,7 @@
 #'
 #' Weng, J. (2014). Maximin Strong Orthognal Arrays. \emph{Master's thesis} at Simon Fraser University under supervision of Boxin Tang and Jiguo Cao. \url{https://summit.sfu.ca/item/14433}
 #'
-#' Xiao, Q. and Xu, H.  (2018). Construction of Maximin Distance Designs #' via Level Permutation and Expansion. \emph{Statistica Sinica} \bold{28},
+#' Xiao, Q. and Xu, H.  (2018). Construction of Maximin Distance Designs via Level Permutation and Expansion. \emph{Statistica Sinica} \bold{28},
 #' 1395-1414.
 #'
 #' Zhou, Y.D. and Tang, B. (2019). Column-orthogonal strong orthogonal arrays of strength two plus and three minus. *Biometrika* **106**, 997-1004. \url{https://doi.org/10.1093/biomet/asz043}
