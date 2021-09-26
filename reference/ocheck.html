@@ -121,17 +121,17 @@ evaluate pairwise or 3-orthogonality of columns, and count_npairs evaluates
 the number of level pairs in 2D projections</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ocheck</span><span class='op'>(</span><span class='va'>D</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>ocheck</span><span class='op'>(</span><span class='va'>D</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>ocheck3</span><span class='op'>(</span><span class='va'>D</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>ocheck3</span><span class='op'>(</span><span class='va'>D</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>count_npairs</span><span class='op'>(</span><span class='va'>D</span>, minn <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>count_npairs</span><span class='op'>(</span><span class='va'>D</span>, minn <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 
 <span class='fu'>count_nallpairs</span><span class='op'>(</span><span class='va'>ns</span><span class='op'>)</span>
 
-<span class='fu'>soacheck2D</span><span class='op'>(</span><span class='va'>D</span>, s <span class='op'>=</span> <span class='fl'>3</span>, el <span class='op'>=</span> <span class='fl'>3</span>, t <span class='op'>=</span> <span class='fl'>3</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>soacheck2D</span><span class='op'>(</span><span class='va'>D</span>, s <span class='op'>=</span> <span class='fl'>3</span>, el <span class='op'>=</span> <span class='fl'>3</span>, t <span class='op'>=</span> <span class='fl'>3</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>soacheck3D</span><span class='op'>(</span><span class='va'>D</span>, s <span class='op'>=</span> <span class='fl'>3</span>, el <span class='op'>=</span> <span class='fl'>3</span>, t <span class='op'>=</span> <span class='fl'>3</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>soacheck3D</span><span class='op'>(</span><span class='va'>D</span>, s <span class='op'>=</span> <span class='fl'>3</span>, el <span class='op'>=</span> <span class='fl'>3</span>, t <span class='op'>=</span> <span class='fl'>3</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,10 +145,6 @@ factor levels can start with 0 or with 1, and need to be consecutively numbered<
       <th>verbose</th>
       <td><p>logical; if <code>TRUE</code>, additional information is printed
 (confounded pair or triple projections with A2 or A3, respectively, or table of correlations)</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>currently not used</p></td>
     </tr>
     <tr>
       <th>minn</th>
