@@ -1,0 +1,107 @@
+---
+output: 
+  md_document:
+    variant: gfm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+rd <- tools::parse_Rd(file.path("man", "SOAs-package.Rd"))
+rd_html <- capture.output(tools::Rd2HTML(rd))
+
+## Note:  These functions are internal to the tools package, but are not exposed
+##    and are therefore not intended to be used and are subject to change.
+##    for that reason, they are replicated here to ensure they stay consistent
+##    with this document
+
+## based on tools:::RdTags
+rd_get_tags <- function(Rd)
+{
+  res <- lapply(Rd, attr, "Rd_tag")
+  if (length(res)) 
+      simplify2array(res, FALSE)
+  else character()
+}
+
+## based on tools:::.Rd_get_metadata
+rd_get_metadata <- function(x, tag)
+{
+  x <- x[rd_get_tags(x) == sprintf("\\%s", tag)]
+  if (!length(x)) 
+      character()
+  else unique(trimws(vapply(x, paste, "", collapse = "\n")))
+}
+
+## might also want to capture html output for markdown.  This is more fragile
+rd_html_get <- function(rd_html, from_h3, to_h3)
+{
+  #from_h3 <- "Details"
+  #to_h3 <- "Author"
+  ind_from <- grep(paste0("<h3>", from_h3), rd_html)
+  ind_to <- grep(paste0("<h3>", to_h3), rd_html)
+  if (length(ind_from) != 1 | length(ind_to) != 1 | all(ind_from == ind_to))
+  {
+    stop("from_h3 or to_h3 are not specified correctly")
+  }
+  return(rd_html[(ind_from + 1):(ind_to - 1)])
+}
+```
+
+<!--- DO NOT EDIT:  AUTOMATICALLY GENERATED from README.Rmd -->
+
+# SOAs
+
+```{r description, results = "asis"}
+cat(rd_get_metadata(rd, "description"))
+```
+
+```{r authors, results = "asis"}
+x <- rd_get_metadata(rd, "author")
+x <- gsub("Author", "- **Author**", x)
+x <- gsub("Contributor", "\n- **Contributor**", x)
+cat(x)
+```
+
+```{r build_badges, results = "asis"}
+cat("|Actions|Coverage|Website|\n")
+cat("|:-----:|:------:|:-----:|\n")
+cat(paste0("|", 
+           "[![R-CMD-check](https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml/badge.svg)](https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml)",
+           "[![pkgdown](https://github.com/bertcarnell/SOAs/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/bertcarnell/SOAs/actions/workflows/pkgdown.yaml)",
+           "|",
+           "[![Codecov test coverage](https://codecov.io/gh/bertcarnell/SOAs/branch/main/graph/badge.svg)](https://codecov.io/gh/bertcarnell/SOAs?branch=main)",
+           "|",
+           "[![](https://img.shields.io/badge/pkgdown-SOAs-blue.svg)](https://bertcarnell.github.io/SOAs/)",
+           "|"))
+```
+
+## Installation
+
+`SOAs` has not yet been released on [CRAN](https://CRAN.R-project.org).
+
+You can install the development version of `SOAs` from here with:
+
+```{r install_option, eval=FALSE, echo=TRUE}
+if (!require(devtools)) install.packages("devtools")
+devtools::install_github("bertcarnell/SOAs")
+```
+
+### System Dependencies
+
+For the `arrangements` package:
+
+- Ubuntu: `apt-get update; apt-get install libgmp3-dev -y`
+- MacOS: `brew install gmp`
+
+## Details
+
+```{r details, results = "asis"}
+cat(rd_html_get(rd_html, "Details", "Author"))
+```
+
+## References
+
+```{r references, results = "asis"}
+cat(rd_html_get(rd_html, "References", "See"))
+```
+

@@ -2,6 +2,11 @@ name: R-CMD-check
 
 on:
   push:
+    paths-ignore:
+      - 'README.md'
+      - 'README.Rmd'
+      - '_pkgdown.yml'
+      - 'SOAs.Rproj'
     branches: [ main ]
   pull_request:
     branches: [ main ]

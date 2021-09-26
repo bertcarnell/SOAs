@@ -1,10 +1,10 @@
 #' Creation of Stratum (aka Strong) Orthogonal Arrays
 #' @description Creates stratum orthogonal arrays (also known as strong orthogonal arrays).
-#' @details This package constructs arrays in \code{s^el} levels from orthogonal arrays in s levels.
+#' @details This package constructs arrays in \eqn{s^el} levels from orthogonal arrays in s levels.
 #' These are all based on equations of the type\cr
-#' D = s^(el-1) A_1 + ... + s A_\{el-1\} + A_\{el\}, or \cr
-#' for s^2 levels D = s A + B and \cr
-#' for s^3 levels D = s^2 A + s B + C. \cr
+#' \eqn{D = s^{el-1} A_1 + ... + s A_{el-1} + A_{el}}, or \cr
+#' for \eqn{s^2} levels, \eqn{D = s A + B} and \cr
+#' for \eqn{s^3} levels, \eqn{D = s^2 A + s B + C}. \cr
 #' The constructions differ in how they obtain the ingredient matrices, and what properties can be guaranteed for the resulting D.
 #' Where a construction function guarantees orthogonal columns for all matrices D it produces, its name starts with a OSOA, otherwise with SOA.\cr
 #'
@@ -28,27 +28,26 @@
 #' @author Author: Ulrike Groemping, BHT Berlin. Contributor: Rob Carnell.
 #'
 #' @references
-#' Groemping, U. (2021). A unified implementation of stratum (aka strong) orthogonal arrays. Report 2021/01, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. url{http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf}.
+#' Groemping, U. (2021). A unified implementation of stratum (aka strong) orthogonal arrays. Report 2021/01, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. \url{http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf}.
 #'
 #' He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of strength two plus. \emph{The Annals of Statistics} \bold{46}, 457-468.
 #'
 #' He, Y. and Tang, B. (2013). Strong orthogonal arrays and associated Latin hypercubes for computer experiments. \emph{Biometrika} \bold{100}, 254-260.
 #'
-#' Li, W., Liu, M.-Q. and Yang, J.-F. (2021, in press). Construction of column-orthogonal strong orthogonal arrays. *Statistical Papers* https://doi.org/10.1007/s00362-021-01249-w.
+#' Li, W., Liu, M.-Q. and Yang, J.-F. (2021, in press). Construction of column-orthogonal strong orthogonal arrays. *Statistical Papers* \url{https://doi.org/10.1007/s00362-021-01249-w}.
 #'
 #' Liu, H. and Liu, M.-Q. (2015). Column-orthogonal strong orthogonal arrays and sliced strong orthogonal arrays. *Statistica Sinica* **25**, 1713-1734.
 #'
-#' Shi, L. and Tang, B. (2020). Construction results for strong orthogonal arrays of strength three. *Bernoulli* **26**, 418-431. https://doi.org/10.3150/19-BEJ1130
+#' Shi, L. and Tang, B. (2020). Construction results for strong orthogonal arrays of strength three. *Bernoulli* **26**, 418-431. \url{https://doi.org/10.3150/19-BEJ1130}
 #'
 #' Weng, J. (2014). Maximin Strong Orthognal Arrays. \emph{Master's thesis} at Simon Fraser University under supervision of Boxin Tang and Jiguo Cao. \url{https://summit.sfu.ca/item/14433}
 #'
 #' Xiao, Q. and Xu, H.  (2018). Construction of Maximin Distance Designs #' via Level Permutation and Expansion. \emph{Statistica Sinica} \bold{28},
 #' 1395-1414.
 #'
-#' Zhou, Y.D. and Tang, B. (2019). Column-orthogonal strong orthogonal arrays of strength two plus and three minus. *Biometrika* **106**, 997-1004. https://doi.org/10.1093/biomet/asz043
+#' Zhou, Y.D. and Tang, B. (2019). Column-orthogonal strong orthogonal arrays of strength two plus and three minus. *Biometrika* **106**, 997-1004. \url{https://doi.org/10.1093/biomet/asz043}
 #'
 #' @aliases 'SOAs-package'
-#' @keywords internal
 "_PACKAGE"
 
 # The following block is used by usethis to automatically manage
