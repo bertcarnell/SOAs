@@ -5,9 +5,9 @@ Creates Stratum Orthogonal Arrays (a.k.a. Strong OAs)
 - **Author**:  Ulrike Groemping
 - **Contributor**:  Rob Carnell
 
-|Actions|Coverage|
-|:-----:|:------:|
-|[![R-CMD-check](https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml/badge.svg)](https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml)|[![Codecov test coverage](https://codecov.io/gh/bertcarnell/SOAs/branch/main/graph/badge.svg)](https://codecov.io/gh/bertcarnell/SOAs?branch=main)|
+|Actions|Coverage|Website|
+|:-----:|:------:|:-----:|
+|[![R-CMD-check](https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml/badge.svg)](https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml) [![pkgdown](https://github.com/bertcarnell/SOAs/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/bertcarnell/SOAs/actions/workflows/pkgdown.yaml)|[![Codecov test coverage](https://codecov.io/gh/bertcarnell/SOAs/branch/main/graph/badge.svg)](https://codecov.io/gh/bertcarnell/SOAs?branch=main)|[![](https://img.shields.io/badge/pkgdown-SOAs-blue.svg)](https://bertcarnell.github.io/SOAs/)
 
 ## Installation
 
