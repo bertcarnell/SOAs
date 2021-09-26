@@ -181,7 +181,7 @@ count_nallpairs <- function(ns){
 #' @examples
 #' A <- DoE.base::L16.4.5  ## levels 1:4 for each factor
 #' phi_p(A)
-#' phi_p(A, method="euclidean")
+#' phi_p(A, dmethod="euclidean")
 #' A2 <- A
 #' A2[,4] <- c(2,4,3,1)[A[,4]]
 #' phi_p(A2)
