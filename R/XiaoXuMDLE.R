@@ -108,14 +108,14 @@ createF <- function(Dc, Dp, s, ell, nseq=2000){
   if (min(Dp)==1) Dp <- Dp-1
 
   dists <- rep(NA, nseq)
-  phi0 <- phi_p(Dc, method="manhattan")
+  phi0 <- phi_p(Dc, dmethod="manhattan")
   for (i in 1:nseq){
     hilf <- Dc
     colsamp <- sample(m, 1)
     levsamp <- sample(s, 2) - 1
     hilf[Dp[,colsamp]==levsamp[1],colsamp] <- Dc[Dp[,colsamp]==levsamp[2], colsamp]
     hilf[Dp[,colsamp]==levsamp[2],colsamp] <- Dc[Dp[,colsamp]==levsamp[1], colsamp]
-    dists[i] <- abs(phi_p(hilf, method="manhattan") - phi0)
+    dists[i] <- abs(phi_p(hilf, dmethod="manhattan") - phi0)
   }
   stats::ecdf(dists)
 }
