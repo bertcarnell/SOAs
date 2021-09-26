@@ -93,9 +93,9 @@ only (Xiao and Xu 2018).
 
 <p>
 
-Groemping, U. (2021). A unified implementation of stratum (aka strong)
-orthogonal arrays. Report 2021/01, Reports in Mathematics, Physics and
-Chemistry, Berliner Hochschule für Technik.
+Groemping, U. (2021 - soon). A unified implementation of stratum (aka
+strong) orthogonal arrays. Report 2021/01, Reports in Mathematics,
+Physics and Chemistry, Berliner Hochschule für Technik.
 <a href="http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf">http://www1.beuth-hochschule.de/FB\_II/reports/Report-2021-001.pdf</a>.
 
 </p>
@@ -151,9 +151,9 @@ and Jiguo Cao.
 
 <p>
 
-Xiao, Q. and Xu, H. (2018). Construction of Maximin Distance Designs \#’
-via Level Permutation and Expansion. <em>Statistica Sinica</em>
-<b>28</b>, 1395-1414.
+Xiao, Q. and Xu, H. (2018). Construction of Maximin Distance Designs via
+Level Permutation and Expansion. <em>Statistica Sinica</em> <b>28</b>,
+1395-1414.
 
 </p>
 
