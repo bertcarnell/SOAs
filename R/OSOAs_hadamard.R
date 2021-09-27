@@ -70,7 +70,7 @@ OSOAs_hadamard <- function(m=NULL, n=NULL, el=3, noptim.rounds=1, noptim.repeats
   if (!is.null(n) && !is.null(m)){
     stopifnot(m < n/2)   ## el=2: can use all pb columns
     if (el==3 && m > n/2 - 1) stop("For this n with el=3, m is too large")
-    mmax <- m
+    mmax <- n/2 - 1 ## usable for el=2 and one extra needed for el=3
   }
   if (is.null(m)){
     ## make m the largest possible for the specified array size
