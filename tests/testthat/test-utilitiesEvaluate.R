@@ -85,3 +85,4 @@ test_that("count_npairs", {
 test_that("count_nallpairs", {
   expect_equal(count_nallpairs(c(2,3,4)), c(2*3, 2*4, 3*4))
 })
+
