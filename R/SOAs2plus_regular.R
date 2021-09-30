@@ -50,23 +50,27 @@
 #' Zhou and Tang (2019)
 #' @author Ulrike Groemping
 #' @note Strength 2+ SOAs can accommodate a large number of factors with
-#' reasonable stratified balance behavior.  Note that their use is not usually
+#' reasonable stratified balance behavior. Note that their use is not usually
 #' advisable for m small enough that a strength 3 OA with s^2 level factors exists.
 #' @export
 #'
 #' @examples
-#' ## unoptimized SOA with 20 9-level columns in 81 runs
+#' \dontrun{
+#' ## unoptimized OSOA with 8 16-level columns in 64 runs
+#' ## (maximum possible number of columns)
+#' plan64 <- SOAs2plus_regular(4, 3, optimize=FALSE)
+#' ocheck(plan64)   ## the array has orthogonal columns
+#'
+#' ## optimized SOA with 20 9-level columns in 81 runs
 #' ## (up to 25 columns are possible)
-#' plan <- SOAs2plus_regular(3, 4, 20, optimize=FALSE)
+#' plan <- SOAs2plus_regular(3, 4, 20)
 #' ## many column pairs have only 27 level pairs covered
 #' count_npairs(plan)
 #' ## an OA would exist for 10 9-level factors (DoE.base::L81.9.10)
 #' ## it would cover all pairs
-#'
-#' ## unoptimized OSOA with 8 16-level columns in 64 runs
-#' ## (maximum possible number of columns)
-#' plan64 <- SOAs2plus_regular(4, 3, optimize=FALSE)
-#' ocheck(plan64)   ## the array has indeed orthogonal columns
+#' ## (SOAs are not for situations for which pair coverage
+#' ## is of primary interest)
+#' }
 SOAs2plus_regular <- function(s, k, m=NULL,
                           noptim.rounds=1, noptim.repeats=1,
                           optimize=TRUE, dmethod="manhattan", p=50){
