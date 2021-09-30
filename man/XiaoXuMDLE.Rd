@@ -66,10 +66,12 @@ optimize(
 Implementation of the Xiao Xu TA algorithm (experimental, for comparison with MDLEs only)
 }
 \details{
-The algorithm deviates from Xiao and Xu (2018) by optimizing the ingoing OA for
-phi_p instead of for the GWLP. Function \code{XiaoXuMDLE} returns the value
-that is produced by \code{optimize} using the distribution function calculated
-by \code{createF}.
+The ingoing \code{oa} is optimized by function \code{\link{phi_optimize}},
+using \code{noptim.rounds=noptim.oa}; this yields the matrix \code{Dp} for use
+in the internal functions \code{\link{DcFromDp}} and \code{createF}.\cr
+Function \code{XiaoXuMDLE} returns the value
+that is produced by applying the internal function \code{optimize}
+to the resulting \code{Dc} and \code{F}.
 }
 \examples{
 ## create 8-level columns from 4-level columns
