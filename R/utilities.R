@@ -1,8 +1,3 @@
-
-# TODO:  Can't support internal methods for CRAN packages
-nchoosek <- DoE.base:::nchoosek
-levels.no <- DoE.base:::levels.no
-
 #' Utility functions for SOAs
 #' @rdname utilities
 #'
@@ -100,4 +95,60 @@ mbound_LiuLiu <- function(moa, t){
     boundm <- 2*floor(moa/4)
     if (t==3 && moa-boundm*2==3) boundm <- boundm+1
     return(boundm)
+}
+
+#' Utility functions from DoE.base
+#' @rdname FromDoE.base
+#' @param n number to select from
+#' @param k number to be selected without replacement
+#' @return \code{nchoosek} returns a \code{k} times \code{choose(n,k)} matrix
+#' whose columns hold the possible selections in lexicographic order
+#' @keywords internal
+nchoosek <- function (n, k){
+  ## taken from DoE.base
+  if (!is.numeric(n) || !is.numeric(k) || is.na(n) || is.na(k) ||
+      length(n) != 1 || length(k) != 1)
+    stop("arguments must be non-NA numeric scalars.")
+  if (k > n || k < 0)
+    stop("Arguments must satisfy 0 <= k <= n.")
+  nck = choose(n, k)
+  res = matrix(NA, nrow = k, ncol = nck)
+  res[, 1] = 1:k
+  j = 2
+  repeat {
+    if (j > nck)
+      break
+    res[, j] = res[, j - 1]
+    i = k
+    repeat {
+      res[i, j] = res[i, j] + 1
+      if (res[i, j] <= n - (k - i))
+        break
+      i = i - 1
+      stopifnot(i >= 1)
+    }
+    if (i < k)
+      res[(i + 1):k, j] = res[i, j] + 1:(k - i)
+    j = j + 1
+  }
+  stopifnot(all(res[, nck] == (n - k + 1):n))
+  stopifnot(all(res <= n) && all(res >= 1))
+  return(res)
+}
+
+#' @rdname FromDoE.base
+#' @param xx matrix or data.frame
+#' @return \code{levels.no} returns a vector of numbers of levels for the columns of \code{xx}
+#' @keywords internal
+levels.no <- function (xx){
+  ## taken from DoE.base
+  ff <- FALSE
+  if (is.data.frame(xx)) {
+    if (any(ff <- sapply(xx, is.factor)))
+      nflevs <- sapply(xx[ff], nlevels)
+  }
+  aus <- apply(xx, 2, function(v) length(unique(v)))
+  if (any(ff))
+    aus[ff] <- nflevs
+  aus
 }
