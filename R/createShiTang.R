@@ -149,10 +149,12 @@ create_ABC <- function(k, m=NULL, constr="ShiTang_alphabeta"){
         spaltenB <- c(2^(k-2), spaltenB)
         spaltenAplusB <- c(2^(k-1)+2^(k-2), spaltenAplusB)
       }
-      ## this always works
       ## for m=n/4, not quite orthogonal
       ## for m<n/4, implies an OSOA
+      ## one could always use 1:m, but for m=n/4, it is better
+      ## to use one of the first n/4-1 columns twice (lower correlation)
       spaltenC <- 1:m
+      if (m==2^(k-2)) spaltenC <- c(m-1, 1:(m-1))
   }
   if (constr == "ShiTang_alpha"){
       ## k from 4

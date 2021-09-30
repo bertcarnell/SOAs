@@ -17,13 +17,18 @@
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
 #'
 #' @details
+#' The construction is implemented as described in Groemping (2021).
+#'
 #' The 8-level SOAs created by this construction have strength 3 and at least
 #' the additional property alpha, which means that all pairs of columns achieve
 #' perfect 4x4 balance, if consecutive level pairs (01, 23, 45, 67) are collapsed.
 #'
 #' The "ShiTang_alphabeta" construction additionally yields perfect 4x2x2 balance,
 #' if one column is collapsed to 4 levels, while two further columns are collapsed
-#' to 2 levels (0123 vs 4567).
+#' to 2 levels (0123 vs 4567). with m = n/4 columns, the "ShiTang_alphabeta"
+#' construction has a single pair of correlated columns, all other columns are
+#' uncorrelated, due to a modification of Shi and Tang's column allocation that was
+#' proposed in Groemping (2021).
 #'
 #' For m <= n/4 - 1, the "ShiTang_alphabeta" construction also yields perfect balance for
 #' 8x2 projections in 2D (i.e. if one original column with another column collapsed
@@ -32,7 +37,6 @@
 #' strength 3+. Furthermore, Groemping (2021) proposed an improved choice of columns
 #' for matrix C that implies orthogonal columns in this case.
 #'
-#' The construction is implemented in the equivalent form as described in ...
 #' @return matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
 #' \describe{
 #'   \item{type}{the type of array (\code{SOA} or \code{OSOA})}
