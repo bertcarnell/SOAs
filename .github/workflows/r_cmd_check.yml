@@ -23,7 +23,7 @@ jobs:
         config:
           - {os: windows-latest, r: 'release'}
           - {os: windows-latest, r: 'devel'}
-          #- {os: macOS-latest, r: 'release'} # still erroring on 9/12/2021 with a system issue
+          - {os: macOS-latest, r: 'release'}
           - {os: macOS-latest, r: 'devel'}
           - {os: ubuntu-latest, r: 'release'}
           - {os: ubuntu-latest, r: 'devel'}
@@ -37,23 +37,23 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
 
-      - name: Install R build Dependencies
-        run: |
-          install.packages(c("remotes", "rcmdcheck"))
-        shell: Rscript {0}
-
       - name: Linux System Dependencies
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install libgmp3-dev -y
+          sudo apt-get install -y libgmp3-dev libcurl4-openssl-dev
 
       - name: MacOS System dependencies and source gmp
         # from the arrangements package github actions script
         if: runner.os == 'macOS'
         run: |
           brew install gmp
-          Rscript -e "remotes::install_cran('gmp', type = 'source')"
+          Rscript -e "install.packages('gmp', type = 'source')"
+
+      - name: Install R build Dependencies
+        run: |
+          install.packages(c("remotes", "rcmdcheck"))
+        shell: Rscript {0}
 
       - name: Install SOAs dependencies
         run: |
