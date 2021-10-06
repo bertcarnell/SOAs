@@ -12,7 +12,7 @@
 #'
 #' It starts with a random permutation of column levels.
 #'
-#' Initially, single columns are randomly permuted (m permuted matrices, called one-neighbours), and the best permutation w.r.t. the \code{phi_p} value (manhattan distance) is
+#' Initially, individual columns are randomly permuted (m permuted matrices, called one-neighbours), and the best permutation w.r.t. the \code{phi_p} value (manhattan distance) is
 #' is made the current optimum. This continues, until the current optimum is not improved by a set of randomly drawn one-neighbours.\cr
 #' Subsequently, pairs of columns are randomly permuted (\code{choose(m,2)} permuted matrices, called two-neighbours). If the current optimum can be improved or the number of optimization rounds has not yet been exhausted,
 #' a new round with one-neighbours is started with the current optimum. Otherwise, the current optimum is returned, or an independent repeat is initiated (if requested).
