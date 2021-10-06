@@ -23,7 +23,7 @@ jobs:
         config:
           - {os: windows-latest, r: 'release'}
           - {os: windows-latest, r: 'devel'}
-          - {os: macOS-latest, r: 'release'}
+          #- {os: macOS-latest, r: 'release'}
           - {os: macOS-latest, r: 'devel'}
           - {os: ubuntu-latest, r: 'release'}
           - {os: ubuntu-latest, r: 'devel'}
@@ -36,6 +36,9 @@ jobs:
         uses: r-lib/actions/setup-r@master
         with:
           r-version: ${{ matrix.config.r }}
+
+      - name: Pandoc
+        uses: r-lib/actions/setup-pandoc@master
 
       - name: Linux System Dependencies
         if: runner.os == 'Linux'
