@@ -95,8 +95,8 @@ only (Xiao and Xu 2018).
 
 Groemping, U. (2021 - soon). A unified implementation of stratum (aka
 strong) orthogonal arrays. Report 2021/01, Reports in Mathematics,
-Physics and Chemistry, Berliner Hochschule für Technik.
-<a href="http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf">http://www1.beuth-hochschule.de/FB\_II/reports/Report-2021-001.pdf</a>.
+Physics and Chemistry, Berliner Hochschule für Technik. (non-public)
+www1.beuth-hochschule.de/FB\_II/reports/Report-2021-001.pdf.
 
 </p>
 
@@ -119,7 +119,7 @@ Latin hypercubes for computer experiments. <em>Biometrika</em>
 
 Li, W., Liu, M.-Q. and Yang, J.-F. (2021, in press). Construction of
 column-orthogonal strong orthogonal arrays. <em>Statistical Papers</em>
-<a href="https://doi.org/10.1007/s00362-021-01249-w">https://doi.org/10.1007/s00362-021-01249-w</a>.
+.
 
 </p>
 
@@ -135,8 +135,7 @@ arrays and sliced strong orthogonal arrays. <em>Statistica Sinica</em>
 
 Shi, L. and Tang, B. (2020). Construction results for strong orthogonal
 arrays of strength three. <em>Bernoulli</em> <strong>26</strong>,
-418-431.
-<a href="https://doi.org/10.3150/19-BEJ1130">https://doi.org/10.3150/19-BEJ1130</a>
+418-431. 
 
 </p>
 
@@ -161,7 +160,6 @@ Level Permutation and Expansion. <em>Statistica Sinica</em> <b>28</b>,
 
 Zhou, Y.D. and Tang, B. (2019). Column-orthogonal strong orthogonal
 arrays of strength two plus and three minus. <em>Biometrika</em>
-<strong>106</strong>, 997-1004.
-<a href="https://doi.org/10.1093/biomet/asz043">https://doi.org/10.1093/biomet/asz043</a>
+<strong>106</strong>, 997-1004. 
 
 </p>
