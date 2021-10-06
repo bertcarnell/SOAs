@@ -202,7 +202,7 @@ what can be achieved by most optimization attempts from a random start.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Strength 2+ SOAs can accommodate a large number of factors with
-reasonable stratified balance behavior.  Note that their use is not usually
+reasonable stratified balance behavior. Note that their use is not usually
 advisable for m small enough that a strength 3 OA with s^2 level factors exists.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -215,32 +215,23 @@ Zhou and Tang (2019)</p>
     <p>Ulrike Groemping</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## unoptimized SOA with 20 9-level columns in 81 runs</span>
-<span class='co'>## (up to 25 columns are possible)</span>
-<span class='va'>plan</span> <span class='op'>&lt;-</span> <span class='fu'>SOAs2plus_regular</span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>20</span>, optimize<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='co'>## many column pairs have only 27 level pairs covered</span>
-<span class='fu'><a href='ocheck.html'>count_npairs</a></span><span class='op'>(</span><span class='va'>plan</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $paircounts
-#&gt;   [1] 27 27 27 27 27 27 27 81 27 27 27 27 27 27 27 81 81 81 81 27 27 27 27 27 27
-#&gt;  [26] 81 81 81 27 27 81 81 81 27 27 27 27 27 27 27 27 27 27 81 81 27 27 81 81 81
-#&gt;  [51] 81 81 81 81 27 27 81 81 81 27 81 81 81 27 27 81 27 27 81 27 27 81 81 27 27
-#&gt;  [76] 81 81 81 27 27 81 81 81 27 81 81 81 27 81 27 81 81 81 81 27 27 27 81 27 27
-#&gt; [101] 81 27 27 27 27 81 81 81 27 27 27 81 81 27 27 27 27 81 81 81 81 81 81 27 81
-#&gt; [126] 81 27 81 81 27 81 81 27 27 81 27 81 81 27 27 81 81 27 81 81 81 81 81 81 27
-#&gt; [151] 27 81 27 81 27 27 27 27 27 27 27 81 27 27 27 81 81 81 27 27 27 27 81 81 27
-#&gt; [176] 27 81 27 27 81 27 81 81 81 27 27 27 27 27 81
-#&gt; 
-#&gt; $columnpaircounts
-#&gt;  [1]  783  837  999  945  999  945  945 1053 1161 1053 1107  837  999  999  945
-#&gt; [16] 1107  945  945 1053 1107
-#&gt; </div><div class='input'><span class='co'>## an OA would exist for 10 9-level factors (DoE.base::L81.9.10)</span>
-<span class='co'>## it would cover all pairs</span>
-
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>## unoptimized OSOA with 8 16-level columns in 64 runs</span>
 <span class='co'>## (maximum possible number of columns)</span>
 <span class='va'>plan64</span> <span class='op'>&lt;-</span> <span class='fu'>SOAs2plus_regular</span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>3</span>, optimize<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='ocheck.html'>ocheck</a></span><span class='op'>(</span><span class='va'>plan64</span><span class='op'>)</span>   <span class='co'>## the array has indeed orthogonal columns</span>
-</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+<span class='fu'><a href='ocheck.html'>ocheck</a></span><span class='op'>(</span><span class='va'>plan64</span><span class='op'>)</span>   <span class='co'>## the array has orthogonal columns</span>
+
+<span class='co'>## optimized SOA with 20 9-level columns in 81 runs</span>
+<span class='co'>## (up to 25 columns are possible)</span>
+<span class='va'>plan</span> <span class='op'>&lt;-</span> <span class='fu'>SOAs2plus_regular</span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>20</span><span class='op'>)</span>
+<span class='co'>## many column pairs have only 27 level pairs covered</span>
+<span class='fu'><a href='ocheck.html'>count_npairs</a></span><span class='op'>(</span><span class='va'>plan</span><span class='op'>)</span>
+<span class='co'>## an OA would exist for 10 9-level factors (DoE.base::L81.9.10)</span>
+<span class='co'>## it would cover all pairs</span>
+<span class='co'>## (SOAs are not for situations for which pair coverage</span>
+<span class='co'>## is of primary interest)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

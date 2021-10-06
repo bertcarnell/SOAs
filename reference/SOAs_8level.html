@@ -187,19 +187,22 @@ overall permutation list to which the numbers in permlist refer</p></dd>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The 8-level SOAs created by this construction have strength 3 and at least
+    <p>The construction is implemented as described in Groemping (2021).</p>
+<p>The 8-level SOAs created by this construction have strength 3 and at least
 the additional property alpha, which means that all pairs of columns achieve
 perfect 4x4 balance, if consecutive level pairs (01, 23, 45, 67) are collapsed.</p>
 <p>The "ShiTang_alphabeta" construction additionally yields perfect 4x2x2 balance,
 if one column is collapsed to 4 levels, while two further columns are collapsed
-to 2 levels (0123 vs 4567).</p>
+to 2 levels (0123 vs 4567). with m = n/4 columns, the "ShiTang_alphabeta"
+construction has a single pair of correlated columns, all other columns are
+uncorrelated, due to a modification of Shi and Tang's column allocation that was
+proposed in Groemping (2021).</p>
 <p>For m &lt;= n/4 - 1, the "ShiTang_alphabeta" construction also yields perfect balance for
 8x2 projections in 2D (i.e. if one original column with another column collapsed
 to two levels).
 Thus, it yields all strength 4 properties in 2D and 3D, which is called
 strength 3+. Furthermore, Groemping (2021) proposed an improved choice of columns
 for matrix C that implies orthogonal columns in this case.</p>
-<p>The construction is implemented in the equivalent form as described in ...</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>For full detail, see <code><a href='SOAs-package.html'>SOAs-package</a></code>.</p>
@@ -252,37 +255,37 @@ Weng (2014)</p>
 <span class='fu'>SOAs_8level</span><span class='op'>(</span><span class='fl'>32</span>, m<span class='op'>=</span><span class='fl'>8</span>, optimize<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
 #&gt;  [1,]    0    0    0    0    0    0    0    0
-#&gt;  [2,]    1    6    3    4    3    4    1    6
-#&gt;  [3,]    0    3    5    6    0    3    5    6
-#&gt;  [4,]    1    5    6    2    3    7    4    0
-#&gt;  [5,]    0    2    2    1    5    7    7    4
-#&gt;  [6,]    1    4    1    5    6    3    6    2
-#&gt;  [7,]    0    1    7    7    5    4    2    2
-#&gt;  [8,]    1    7    4    3    6    0    3    4
-#&gt;  [9,]    2    2    2    2    2    2    2    3
-#&gt; [10,]    3    4    1    6    1    6    3    5
-#&gt; [11,]    2    1    7    4    2    1    7    5
-#&gt; [12,]    3    7    4    0    1    5    6    3
-#&gt; [13,]    2    0    0    3    7    5    5    7
-#&gt; [14,]    3    6    3    7    4    1    4    1
-#&gt; [15,]    2    3    5    5    7    6    0    1
-#&gt; [16,]    3    5    6    1    4    2    1    7
+#&gt;  [2,]    1    7    2    5    2    5    0    7
+#&gt;  [3,]    1    2    5    7    0    2    5    7
+#&gt;  [4,]    0    5    7    2    2    7    5    0
+#&gt;  [5,]    1    2    2    0    5    7    7    5
+#&gt;  [6,]    0    5    0    5    7    2    7    2
+#&gt;  [7,]    0    0    7    7    5    5    2    2
+#&gt;  [8,]    1    7    5    2    7    0    2    5
+#&gt;  [9,]    2    2    2    2    2    2    2    2
+#&gt; [10,]    3    5    0    7    0    7    2    5
+#&gt; [11,]    3    0    7    5    2    0    7    5
+#&gt; [12,]    2    7    5    0    0    5    7    2
+#&gt; [13,]    3    0    0    2    7    5    5    7
+#&gt; [14,]    2    7    2    7    5    0    5    0
+#&gt; [15,]    2    2    5    5    7    7    0    0
+#&gt; [16,]    3    5    7    0    5    2    0    7
 #&gt; [17,]    4    4    4    4    4    4    4    4
-#&gt; [18,]    5    2    7    0    7    0    5    2
-#&gt; [19,]    4    7    1    2    4    7    1    2
-#&gt; [20,]    5    1    2    6    7    3    0    4
-#&gt; [21,]    4    6    6    5    1    3    3    0
-#&gt; [22,]    5    0    5    1    2    7    2    6
-#&gt; [23,]    4    5    3    3    1    0    6    6
-#&gt; [24,]    5    3    0    7    2    4    7    0
-#&gt; [25,]    6    6    6    6    6    6    6    7
-#&gt; [26,]    7    0    5    2    5    2    7    1
-#&gt; [27,]    6    5    3    0    6    5    3    1
-#&gt; [28,]    7    3    0    4    5    1    2    7
-#&gt; [29,]    6    4    4    7    3    1    1    3
-#&gt; [30,]    7    2    7    3    0    5    0    5
-#&gt; [31,]    6    7    1    1    3    2    4    5
-#&gt; [32,]    7    1    2    5    0    6    5    3
+#&gt; [18,]    5    3    6    1    6    1    4    3
+#&gt; [19,]    5    6    1    3    4    6    1    3
+#&gt; [20,]    4    1    3    6    6    3    1    4
+#&gt; [21,]    5    6    6    4    1    3    3    1
+#&gt; [22,]    4    1    4    1    3    6    3    6
+#&gt; [23,]    4    4    3    3    1    1    6    6
+#&gt; [24,]    5    3    1    6    3    4    6    1
+#&gt; [25,]    6    6    6    6    6    6    6    6
+#&gt; [26,]    7    1    4    3    4    3    6    1
+#&gt; [27,]    7    4    3    1    6    4    3    1
+#&gt; [28,]    6    3    1    4    4    1    3    6
+#&gt; [29,]    7    4    4    6    3    1    1    3
+#&gt; [30,]    6    3    6    3    1    4    1    4
+#&gt; [31,]    6    6    1    1    3    3    4    4
+#&gt; [32,]    7    1    3    4    1    6    4    3
 #&gt; SOA, strength 3</div><div class='input'>
 <span class='co'>## 9 columns (special case n=32), strength 3 with alpha</span>
 <span class='fu'>SOAs_8level</span><span class='op'>(</span><span class='fl'>32</span>, constr<span class='op'>=</span><span class='st'>"ShiTang_alpha"</span>, optimize<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>

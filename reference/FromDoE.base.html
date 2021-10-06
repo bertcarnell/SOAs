@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>function to optimize the phi_p value of an array by level permutation — phi_optimize • SOAs</title>
+<title>Utility functions from DoE.base — nchoosek • SOAs</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="function to optimize the phi_p value of an array by level permutation — phi_optimize" />
-<meta property="og:description" content="takes an n x m array and returns an n x m array with improved phi_p value (if possible)" />
+<meta property="og:title" content="Utility functions from DoE.base — nchoosek" />
+<meta property="og:description" content="Utility functions from DoE.base" />
 
 
 
@@ -108,74 +108,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>function to optimize the phi_p value of an array by level permutation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/bertcarnell/SOAs/blob/master/R/phi_optimize.R'><code>R/phi_optimize.R</code></a></small>
-    <div class="hidden name"><code>phi_optimize.Rd</code></div>
+    <h1>Utility functions from DoE.base</h1>
+    <small class="dont-index">Source: <a href='https://github.com/bertcarnell/SOAs/blob/master/R/utilities.R'><code>R/utilities.R</code></a></small>
+    <div class="hidden name"><code>FromDoE.base.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>takes an n x m array and returns an n x m array with improved phi_p value (if possible)</p>
+    <p>Utility functions from DoE.base</p>
     </div>
 
-    <pre class="usage"><span class='fu'>phi_optimize</span><span class='op'>(</span>
-  <span class='va'>D</span>,
-  noptim.rounds <span class='op'>=</span> <span class='fl'>1</span>,
-  noptim.repeats <span class='op'>=</span> <span class='fl'>1</span>,
-  dmethod <span class='op'>=</span> <span class='st'>"manhattan"</span>,
-  p <span class='op'>=</span> <span class='fl'>50</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>nchoosek</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>k</span><span class='op'>)</span>
+
+<span class='co'># S3 method for no</span>
+<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>xx</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>D</th>
-      <td><p>numeric matrix or data.frame with numeric columns, n x m. A symmetric array (e.g. an OA) with <code>nl</code> levels for each columns. Levels must be coded as 0 to <code>nl - 1</code> or as 1 to <code>nl</code>. levels from</p></td>
+      <th>n</th>
+      <td><p>number to select from</p></td>
     </tr>
     <tr>
-      <th>noptim.rounds</th>
-      <td><p>number of rounds in the Weng algorithm</p></td>
+      <th>k</th>
+      <td><p>number to be selected without replacement</p></td>
     </tr>
     <tr>
-      <th>noptim.repeats</th>
-      <td><p>number of independent repeats of the Weng algorithm</p></td>
-    </tr>
-    <tr>
-      <th>dmethod</th>
-      <td><p>distance method for <code><a href='phi_p.html'>phi_p</a></code>, "manhattan" (default) or "euclidean"</p></td>
-    </tr>
-    <tr>
-      <th>p</th>
-      <td><p>p for <code><a href='phi_p.html'>phi_p</a></code> (the larger, the closer to maximin distance)</p></td>
+      <th>xx</th>
+      <td><p>matrix or data.frame</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>an n x m matrix</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p><code>nchoosek</code> returns a <code>k</code> times <code><a href='https://rdrr.io/r/base/Special.html'>choose(n,k)</a></code> matrix
+whose columns hold the possible selections in lexicographic order</p>
+<p><code>levels.no</code> returns a vector of numbers of levels for the columns of <code>xx</code></p>
 
-    <p>The function uses the algorithm proposed by Weng (2014) for SOA optimization:</p>
-<p>It starts with a random permutation of column levels.</p>
-<p>Initially, individual columns are randomly permuted (m permuted matrices, called one-neighbours), and the best permutation w.r.t. the <code>phi_p</code> value (manhattan distance) is
-is made the current optimum. This continues, until the current optimum is not improved by a set of randomly drawn one-neighbours.<br />
-Subsequently, pairs of columns are randomly permuted (<code><a href='https://rdrr.io/r/base/Special.html'>choose(m,2)</a></code> permuted matrices, called two-neighbours). If the current optimum can be improved or the number of optimization rounds has not yet been exhausted,
-a new round with one-neighbours is started with the current optimum. Otherwise, the current optimum is returned, or an independent repeat is initiated (if requested).</p>
-<p>Limited experience suggests that an increase of <code>noptim.rounds</code> from the default 1 is often helpful, whereas an increase of <code>noptim.repeats</code> did not yield as much improvement.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>For full detail, see <code><a href='SOAs-package.html'>SOAs-package</a></code>.</p>
-<p>Weng (2014)</p>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>Ulrike Groemping</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>oa</span> <span class='op'>&lt;-</span> <span class='fu'>lhs</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lhs/man/createBoseBush.html'>createBoseBush</a></span><span class='op'>(</span><span class='fl'>8</span>,<span class='fl'>16</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='phi_p.html'>phi_p</a></span><span class='op'>(</span><span class='va'>oa</span>, dmethod<span class='op'>=</span><span class='st'>"manhattan"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.05009455</div><div class='input'><span class='va'>oa_optimized</span> <span class='op'>&lt;-</span> <span class='fu'>phi_optimize</span><span class='op'>(</span><span class='va'>oa</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='phi_p.html'>phi_p</a></span><span class='op'>(</span><span class='va'>oa_optimized</span>, dmethod<span class='op'>=</span><span class='st'>"manhattan"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.04207469</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

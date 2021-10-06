@@ -201,10 +201,12 @@
 <p><code>optimize</code> returns a matrix with attribute <code>phi_p</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The algorithm deviates from Xiao and Xu (2018) by optimizing the ingoing OA for
-phi_p instead of for the GWLP. Function <code>XiaoXuMDLE</code> returns the value
-that is produced by <code>optimize</code> using the distribution function calculated
-by <code>createF</code>.</p>
+    <p>The ingoing <code>oa</code> is optimized by function <code><a href='phi_optimize.html'>phi_optimize</a></code>,
+using <code>noptim.rounds=noptim.oa</code>; this yields the matrix <code>Dp</code> for use
+in the internal functions <code><a href='DcFromDp.html'>DcFromDp</a></code> and <code>createF</code>.<br />
+Function <code>XiaoXuMDLE</code> returns the value
+that is produced by applying the internal function <code>optimize</code>
+to the resulting <code>Dc</code> and <code>F</code>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>For full detail, see <code><a href='SOAs-package.html'>SOAs-package</a></code>.</p>
