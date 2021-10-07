@@ -45,6 +45,12 @@ rd_html_get <- function(rd_html, from_h3, to_h3)
   }
   return(rd_html[(ind_from + 1):(ind_to - 1)])
 }
+
+my_Rd_expr_doi <- function (x) 
+{
+    x <- tools:::.canonicalize_doi(x)
+    sprintf("[doi: %s](https://doi.org/%s)", x, x)
+}
 ```
 
 <!--- DO NOT EDIT:  AUTOMATICALLY GENERATED from README.Rmd -->
@@ -96,12 +102,36 @@ For the `arrangements` package:
 ## Details
 
 ```{r details, results = "asis"}
-cat(rd_html_get(rd_html, "Details", "Author"))
+# change <i> into $
+temp <- rd_html_get(rd_html, "Details", "Author") 
+temp <- gsub("[<][/]*i[>]", "$", temp)
+cat(temp)
 ```
 
 ## References
 
 ```{r references, results = "asis"}
-cat(rd_html_get(rd_html, "References", "See"))
+temp <- rd_html_get(rd_html, "References", "See") 
+for (i in seq_along(temp))
+{
+  if (grepl("[\\]+Sexpr[[]results=rd,stage=build[]][{].+[}]", temp[i]))
+  {
+    m <- regexpr("[\\]+Sexpr[[]results=rd,stage=build[]][{].+[}]", temp[i])
+    text1 <- substring(temp[i], 1, m-1)
+    code <- substring(temp[i], m, m + attr(m, "match.length"))
+    if (m + attr(m, "match.length") >= nchar(temp[i]))
+    {
+      text2 <- ""
+    } else
+    {
+      text2 <- substring(temp[i], m + attr(m,"match.length") + 1, nchar(temp[i]))
+    }
+    code <- gsub(".*[{]", "", code)
+    code <- gsub("[}].*", "", code)
+    code <- gsub("tools:::Rd_expr_doi", "my_Rd_expr_doi", code)
+    temp[i] <- paste(text1, eval(parse(text=code)), text2)
+  }
+}
+cat(temp)
 ```
 
