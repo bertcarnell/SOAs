@@ -34,11 +34,11 @@ For the `arrangements` package:
 
 <p>
 
-This package constructs arrays in <i>s^el</i> levels from orthogonal
-arrays in s levels. These are all based on equations of the type<br />
-<i>D = s^{el-1} A\_1 + … + s A\_{el-1} + A\_{el}</i>, or <br /> for
-<i>s^2</i> levels, <i>D = s A + B</i> and <br /> for <i>s^3</i> levels,
-<i>D = s^2 A + s B + C</i>. <br /> The constructions differ in how they
+This package constructs arrays in \(s^el\) levels from orthogonal arrays
+in s levels. These are all based on equations of the type<br />
+\(D = s^{el-1} A_1 + ... + s A_{el-1} + A_{el}\), or <br /> for \(s^2\)
+levels, \(D = s A + B\) and <br /> for \(s^3\) levels,
+\(D = s^2 A + s B + C\). <br /> The constructions differ in how they
 obtain the ingredient matrices, and what properties can be guaranteed
 for the resulting D. Where a construction function guarantees orthogonal
 columns for all matrices D it produces, its name starts with a OSOA,
@@ -119,7 +119,7 @@ Latin hypercubes for computer experiments. <em>Biometrika</em>
 
 Li, W., Liu, M.-Q. and Yang, J.-F. (2021, in press). Construction of
 column-orthogonal strong orthogonal arrays. <em>Statistical Papers</em>
-.
+[doi: 10.1007/s00362-021-01249-w](https://doi.org/10.1007/s00362-021-01249-w)
 
 </p>
 
@@ -135,7 +135,7 @@ arrays and sliced strong orthogonal arrays. <em>Statistica Sinica</em>
 
 Shi, L. and Tang, B. (2020). Construction results for strong orthogonal
 arrays of strength three. <em>Bernoulli</em> <strong>26</strong>,
-418-431. 
+418-431. [doi: 10.3150/19-BEJ1130](https://doi.org/10.3150/19-BEJ1130)
 
 </p>
 
@@ -160,6 +160,7 @@ Level Permutation and Expansion. <em>Statistica Sinica</em> <b>28</b>,
 
 Zhou, Y.D. and Tang, B. (2019). Column-orthogonal strong orthogonal
 arrays of strength two plus and three minus. <em>Biometrika</em>
-<strong>106</strong>, 997-1004. 
+<strong>106</strong>, 997-1004.
+[doi: 10.1093/biomet/asz043](https://doi.org/10.1093/biomet/asz043)
 
 </p>
