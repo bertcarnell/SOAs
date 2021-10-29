@@ -93,10 +93,10 @@ only (Xiao and Xu 2018).
 
 <p>
 
-Groemping, U. (2021 - soon). A unified implementation of stratum (aka
-strong) orthogonal arrays. Report 2021/01, Reports in Mathematics,
-Physics and Chemistry, Berliner Hochschule für Technik. (non-public)
-www1.beuth-hochschule.de/FB\_II/reports/Report-2021-001.pdf.
+Groemping, U. (2021). A unified implementation of stratum (aka strong)
+orthogonal arrays. Report 2021/01, Reports in Mathematics, Physics and
+Chemistry, Berliner Hochschule für Technik.
+<a href="http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf">http://www1.beuth-hochschule.de/FB\_II/reports/Report-2021-001.pdf</a>.
 
 </p>
 
