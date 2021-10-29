@@ -96,7 +96,7 @@ only (Xiao and Xu 2018).
 Groemping, U. (2021). A unified implementation of stratum (aka strong)
 orthogonal arrays. Report 2021/01, Reports in Mathematics, Physics and
 Chemistry, Berliner Hochschule für Technik.
-<a href="http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf">http://www1.beuth-hochschule.de/FB\_II/reports/Report-2021-001.pdf</a>.
+<a href="http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf">http://www1.beuth-hochschule.de/FB\_II/reports/Report-2021-001.pdf</a>
 
 </p>
 
@@ -104,6 +104,7 @@ Chemistry, Berliner Hochschule für Technik.
 
 He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of
 strength two plus. <em>The Annals of Statistics</em> <b>46</b>, 457-468.
+[doi: 10.1214/17-AOS1555](https://doi.org/10.1214/17-AOS1555)
 
 </p>
 
@@ -112,6 +113,7 @@ strength two plus. <em>The Annals of Statistics</em> <b>46</b>, 457-468.
 He, Y. and Tang, B. (2013). Strong orthogonal arrays and associated
 Latin hypercubes for computer experiments. <em>Biometrika</em>
 <b>100</b>, 254-260.
+[doi: 10.1093/biomet/ass065](https://doi.org/10.1093/biomet/ass065)
 
 </p>
 
@@ -128,6 +130,7 @@ column-orthogonal strong orthogonal arrays. <em>Statistical Papers</em>
 Liu, H. and Liu, M.-Q. (2015). Column-orthogonal strong orthogonal
 arrays and sliced strong orthogonal arrays. <em>Statistica Sinica</em>
 <strong>25</strong>, 1713-1734.
+[doi: 10.5705/ss.2014.106](https://doi.org/10.5705/ss.2014.106)
 
 </p>
 
@@ -153,6 +156,7 @@ and Jiguo Cao.
 Xiao, Q. and Xu, H. (2018). Construction of Maximin Distance Designs via
 Level Permutation and Expansion. <em>Statistica Sinica</em> <b>28</b>,
 1395-1414.
+[doi: 10.5705/ss.202016.0423](https://doi.org/10.5705/ss.202016.0423)
 
 </p>
 
