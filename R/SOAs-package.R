@@ -28,7 +28,7 @@
 #' @author Author: Ulrike Groemping, BHT Berlin. Contributor: Rob Carnell.
 #'
 #' @references
-#' Groemping, U. (2021 - soon). A unified implementation of stratum (aka strong) orthogonal arrays. Report 2021/01, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. (non-public) www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf.
+#' Groemping, U. (2021). A unified implementation of stratum (aka strong) orthogonal arrays. Report 2021/01, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. \url{http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf}.
 #'
 #' He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of strength two plus. \emph{The Annals of Statistics} \bold{46}, 457-468.
 #'
