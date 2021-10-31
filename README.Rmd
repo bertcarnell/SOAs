@@ -132,6 +132,17 @@ for (i in seq_along(temp))
     temp[i] <- paste(text1, eval(parse(text=code)), text2)
   }
 }
-cat(temp)
+
+# this is a fix for Issue 19 - https://github.com/bertcarnell/SOAs/issues/19
+line_found <- grep("[_]II", temp)
+posit_found <- gregexpr("[_]II", temp[line_found])
+temp2 <- temp
+# temp2[line_found] <- paste0(substring(temp[line_found], 1, posit_found[[1]][2]-1),
+#                             "&#95;",
+#                             substring(temp[line_found], posit_found[[1]][2]+1, nchar(temp[line_found])))
+temp2[line_found] <- gsub("[>]http", ">`http", temp[line_found])
+temp2[line_found] <- gsub("pdf[<]", "pdf`<", temp2[line_found])
+
+cat(temp2)
 ```
 
