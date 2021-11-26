@@ -4,7 +4,8 @@
 \alias{XiaoXuMDLE}
 \alias{createF}
 \alias{optimize}
-\title{Implementation of the Xiao Xu TA algorithm (experimental, for comparison with MDLEs only)}
+\title{Implementation of the Xiao Xu TA algorithm
+(experimental, for comparison with MDLEs only)}
 \usage{
 XiaoXuMDLE(
   oa,
@@ -63,7 +64,8 @@ optimize(
 \code{optimize} returns a matrix with attribute \code{phi_p}.
 }
 \description{
-Implementation of the Xiao Xu TA algorithm (experimental, for comparison with MDLEs only)
+Implementation of the Xiao Xu TA algorithm
+(experimental, for comparison with MDLEs only)
 }
 \details{
 The ingoing \code{oa} is optimized by function \code{\link{phi_optimize}},

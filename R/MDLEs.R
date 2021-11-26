@@ -12,8 +12,6 @@
 #' @param noptim.oa integer: number of optimization rounds applied to initial oa itself before starting expansion
 #' @param dmethod distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"
 #' @param p p for \code{\link{phi_p}} (the larger, the closer to maximin distance)
-#' @param storeperms logical: should candidate permutations be stored? This can
-#' blow up the size of the output object enormously.
 #'
 #' @details The ingoing oa is possibly optimized for space-filling, using function \code{\link{phi_optimize}}
 #' with \code{noptim.oa} optimization rounds. The expansions themselves are again optimized for improving phi_p,
@@ -26,13 +24,10 @@
 #'   \item{type}{MDLE}
 #'   \item{optimized}{logical: same as the input parameter}
 #'   \item{call}{the call that produced the matrix}
-#'   \item{permpick}{matrix that lists the id numbers of the permutations used}
-#'   \item{perms2pickfrom}{optional element, when optimization was conducted: the
-#'   overall permutation list to which the numbers in permlist refer}
+#'   \item{permpick}{matrix of lists of length \code{s} with elements from 0 to \code{ell}-1;\cr
+#'   matrix element (i,j) contains the sequence of replacements used in function \code{DcFromDp} for constructing the level expansion of the ith level in the jth column}
 #' }
 #' @export
-#'
-#' @importFrom arrangements npermutations permutations
 #'
 #' @references
 #' For full detail, see \code{\link{SOAs-package}}.
@@ -42,9 +37,12 @@
 #' @author Ulrike Groemping
 #'
 #' @examples
-#' dim(MDLEs(DoE.base::L16.4.5, 2, noptim.rounds = 1))
+#' dim(aus <- MDLEs(DoE.base::L16.4.5, 2, noptim.rounds = 1))
+#' permpicks <- attr(aus, "permpick")
+#' ## that code produces the same matrix as MDLEs
+#' SOAs:::DcFromDp(L16.4.5-1, 4,2, lapply(1:5, function(obj) permpicks[,obj]))
 MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, noptim.oa=1,
-                  dmethod="manhattan", p=50, storeperms=FALSE){
+                  dmethod="manhattan", p=50){
   ### implements the Weng optimization
   ### for performance reasons, there are noptim.rounds repetitions
   ### of the algorithm
@@ -61,23 +59,8 @@ MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, noptim.oa=1,
   ### initialize Dc
   ## obtain potential replacements
   replacement <- rep(1:ell, each=n/(s*ell)) - 1
-  tabrepl <- table(replacement)
-  nperms <- arrangements::npermutations(as.numeric(x=names(tabrepl)),
-                              freq=tabrepl, bigz=TRUE)
-  ## make sure that at most 20000 permutations are inspected
-  if (nperms <= 20000)
-    allpermlist <-
-      arrangements::permutations(as.numeric(x=names(tabrepl)),
-                               freq=tabrepl)
-  else
-    allpermlist <- t(sapply(1:20000, function(obj) sample(replacement)))
 
-  ## number of permutations used
-  nperms <- nrow(allpermlist)
-  allpermlist <- lapply(1:nperms,
-                        function(obj) allpermlist[obj,])
-
-  ## for NeighbourcalcUniversal
+  ## for NeighbourcalcUniversal_random
   # m <- m
   r <- s
 
@@ -85,22 +68,25 @@ MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, noptim.oa=1,
   ende <- FALSE
 
   if (optimize){
+    permpickstart <- matrix(lapply(1:(r*m),
+                                   function(obj) sample(replacement)),
+                            nrow=r,ncol=m)
     for (i in 1:noptim.rounds){
       message("Optimization round ", i, " of ", noptim.rounds, " started")
 
     while(curpos2 > 1){
       while (curpos > 1){
-        if (curpos==Inf) curpermpick <- matrix(sample(nperms, m*s, replace = TRUE), nrow=s)
-        cur <- NeighbourcalcUniversal(DcFromDp, m, r, s=s, ell=ell, Dp=Dp,
-                                      startperm = curpermpick,
-                                      allpermlist = allpermlist)   ## one-neighbors only
+        if (curpos==Inf) curpermpick <- permpickstart
+        cur <- NeighbourcalcUniversal_random(DcFromDp, m, r, s=s, ell=ell, Dp=Dp,
+                                      curperms = curpermpick,
+                                      replacement = replacement)   ## one-neighbors only
         phi_pvals <- round(sapply(cur$arrays, function(obj) phi_p(obj, dmethod=dmethod, p=p)), 8)
         (curpos <- which.min(phi_pvals))
         curpermpick <- cur$docpermlist[[curpos]]
       }
-      cur <- NeighbourcalcUniversal(DcFromDp, m, r, s=s, ell=ell, Dp=Dp,
-                                    startperm = curpermpick,
-                                    allpermlist = allpermlist,
+      cur <- NeighbourcalcUniversal_random(DcFromDp, m, r, s=s, ell=ell, Dp=Dp,
+                                    curperms = curpermpick,
+                                    replacement = replacement,
                                     neighbordist = 2)
       phi_pvals <- round(sapply(cur$arrays, function(obj) phi_p(obj, dmethod=dmethod, p=p)), 8)
       (curpos2 <- which.min(phi_pvals))
@@ -113,11 +99,8 @@ MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, noptim.oa=1,
     attrs <- list(phi_p=phi_pvals[1],
                   type="MDLE",
                 optimized=TRUE,
-                call=mycall)
-    if (storeperms){
-      attrs$permpick <- curpermpick
-      attrs$perms2pickfrom <- allpermlist
-    }
+                call=mycall,
+                permpick=curpermpick)
   }else{
     aus <- DcFromDp(Dp, s, ell)
     attrs <- list(phi_p=phi_p(aus, dmethod=dmethod, p=p),

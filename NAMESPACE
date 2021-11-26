@@ -28,8 +28,6 @@ import(DoE.base, except=c("lm", "aov", "lm.design", "aov.design", "lm.formula", 
 import(conf.design, except=c("factorize.factor"))
 importFrom(FrF2,FrF2)
 importFrom(FrF2,pb)
-importFrom(arrangements,npermutations)
-importFrom(arrangements,permutations)
 importFrom(combinat,permn)
 importFrom(igraph,"vertex_attr<-")
 importFrom(igraph,graph_from_edgelist)

@@ -11,8 +11,7 @@ MDLEs(
   optimize = TRUE,
   noptim.oa = 1,
   dmethod = "manhattan",
-  p = 50,
-  storeperms = FALSE
+  p = 50
 )
 }
 \arguments{
@@ -30,9 +29,6 @@ take very long, therefore the default is 1, although more rounds are beneficial.
 \item{dmethod}{distance method for \code{\link{phi_p}}, "manhattan" (default) or "euclidean"}
 
 \item{p}{p for \code{\link{phi_p}} (the larger, the closer to maximin distance)}
-
-\item{storeperms}{logical: should candidate permutations be stored? This can
-blow up the size of the output object enormously.}
 }
 \value{
 A matrix of class \code{MDLE} with attributes
@@ -41,9 +37,8 @@ A matrix of class \code{MDLE} with attributes
 \item{type}{MDLE}
 \item{optimized}{logical: same as the input parameter}
 \item{call}{the call that produced the matrix}
-\item{permpick}{matrix that lists the id numbers of the permutations used}
-\item{perms2pickfrom}{optional element, when optimization was conducted: the
-overall permutation list to which the numbers in permlist refer}
+\item{permpick}{matrix of lists of length \code{s} with elements from 0 to \code{ell}-1;\cr
+matrix element (i,j) contains the sequence of replacements used in function \code{DcFromDp} for constructing the level expansion of the ith level in the jth column}
 }
 }
 \description{
@@ -58,7 +53,10 @@ using an algorithm which is a variant of Weng (2014), instead of the more powerf
 algorithm proposed by Xiao and Xu.
 }
 \examples{
-dim(MDLEs(DoE.base::L16.4.5, 2, noptim.rounds = 1))
+dim(aus <- MDLEs(DoE.base::L16.4.5, 2, noptim.rounds = 1))
+permpicks <- attr(aus, "permpick")
+## that code produces the same matrix as MDLEs
+SOAs:::DcFromDp(L16.4.5-1, 4,2, lapply(1:5, function(obj) permpicks[,obj]))
 }
 \references{
 For full detail, see \code{\link{SOAs-package}}.

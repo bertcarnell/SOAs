@@ -9,7 +9,7 @@ test_that("MDLE", {
 
   # operational checks for code coverage
   suppressMessages(temp <- MDLEs(DoE.base::L16.4.5, 2, noptim.rounds = 1,
-                                 noptim.oa = 2, storeperms = TRUE))
+                                 noptim.oa = 2))
   expect_s3_class(temp, "MDLE")
   suppressMessages(temp <- MDLEs(DoE.base::L16.4.5, 2, optimize = FALSE))
   expect_s3_class(temp, "MDLE")
