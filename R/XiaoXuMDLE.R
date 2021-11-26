@@ -1,3 +1,5 @@
+### Eliminate the dependence on arrangements, look at random permutations
+
 ### Algorithm from Xiao and Xu
 ### Starting point is a Dp obtained by permutation optimization of an OA
 #Algorithm 1 Pseudo code for threshold accepting (TA) algorithm
@@ -18,8 +20,10 @@
 #end for
 #Return Dmin
 
-#' Implementation of the Xiao Xu TA algorithm (experimental, for comparison with MDLEs only)
+#' Implementation of the Xiao Xu TA algorithm
+#' (experimental, for comparison with MDLEs only)
 #'
+#' @rdname XiaoXuMDLE
 #' @param oa matrix or data.frame that contains an ingoing symmetric OA. Levels must be denoted as 0 to s-1 or as 1 to s.
 #' @param ell the multiplier for each number of levels
 #' @param noptim.oa integer: number of optimization rounds applied to initial oa itself before starting expansion
@@ -59,32 +63,23 @@ XiaoXuMDLE <- function(oa, ell, noptim.oa=1, nseq=2000, nrounds=50,
   ## implements the original Xiao and Xu algorithm
   s <- levels.no(oa)[1]
   n <- nrow(oa); m <- ncol(oa)
+  stopifnot((n/(s*ell))%%1 == 0)
   Dp <- oa
   if (noptim.oa>0) Dp <- phi_optimize(oa, noptim.rounds = noptim.oa,
                                         dmethod = dmethod, p=p)
 
   ### initialize Dc
-  ## obtain potential replacements
-  replacement <- rep(1:ell, each=n/(s*ell)) - 1
-  tabrepl <- table(replacement)
-  nperms <- arrangements::npermutations(as.numeric(x=names(tabrepl)),
-                                        freq=tabrepl, bigz=TRUE)
-  ## make sure that at most 20000 permutations are inspected
-  if (nperms <= 20000)
-    allpermlist <-
-    arrangements::permutations(as.numeric(x=names(tabrepl)),
-                               freq=tabrepl)
-  else
-    allpermlist <- t(sapply(1:20000, function(obj) sample(replacement)))
+  ## obtain sorted vector of replacements
+  replacement <- rep(0:(ell-1), each=n/(s*ell))
+  ## number of permutations is hard to calculate
+  ## but is not needed any more, because of using just random permutations
 
-  ## number of permutations used
-  nperms <- nrow(allpermlist)
-  allpermlist <- lapply(1:nperms,
-                        function(obj) allpermlist[obj,])
   ## initial random permutations
   permlist <- vector(mode="list")
   for (i in 1:m){
-    permlist[[i]] <- allpermlist[sample(nperms, s)]
+    permlist[[i]] <- vector(mode="list")
+    for (j in 1:s)
+    permlist[[i]][[j]] <- sample(replacement)
   }
   Dc <- DcFromDp(Dp, s, ell, permlist)
 

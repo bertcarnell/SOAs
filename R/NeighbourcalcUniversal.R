@@ -36,9 +36,7 @@ NeighbourcalcUniversal <- function(funname, mperm, r, ...,
   ## SOAs8level calls function createDfromABC with argument listABC
   ##  ... now does not contain any from oa or s, but listABC[[1]] can be treated like oa
   ##
-  ## MDLEs calls function DcFromDp with arguments Dp, s and ell
-  ## ...  for this must contain these three arguments
-  ##      In addition, allpermlist must not be NULL, unless ell==n/s.
+  ## ## no longer here: MDLEs (now separate function NeighbourcalcUniversal_random)
   ##
   ## ... arguments must be named in order to be found
 
