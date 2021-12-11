@@ -1,6 +1,6 @@
 Package: SOAs
 Title: Creation of Stratum Orthogonal Arrays
-Version: 0.06
+Version: 1.0
 Authors@R: 
     c(person(given = "Ulrike",
            family = "Groemping",
