@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,25 +33,19 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.06</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/bertcarnell/SOAs/">
+  <a href="https://github.com/bertcarnell/SOAs/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -66,9 +62,9 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="soas" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#soas" class="anchor"></a>SOAs</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="soas">SOAs<a class="anchor" aria-label="anchor" href="#soas"></a>
+</h1></div>
 <p>Creates stratum orthogonal arrays (also known as strong orthogonal arrays).</p>
 <ul>
 <li>
@@ -84,23 +80,23 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="center">
-<a href="https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml"><img src="https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml/badge.svg" alt="R-CMD-check"></a><a href="https://github.com/bertcarnell/SOAs/actions/workflows/pkgdown.yaml"><img src="https://github.com/bertcarnell/SOAs/actions/workflows/pkgdown.yaml/badge.svg" alt="pkgdown"></a>
+<a href="https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml" class="external-link"><img src="https://github.com/bertcarnell/SOAs/actions/workflows/r_cmd_check.yml/badge.svg" alt="R-CMD-check"></a><a href="https://github.com/bertcarnell/SOAs/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/bertcarnell/SOAs/actions/workflows/pkgdown.yaml/badge.svg" alt="pkgdown"></a>
 </td>
-<td align="center"><a href="https://codecov.io/gh/bertcarnell/SOAs?branch=main"><img src="https://codecov.io/gh/bertcarnell/SOAs/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></td>
-<td align="center"><a href="https://bertcarnell.github.io/SOAs/"><img src="https://img.shields.io/badge/pkgdown-SOAs-blue.svg"></a></td>
+<td align="center"><a href="https://codecov.io/gh/bertcarnell/SOAs?branch=main" class="external-link"><img src="https://codecov.io/gh/bertcarnell/SOAs/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></td>
+<td align="center"><a href="https://bertcarnell.github.io/SOAs/" class="external-link"><img src="https://img.shields.io/badge/pkgdown-SOAs-blue.svg"></a></td>
 </tr></tbody>
 </table>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p><code>SOAs</code> has not yet been released on <a href="https://CRAN.R-project.org">CRAN</a>.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p><code>SOAs</code> has not yet been released on <a href="https://CRAN.R-project.org" class="external-link">CRAN</a>.</p>
 <p>You can install the development version of <code>SOAs</code> from here with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va">devtools</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bertcarnell/SOAs"</span><span class="op">)</span></code></pre></div>
-<div id="system-dependencies" class="section level3">
-<h3 class="hasAnchor">
-<a href="#system-dependencies" class="anchor"></a>System Dependencies</h3>
+<div class="section level3">
+<h3 id="system-dependencies">System Dependencies<a class="anchor" aria-label="anchor" href="#system-dependencies"></a>
+</h3>
 <p>For the <code>arrangements</code> package:</p>
 <ul>
 <li>Ubuntu: <code>apt-get update; apt-get install libgmp3-dev -y</code>
@@ -110,12 +106,12 @@
 </ul>
 </div>
 </div>
-<div id="details" class="section level2">
-<h2 class="hasAnchor">
-<a href="#details" class="anchor"></a>Details</h2>
+<div class="section level2">
+<h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a>
+</h2>
 <p>
 </p>
-<p>This package constructs arrays in <span class="math inline"><em>s</em><sup><em>e</em></sup><em>l</em></span> levels from orthogonal arrays in s levels. These are all based on equations of the type<br><span class="math inline"><em>D</em> = <em>s</em><sup><em>e</em><em>l</em> − 1</sup><em>A</em><sub>1</sub> + ... + <em>s</em><em>A</em><sub><em>e</em><em>l</em> − 1</sub> + <em>A</em><sub><em>e</em><em>l</em></sub></span>, or <br> for <span class="math inline"><em>s</em><sup>2</sup></span> levels, <span class="math inline"><em>D</em> = <em>s</em><em>A</em> + <em>B</em></span> and <br> for <span class="math inline"><em>s</em><sup>3</sup></span> levels, <span class="math inline"><em>D</em> = <em>s</em><sup>2</sup><em>A</em> + <em>s</em><em>B</em> + <em>C</em></span>. <br> The constructions differ in how they obtain the ingredient matrices, and what properties can be guaranteed for the resulting D. Where a construction function guarantees orthogonal columns for all matrices D it produces, its name starts with a OSOA, otherwise with SOA.<br></p>
+<p>This package constructs arrays in (s^el) levels from orthogonal arrays in s levels. These are all based on equations of the type<br> (D = s^{el-1} A_1 + … + s A_{el-1} + A_{el}), or <br> for (s^2) levels, (D = s A + B) and <br> for (s^3) levels, (D = s^2 A + s B + C). <br> The constructions differ in how they obtain the ingredient matrices, and what properties can be guaranteed for the resulting D. Where a construction function guarantees orthogonal columns for all matrices D it produces, its name starts with a OSOA, otherwise with SOA.<br></p>
 
 <p>
 </p>
@@ -134,44 +130,44 @@
 <p>There is one further construction, maximin distance level expansion (<code>XiaoXuMDLE</code>, <code>MDLEs</code>), that does not yield stratum (aka strong) orthogonal arrays and is available for comparison only (Xiao and Xu 2018).</p>
 
 </div>
-<div id="references" class="section level2">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <p>
 </p>
-<p>Groemping, U. (2021). A unified implementation of stratum (aka strong) orthogonal arrays. Report 2021/01, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. <a href="http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf"><code>http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf</code></a></p>
+<p>Groemping, U. (2021). A unified implementation of stratum (aka strong) orthogonal arrays. Report 2021/01, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. <a href="http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf" class="external-link"><code>http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf</code></a></p>
 
 <p>
 </p>
-<p>He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of strength two plus. <em>The Annals of Statistics</em> <b>46</b>, 457-468. <a href="https://doi.org/10.1214/17-AOS1555">doi: 10.1214/17-AOS1555</a></p>
+<p>He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of strength two plus. <em>The Annals of Statistics</em> <b>46</b>, 457-468. <a href="https://doi.org/10.1214/17-AOS1555" class="external-link">doi: 10.1214/17-AOS1555</a></p>
 
 <p>
 </p>
-<p>He, Y. and Tang, B. (2013). Strong orthogonal arrays and associated Latin hypercubes for computer experiments. <em>Biometrika</em> <b>100</b>, 254-260. <a href="https://doi.org/10.1093/biomet/ass065">doi: 10.1093/biomet/ass065</a></p>
+<p>He, Y. and Tang, B. (2013). Strong orthogonal arrays and associated Latin hypercubes for computer experiments. <em>Biometrika</em> <b>100</b>, 254-260. <a href="https://doi.org/10.1093/biomet/ass065" class="external-link">doi: 10.1093/biomet/ass065</a></p>
 
 <p>
 </p>
-<p>Li, W., Liu, M.-Q. and Yang, J.-F. (2021, in press). Construction of column-orthogonal strong orthogonal arrays. <em>Statistical Papers</em> <a href="https://doi.org/10.1007/s00362-021-01249-w">doi: 10.1007/s00362-021-01249-w</a></p>
+<p>Li, W., Liu, M.-Q. and Yang, J.-F. (2021, in press). Construction of column-orthogonal strong orthogonal arrays. <em>Statistical Papers</em> <a href="https://doi.org/10.1007/s00362-021-01249-w" class="external-link">doi: 10.1007/s00362-021-01249-w</a></p>
 
 <p>
 </p>
-<p>Liu, H. and Liu, M.-Q. (2015). Column-orthogonal strong orthogonal arrays and sliced strong orthogonal arrays. <em>Statistica Sinica</em> <strong>25</strong>, 1713-1734. <a href="https://doi.org/10.5705/ss.2014.106">doi: 10.5705/ss.2014.106</a></p>
+<p>Liu, H. and Liu, M.-Q. (2015). Column-orthogonal strong orthogonal arrays and sliced strong orthogonal arrays. <em>Statistica Sinica</em> <strong>25</strong>, 1713-1734. <a href="https://doi.org/10.5705/ss.2014.106" class="external-link">doi: 10.5705/ss.2014.106</a></p>
 
 <p>
 </p>
-<p>Shi, L. and Tang, B. (2020). Construction results for strong orthogonal arrays of strength three. <em>Bernoulli</em> <strong>26</strong>, 418-431. <a href="https://doi.org/10.3150/19-BEJ1130">doi: 10.3150/19-BEJ1130</a></p>
+<p>Shi, L. and Tang, B. (2020). Construction results for strong orthogonal arrays of strength three. <em>Bernoulli</em> <strong>26</strong>, 418-431. <a href="https://doi.org/10.3150/19-BEJ1130" class="external-link">doi: 10.3150/19-BEJ1130</a></p>
 
 <p>
 </p>
-<p>Weng, J. (2014). Maximin Strong Orthognal Arrays. <em>Master’s thesis</em> at Simon Fraser University under supervision of Boxin Tang and Jiguo Cao. <a href="https://summit.sfu.ca/item/14433">https://summit.sfu.ca/item/14433</a></p>
+<p>Weng, J. (2014). Maximin Strong Orthognal Arrays. <em>Master’s thesis</em> at Simon Fraser University under supervision of Boxin Tang and Jiguo Cao. <a href="https://summit.sfu.ca/item/14433" class="external-link">https://summit.sfu.ca/item/14433</a></p>
 
 <p>
 </p>
-<p>Xiao, Q. and Xu, H. (2018). Construction of Maximin Distance Designs via Level Permutation and Expansion. <em>Statistica Sinica</em> <b>28</b>, 1395-1414. <a href="https://doi.org/10.5705/ss.202016.0423">doi: 10.5705/ss.202016.0423</a></p>
+<p>Xiao, Q. and Xu, H. (2018). Construction of Maximin Distance Designs via Level Permutation and Expansion. <em>Statistica Sinica</em> <b>28</b>, 1395-1414. <a href="https://doi.org/10.5705/ss.202016.0423" class="external-link">doi: 10.5705/ss.202016.0423</a></p>
 
 <p>
 </p>
-<p>Zhou, Y.D. and Tang, B. (2019). Column-orthogonal strong orthogonal arrays of strength two plus and three minus. <em>Biometrika</em> <strong>106</strong>, 997-1004. <a href="https://doi.org/10.1093/biomet/asz043">doi: 10.1093/biomet/asz043</a></p>
+<p>Zhou, Y.D. and Tang, B. (2019). Column-orthogonal strong orthogonal arrays of strength two plus and three minus. <em>Biometrika</em> <strong>106</strong>, 997-1004. <a href="https://doi.org/10.1093/biomet/asz043" class="external-link">doi: 10.1093/biomet/asz043</a></p>
 
 </div>
 </div>
@@ -179,39 +175,51 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/bertcarnell/SOAs/">https://​github.com/​bertcarnell/​SOAs/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/bertcarnell/SOAs/issues">https://​github.com/​bertcarnell/​SOAs/​issues</a>
-</li>
+<li><a href="https://github.com/bertcarnell/SOAs/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/bertcarnell/SOAs/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small>GPL (&gt;= 2)</small></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Ulrike Groemping <br><small class="roles"> Author, maintainer </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing SOAs</a></li>
 </ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Ulrike Groemping <br><small class="roles"> Author, maintainer </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
+</ul>
+</div>
+
+
 
   </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Ulrike Groemping.</p>
+  <p></p>
+<p>Developed by Ulrike Groemping.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -219,6 +227,8 @@
 
   
 
+
+  
 
   </body>
 </html>
