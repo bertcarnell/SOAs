@@ -35,7 +35,7 @@
 #' @param Dc matrix
 #' @param Dp matrix
 #' @param s original number of levels
-#' @param F distribution function (created with \code{createF})
+#' @param Fhat distribution function (created with \code{createF})
 #'
 #' @details The ingoing \code{oa} is optimized by function \code{\link{phi_optimize}},
 #' using \code{noptim.rounds=noptim.oa}; this yields the matrix \code{Dp} for use
@@ -125,7 +125,7 @@ createF <- function(Dc, Dp, s, ell, nseq=2000){
 #' @importFrom stats quantile
 #'
 #' @keywords internal
-optimize <- function(Dc, s, ell, F, nrounds=50, nsteps=3000, dmethod="manhattan", p=50){
+optimize <- function(Dc, s, ell, Fhat, nrounds=50, nsteps=3000, dmethod="manhattan", p=50){
   ## Xiao Xu: nrounds 30 to 75
   ##          nsteps 3000 to 7500
   ### this should be for Dc
@@ -133,7 +133,7 @@ optimize <- function(Dc, s, ell, F, nrounds=50, nsteps=3000, dmethod="manhattan"
   Dmin <- Dc
   m <- ncol(Dc)
   for (r in 1:nrounds){
-     tau <- stats::quantile(F, 0.5*(1-r/nrounds))
+     tau <- stats::quantile(Fhat, 0.5*(1-r/nrounds))
      for (j in 1:nsteps){
        Dn <- Dc
        colsamp <- sample(m, 1)

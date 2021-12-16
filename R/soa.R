@@ -16,11 +16,6 @@
 #'
 #' @return a matrix
 #'
-#' @examples
-#' oa <- DoE.base::L81.3.10 - 1
-#' SOAs:::soa(oa, t=3)   ## 9 columns with 27 levels each
-
-#'
 #' @keywords internal
 soa <- function(oa, t=3, m=NULL, permlist=NULL, random=TRUE){
   ## The function implements the algorithm by He and Tang (2013)

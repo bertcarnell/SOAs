@@ -1,5 +1,10 @@
 Change log for package SOAs
 
+Version 1.0-1, December 2021
+
+* expanded description in DESCRIPTION file, and added a reference
+*
+
 Version 1.0, 11 December 2021
 
-* first version on CRAN
+* first version submitted to CRAN

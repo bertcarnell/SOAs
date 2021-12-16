@@ -74,7 +74,7 @@ reasonable stratified balance behavior. Note that their use is not usually
 advisable for m small enough that a strength 3 OA with s^2 level factors exists.
 }
 \examples{
-\dontrun{
+\donttest{
 ## unoptimized OSOA with 8 16-level columns in 64 runs
 ## (maximum possible number of columns)
 plan64 <- SOAs2plus_regular(4, 3, optimize=FALSE)

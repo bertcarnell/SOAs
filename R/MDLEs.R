@@ -39,8 +39,9 @@
 #' @examples
 #' dim(aus <- MDLEs(DoE.base::L16.4.5, 2, noptim.rounds = 1))
 #' permpicks <- attr(aus, "permpick")
-#' ## that code produces the same matrix as MDLEs
-#' SOAs:::DcFromDp(L16.4.5-1, 4,2, lapply(1:5, function(obj) permpicks[,obj]))
+#' ## for people interested in internal workings:
+#' ## the code below produces the same matrix as MDLEs
+#' \donttest{SOAs:::DcFromDp(L16.4.5-1, 4,2, lapply(1:5, function(obj) permpicks[,obj]))}
 MDLEs <- function(oa, ell, noptim.rounds=1, optimize=TRUE, noptim.oa=1,
                   dmethod="manhattan", p=50){
   ### implements the Weng optimization

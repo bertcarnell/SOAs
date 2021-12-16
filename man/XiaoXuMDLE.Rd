@@ -24,7 +24,7 @@ optimize(
   Dc,
   s,
   ell,
-  F,
+  Fhat,
   nrounds = 50,
   nsteps = 3000,
   dmethod = "manhattan",
@@ -54,7 +54,7 @@ optimize(
 
 \item{s}{original number of levels}
 
-\item{F}{distribution function (created with \code{createF})}
+\item{Fhat}{distribution function (created with \code{createF})}
 }
 \value{
 \code{XiaoXuMDLE} returns a matrix with attribute \code{phi_p}.

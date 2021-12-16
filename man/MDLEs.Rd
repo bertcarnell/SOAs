@@ -55,8 +55,9 @@ algorithm proposed by Xiao and Xu.
 \examples{
 dim(aus <- MDLEs(DoE.base::L16.4.5, 2, noptim.rounds = 1))
 permpicks <- attr(aus, "permpick")
-## that code produces the same matrix as MDLEs
-SOAs:::DcFromDp(L16.4.5-1, 4,2, lapply(1:5, function(obj) permpicks[,obj]))
+## for people interested in internal workings:
+## the code below produces the same matrix as MDLEs
+\donttest{SOAs:::DcFromDp(L16.4.5-1, 4,2, lapply(1:5, function(obj) permpicks[,obj]))}
 }
 \references{
 For full detail, see \code{\link{SOAs-package}}.
