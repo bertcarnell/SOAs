@@ -1,9 +1,11 @@
 Change log for package SOAs
 
-Version 1.0-1, December 2021
+Version 1.0-1, 16 December 2021
 
 * expanded description in DESCRIPTION file, and added a reference
-*
+* changed argument F to Fhat in internal function optimize
+* made a few changes to the documentation, as requested by CRAN
+* corrected a miswrite in a reference for createAB
 
 Version 1.0, 11 December 2021
 
