@@ -55,7 +55,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ## unoptimized OSOA with 8 16-level columns in 64 runs
 #' ## (maximum possible number of columns)
 #' plan64 <- SOAs2plus_regular(4, 3, optimize=FALSE)

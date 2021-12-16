@@ -5,9 +5,6 @@
 #'
 #' @return ff returns a full factorial matrix
 #'
-#' @examples
-#' SOAs:::ff(3,2,4)
-#'
 #' @keywords internal
 ff <- function (...)
 {
@@ -26,9 +23,6 @@ ff <- function (...)
 #' @param k determines dimension
 #'
 #' @return Yatesmat2 returns a 2^k x (2^k - 1) matrix with 0/1 entries, Yates matrix
-#'
-#' @examples
-#' SOAs:::Yatesmat2(3)
 #'
 #' @keywords internal
 Yatesmat2 <- function(k){

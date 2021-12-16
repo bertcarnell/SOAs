@@ -14,6 +14,9 @@
 
 \item{...}{further arguments for function \code{print}}
 }
+\value{
+no value is returned
+}
 \description{
 Print Methods
 }

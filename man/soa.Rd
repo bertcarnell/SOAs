@@ -27,9 +27,4 @@ work horse function for SOAs
 \details{
 The function is the workhorse function for function \code{\link{SOAs}}.
 }
-\examples{
-oa <- DoE.base::L81.3.10 - 1
-SOAs:::soa(oa, t=3)   ## 9 columns with 27 levels each
-
-}
 \keyword{internal}

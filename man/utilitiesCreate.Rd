@@ -30,7 +30,7 @@ BcolsFromBcolllist(Bcollist)
 \item{Bcollist}{list of candidate columns for He et al. (2018) construction}
 }
 \value{
-\code{createAB} returns a list of s^k times m matrices A, B and D for the Hedayat et al. construction
+\code{createAB} returns a list of s^k times m matrices A, B and D for the He, Cheng and Tang (2018) construction
 
 \code{BsFromB} returns an rn x m matrix
 
@@ -39,14 +39,10 @@ BcolsFromBcolllist(Bcollist)
 \description{
 Utilities for array creation
 }
+\details{
+\code{BcolsFromBcolllist} tries to create adequate unique matches from a list of suitable matches. For example, if four matches are needed and the list \code{list(1:2, 1:3, 4:6, 1)} holds the suitable matches for the four positions, the function would return the vector 2, 3, 4, 1.
+}
 \note{
 \code{BsFromB} is currently not used.
-}
-\examples{
-## A has 4 columns,
-## the argument lists suitable matches from remaining columns
-## the outcome picks perfect unique matches, if possible
-SOAs:::BcolsFromBcolllist(list(1:2, 1:3, 4:6, 1))
-
 }
 \keyword{internal}

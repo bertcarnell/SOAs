@@ -2,6 +2,7 @@
 #'
 #' @rdname printsoa
 #' @method print SOA
+#' @return no value is returned
 #'
 #' @param x object to be printed (SOA, OSOA, MDLE)
 #' @param ... further arguments for function \code{print}

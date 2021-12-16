@@ -32,10 +32,4 @@ interleavecols returns an n x (2m) matrix with columns \code{A[,1]}, \code{B[,1]
 \description{
 Utility functions for SOAs
 }
-\examples{
-SOAs:::ff(3,2,4)
-
-SOAs:::Yatesmat2(3)
-
-}
 \keyword{internal}

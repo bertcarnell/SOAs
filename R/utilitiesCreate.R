@@ -5,7 +5,7 @@
 #' @param k integer; determines the run size: the resulting array will have s^k runs
 #' @param m the number of columns to be created
 #'
-#' @return \code{createAB} returns a list of s^k times m matrices A, B and D for the Hedayat et al. construction
+#' @return \code{createAB} returns a list of s^k times m matrices A, B and D for the He, Cheng and Tang (2018) construction
 #'
 #' @keywords internal
 ## function for the Hedayat et al. 2018 construction
@@ -193,14 +193,10 @@ BsFromB <- function(B, s=NULL, r=NULL, permlist=NULL, oneonly=TRUE){
 #'
 #' @return \code{BcolsFromBcolllist} returns column numbers selected for matrix B
 #'
+#' @details \code{BcolsFromBcolllist} tries to create adequate unique matches from a list of suitable matches. For example, if four matches are needed and the list \code{list(1:2, 1:3, 4:6, 1)} holds the suitable matches for the four positions, the function would return the vector 2, 3, 4, 1.
+#'
 #' @importFrom igraph "vertex_attr<-"
 #' @importFrom igraph graph_from_edgelist max_bipartite_match
-#'
-#' @examples
-#' ## A has 4 columns,
-#' ## the argument lists suitable matches from remaining columns
-#' ## the outcome picks perfect unique matches, if possible
-#' SOAs:::BcolsFromBcolllist(list(1:2, 1:3, 4:6, 1))
 #'
 #' @keywords internal
 BcolsFromBcolllist <- function(Bcollist){
