@@ -14,9 +14,14 @@ arrays).
 
 ## Installation
 
-`SOAs` has not yet been released on [CRAN](https://CRAN.R-project.org).
+You can install the released version of `SOAs` from
+[CRAN](https://CRAN.R-project.org) with:
 
-You can install the development version of `SOAs` from here with:
+``` r
+install.packages("SOAs")
+```
+
+You can also install the development version of `SOAs` from here with:
 
 ``` r
 if (!require(devtools)) install.packages("devtools")
