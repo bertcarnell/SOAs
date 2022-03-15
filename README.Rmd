@@ -83,9 +83,12 @@ cat(paste0("|",
 
 ## Installation
 
-`SOAs` has not yet been released on [CRAN](https://CRAN.R-project.org).
+You can install the released version of `SOAs` from [CRAN](https://CRAN.R-project.org) with:
 
-You can install the development version of `SOAs` from here with:
+```{r install1, echo=TRUE, eval=FALSE}
+install.packages("SOAs")
+```
+You can also install the development version of `SOAs` from here with:
 
 ```{r install_option, eval=FALSE, echo=TRUE}
 if (!require(devtools)) install.packages("devtools")
