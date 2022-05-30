@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
       </span>
     </div>
 
@@ -78,26 +78,19 @@
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>createAB</code> returns a list of s^k times m matrices A, B and D for the Hedayat et al. construction
+    <p><code>createAB</code> returns a list of s^k times m matrices A, B and D for the He, Cheng and Tang (2018) construction
 <code>BsFromB</code> returns an rn x m matrix
 <code>BcolsFromBcolllist</code> returns column numbers selected for matrix B</p>
+    </div>
+    <div id="details">
+    <h2>Details</h2>
+    <p><code>BcolsFromBcolllist</code> tries to create adequate unique matches from a list of suitable matches. For example, if four matches are needed and the list <code>list(1:2, 1:3, 4:6, 1)</code> holds the suitable matches for the four positions, the function would return the vector 2, 3, 4, 1.</p>
     </div>
     <div id="note">
     <h2>Note</h2>
     <p><code>BsFromB</code> is currently not used.</p>
     </div>
 
-    <div id="ref-examples">
-    <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## A has 4 columns,</span></span>
-<span class="r-in"><span class="co">## the argument lists suitable matches from remaining columns</span></span>
-<span class="r-in"><span class="co">## the outcome picks perfect unique matches, if possible</span></span>
-<span class="r-in"><span class="fu">SOAs</span><span class="fu">:::</span><span class="fu">BcolsFromBcolllist</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">:</span><span class="fl">6</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>vertex types converted to logical</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 3 4 1</span>
-<span class="r-in"></span>
-</code></pre></div>
-    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
@@ -110,7 +103,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>

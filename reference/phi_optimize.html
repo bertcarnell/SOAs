@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
       </span>
     </div>
 
@@ -100,10 +100,10 @@ a new round with one-neighbours is started with the current optimum. Otherwise, 
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">oa</span> <span class="op">&lt;-</span> <span class="fu">lhs</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lhs/man/createBoseBush.html" class="external-link">createBoseBush</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">16</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="phi_p.html">phi_p</a></span><span class="op">(</span><span class="va">oa</span>, dmethod<span class="op">=</span><span class="st">"manhattan"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04652839</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04568728</span>
 <span class="r-in"><span class="va">oa_optimized</span> <span class="op">&lt;-</span> <span class="fu">phi_optimize</span><span class="op">(</span><span class="va">oa</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="phi_p.html">phi_p</a></span><span class="op">(</span><span class="va">oa_optimized</span>, dmethod<span class="op">=</span><span class="st">"manhattan"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04195215</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04260964</span>
 </code></pre></div>
     </div>
   </div>
@@ -118,7 +118,7 @@ a new round with one-neighbours is started with the current optimum. Otherwise, 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>

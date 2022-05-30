@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Creation of Stratum Orthogonal Arrays">
-<meta property="og:description" content="Creates stratum orthogonal arrays (also known as strong orthogonal arrays).">
+<meta property="og:description" content='Creates stratum orthogonal arrays (also known as strong orthogonal arrays). These are arrays with more levels per column than the typical orthogonal array, and whose low order projections behave like orthogonal arrays, when collapsing levels to coarser strata. Details are described in Groemping (2021) "A unified implementation of stratum (aka strong) orthogonal arrays" &lt;http://www1.bht-berlin.de/FB_II/reports/Report-2021-001.pdf&gt;.'>
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
       </span>
     </div>
 
@@ -89,9 +89,11 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p><code>SOAs</code> has not yet been released on <a href="https://CRAN.R-project.org" class="external-link">CRAN</a>.</p>
-<p>You can install the development version of <code>SOAs</code> from here with:</p>
+<p>You can install the released version of <code>SOAs</code> from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"SOAs"</span><span class="op">)</span></code></pre></div>
+<p>You can also install the development version of <code>SOAs</code> from here with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bertcarnell/SOAs"</span><span class="op">)</span></code></pre></div>
 <div class="section level3">
@@ -109,66 +111,38 @@
 <div class="section level2">
 <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a>
 </h2>
-<p>
-</p>
-<p>This package constructs arrays in (s^el) levels from orthogonal arrays in s levels. These are all based on equations of the type<br> (D = s^{el-1} A_1 + … + s A_{el-1} + A_{el}), or <br> for (s^2) levels, (D = s A + B) and <br> for (s^3) levels, (D = s^2 A + s B + C). <br> The constructions differ in how they obtain the ingredient matrices, and what properties can be guaranteed for the resulting D. Where a construction function guarantees orthogonal columns for all matrices D it produces, its name starts with a OSOA, otherwise with SOA.<br></p>
-
-<p>
-</p>
+<p></p>
+<p>This package constructs arrays in <code class="reqn">s^el</code> levels from orthogonal arrays in s levels. These are all based on equations of the type<br><code class="reqn">D = s^{el-1} A_1 + … + s A_{el-1} + A_{el}</code>, or <br> for <code class="reqn">s^2</code> levels, <code class="reqn">D = s A + B</code> and <br> for <code class="reqn">s^3</code> levels, <code class="reqn">D = s^2 A + s B + C</code>. <br> The constructions differ in how they obtain the ingredient matrices, and what properties can be guaranteed for the resulting D. Where a construction function guarantees orthogonal columns for all matrices D it produces, its name starts with a OSOA, otherwise with SOA.<br></p>
+<p></p>
 <p>If optimization is requested (default TRUE), space filling properties of D are improved using a level permutation algorithm by Weng (2014). This algorithm is applied for improving the <code>phi_p</code> criterion, which is often a reasonable surrogate for increasing the minimum distance.</p>
-
-<p>
-</p>
-<p>Groemping (2021) describes the constructions by He and Tang (2013, function <code>SOAs</code>), Liu and Liu (2015, function <code>OSOAs_LiuLiu</code>), He, Cheng and Tang (2018, function <code>SOAs2plus_regular</code>), Zhou and Tang (2019), Shi and Tang (2020, function <code>SOAs_8level</code>) and Li, Liu and Yang (2021) in unified notation. The constructions by Zhou and Tang (2019) and Li et al. (2021) are very close to each other and are both implemented in the three functions <code>OSOAs</code>, <code>OSOAs_hadamard</code> and <code>OSOAs_regular</code>.</p>
-
-<p>
-</p>
+<p></p>
+<p>Groemping (2022) describes the constructions by He and Tang (2013, function <code>SOAs</code>), Liu and Liu (2015, function <code>OSOAs_LiuLiu</code>), He, Cheng and Tang (2018, function <code>SOAs2plus_regular</code>), Zhou and Tang (2019), Shi and Tang (2020, function <code>SOAs_8level</code>) and Li, Liu and Yang (2021) in unified notation. The constructions by Zhou and Tang (2019) and Li et al. (2021) are very close to each other and are both implemented in the three functions <code>OSOAs</code>, <code>OSOAs_hadamard</code> and <code>OSOAs_regular</code>.</p>
+<p></p>
 <p>Besides the construction functions, properties of the resulting array D can be checked using the aforementioned function <code>phi_p</code> as well as check functions <code>ocheck</code>, <code>ocheck3</code> for orthogonality and <code>soacheck2D</code>, <code>soacheck3D</code> for (O)SOA stratification properties.</p>
-
-<p>
-</p>
+<p></p>
 <p>There is one further construction, maximin distance level expansion (<code>XiaoXuMDLE</code>, <code>MDLEs</code>), that does not yield stratum (aka strong) orthogonal arrays and is available for comparison only (Xiao and Xu 2018).</p>
-
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<p>
-</p>
-<p>Groemping, U. (2021). A unified implementation of stratum (aka strong) orthogonal arrays. Report 2021/01, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. <a href="http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf" class="external-link"><code>http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf</code></a></p>
-
-<p>
-</p>
-<p>He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of strength two plus. <em>The Annals of Statistics</em> <b>46</b>, 457-468. <a href="https://doi.org/10.1214/17-AOS1555" class="external-link">doi: 10.1214/17-AOS1555</a></p>
-
-<p>
-</p>
-<p>He, Y. and Tang, B. (2013). Strong orthogonal arrays and associated Latin hypercubes for computer experiments. <em>Biometrika</em> <b>100</b>, 254-260. <a href="https://doi.org/10.1093/biomet/ass065" class="external-link">doi: 10.1093/biomet/ass065</a></p>
-
-<p>
-</p>
-<p>Li, W., Liu, M.-Q. and Yang, J.-F. (2021, in press). Construction of column-orthogonal strong orthogonal arrays. <em>Statistical Papers</em> <a href="https://doi.org/10.1007/s00362-021-01249-w" class="external-link">doi: 10.1007/s00362-021-01249-w</a></p>
-
-<p>
-</p>
-<p>Liu, H. and Liu, M.-Q. (2015). Column-orthogonal strong orthogonal arrays and sliced strong orthogonal arrays. <em>Statistica Sinica</em> <strong>25</strong>, 1713-1734. <a href="https://doi.org/10.5705/ss.2014.106" class="external-link">doi: 10.5705/ss.2014.106</a></p>
-
-<p>
-</p>
-<p>Shi, L. and Tang, B. (2020). Construction results for strong orthogonal arrays of strength three. <em>Bernoulli</em> <strong>26</strong>, 418-431. <a href="https://doi.org/10.3150/19-BEJ1130" class="external-link">doi: 10.3150/19-BEJ1130</a></p>
-
-<p>
-</p>
+<p></p>
+<p>Groemping, U. (2022). A unified implementation of stratum (aka strong) orthogonal arrays. Report 2022/02, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. <a href="http://www1.bht-berlin.de/FB_II/reports/Report-2022-002.pdf" class="external-link"><code>http://www1.bht-berlin.de/FB_II/reports/Report-2022-002.pdf</code></a></p>
+<p></p>
+<p>He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of strength two plus. <em>The Annals of Statistics</em> <b>46</b>, 457-468.</p>
+<p></p>
+<p>He, Y. and Tang, B. (2013). Strong orthogonal arrays and associated Latin hypercubes for computer experiments. <em>Biometrika</em> <b>100</b>, 254-260.</p>
+<p></p>
+<p>Li, W., Liu, M.-Q. and Yang, J.-F. (2021, in press). Construction of column-orthogonal strong orthogonal arrays. <em>Statistical Papers</em> .</p>
+<p></p>
+<p>Liu, H. and Liu, M.-Q. (2015). Column-orthogonal strong orthogonal arrays and sliced strong orthogonal arrays. <em>Statistica Sinica</em> <strong>25</strong>, 1713-1734.</p>
+<p></p>
+<p>Shi, L. and Tang, B. (2020). Construction results for strong orthogonal arrays of strength three. <em>Bernoulli</em> <strong>26</strong>, 418-431.</p>
+<p></p>
 <p>Weng, J. (2014). Maximin Strong Orthognal Arrays. <em>Master’s thesis</em> at Simon Fraser University under supervision of Boxin Tang and Jiguo Cao. <a href="https://summit.sfu.ca/item/14433" class="external-link">https://summit.sfu.ca/item/14433</a></p>
-
-<p>
-</p>
-<p>Xiao, Q. and Xu, H. (2018). Construction of Maximin Distance Designs via Level Permutation and Expansion. <em>Statistica Sinica</em> <b>28</b>, 1395-1414. <a href="https://doi.org/10.5705/ss.202016.0423" class="external-link">doi: 10.5705/ss.202016.0423</a></p>
-
-<p>
-</p>
-<p>Zhou, Y.D. and Tang, B. (2019). Column-orthogonal strong orthogonal arrays of strength two plus and three minus. <em>Biometrika</em> <strong>106</strong>, 997-1004. <a href="https://doi.org/10.1093/biomet/asz043" class="external-link">doi: 10.1093/biomet/asz043</a></p>
-
+<p></p>
+<p>Xiao, Q. and Xu, H. (2018). Construction of Maximin Distance Designs via Level Permutation and Expansion. <em>Statistica Sinica</em> <b>28</b>, 1395-1414.</p>
+<p></p>
+<p>Zhou, Y.D. and Tang, B. (2019). Column-orthogonal strong orthogonal arrays of strength two plus and three minus. <em>Biometrika</em> <strong>106</strong>, 997-1004.</p>
 </div>
 </div>
   </div>
@@ -177,6 +151,7 @@
     <div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=SOAs" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/bertcarnell/SOAs/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/bertcarnell/SOAs/issues" class="external-link">Report a bug</a></li>
 </ul>
@@ -219,7 +194,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
