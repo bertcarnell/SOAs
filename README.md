@@ -39,15 +39,17 @@ For the `arrangements` package:
 
 <p>
 
-This package constructs arrays in \(s^el\) levels from orthogonal arrays
-in s levels. These are all based on equations of the type<br />
-\(D = s^{el-1} A_1 + ... + s A_{el-1} + A_{el}\), or <br /> for \(s^2\)
-levels, \(D = s A + B\) and <br /> for \(s^3\) levels,
-\(D = s^2 A + s B + C\). <br /> The constructions differ in how they
-obtain the ingredient matrices, and what properties can be guaranteed
-for the resulting D. Where a construction function guarantees orthogonal
-columns for all matrices D it produces, its name starts with a OSOA,
-otherwise with SOA.<br />
+This package constructs arrays in <code class="reqn">s^el</code> levels
+from orthogonal arrays in s levels. These are all based on equations of
+the type<br /> <code class="reqn">D = s^{el-1} A\_1 + … + s A\_{el-1} +
+A\_{el}</code>, or <br /> for <code class="reqn">s^2</code> levels,
+<code class="reqn">D = s A + B</code> and <br /> for
+<code class="reqn">s^3</code> levels, <code class="reqn">D = s^2 A + s B
++ C</code>. <br /> The constructions differ in how they obtain the
+ingredient matrices, and what properties can be guaranteed for the
+resulting D. Where a construction function guarantees orthogonal columns
+for all matrices D it produces, its name starts with a OSOA, otherwise
+with SOA.<br />
 
 </p>
 
@@ -63,7 +65,7 @@ distance.
 
 <p>
 
-Groemping (2021) describes the constructions by He and Tang (2013,
+Groemping (2022) describes the constructions by He and Tang (2013,
 function <code>SOAs</code>), Liu and Liu (2015, function
 <code>OSOAs\_LiuLiu</code>), He, Cheng and Tang (2018, function
 <code>SOAs2plus\_regular</code>), Zhou and Tang (2019), Shi and Tang
@@ -98,10 +100,10 @@ only (Xiao and Xu 2018).
 
 <p>
 
-Groemping, U. (2021). A unified implementation of stratum (aka strong)
-orthogonal arrays. Report 2021/01, Reports in Mathematics, Physics and
+Groemping, U. (2022). A unified implementation of stratum (aka strong)
+orthogonal arrays. Report 2022/02, Reports in Mathematics, Physics and
 Chemistry, Berliner Hochschule für Technik.
-<a href="http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf">`http://www1.beuth-hochschule.de/FB_II/reports/Report-2021-001.pdf`</a>
+<a href="http://www1.bht-berlin.de/FB_II/reports/Report-2022-002.pdf">`http://www1.bht-berlin.de/FB_II/reports/Report-2022-002.pdf`</a>
 
 </p>
 
@@ -109,7 +111,6 @@ Chemistry, Berliner Hochschule für Technik.
 
 He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of
 strength two plus. <em>The Annals of Statistics</em> <b>46</b>, 457-468.
-[doi: 10.1214/17-AOS1555](https://doi.org/10.1214/17-AOS1555)
 
 </p>
 
@@ -117,8 +118,7 @@ strength two plus. <em>The Annals of Statistics</em> <b>46</b>, 457-468.
 
 He, Y. and Tang, B. (2013). Strong orthogonal arrays and associated
 Latin hypercubes for computer experiments. <em>Biometrika</em>
-<b>100</b>, 254-260.
-[doi: 10.1093/biomet/ass065](https://doi.org/10.1093/biomet/ass065)
+<b>100</b>, 254-260. 
 
 </p>
 
@@ -126,7 +126,7 @@ Latin hypercubes for computer experiments. <em>Biometrika</em>
 
 Li, W., Liu, M.-Q. and Yang, J.-F. (2021, in press). Construction of
 column-orthogonal strong orthogonal arrays. <em>Statistical Papers</em>
-[doi: 10.1007/s00362-021-01249-w](https://doi.org/10.1007/s00362-021-01249-w)
+.
 
 </p>
 
@@ -134,8 +134,7 @@ column-orthogonal strong orthogonal arrays. <em>Statistical Papers</em>
 
 Liu, H. and Liu, M.-Q. (2015). Column-orthogonal strong orthogonal
 arrays and sliced strong orthogonal arrays. <em>Statistica Sinica</em>
-<strong>25</strong>, 1713-1734.
-[doi: 10.5705/ss.2014.106](https://doi.org/10.5705/ss.2014.106)
+<strong>25</strong>, 1713-1734. 
 
 </p>
 
@@ -143,7 +142,7 @@ arrays and sliced strong orthogonal arrays. <em>Statistica Sinica</em>
 
 Shi, L. and Tang, B. (2020). Construction results for strong orthogonal
 arrays of strength three. <em>Bernoulli</em> <strong>26</strong>,
-418-431. [doi: 10.3150/19-BEJ1130](https://doi.org/10.3150/19-BEJ1130)
+418-431. 
 
 </p>
 
@@ -160,8 +159,7 @@ and Jiguo Cao.
 
 Xiao, Q. and Xu, H. (2018). Construction of Maximin Distance Designs via
 Level Permutation and Expansion. <em>Statistica Sinica</em> <b>28</b>,
-1395-1414.
-[doi: 10.5705/ss.202016.0423](https://doi.org/10.5705/ss.202016.0423)
+1395-1414. 
 
 </p>
 
@@ -169,7 +167,6 @@ Level Permutation and Expansion. <em>Statistica Sinica</em> <b>28</b>,
 
 Zhou, Y.D. and Tang, B. (2019). Column-orthogonal strong orthogonal
 arrays of strength two plus and three minus. <em>Biometrika</em>
-<strong>106</strong>, 997-1004.
-[doi: 10.1093/biomet/asz043](https://doi.org/10.1093/biomet/asz043)
+<strong>106</strong>, 997-1004. 
 
 </p>
