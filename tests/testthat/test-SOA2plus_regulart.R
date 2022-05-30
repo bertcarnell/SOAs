@@ -35,7 +35,7 @@ test_that("SOA2plus_regulart", {
   expect_equal(dim(temp), c(64,8))
 
   expect_error(SOA2plus_regulart(64, 3),
-               regexp="must not be larger than 2^5", fixed=TRUE)
+               regexp="must not be larger than s=2^5", fixed=TRUE)
   expect_error(SOA2plus_regulart(729, 3),
-               regexp="must not be larger than 3^5", fixed=TRUE)
+               regexp="must not be larger than s=3^3", fixed=TRUE)
 })

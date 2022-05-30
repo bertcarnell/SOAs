@@ -12,18 +12,18 @@ SOA2plus_regulart <- function(s, k=3, m=NULL, permlist=NULL, random=TRUE){
 
   pow <- 1
   s0 <- s
-  if (!(s %in% c(2,3,5,7,11,13,17,19,23,29,31,37))){
+  if (!(s %in% c(2,3,5,7,11,13,17,19))){
     pow <- NA
     s0 <- NA
     if (log2(s)%%1==0){
       pow <- log2(s)
       s0 <- 2
-      if (pow > 5) stop("powers of 2 must not be larger than 2^5")
+      if (pow > 5) stop("powers of 2 must not be larger than s=2^5")
     }
     if (log(s, base=3)%%1==0){
       pow <- log(s, base=3)
       s0 <- 3
-      if (pow > 5) stop("powers of 3 must not be larger than 3^5")
+      if (pow > 3) stop("powers of 3 must not be larger than s=3^3")
     }
   }
 

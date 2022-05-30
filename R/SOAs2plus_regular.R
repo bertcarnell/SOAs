@@ -83,7 +83,7 @@ SOAs2plus_regular <- function(s, k, m=NULL,
   ## further rounds do not yield much improvement.
   mycall <- sys.call()
 
-  stopifnot(s %in% c(2,3,4,5,7,8,9,11,13,16,17,19,23,27,29,31,32,37))
+  stopifnot(s %in% c(2,3,4,5,7,8,9,11,13,16,17,19,27,32))
   stopifnot(k >= 3)
   if (s==2 && k<4) stop("s=2 requires k >= 4")
 
@@ -102,7 +102,7 @@ SOAs2plus_regular <- function(s, k, m=NULL,
   if (optimize){
     pow <- 1
     s0 <- s
-    if (!(s %in% c(2,3,5,7,11,13,17,19,23,29,31,37))){
+    if (!(s %in% c(2,3,5,7,11,13,17,19))){
       pow <- NA
       s0 <- NA
       if (log2(s)%%1==0){
@@ -113,7 +113,7 @@ SOAs2plus_regular <- function(s, k, m=NULL,
       if (log(s, base=3)%%1==0){
         pow <- log(s, base=3)
         s0 <- 3
-        if (pow > 5) stop("powers of 3 must not be larger than s=2^5")
+        if (pow > 3) stop("powers of 3 must not be larger than s=3^3")
       }
     }
 

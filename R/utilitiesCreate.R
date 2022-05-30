@@ -17,10 +17,10 @@ createAB <- function(s, k=3, m=NULL){
   ##     (faster for smaller m)
   ## returns A and B (and D)
   ##           for the Hedayat and Tang strength 2+ construction
-  if (!s %in% c(2,3,4,5,7,8,9,11,13,16,17,19,27,32,81))
+  if (!s %in% c(2,3,4,5,7,8,9,11,13,16,17,19,27,32))
     stop("not implemented for s = ", s)
   prime <- TRUE
-  if (s %in% c(4,8,16,27,32,81)) {
+  if (s %in% c(4,8,9,16,27,32)) {
     prime=FALSE
     gf <- lhs::create_galois_field(s)
   }
@@ -215,8 +215,8 @@ BcolsFromBcolllist <- function(Bcollist){
 
   G <- igraph::graph_from_edgelist(el)
   igraph::vertex_attr(G) <- list(type=
-                           c(rep(0,m),
-                             rep(1, max(el)-m)))
+                           c(rep(FALSE,m),
+                             rep(TRUE, max(el)-m)))
   matches <- igraph::max_bipartite_match(G)
   if (matches$matching_size==m)
     Bcols <- matches$matching[1:m]-m
