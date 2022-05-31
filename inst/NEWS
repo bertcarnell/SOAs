@@ -2,6 +2,8 @@ Change log for package SOAs
 
 Version 1.1, under development
 
+* added functions SOA_guide and SOA_from_OA_guide for providing guidance about
+  implemented SOA constructions
 * BcolsFromBcolllist: changed vertex attributes to FALSE and TRUE instead of 0 and 1,
   in order to avoid a warning from package igraph
 * Bug fix: handling of s in SOAs2plus_regular had bugs (leading to failure for s=9,
