@@ -1,5 +1,4 @@
 ### exported utilities for evaluating Ds
-### w.r.t. stratification and orthogonality properties
 
 ## check for orthogonal columns
 
@@ -66,7 +65,7 @@
 #' @references
 #' For full detail, see \code{\link{SOAs-package}}.
 #'
-#' Groemping (2021)\cr
+#' Groemping (2022)\cr
 #' He and Tang (2013)\cr
 #' Shi and Tang (2020)
 #'
@@ -158,6 +157,49 @@ count_npairs <- function(D, minn=1){
 count_nallpairs <- function(ns){
   paare <- nchoosek(length(ns), 2)
   apply(matrix(ns[paare],nrow=2),2,prod)
+}
+
+################################################################################
+## Calculate phi_p
+## could also use DiceDesign::phiP, except for the dmethod argument
+
+#' Functions to evaluate uniformity of an array
+#'
+#' phi_p calculates the discrepancy
+#'
+#' @param D an array or an object of class SOA or MDLE
+#' @param dmethod the distance to use, \code{"manhattan"} (default) or \code{"euclidean"}
+#' @param p the value for p to use in the formula for phi_p
+#'
+#' @details
+#' small values of phi_p are associated with good performance on the
+#' maximin distance criterion
+#' @return a number
+#' @author Ulrike Groemping
+#' @rdname phi_p
+#' @export
+#' @examples
+#' A <- DoE.base::L16.4.5  ## levels 1:4 for each factor
+#' phi_p(A)
+#' phi_p(A, dmethod="euclidean")
+#' A2 <- A
+#' A2[,4] <- c(2,4,3,1)[A[,4]]
+#' phi_p(A2)
+#' \dontrun{
+#'   ## A2 has fewer minimal distances
+#'   par(mfrow=c(2,1))
+#'   hist(dist(A), xlim=c(2,6), ylim=c(0,40))
+#'   hist(dist(A2), xlim=c(2,6), ylim=c(0,40))
+#' }
+#' @importFrom stats dist
+phi_p <- function(D, dmethod="manhattan", p=50){
+  stopifnot(p>=1)
+  stopifnot(dmethod %in% c("euclidean", "manhattan"))
+  stopifnot(is.matrix(D) || is.data.frame(D))
+  ## dmethod can be "euclidean" or "manhattan", it is for the distance
+  ## p is NOT for Minkowski distance, but for the phi_p
+  distmat <- stats::dist(D, method=dmethod)
+  sum(distmat^(-p))^(1/p)
 }
 
 ################################################################################
@@ -327,4 +369,3 @@ soacheck3D <- function(D, s=3, el=3, t=3, verbose=FALSE){
   }
   aus
 }
-

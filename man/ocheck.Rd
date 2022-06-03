@@ -115,7 +115,7 @@ crossprod(stats::model.matrix(mylm))
 \references{
 For full detail, see \code{\link{SOAs-package}}.
 
-Groemping (2021)\cr
+Groemping (2022)\cr
 He and Tang (2013)\cr
 Shi and Tang (2020)
 }

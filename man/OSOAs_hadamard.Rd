@@ -2,7 +2,7 @@
 % Please edit documentation in R/OSOAs_hadamard.R
 \name{OSOAs_hadamard}
 \alias{OSOAs_hadamard}
-\title{function to create a strength 3 OSOA with 8-level columns from a Hadamard matrix}
+\title{function to create a strength 3 OSOA with 8-level columns or a strength 3- OSOA with 4-level columns from a Hadamard matrix}
 \usage{
 OSOAs_hadamard(
   m = NULL,
@@ -23,7 +23,7 @@ if \code{n} is also given, \code{m} must be compatible with it; at present, \cod
 if \code{m} is also given, \code{n} must be compatible with it.}
 
 \item{el}{exponent for 2, can be 2 or 3: the OSOA will have columns with
-2^el (4 or 8) levels}
+2^\code{el} (4 or 8) levels}
 
 \item{noptim.rounds}{the number of optimization rounds for each independent restart}
 
@@ -49,14 +49,14 @@ overall permutation list to which the numbers in permlist refer}
 }
 }
 \description{
-A Hadamard matrix in k runs is used for creating an OSOA in n=2k runs for at most m=k-2 columns.
+A Hadamard matrix in k runs is used for creating an OSOA in n=2k runs for at most m=k-2 columns (8-level) or m=k-1 columns (4-level).
 }
 \details{
 At least one of \code{m} or \code{n} must be provided. For \code{el=2},
 Zhou and Tang (2019) strength 3- designs are created, for \code{el=3} strength
 3 designs by Li, Liu and Yang (2021).\cr
 Li et al.'s creation of the matrix A has been enhanced by using a column specific
-fold-over, which is beneficial for the space-filling properties (see Groemping 2021).
+fold-over, which is beneficial for the space-filling properties (see Groemping 2022).
 }
 \examples{
 dim(OSOAs_hadamard(9, optimize=FALSE))  ## 9 8-level factors in 24 runs
@@ -68,7 +68,7 @@ dim(OSOAs_hadamard(m=35, optimize=FALSE)) ## 35 8-level factors in 80 runs
 \references{
 For full detail, see \code{\link{SOAs-package}}.
 
-Groemping (2021)\cr
+Groemping (2022)\cr
 Li, Liu and Yang (2021)\cr
 Weng (2014)\cr
 Zhou and Tang (2019)

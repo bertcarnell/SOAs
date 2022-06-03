@@ -36,7 +36,7 @@ There is one further construction, maximin distance level expansion (\code{\link
 that does not yield stratum (aka strong) orthogonal arrays and is available for comparison only (Xiao and Xu 2018).
 }
 \references{
-Groemping, U. (2022). A unified implementation of stratum (aka strong) orthogonal arrays. Report 2022/02, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. \url{http://www1.bht-berlin.de/FB_II/reports/Report-2022-002.pdf}
+Groemping, U. (2022). A unifying implementation of stratum (aka strong) orthogonal arrays. Report 2022/02, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. \url{http://www1.bht-berlin.de/FB_II/reports/Report-2022-002.pdf}
 
 He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of strength two plus. \emph{The Annals of Statistics} \bold{46}, 457-468. \doi{10.1214/17-AOS1555}
 

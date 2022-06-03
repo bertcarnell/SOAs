@@ -54,8 +54,9 @@ An OSOA in ns runs of strength 2* (s^3 levels) or 2+ (s^2 levels) is created fro
 }
 \details{
 The function implements the algorithms proposed by Zhou and Tang 2018
-(s^2 levels; enhanced with the modification for matrix A by Groemping 2021)
-or Li, Liu and Yang 2021 (s^3 levels). Level permutations are optimized
+(s^2 levels) or Li, Liu and Yang 2021 (s^3 levels).
+Both are enhanced with the modification for matrix A by Groemping 2022.
+Level permutations are optimized
 using an adaptation of the algorithm by Weng (2014).
 
 Suitable OAs for argument \code{oa} can e.g. be constructed with OA creation functions
@@ -86,7 +87,7 @@ OSOAs(DoE.base::L27.3.4, el=3, optimize=FALSE)
 \references{
 For full detail, see \code{\link{SOAs-package}}.
 
-Groemping (2021)\cr
+Groemping (2022)\cr
 Li, Liu and Yang (2021)\cr
 Weng (2014)\cr
 Zhou and Tang (2019)\cr
