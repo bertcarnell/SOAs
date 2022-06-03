@@ -2,16 +2,16 @@
 ### with added level permutation
 ### the outcome array is an OSOA(n, m, 8, 3)
 
-#' function to create a strength 3 OSOA with 8-level columns from a Hadamard matrix
+#' function to create a strength 3 OSOA with 8-level columns or a strength 3- OSOA with 4-level columns from a Hadamard matrix
 #'
-#' A Hadamard matrix in k runs is used for creating an OSOA in n=2k runs for at most m=k-2 columns.
+#' A Hadamard matrix in k runs is used for creating an OSOA in n=2k runs for at most m=k-2 columns (8-level) or m=k-1 columns (4-level).
 #'
 #' @param m the number of columns to be created;
 #' if \code{n} is also given, \code{m} must be compatible with it; at present, \code{m} can be at most 98.
 #' @param n the number of runs to be created; \code{n} must be a multiple of 8 and can (at present) be at most 200;
 #' if \code{m} is also given, \code{n} must be compatible with it.
 #' @param el exponent for 2, can be 2 or 3: the OSOA will have columns with
-#' 2^el (4 or 8) levels
+#' 2^\code{el} (4 or 8) levels
 #' @param noptim.rounds the number of optimization rounds for each independent restart
 #' @param noptim.repeats the number of independent restarts of optimizations with \code{noptim.rounds} rounds each
 #' @param optimize logical: should space filling be optimized by level permutations?
@@ -22,7 +22,7 @@
 #' Zhou and Tang (2019) strength 3- designs are created, for \code{el=3} strength
 #' 3 designs by Li, Liu and Yang (2021).\cr
 #' Li et al.'s creation of the matrix A has been enhanced by using a column specific
-#' fold-over, which is beneficial for the space-filling properties (see Groemping 2021).
+#' fold-over, which is beneficial for the space-filling properties (see Groemping 2022).
 #'
 #' @return matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
 #' \describe{
@@ -41,7 +41,7 @@
 #' @references
 #' For full detail, see \code{\link{SOAs-package}}.
 #'
-#' Groemping (2021)\cr
+#' Groemping (2022)\cr
 #' Li, Liu and Yang (2021)\cr
 #' Weng (2014)\cr
 #' Zhou and Tang (2019)
