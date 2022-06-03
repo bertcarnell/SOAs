@@ -93,7 +93,11 @@ guide_SOAs <- function(s=2, el=3, m=NULL, n=NULL, ...){
             if (!is.null(n)){
                ntemp <- s^floor(log(n, base=s))
                k <- log(ntemp, base=s)
-            }else ntemp <- s^3}
+            }else{
+              ntemp <- s^3
+              k <- 3
+            }
+         }
          if (is.null(m))
             mtemp <- (s^k - 1)/(s-1) - ((s-1)^k - 1)/(s-2)
          else mtemp <- m
@@ -202,7 +206,7 @@ guide_SOAs <- function(s=2, el=3, m=NULL, n=NULL, ...){
             if (is.null(m)) mtemp <- ntemp/2 - 2 else mtemp <- m
             if (mtemp <= ntemp/2 - 2)
                variants <- append(variants, list(LLY=list(type="LLY", strength="3",
-                                                          n=ntemp, nlevels=8, m=mtemp, mmax=ntemp/2-1,
+                                                          n=ntemp, nlevels=8, m=mtemp, mmax=ntemp/2-2,
                                                           orthogonal="yes",
                                                           code = paste0("OSOAs_hadamard(m=", mtemp, ", n=", ntemp, ", el=3)"))))
          }
