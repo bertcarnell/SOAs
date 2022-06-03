@@ -134,7 +134,10 @@ guide_SOAs <- function(s=2, el=3, m=NULL, n=NULL, ...){
             if (!is.null(n)){
                ntemp <- 2^floor(log2(n))
                k <- log2(ntemp)
-            }else ntemp <- 2^4
+            }else {
+              ntemp <- 2^4
+              k <- 4
+            }
          }
          if (ntemp >= 2^4) {
             mmax <- 5*ntemp/16
@@ -155,7 +158,10 @@ guide_SOAs <- function(s=2, el=3, m=NULL, n=NULL, ...){
             if (!is.null(n)){
                ntemp <- 2^floor(log2(n))
                k <- log2(ntemp)
-            }else ntemp <- 2^4
+            }else {
+              ntemp <- 2^4
+              k <- 4
+            }
          }
          if (ntemp >= 2^4) {
             mmax <- ntemp/4
