@@ -18,7 +18,7 @@ SOAs_8level(
 \arguments{
 \item{n}{run size of the SOA; power of 2, at least 16}
 
-\item{m}{number of colums; at most 5n/16 for \code{constr="ShiTang_alpha"},
+\item{m}{number of colums; at most 5\code{n}/16 for \code{constr="ShiTang_alpha"} (exception: only 9 for \code{n}=32),
 at most \code{n/4} for \code{constr="ShiTang_alphabeta"}; for \code{m=NULL},
 defaults are \code{m=5n/16} and \code{m=n/4-1}, respectively; the latter yields
 strength 3+.}

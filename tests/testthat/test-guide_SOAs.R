@@ -27,6 +27,9 @@ test_that("guide_SOAs", {
     expect_error(guide_SOAs(s=2, el=4),
                  regexp="el %in% 2:3 is not TRUE",
                  fixed=TRUE)
+    expect_error(guide_SOAs(s=3, el=2, n=9),
+                 regexp="n < s^3 is not permitted",
+                 fixed=TRUE)
 
 
     ## el=2
@@ -42,8 +45,8 @@ test_that("guide_SOAs", {
     ## m only given, n=32 for HCT, n=48 for ZT
     temp4 <- guide_SOAs(s=2, el=2, m=20)
     expect_snapshot_output(temp4)
-    ## n=16, m=1
-    temp5 <- guide_SOAs(s=4, el=2, n=32)
+    ## 64 runs
+    temp5 <- guide_SOAs(s=4, el=2, n=80)
     expect_snapshot(temp5)
     ## n=256, m=45 (HCT) or m=21 (ZT)
     temp6 <- guide_SOAs(s=4, el=2, n=256)
@@ -76,6 +79,8 @@ test_that("guide_SOAs", {
     expect_snapshot_output(temp14)
     temp15 <- guide_SOAs(s=2, el=3, n=32, m=12)
     expect_snapshot_output(temp15)
+    ## this is an exception for Shi and Tang's family 1
+    ##    m only 9 and not 10
     temp16 <- guide_SOAs(s=2, el=3, n=32)
     expect_snapshot_output(temp16)
     temp17 <- guide_SOAs(s=2, el=3, m=20)

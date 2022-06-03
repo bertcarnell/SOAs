@@ -41,6 +41,7 @@ guide_SOAs <- function(s=2, el=3, m=NULL, n=NULL, ...){
 
    if (!is.null(n) && n<s^el) stop("more levels than runs")
    if (!is.null(n) && !n%%(s^el)==0) stop("n is not a multiple of s^el")
+   if (!is.null(n) && n<s^3) stop("n < s^3 is not permitted")
    if (!is.null(m) && !is.null(n)) if(m>=n) stop("m >= n is not permitted")
 
    ## s^el = s^2 levels
@@ -116,7 +117,7 @@ guide_SOAs <- function(s=2, el=3, m=NULL, n=NULL, ...){
             ## cases for which n is too small for the method will be stopped later
          }
          if (is.null(m)) mtemp <- (ntemp/s - 1)/(s-1) else mtemp <- m
-         if (mtemp <= (mmax <- (ntemp/s - 1)/(s-1)))
+         if (mtemp <= (mmax <- (ntemp/s - 1)/(s-1)) && ntemp >= s^3)
             variants <- append(variants, list(ZT2019=list(type="ZT2019", strength="3- or 2+",
                                                           n=ntemp, nlevels=s^2, m=mtemp, mmax=mmax,
                                                           orthogonal="yes",
@@ -141,6 +142,7 @@ guide_SOAs <- function(s=2, el=3, m=NULL, n=NULL, ...){
          }
          if (ntemp >= 2^4) {
             mmax <- 5*ntemp/16
+            if (ntemp==32) mmax <- 9 ## one less than 5*ntemp/16
             if (is.null(m)) mtemp <- mmax else mtemp <- m
             if (mtemp <= mmax)
                variants <- append(variants, list(ST_fam1=list(type="ST_fam1", strength="3",

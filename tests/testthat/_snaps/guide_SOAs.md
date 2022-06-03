@@ -37,10 +37,12 @@
     Code
       temp5
     Output
-               type strength  n nlevels m mmax orthogonal
-      ZT2019 ZT2019 3- or 2+ 16      16 1    1        yes
-                                           code
-      ZT2019 OSOAs_regular(s=4, k=2, el=2, m=1)
+                 type strength  n nlevels m mmax orthogonal
+      HCT2018 HCT2018       2+ 64      16 8    8    perhaps
+      ZT2019   ZT2019 3- or 2+ 64      16 5    5        yes
+                                            code
+      HCT2018   SOAs2plus_regular(s=4, k=3, m=8)
+      ZT2019  OSOAs_regular(s=4, k=3, el=2, m=5)
 
 ---
 
@@ -140,12 +142,12 @@
 ---
 
                type strength  n nlevels  m mmax orthogonal
-    ST_fam1 ST_fam1        3 32       8 10   10         no
+    ST_fam1 ST_fam1        3 32       8  9    9         no
     ST_fam2 ST_fam2        3 32       8  8    8         no
     ST_fam3 ST_fam3       3+ 32       8  7    7        yes
     LLY         LLY        3 32       8 14   14        yes
                                                           code
-    ST_fam1    SOAs_8level(n=32, m=10, constr='ShiTang_alpha')
+    ST_fam1     SOAs_8level(n=32, m=9, constr='ShiTang_alpha')
     ST_fam2 SOAs_8level(n=32, m=8, constr='ShiTang_alphabeta')
     ST_fam3 SOAs_8level(n=32, m=7, constr='ShiTang_alphabeta')
     LLY                       OSOAs_hadamard(m=14, n=32, el=3)

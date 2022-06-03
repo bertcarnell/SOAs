@@ -6,7 +6,7 @@
 #'
 #' @param s the prime or prime power to use (do not use for s=2, because other
 #' method is better); the resulting array will have pairwise orthogonal columns in s^t levels
-#' @param k integer >=\code{el}; determines the run size: the resulting array will have s^k runs
+#' @param k integer >=3; determines the run size: the resulting array will have s^k runs
 #' @param el 2 or 3; the exponent of the number of levels, \code{el=3} yields a
 #' strength 2* or 3 OSOA in s^3 levels, \code{el=2} a strength 2+ or 3- OSOA in s^2 levels
 #' @param m the desired number of columns of the resulting array; for
