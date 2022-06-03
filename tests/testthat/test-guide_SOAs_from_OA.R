@@ -41,19 +41,24 @@ test_that("guide_SOAs_from_OA", {
   ## three variants: two strength 2 with n=16,
   ## one strength 2+ or 3- with n=32
   ## HT or LL or ZT
-  temp <- guide_SOAs_from_OA(2, 16, 15, 2, el=2)
-  expect_snapshot_output(temp)
+  temp1 <- guide_SOAs_from_OA(2, 16, 15, 2, el=2)
+  expect_snapshot_output(temp1)
   ## for el=3: LLY in 32 runs with m=14
-  temp <- guide_SOAs_from_OA(2, 16, 15, 2, el=3)
-  expect_snapshot_output(temp)
+  temp2 <- guide_SOAs_from_OA(2, 16, 15, 2, el=3)
+  expect_snapshot_output(temp2)
+  ## for el=3: tOA=3
+  temp3 <- guide_SOAs_from_OA(2, 16, 8, 3, el=3)
+  expect_snapshot_output(temp3)
   ## for el=4: m=2 81-level columns in 81 runs
   ## both with HT and with LL
-  temp <- guide_SOAs_from_OA(3, 81, 5, 4, el=4)
-  expect_snapshot_output(temp)
+  temp4 <- guide_SOAs_from_OA(3, 81, 5, 4, el=4)
+  expect_snapshot_output(temp4)
   ## for el=2 in spite of tOA=4:
   ## m=5 9-level columns in 81 runs HT
   ## or m=4 orthogonal 9-level columns LL
   ## or n=243 runs with 5 9-level columns ZT
-  temp <- guide_SOAs_from_OA(3, 81, 5, 4, el=2)
-  expect_snapshot_output(temp)
+  temp5 <- guide_SOAs_from_OA(3, 81, 5, 4, el=2)
+  expect_snapshot_output(temp5)
+  temp6 <- guide_SOAs_from_OA(s=2, tOA=6, el=5, mOA=20, nOA=1024)
+  expect_snapshot_output(temp6)
 })
