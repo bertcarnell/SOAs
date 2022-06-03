@@ -285,7 +285,8 @@ guide_SOAs <- function(s=2, el=3, m=NULL, n=NULL, ...){
 #' ## the output shows that a strength 3 OSOA
 #' ## with 4 columns of 27 levels each can be obtained in 81 runs
 #' ## and provides the necessary code (replace OA with L81.3.10)
-#' OSOAs_LiuLiu(L81.3.10, t=3)
+#' ##      optimize=FALSE reduces example run time
+#' OSOAs_LiuLiu(L81.3.10, t=3, optimize=FALSE)
 #' ## or that an SOA with 9 non-orthogonal columns can be obtained
 #' ## in the same number of runs
 #' SOAs(L81.3.10, t=3)
