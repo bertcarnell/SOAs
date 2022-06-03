@@ -11,23 +11,23 @@
 #' @param n the number of runs that can be afforded
 #' @param ... currently unused
 #'
-#' @details The function \code{SOA_guide} provides the possible creation variants of an
+#' @details The function \code{guide_SOAs} provides the possible creation variants of an
 #' SOA that has \code{m} columns in \code{s^el} levels in up to \code{n} runs.
 #' It is permitted to specify \code{m} OR \code{n} only;
 #' omitting both is possible, but seldom useful.
 #'
 #' @keywords array
 #' @examples
-#' ## SOA_guide
+#' ## guide_SOAs
 #' ## What SOAs based on s=2 in s^3 levels with 7 columns
 #' ## can be construct without providing an OA?
-#' SOA_guide(2, 3, m=7)
+#' guide_SOAs(2, 3, m=7)
 #' ## pick the Shi and Tang family 3 design
 #' myST_3plus <- SOAs_8level(n=32, m=7, constr='ShiTang_alphabeta')
 #' ## Note that the design has orthogonal columns and strength 3+,
 #' ## i.e., very good balance properties.
 #'
-SOA_guide <- function(s=2, el=3, m=NULL, n=NULL, ...){
+guide_SOAs <- function(s=2, el=3, m=NULL, n=NULL, ...){
    mycall <- sys.call()
    ## will be appended to
    variants <- vector(mode="list")
@@ -35,11 +35,12 @@ SOA_guide <- function(s=2, el=3, m=NULL, n=NULL, ...){
    stopifnot(s%%1==0)
    stopifnot(s %in% c(2,3,4,5,7,8,9,11,13,16,17,19,27,32))
    stopifnot(el%%1==0)
-   stopifnot(el %in% 2:5)
+   stopifnot(el %in% 2:3)  ## higher el only possible with OA
    stopifnot(m%%1==0 || is.null(m))
    stopifnot(n%%1==0 || is.null(n))
 
    if (!is.null(n) && n<s^el) stop("more levels than runs")
+   if (!is.null(n) && !n%%(s^el)==0) stop("n is not a multiple of s^el")
    if (!is.null(m) && !is.null(n)) if(m>=n) stop("m >= n is not permitted")
 
    ## s^el = s^2 levels
@@ -247,15 +248,18 @@ SOA_guide <- function(s=2, el=3, m=NULL, n=NULL, ...){
 #'
 #' @param nOA the number of runs of the OA
 #' @param mOA the number of columns of the OA
-#' @param tOA the strength of the OA
+#' @param tOA the strength of the OA; strengths larger than 5 are
+#'      reduced to 5; \code{el} must not be larger than the
+#'      (reduced) strength, except for \code{tOA=2} with \code{el=3},
+#'      which is supported by the LLY algorithm
 #'
 #' @return The functions return a data frame, each row of which contains a possibility.
 #' There is example code for constructing the SOA. Code details must be adjusted by the user
 #' (see the documentation of the respective functions).\cr
-#' The code created by function \code{SOA_from_OA_guide} assumes that a given OA has the name \code{OA};
+#' The code created by function \code{guide_SOAs_from_OA} assumes that a given OA has the name \code{OA};
 #' this can of course be modified by the user.
 #'
-#' @details The function \code{SOA_from_OA_guide} provides the possible creation variants of an SOA
+#' @details The function \code{guide_SOAs_from_OA} provides the possible creation variants of an SOA
 #' from a strength \code{tOA} OA with \code{mOA} \code{s}-level columns in \code{nOA} runs,
 #' for an SOA that has columns in \code{s^el} levels. Note that the SOA may have \code{nOA} runs
 #' or \code{s*nOA} runs, depending on the construction.
@@ -274,10 +278,10 @@ SOA_guide <- function(s=2, el=3, m=NULL, n=NULL, ...){
 #' @author Ulrike Groemping
 #' @keywords array
 #' @examples
-#' ## SOA_from_OA_guide
+#' ## guide_SOAs_from_OA
 #' ## there is an OA(81, 3^10, 3) (L81.3.10 in package DoE.base)
 #' ## inspect what can be done with it:
-#' SOA_from_OA_guide(s=3, mOA=10, nOA=81, tOA=3)
+#' guide_SOAs_from_OA(s=3, mOA=10, nOA=81, tOA=3)
 #' ## the output shows that a strength 3 OSOA
 #' ## with 4 columns of 27 levels each can be obtained in 81 runs
 #' ## and provides the necessary code (replace OA with L81.3.10)
@@ -285,16 +289,18 @@ SOA_guide <- function(s=2, el=3, m=NULL, n=NULL, ...){
 #' ## or that an SOA with 9 non-orthogonal columns can be obtained
 #' ## in the same number of runs
 #' SOAs(L81.3.10, t=3)
-SOA_from_OA_guide <- function(s, nOA, mOA, tOA, el=tOA, ...){
+guide_SOAs_from_OA <- function(s, nOA, mOA, tOA, el=tOA, ...){
    mycall <- sys.call()
    ## will be appended to
    variants <- vector(mode="list")
    ## check inputs
    stopifnot(s%%1==0)
    stopifnot(el%%1==0)
+   stopifnot(el %in% 2:5)
    stopifnot(mOA%%1==0)
    stopifnot(nOA%%1==0)
    stopifnot(tOA%%1==0 && tOA>=2)
+   if (tOA > 5) tOA <- 5
 
    if (mOA >= nOA) stop("mOA >= nOA is not possible")
    if (s^el > nOA) stop("OA has more levels than runs - not possible")
