@@ -1,15 +1,17 @@
 Change log for package SOAs
 
-Version 1.1, under development
+Version 1.1, 04 June 2022
 
-* added functions guide_SOAs and guide_SOAs_from_OA for providing guidance about
-  implemented SOA constructions
-* BcolsFromBcolllist: changed vertex attributes to FALSE and TRUE instead of 0 and 1,
-  in order to avoid a warning from package igraph
-* Bug fix: handling of s in SOAs2plus_regular had bugs (leading to failure for s=9,
-  because 9 was treated as a prime).
-  Now, SOAs2plus_regular, SOA2plus_regulart and createAB (file utilitiesCreate.R)
-  all have the same requirements for s:
+* added functions guide_SOAs and guide_SOAs_from_OA
+  for providing guidance about implemented SOA constructions
+* various improvements of documentation, and update of references
+* BcolsFromBcolllist: changed vertex attributes to FALSE and TRUE
+  instead of 0 and 1, in order to avoid a warning from package igraph
+* Bug fix: function OSOAs_hadamard did not work for n=8
+* Bug fix: handling of s in SOAs2plus_regular had a bug
+  (leading to failure for s=9, because 9 was treated as a prime).
+  Now, SOAs2plus_regular, SOA2plus_regulart and createAB
+  (file utilitiesCreate.R) all have the same requirements for s:
   primes up to 19, powers of 2 up to 32, powers of 3 up to 27
   (presumably, the larger numbers do not really work well,
   but are in principle possible)
