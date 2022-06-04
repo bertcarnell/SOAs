@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Creation of Stratum Orthogonal Arrays">
-<meta property="og:description" content='Creates stratum orthogonal arrays (also known as strong orthogonal arrays). These are arrays with more levels per column than the typical orthogonal array, and whose low order projections behave like orthogonal arrays, when collapsing levels to coarser strata. Details are described in Groemping (2021) "A unified implementation of stratum (aka strong) orthogonal arrays" &lt;http://www1.bht-berlin.de/FB_II/reports/Report-2021-001.pdf&gt;.'>
+<meta property="og:description" content='Creates stratum orthogonal arrays (also known as strong orthogonal arrays). These are arrays with more levels per column than the typical orthogonal array, and whose low order projections behave like orthogonal arrays, when collapsing levels to coarser strata. Details are described in Groemping (2022) "A unifying implementation of stratum (aka strong) orthogonal arrays" &lt;http://www1.bht-berlin.de/FB_II/reports/Report-2022-002.pdf&gt;.'>
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -118,6 +118,8 @@
 <p></p>
 <p>Groemping (2022) describes the constructions by He and Tang (2013, function <code>SOAs</code>), Liu and Liu (2015, function <code>OSOAs_LiuLiu</code>), He, Cheng and Tang (2018, function <code>SOAs2plus_regular</code>), Zhou and Tang (2019), Shi and Tang (2020, function <code>SOAs_8level</code>) and Li, Liu and Yang (2021) in unified notation. The constructions by Zhou and Tang (2019) and Li et al. (2021) are very close to each other and are both implemented in the three functions <code>OSOAs</code>, <code>OSOAs_hadamard</code> and <code>OSOAs_regular</code>.</p>
 <p></p>
+<p>Within the package, available SOA constructions for specific situations can be queried using the the guide functions <code>guide_SOAs</code> and <code>guide_SOAs_from_OA</code>.</p>
+<p></p>
 <p>Besides the construction functions, properties of the resulting array D can be checked using the aforementioned function <code>phi_p</code> as well as check functions <code>ocheck</code>, <code>ocheck3</code> for orthogonality and <code>soacheck2D</code>, <code>soacheck3D</code> for (O)SOA stratification properties.</p>
 <p></p>
 <p>There is one further construction, maximin distance level expansion (<code>XiaoXuMDLE</code>, <code>MDLEs</code>), that does not yield stratum (aka strong) orthogonal arrays and is available for comparison only (Xiao and Xu 2018).</p>
@@ -126,7 +128,7 @@
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <p></p>
-<p>Groemping, U. (2022). A unified implementation of stratum (aka strong) orthogonal arrays. Report 2022/02, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. <a href="http://www1.bht-berlin.de/FB_II/reports/Report-2022-002.pdf" class="external-link"><code>http://www1.bht-berlin.de/FB_II/reports/Report-2022-002.pdf</code></a></p>
+<p>Groemping, U. (2022). A unifying implementation of stratum (aka strong) orthogonal arrays. Report 2022/02, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. <a href="http://www1.bht-berlin.de/FB_II/reports/Report-2022-002.pdf" class="external-link"><code>http://www1.bht-berlin.de/FB_II/reports/Report-2022-002.pdf</code></a></p>
 <p></p>
 <p>He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of strength two plus. <em>The Annals of Statistics</em> <b>46</b>, 457-468.</p>
 <p></p>
