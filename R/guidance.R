@@ -35,6 +35,7 @@
 #' @author Ulrike Groemping
 #'
 #' @keywords array
+#' @seealso \code{\link{guide_SOAs_from_OA}}
 #' @examples
 #' ## guide_SOAs
 #' ## There is a Zhou and Tang type SOA with 4-level columns in 8 runs
@@ -319,6 +320,7 @@ guide_SOAs <- function(s=2, el=3, m=NULL, n=NULL, ...){
 #'
 #' @author Ulrike Groemping
 #' @keywords array
+#' @seealso \code{\link{guide_SOAs}}
 #' @examples
 #' ## guide_SOAs_from_OA
 #' ## there is an OA(81, 3^10, 3) (L81.3.10 in package DoE.base)

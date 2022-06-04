@@ -69,6 +69,9 @@ Li, Liu and Yang (2021)\cr
 Shi and Tang (2020)\cr
 Zhou and Tang (2019)\cr
 }
+\seealso{
+\code{\link{guide_SOAs}}
+}
 \author{
 Ulrike Groemping
 }
