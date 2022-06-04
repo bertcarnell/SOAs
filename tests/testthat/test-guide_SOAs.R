@@ -101,4 +101,7 @@ test_that("guide_SOAs", {
     ## n=625, mmax=30 LLY
     temp22 <- guide_SOAs(s=5, el=3, m=10)
     expect_snapshot_output(temp22)
+    ## empty output without error
+    temp23 <- guide_SOAs(s=2, el=2, n=8)
+    expect_snapshot_output(temp23)
 })

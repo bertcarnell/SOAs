@@ -202,3 +202,10 @@
                                        code
     LLY OSOAs_regular(s=5, k=4, el=3, m=10)
 
+---
+
+             type strength n nlevels m mmax orthogonal
+    ZT2019 ZT2019       3- 8       4 3    3        yes
+                                     code
+    ZT2019 OSOAs_hadamard(m=3, n=8, el=2)
+
