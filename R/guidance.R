@@ -1,24 +1,46 @@
 #' Utility function for inspecting available SOAs for which the user need not provide an OA
-#' @rdname guidance
 #' @export
 #'
-#' @param s prime or prime power on which the SOA is based (without an OA), or the unique number of levels of the columns of a given OA (need not be prime or prime power)
-#' @param el the power to which \code{s} is to be taken, i.e. the SOA will have columns with \code{s^el} levels.
-#' For OA based creation, the default is the strength of the OA;
-#' except for \code{tOA=2} and \code{el=3}, \code{el} can be chosen smaller than \code{tOA}, but not larger.
-#' If \code{el} is smaller than \code{tOA}, \code{tOA} is internally reduced before working out the possibilities.
-#' @param m the number of columns needed
-#' @param n the number of runs that can be afforded
+#' @param s required (default: 2); prime or prime power on which the SOA is based
+#' @param el required (default: 3); the power to which \code{s} is to be taken,
+#'  i.e. the SOA will have columns with \code{s^el} levels
+#' @param m the number of columns needed (optional)
+#' @param n the maximum number of runs that are acceptable (optional);\cr
+#'    should be a multiple of \code{s^el}; must not be smaller than \code{m+1}, if \code{m} is specified
 #' @param ... currently unused
 #'
-#' @details The function \code{guide_SOAs} provides the possible creation variants of an
+#' @details The function provides the possible creation variants of an
 #' SOA that has \code{m} columns in \code{s^el} levels in up to \code{n} runs.
-#' It is permitted to specify \code{m} OR \code{n} only;
-#' omitting both is possible, but seldom useful.
+#' It is permitted to specify \code{m} OR \code{n} only; in that case the function
+#' provides constructions with the smallest \code{n} or the largest \code{m},
+#' respectively.\cr
+#' If both \code{m} and \code{n} are omitted, the function returns
+#' the smallest possible (O)SOA constructions for \code{s^el} levels
+#' that can be obtained without providing an OA.
+#'
+#' @return The function returns a data frame, each row of which contains a possibility; if no SOAs exist, the data.frame has zero rows.
+#' There is example code for constructing the SOA. Code details must be adjusted by the user
+#' (see the documentation of the respective functions).
+#' #'
+
+#' @references
+#' For full detail, see \code{\link{SOAs-package}}.
+#'
+#' Groemping (2022)\cr
+#' He, Cheng and Tang (2018)\cr
+#' Li, Liu and Yang (2021)\cr
+#' Shi and Tang (2020)\cr
+#' Zhou and Tang (2019)\cr
+#'
+#' @author Ulrike Groemping
 #'
 #' @keywords array
 #' @examples
 #' ## guide_SOAs
+#' ## There is a Zhou and Tang type SOA with 4-level columns in 8 runs
+#' guide_SOAs(2, 2, n=8)
+#' ## There are no SOAs with 8-level columns in 8 runs
+#' guide_SOAs(2, 3, n=8)
 #' ## What SOAs based on s=2 in s^3 levels with 7 columns
 #' ## can be construct without providing an OA?
 #' guide_SOAs(2, 3, m=7)
@@ -255,25 +277,33 @@ guide_SOAs <- function(s=2, el=3, m=NULL, n=NULL, ...){
    variants
 }
 #' Utility function for inspecting SOAs obtainable from an OA
-#' @rdname guidance
 #' @export
 #'
-#' @param nOA the number of runs of the OA
-#' @param mOA the number of columns of the OA
-#' @param tOA the strength of the OA; strengths larger than 5 are
+#' @param s required; the unique number of levels of the columns of a given OA (need not be prime or prime power)
+#' @param nOA required; the number of runs of the OA
+#' @param mOA required; the number of columns of the OA
+#' @param tOA required; the strength of the OA; strengths larger than 5 are
 #'      reduced to 5; \code{el} must not be larger than the
 #'      (reduced) strength, except for \code{tOA=2} with \code{el=3},
 #'      which is supported by the LLY algorithm
+#' @param el the power to which \code{s} is to be taken, i.e. the SOA will have columns with \code{s^el} levels;
+#' default: \code{tOA}.\cr
+#' except for \code{tOA=2} and \code{el=3}, \code{el} can be chosen smaller than \code{tOA}, but not larger.
+#' If \code{el} is smaller than \code{tOA}, \code{tOA} is internally reduced before working out the possibilities.
+#' @param ... currently unused
 #'
-#' @return The functions return a data frame, each row of which contains a possibility.
-#' There is example code for constructing the SOA. Code details must be adjusted by the user
-#' (see the documentation of the respective functions).\cr
-#' The code created by function \code{guide_SOAs_from_OA} assumes that a given OA has the name \code{OA};
+#' @return The function returns a data frame, each row of which contains a possibility.
+#' There is example code for constructing the SOA.
+#' The code assumes that a given OA has the name \code{OA};
 #' this can of course be modified by the user.
+#' Further code details can also be adjusted by the user
+#' (see the documentation of the respective functions).
 #'
-#' @details The function \code{guide_SOAs_from_OA} provides the possible creation variants of an SOA
-#' from a strength \code{tOA} OA with \code{mOA} \code{s}-level columns in \code{nOA} runs,
-#' for an SOA that has columns in \code{s^el} levels. Note that the SOA may have \code{nOA} runs
+#' @details The function provides the possible creation variants of an SOA
+#' from a strength \code{tOA} OA with \code{mOA} \code{s}-level columns
+#' in \code{nOA} runs,
+#' for an SOA that has columns in \code{s^el} levels.
+#' Note that the SOA may have \code{nOA} runs
 #' or \code{s*nOA} runs, depending on the construction.
 #'
 #' @references
