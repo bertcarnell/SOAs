@@ -101,10 +101,12 @@ OSOAs_hadamard <- function(m=NULL, n=NULL, el=3, noptim.rounds=1, noptim.repeats
     X <- suppressWarnings({
       (DoE.base::desnum(FrF2::pb(nruns=n/2, nfactors=min(mmax, 2*ceiling(m/2)), randomize=FALSE))+1)/2
       }, classes=c("message","warning"))
-  else
+  else{
+    if (n==8) X <- DoE.base::L4.2.3 else
     X <- suppressWarnings({
       (DoE.base::desnum(FrF2::pb(nruns=n/2, nfactors=min(mmax, m), randomize=FALSE)) + 1)/2
     }, classes=c("message","warning"))
+    }
 
   ## the function for arbitrary oa does the rest of the work
   aus <- OSOAs(X, el=el, m=m, noptim.rounds = noptim.rounds, noptim.repeats=noptim.repeats, optimize = optimize,
