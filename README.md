@@ -79,6 +79,14 @@ three functions <code>OSOAs</code>, <code>OSOAs\_hadamard</code> and
 
 <p>
 
+Within the package, available SOA constructions for specific situations
+can be queried using the the guide functions <code>guide\_SOAs</code>
+and <code>guide\_SOAs\_from\_OA</code>.
+
+</p>
+
+<p>
+
 Besides the construction functions, properties of the resulting array D
 can be checked using the aforementioned function <code>phi\_p</code> as
 well as check functions <code>ocheck</code>, <code>ocheck3</code> for
