@@ -250,3 +250,127 @@ BcolsFromBcolllist <- function(Bcollist){
   Bcols
 }
 
+## function for the Hedayat et al. 2018 construction
+createAB_fast <- function(s, k=3, m=NULL){
+  ## uses gf functionality from lhs
+  ## symmetric array from k basic vectors
+  ## s^k runs
+  ## m optionally reduces the number of columns to be created
+  ##     (faster for smaller m)
+  ## returns A and B (and D)
+  ##           for the Hedayat and Tang strength 2+ construction
+  ## does not try to achieve orthogonality
+  ## but goes for a fast permissible solution
+  if (!s %in% c(2,3,4,5,7,8,9,11,13,16,17,19,27,32))
+    stop("not implemented for s = ", s)
+  prime <- TRUE
+  if (s %in% c(4,8,9,16,27,32)) {
+    prime=FALSE
+    gf <- lhs::create_galois_field(s)
+  }
+  stopifnot(k>=3)
+  if (s==2 && k==3) stop("For s=2, k>=4 is required")
+
+  if (s==2){
+    k1 <- k%/%2
+    k2 <- k - k1
+  }
+  if (is.null(m)){
+    if (s>2) m <- (s^k-1)/(s-1) - ((s-1)^k-1)/(s-2)
+    else m <- 2^k - 2^k1 - 2^k2 + 2
+  }
+
+  ## aus is the full factorial s^k,
+  ## intcoeffs starts out the same and is reduced to linear combinations
+  ##      for interactions in saturated oa
+  aus <- intcoeffs <- ff(rep(s, k))
+  colnames(aus) <- NULL
+
+  if (s>2){
+    ## eliminate rows that refer to only one or no factors
+    intcoeffs <- intcoeffs[rowSums(intcoeffs>0)>=2,, drop=FALSE]
+    ## eliminate rows whose first coefficient is not 1
+    intcoeffs <- intcoeffs[!intcoeffs[,1]>1, , drop=FALSE]
+    for (i in 2:k)
+      intcoeffs <- intcoeffs[!(apply(intcoeffs[,1:(i-1), drop=FALSE], 1,
+                                     function(obj) all(obj==0)) &
+                                 intcoeffs[,i]>1),, drop=FALSE]
+
+    Acols <- ncol(aus) +
+      which(apply(intcoeffs,1,max)==s-1)
+    ## Acols columns for which at least one u_j
+    ##           equals the largest element of GF(s)
+    stopifnot(length(Acols)>=m)
+
+    if (prime) aus <- cbind(aus, (aus%*%t(intcoeffs))%%s)
+    else {
+      hilf <- gf_matmult(aus, t(intcoeffs), gf, checks=FALSE)
+      aus <- cbind(aus, hilf)
+    }
+    ## A and R for s > 2
+    A <- aus[,Acols[1:m]]
+    ## change August 2022:
+    ## incorporate columns that are not needed for obtaining A
+    ## into the options for B
+    ## as unobtrusively as possible (keep old behavior,
+    ##    where not in the way of orthogonal columns)
+    Rcols <- setdiff(1:ncol(aus), Acols)
+    R <- aus[, Rcols]
+    if (length(Acols)>m) {
+      Rcols <- c(Rcols, Acols[(m+1):length(Acols)])
+      R <- cbind(R, aus[,intersect(1:ncol(aus), Acols[(m+1):length(Acols)])])
+    }
+  }else{
+    ## now s==2
+    ## prepare saturated design in Yates order
+    satu <- createSaturated(s,k)
+
+    ## construction C2
+
+    ## column numbers in Yates order for P and Q
+    P_nos <- 1:(s^(k1) - 1)
+
+    ## only the effects for Q (nonzero entries in leftmost k2 columns only)
+    intcoeffs <- intcoeffs[which(rowSums(intcoeffs[,(k2+1):k,drop=FALSE])==0 &
+                                   !rowSums(intcoeffs[,1:k2,drop=FALSE])==0),]
+    Q_nos <- intcoeffs%*%(2^((k-1):0))
+
+    Rcols <- c(P_nos[-1], Q_nos[-1], P_nos[1] + Q_nos[1])
+    ## change August 2022:
+    ## incorporate columns that are not needed for obtaining A
+    ## into the options for B
+    Acols <- setdiff(1:(2^k-1), Rcols)[1:m]
+    Rcols <- c(Rcols, setdiff(1:(2^k-1), c(Acols, Rcols)))
+    R <- satu[, Rcols, drop=FALSE]
+    A <- satu[, Acols, drop=FALSE]
+  }
+
+  ## quick and dirty fast selection of columns from R for B
+  ## for large s and n, length3 is much faster than GWLP(...,kmax=3)[4]
+  paare <- nchoosek(m, 2)
+  Bcollist <- rep(list(numeric(0)), m)
+  for (i in 1:m){
+    hilf <- paare[,which(colSums(paare==i)>0)]
+    for (j in 1:ncol(R)){
+      ## inspect whether column j of R is suitable as b_i
+      suitable <- TRUE
+      for (ii in 1:ncol(hilf)){
+        hilfpaar <- A[,hilf[,ii]]
+        if (round(DoE.base::length3(cbind(hilfpaar, R[,j])),8)>0){
+          suitable <- FALSE
+          break
+        }
+      }
+      if (suitable) {
+        Bcollist[[i]] <- j
+        break
+      }
+    }
+  }
+  Bcols <- unlist(Bcollist)
+  ## picks as diverse a set as possible
+  B <- R[, Bcols, drop=FALSE]
+  return(list(A=A, B=B, D=s*A+B))
+  ## is used in SOA2plus_regulart -> SOAs2plus_regular
+  ## if B has strength 2, the result is an OSOA
+}

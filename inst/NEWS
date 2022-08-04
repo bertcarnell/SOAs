@@ -10,6 +10,9 @@ Version 1.2, 04 August 2022
   WARNING: This change causes previous designs that have more columns than
   those eligible for A (e.g., more than 5 columns for s=2 and n=16)
   to be different from those constructed with earlier package versions.
+* added an internal function createAB_fast and an argument fast for
+  SOAs2plus_regular: this bypasses orthogonality requests in order to obtain
+  a fast solution
 
 Version 1.1, 04 June 2022
 
