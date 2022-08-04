@@ -22,6 +22,30 @@ test_that("SOAs2plus_regular", {
   expect_equal(dim(temp), c(64, (4^3-1)/(4-1) - ((4-1)^3-1)/(4-2)))
   expect_equal(length(unique(c(temp))), 16)
 
+  ## testing fast=TRUE
+  ## s=2 follows a different approach than s>2
+  temp <- SOAs2plus_regular(s=2, k=4, optimize=FALSE, fast=TRUE)
+  expect_s3_class(temp, "SOA")
+  expect_equal(dim(temp), c(16, 10))
+  expect_equal(attr(temp, "type"), "SOA")
+  expect_equal(attr(temp, "strength"), "2+")
+  expect_equal(length(unique(c(temp))), 4)
+
+  temp <- SOAs2plus_regular(s=3, k=3, optimize=FALSE, fast=TRUE)
+  expect_snapshot_output(temp)
+  expect_s3_class(temp, "SOA")
+  expect_equal(dim(temp), c(27, 6))
+  expect_equal(attr(temp, "type"), "SOA")
+  expect_equal(attr(temp, "strength"), "2+")
+  expect_equal(length(unique(c(temp))), 9)
+
+  temp <- SOAs2plus_regular(s=4, k=3, optimize=FALSE, fast=TRUE)
+  expect_s3_class(temp, "SOA")
+  expect_equal(attr(temp, "type"), "SOA")
+  expect_equal(attr(temp, "strength"), "2+")
+  expect_equal(dim(temp), c(64, (4^3-1)/(4-1) - ((4-1)^3-1)/(4-2)))
+  expect_equal(length(unique(c(temp))), 16)
+
   ## testing optimize
   set.seed(123)
   suppressMessages(temp <- SOAs2plus_regular(s=4, k=3))
