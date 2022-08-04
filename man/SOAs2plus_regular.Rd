@@ -8,6 +8,7 @@ SOAs2plus_regular(
   s,
   k,
   m = NULL,
+  fast = FALSE,
   noptim.rounds = 1,
   noptim.repeats = 1,
   optimize = TRUE,
@@ -25,6 +26,8 @@ the maximum possible number of columns is created, which is (s^k-1)/(s-1) - ((s-
 for s>2 and s^k-s^k1 - s^(k-k1) + 2, with k1=floor(k/2), for s=2; specifying a
 smaller m is beneficial not only for run time but also for possibly achieving a
 column-orthogonal array (see Details section)}
+
+\item{fast}{logical: if TRUE, suppresses attempts for orthogonal columns and selects the first permissible column for each column of B (see Details section)}
 
 \item{noptim.rounds}{the number of optimization rounds for each independent restart}
 
@@ -67,6 +70,18 @@ that a single round (\code{noptim.rounds=1}) often does a very good job
 further rounds do not yield too much improvement; there are also cases
 (e.g. s=5 with k=3), for which the unoptimized array has a better phi_p than
 what can be achieved by most optimization attempts from a random start.
+
+With package version 1.2, the creation of SOAs has changed: Up to version 1.1,
+the columns of B were chosen only from those columns that were \emph{not eligible} for A,
+whereas the new version chooses them from those columns that are \emph{not used} for A.
+This increases the chance
+to achieve geometrically orthogonal columns, but also implies that some designs
+produced with earlier versions cannot be replicated any more
+(one would have to install version 1.1 for obtaining them).
+
+The search for orthogonal columns can take a long time for larger arrays.
+Therefore, with package version 1.2, a fast track without attempting to
+achieve orthogonal columns was implemented (argument \code{fast}).
 }
 \note{
 Strength 2+ SOAs can accommodate a large number of factors with
