@@ -31,6 +31,14 @@
 #' (e.g. s=5 with k=3), for which the unoptimized array has a better phi_p than
 #' what can be achieved by most optimization attempts from a random start.
 #'
+#' With package version 1.2, the creation of SOAs has changed: Up to version 1.1,
+#' the columns of B were chosen only from those columns that were \emph{not eligible} for A,
+#' whereas the new version chooses them from those columns that are \emph{not used} for A.
+#' This increases the chance
+#' to achieve geometrically orthogonal columns, but also implies that some designs
+#' produced with earlier versions cannot be replicated any more
+#' (one would have to install version 1.1 for obtaining them).
+#'
 #' @return matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
 #' \describe{
 #'   \item{type}{the type of array (\code{SOA} or \code{OSOA})}

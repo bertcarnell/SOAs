@@ -65,7 +65,17 @@ createAB <- function(s, k=3, m=NULL){
     }
     ## A and R for s > 2
     A <- aus[,Acols[1:m]]
-    R <- aus[,setdiff(1:ncol(aus), Acols)]
+    ## change August 2022:
+    ## incorporate columns that are not needed for obtaining A
+    ## into the options for B
+    ## as unobtrusively as possible (keep old behavior,
+    ##    where not in the way of orthogonal columns)
+    Rcols <- setdiff(1:ncol(aus), Acols)
+    R <- aus[, Rcols]
+    if (length(Acols)>m) {
+      Rcols <- c(Rcols, Acols[(m+1):length(Acols)])
+      R <- cbind(R, aus[,intersect(1:ncol(aus), Acols[(m+1):length(Acols)])])
+    }
   }else{
     ## now s==2
     ## prepare saturated design in Yates order
@@ -82,8 +92,13 @@ createAB <- function(s, k=3, m=NULL){
     Q_nos <- intcoeffs%*%(2^((k-1):0))
 
     Rcols <- c(P_nos[-1], Q_nos[-1], P_nos[1] + Q_nos[1])
+    ## change August 2022:
+    ## incorporate columns that are not needed for obtaining A
+    ## into the options for B
+    Acols <- setdiff(1:(2^k-1), Rcols)[1:m]
+    Rcols <- c(Rcols, setdiff(1:(2^k-1), c(Acols, Rcols)))
     R <- satu[, Rcols, drop=FALSE]
-    A <- satu[, setdiff(1:(2^k - 1), Rcols), drop=FALSE][,1:m]
+    A <- satu[, Acols, drop=FALSE]
   }
 
   ## brute force selection of columns from R for B
