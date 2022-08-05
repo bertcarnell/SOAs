@@ -55,6 +55,22 @@ test_that("SOAs2plus_regular", {
   expect_equal(dim(temp), c(64, (4^3-1)/(4-1) - ((4-1)^3-1)/(4-2)))
   expect_equal(length(unique(c(temp))), 16)
 
+  set.seed(123)
+  suppressMessages(temp <- SOAs2plus_regular(s=4, k=3, old=TRUE))
+  expect_s3_class(temp, "SOA")
+  expect_equal(attr(temp, "type"), "OSOA")
+  expect_equal(attr(temp, "strength"), "2+")
+  expect_equal(dim(temp), c(64, (4^3-1)/(4-1) - ((4-1)^3-1)/(4-2)))
+  expect_equal(length(unique(c(temp))), 16)
+
+  set.seed(123)
+  suppressMessages(temp <- SOAs2plus_regular(s=4, k=3, orth=FALSE))
+  expect_s3_class(temp, "SOA")
+  expect_equal(attr(temp, "type"), "SOA")
+  expect_equal(attr(temp, "strength"), "2+")
+  expect_equal(dim(temp), c(64, (4^3-1)/(4-1) - ((4-1)^3-1)/(4-2)))
+  expect_equal(length(unique(c(temp))), 16)
+
   expect_error(SOAs2plus_regular(s=4, k=3, m=9),
                regexp="m <= mbound is not TRUE", fixed=TRUE)
   expect_error(SOAs2plus_regular(s=2, k=3, optimize=FALSE),
