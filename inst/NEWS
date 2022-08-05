@@ -1,18 +1,21 @@
 Change log for package SOAs
 
-Version 1.2, 04 August 2022
+Version 1.2, 05 August 2022
 
 * modified function createAB and documentation in SOAs2plus_regular:
   the He, Cheng and Tang (2018) strength 2+ SOAs now
-  have orthogonal columns more often, because the columns for matrix B are
-  selected from all columns that are not used for A (instead of only the
-  columns that were not eligible for A).
-  WARNING: This change causes previous designs that have more columns than
-  those eligible for A (e.g., more than 5 columns for s=2 and n=16)
-  to be different from those constructed with earlier package versions.
+  have orthogonal columns more often, because the columns for matrix B
+  are selected from all columns that are not used for A
+  (instead of only the columns that were not eligible for A).
+  Users who need the previous behavior for reproducing a design
+  from earlier package versions can use the argument old.
+* sped up the selection of columns for matrix B in case orthogonal
+  columns are requested (work directly with coefficient matrix instead
+  of using function length3 from package DoE.base)
 * added an internal function createAB_fast and an argument fast for
-  SOAs2plus_regular: this bypasses orthogonality requests in order to obtain
-  a fast solution
+  SOAs2plus_regular: this bypasses orthogonality requests in order
+  to obtain a fast solution or to forsake orthogonality in the hope
+  of improved space-filling (argument orth)
 
 Version 1.1, 04 June 2022
 

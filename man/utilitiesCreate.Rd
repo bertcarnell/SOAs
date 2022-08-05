@@ -6,7 +6,7 @@
 \alias{BcolsFromBcolllist}
 \title{Utilities for array creation}
 \usage{
-createAB(s, k = 3, m = NULL)
+createAB(s, k = 3, m = NULL, old = FALSE)
 
 BsFromB(B, s = NULL, r = NULL, permlist = NULL, oneonly = TRUE)
 

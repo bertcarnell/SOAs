@@ -9,7 +9,7 @@
 #'
 #' @keywords internal
 ## function for the Hedayat et al. 2018 construction
-createAB <- function(s, k=3, m=NULL){
+createAB <- function(s, k=3, m=NULL, old=FALSE){
   ## uses gf functionality from lhs
   ## symmetric array from k basic vectors
   ## s^k runs
@@ -75,10 +75,11 @@ createAB <- function(s, k=3, m=NULL){
     ## incorporate columns that are not needed for obtaining A
     ## into the options for B
     ## as unobtrusively as possible (keep old behavior,
-    ##    where not in the way of orthogonal columns)
+    ##    where not in the way of orthogonal columns;
+    ##    old requests old behavior even if orthogonality is sacrificed)
     Rcols <- setdiff(1:ncol(aus), Acols)
     R <- aus[, Rcols]
-    if (length(Acols)>m) {
+    if (length(Acols)>m && !old) {
       Rcols <- c(Rcols, Acols[(m+1):length(Acols)])
       R <- cbind(R, aus[,intersect(1:ncol(aus), Acols[(m+1):length(Acols)])])
     }
@@ -101,8 +102,9 @@ createAB <- function(s, k=3, m=NULL){
     ## change August 2022:
     ## incorporate columns that are not needed for obtaining A
     ## into the options for B
+    ## unless suppressed by old argument
     Acols <- setdiff(1:(2^k-1), Rcols)[1:m]
-    Rcols <- c(Rcols, setdiff(1:(2^k-1), c(Acols, Rcols)))
+    if (!old) Rcols <- c(Rcols, setdiff(1:(2^k-1), c(Acols, Rcols)))
     R <- satu[, Rcols, drop=FALSE]
     A <- satu[, Acols, drop=FALSE]
   }
@@ -329,16 +331,14 @@ createAB_fast <- function(s, k=3, m=NULL){
     ## A and R for s > 2
     A <- aus[,Acols[1:m]]
     ## change August 2022:
-    ## incorporate columns that are not needed for obtaining A
-    ## into the options for B
-    ## as unobtrusively as possible (keep old behavior,
-    ##    where not in the way of orthogonal columns)
+    ## the expansion of the columns for B is not useful
+    ## for the version without orthogonal columns
+    ## hence here different from createAB
     Rcols <- setdiff(1:ncol(aus), Acols)
     R <- aus[, Rcols]
-    if (length(Acols)>m) {
-      Rcols <- c(Rcols, Acols[(m+1):length(Acols)])
-      R <- cbind(R, aus[,intersect(1:ncol(aus), Acols[(m+1):length(Acols)])])
-    }
+    ## do not expand columns here, because the first ones are
+    ## always the ones not eligible for A
+    ## and a solution will be found within these
   }else{
     ## now s==2
     ## prepare saturated design in Yates order
@@ -356,10 +356,13 @@ createAB_fast <- function(s, k=3, m=NULL){
 
     Rcols <- c(P_nos[-1], Q_nos[-1], P_nos[1] + Q_nos[1])
     ## change August 2022:
-    ## incorporate columns that are not needed for obtaining A
-    ## into the options for B
+    ## the expansion of the columns for B is not useful
+    ## for the version without orthogonal columns
+    ## hence here different from createAB
     Acols <- setdiff(1:(2^k-1), Rcols)[1:m]
-    Rcols <- c(Rcols, setdiff(1:(2^k-1), c(Acols, Rcols)))
+    ## extension of Rcols is not needed (i.e. different to createAB),
+    ## because a column can always be found within the ones
+    ## not eligible for A, and these come first
     R <- satu[, Rcols, drop=FALSE]
     A <- satu[, Acols, drop=FALSE]
   }
