@@ -12,7 +12,7 @@ Version 1.2, 05 August 2022
 * sped up the selection of columns for matrix B in case orthogonal
   columns are requested (work directly with coefficient matrix instead
   of using function length3 from package DoE.base)
-* added an internal function createAB_fast and an argument fast for
+* added an internal function createAB_fast for
   SOAs2plus_regular: this bypasses orthogonality requests in order
   to obtain a fast solution or to forsake orthogonality in the hope
   of improved space-filling (argument orth)
