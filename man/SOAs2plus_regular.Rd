@@ -8,7 +8,7 @@ SOAs2plus_regular(
   s,
   k,
   m = NULL,
-  fast = FALSE,
+  orth = TRUE,
   noptim.rounds = 1,
   noptim.repeats = 1,
   optimize = TRUE,
@@ -27,7 +27,7 @@ for s>2 and s^k-s^k1 - s^(k-k1) + 2, with k1=floor(k/2), for s=2; specifying a
 smaller m is beneficial not only for run time but also for possibly achieving a
 column-orthogonal array (see Details section)}
 
-\item{fast}{logical: if TRUE, suppresses attempts for orthogonal columns and selects the first permissible column for each column of B (see Details section)}
+\item{orth}{logical: if FALSE, suppresses attempts for orthogonal columns and selects the first permissible column for each column of B (see Details section)}
 
 \item{noptim.rounds}{the number of optimization rounds for each independent restart}
 
@@ -81,7 +81,7 @@ produced with earlier versions cannot be replicated any more
 
 The search for orthogonal columns can take a long time for larger arrays.
 Therefore, with package version 1.2, a fast track without attempting to
-achieve orthogonal columns was implemented (argument \code{fast}).
+achieve orthogonal columns was implemented (argument \code{orth}).
 }
 \note{
 Strength 2+ SOAs can accommodate a large number of factors with
