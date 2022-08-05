@@ -135,7 +135,7 @@ createAB <- function(s, k=3, m=NULL){
   Bcols <- BcolsFromBcolllist(Bcollist)
   ## picks as diverse a set as possible
   B <- R[, Bcols, drop=FALSE]
-  return(list(A=A, B=B, D=s*A+B, decide=decide, Bcollist=Bcollist))
+  return(list(A=A, B=B, D=s*A+B))
   ## is used in SOA2plus_regulart -> SOAs2plus_regular
   ## if B has strength 2, the result is an OSOA
 }
