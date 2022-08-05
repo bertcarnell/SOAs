@@ -74,16 +74,23 @@ further rounds do not yield too much improvement; there are also cases
 (e.g. s=5 with k=3), for which the unoptimized array has a better phi_p than
 what can be achieved by most optimization attempts from a random start.
 
+The search for orthogonal columns can take a long time for larger arrays,
+even without optimization. If this is prohibitive (or not considered valuable),
+\code{orth=FALSE} causes the function to create the matrix B for equation D=2A+B
+with less computational effort.\cr
+The subsequent optimization, if not switched off,
+is of the same complexity, regardless of the value for \code{orth}. Its
+duration heavily depends on the number of optimization steps that are needed
+before the algorithm stops. This has not been systematically investigated;
+cases for which the total run time with optimization
+is shorter for \code{orth=TRUE} than for \code{orth=FALSE} have been observed.
+
 With package version 1.2, the creation of SOAs has changed: Up to version 1.1,
 the columns of B were chosen only from those columns that were \emph{not eligible} for A,
 whereas the new version chooses them from those columns that are \emph{not used} for A.
 This increases the chance to achieve geometrically orthogonal columns.\cr
 Users who want to reproduce a design from an earlier version
-have to use argument \code{old}.
-
-The search for orthogonal columns can take a long time for larger arrays.
-Therefore, with package version 1.2, a fast track without attempting to
-achieve orthogonal columns was implemented (argument \code{orth}).
+can use argument \code{old}.
 }
 \note{
 Strength 2+ SOAs can accommodate a large number of factors with
