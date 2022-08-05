@@ -9,7 +9,7 @@
 #' for s>2 and s^k-s^k1 - s^(k-k1) + 2, with k1=floor(k/2), for s=2; specifying a
 #' smaller m is beneficial not only for run time but also for possibly achieving a
 #' column-orthogonal array (see Details section)
-#' @param fast logical: if TRUE, suppresses attempts for orthogonal columns and selects the first permissible column for each column of B (see Details section)
+#' @param orth logical: if FALSE, suppresses attempts for orthogonal columns and selects the first permissible column for each column of B (see Details section)
 #' @param noptim.rounds the number of optimization rounds for each independent restart
 #' @param noptim.repeats the number of independent restarts of optimizations with \code{noptim.rounds} rounds each
 #' @param optimize logical: should optimization be applied? default \code{TRUE}
@@ -42,7 +42,7 @@
 #'
 #' The search for orthogonal columns can take a long time for larger arrays.
 #' Therefore, with package version 1.2, a fast track without attempting to
-#' achieve orthogonal columns was implemented (argument \code{fast}).
+#' achieve orthogonal columns was implemented (argument \code{orth}).
 #'
 #' @return matrix of class \code{SOA} with the attributes that are listed below. All attributes can be accessed using function \code{\link{attributes}}, or individual attributes can be accessed using function \code{\link{attr}}. These are the attributes:
 #' \describe{
@@ -84,7 +84,7 @@
 #' ## (SOAs are not for situations for which pair coverage
 #' ## is of primary interest)
 #' }
-SOAs2plus_regular <- function(s, k, m=NULL, fast=FALSE,
+SOAs2plus_regular <- function(s, k, m=NULL, orth=TRUE,
                           noptim.rounds=1, noptim.repeats=1,
                           optimize=TRUE, dmethod="manhattan", p=50){
   ## the function calls SOAplus2_regular_fast (with optimization)
@@ -137,7 +137,7 @@ SOAs2plus_regular <- function(s, k, m=NULL, fast=FALSE,
 
     ## A and B according to Hedayat, Cheng and Tang
     ## also takes care of GF
-    if (fast) AB <- createAB_fast(s, k, m=m) else AB <- createAB(s, k, m=m)
+    if (!orth) AB <- createAB_fast(s, k, m=m) else AB <- createAB(s, k, m=m)
     A <- AB$A; B <- AB$B
 
     aus_repeats <- vector(mode="list")
@@ -179,7 +179,7 @@ SOAs2plus_regular <- function(s, k, m=NULL, fast=FALSE,
                 lapply(combinat::permn(s), function(obj) obj-1), call=mycall)
     aus <- aus$array
   }else{
-  SOA <- SOA2plus_regulart(s, k, m, fast=fast, random=FALSE)
+  SOA <- SOA2plus_regulart(s, k, m, orth=orth, random=FALSE)
   type <- "SOA"
   if (ocheck(SOA)) type <- "OSOA"
   aus <- SOA

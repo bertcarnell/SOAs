@@ -18,7 +18,8 @@ createAB <- function(s, k=3, m=NULL){
   ## returns A and B (and D)
   ##           for the Hedayat and Tang strength 2+ construction
   ## this version uses bipartite graph matching
-  ## function createAB_fast below skips this
+  ##    (called if orth=TRUE in call to SOAs2plus_regular)
+  ##    otherwise function createAB_fast below skips this
   if (!s %in% c(2,3,4,5,7,8,9,11,13,16,17,19,27,32))
     stop("not implemented for s = ", s)
   prime <- TRUE
@@ -275,6 +276,7 @@ createAB_fast <- function(s, k=3, m=NULL){
   ##           for the Hedayat and Tang strength 2+ construction
   ## does not try to achieve orthogonality
   ## but goes for a fast permissible solution
+  ## called if orth=FALSE in SOAs2plus_regular
   if (!s %in% c(2,3,4,5,7,8,9,11,13,16,17,19,27,32))
     stop("not implemented for s = ", s)
   prime <- TRUE

@@ -2,7 +2,7 @@
 ### The resulting SOA has s^k runs in s^t=s^2 levels.
 ### The resulting SOA has strength 2+
 
-SOA2plus_regulart <- function(s, k=3, m=NULL, fast=FALSE, permlist=NULL, random=TRUE){
+SOA2plus_regulart <- function(s, k=3, m=NULL, orth=TRUE, permlist=NULL, random=TRUE){
   stopifnot(k >= 3)
   ### permlist needs 2*m permutations
   ### for each column of A and B
@@ -33,7 +33,7 @@ SOA2plus_regulart <- function(s, k=3, m=NULL, fast=FALSE, permlist=NULL, random=
 
   ## A and B according to Hedayat, Cheng and Tang
   ## also takes care of GF
-  if (fast) AB <- createAB_fast(s, k, m=m) else AB <- createAB(s, k, m=m)
+  if (!orth) AB <- createAB_fast(s, k, m=m) else AB <- createAB(s, k, m=m)
   aus <- s*AB$A + AB$B  ## initial array
   ### unoptimized array, default permutation for random=FALSE
   if (!random || is.null(permlist)) return(aus)
