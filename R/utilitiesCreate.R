@@ -17,6 +17,8 @@ createAB <- function(s, k=3, m=NULL){
   ##     (faster for smaller m)
   ## returns A and B (and D)
   ##           for the Hedayat and Tang strength 2+ construction
+  ## this version uses bipartite graph matching
+  ## function createAB_fast below skips this
   if (!s %in% c(2,3,4,5,7,8,9,11,13,16,17,19,27,32))
     stop("not implemented for s = ", s)
   prime <- TRUE
@@ -40,10 +42,11 @@ createAB <- function(s, k=3, m=NULL){
   ## intcoeffs starts out the same and is reduced to linear combinations
   ##      for interactions in saturated oa
   aus <- intcoeffs <- ff(rep(s, k))
+  intcoeffs <- intcoeffs[-1,]  ## omit all-zero row
   colnames(aus) <- NULL
 
   if (s>2){
-    ## eliminate rows that refer to only one or no factors
+    ## eliminate rows that refer to only one factor
     intcoeffs <- intcoeffs[rowSums(intcoeffs>0)>=2,, drop=FALSE]
     ## eliminate rows whose first coefficient is not 1
     intcoeffs <- intcoeffs[!intcoeffs[,1]>1, , drop=FALSE]
@@ -63,6 +66,8 @@ createAB <- function(s, k=3, m=NULL){
       hilf <- gf_matmult(aus, t(intcoeffs), gf, checks=FALSE)
       aus <- cbind(aus, hilf)
     }
+    ## include also the rows for aus
+    intcoeffs <- rbind(diag(k), intcoeffs)
     ## A and R for s > 2
     A <- aus[,Acols[1:m]]
     ## change August 2022:
@@ -87,9 +92,9 @@ createAB <- function(s, k=3, m=NULL){
     P_nos <- 1:(s^(k1) - 1)
 
     ## only the effects for Q (nonzero entries in leftmost k2 columns only)
-    intcoeffs <- intcoeffs[which(rowSums(intcoeffs[,(k2+1):k,drop=FALSE])==0 &
+    intcoeffsQ <- intcoeffs[which(rowSums(intcoeffs[,(k2+1):k,drop=FALSE])==0 &
                                    !rowSums(intcoeffs[,1:k2,drop=FALSE])==0),]
-    Q_nos <- intcoeffs%*%(2^((k-1):0))
+    Q_nos <- intcoeffsQ%*%(2^((k-1):0))
 
     Rcols <- c(P_nos[-1], Q_nos[-1], P_nos[1] + Q_nos[1])
     ## change August 2022:
@@ -102,14 +107,23 @@ createAB <- function(s, k=3, m=NULL){
   }
 
   ## brute force selection of columns from R for B
-  ## should be possible to do this more elegantly
-  ## for large s and n, length3 is much faster than GWLP(...,kmax=3)[4]
+  ## based on all linear combinations with three non-zero coefficients and
+  ## first coefficient 1 not yielding a k-dimensional all-zero outcome
+  ## for the triple of k-dimensional coefficient vectors
+  ##     version 1.2 eliminates length3 implementation
+  ##     result should be unchanged
   paare <- nchoosek(m, 2)
   Bcollist <- rep(list(1:ncol(R)), m)
+  checkcoeff3s <- ff(rep(s, 3))
+  checkcoeff3s <- checkcoeff3s[!rowSums(checkcoeff3s>0)<3,, drop=FALSE]
+  checkcoeff3s <- checkcoeff3s[checkcoeff3s[,1]==1,, drop=FALSE]
   for (i in 1:ncol(paare)){
-    hilf <- A[,paare[,i]]
     for (j in 1:ncol(R)){
-      if (round(DoE.base::length3(cbind(hilf, R[,j])),8)>0){
+      if (prime) decide <- rowSums(checkcoeff3s%*%intcoeffs[c(Acols[paare[,i]], Rcols[j]),]%%s==0) else
+        decide <- rowSums(gf_matmult(checkcoeff3s,
+                             intcoeffs[c(Acols[paare[,i]], Rcols[j]),], gf, checks=FALSE)==0)
+      #if (round(DoE.base::length3(cbind(hilf, R[,j])),8)>0){
+      if (any(decide==k)){
         Bcollist[[paare[1,i]]] <- setdiff(Bcollist[[paare[1,i]]],
                                           j)
         Bcollist[[paare[2,i]]] <- setdiff(Bcollist[[paare[2,i]]],
@@ -120,7 +134,7 @@ createAB <- function(s, k=3, m=NULL){
   Bcols <- BcolsFromBcolllist(Bcollist)
   ## picks as diverse a set as possible
   B <- R[, Bcols, drop=FALSE]
-  return(list(A=A, B=B, D=s*A+B))
+  return(list(A=A, B=B, D=s*A+B, decide=decide, Bcollist=Bcollist))
   ## is used in SOA2plus_regulart -> SOAs2plus_regular
   ## if B has strength 2, the result is an OSOA
 }
@@ -285,9 +299,10 @@ createAB_fast <- function(s, k=3, m=NULL){
   ##      for interactions in saturated oa
   aus <- intcoeffs <- ff(rep(s, k))
   colnames(aus) <- NULL
+  intcoeffs <- intcoeffs[-1,] ## eliminate all-zero row
 
   if (s>2){
-    ## eliminate rows that refer to only one or no factors
+    ## eliminate rows that refer to only one factors
     intcoeffs <- intcoeffs[rowSums(intcoeffs>0)>=2,, drop=FALSE]
     ## eliminate rows whose first coefficient is not 1
     intcoeffs <- intcoeffs[!intcoeffs[,1]>1, , drop=FALSE]
@@ -307,6 +322,8 @@ createAB_fast <- function(s, k=3, m=NULL){
       hilf <- gf_matmult(aus, t(intcoeffs), gf, checks=FALSE)
       aus <- cbind(aus, hilf)
     }
+    ## include also the rows for aus
+    intcoeffs <- rbind(diag(k), intcoeffs)
     ## A and R for s > 2
     A <- aus[,Acols[1:m]]
     ## change August 2022:
@@ -331,9 +348,9 @@ createAB_fast <- function(s, k=3, m=NULL){
     P_nos <- 1:(s^(k1) - 1)
 
     ## only the effects for Q (nonzero entries in leftmost k2 columns only)
-    intcoeffs <- intcoeffs[which(rowSums(intcoeffs[,(k2+1):k,drop=FALSE])==0 &
+    intcoeffsQ <- intcoeffs[which(rowSums(intcoeffs[,(k2+1):k,drop=FALSE])==0 &
                                    !rowSums(intcoeffs[,1:k2,drop=FALSE])==0),]
-    Q_nos <- intcoeffs%*%(2^((k-1):0))
+    Q_nos <- intcoeffsQ%*%(2^((k-1):0))
 
     Rcols <- c(P_nos[-1], Q_nos[-1], P_nos[1] + Q_nos[1])
     ## change August 2022:
@@ -346,17 +363,28 @@ createAB_fast <- function(s, k=3, m=NULL){
   }
 
   ## quick and dirty fast selection of columns from R for B
-  ## for large s and n, length3 is much faster than GWLP(...,kmax=3)[4]
+  ## August 2022: eliminate length3 in favor of direct work with coefficients
+  ##    analogous to createAB
   paare <- nchoosek(m, 2)
   Bcollist <- rep(list(numeric(0)), m)
+  checkcoeff3s <- ff(rep(s, 3))
+  checkcoeff3s <- checkcoeff3s[!rowSums(checkcoeff3s>0)<3,, drop=FALSE]
+  checkcoeff3s <- checkcoeff3s[checkcoeff3s[,1]==1,, drop=FALSE]
+
   for (i in 1:m){
     hilf <- paare[,which(colSums(paare==i)>0)]
     for (j in 1:ncol(R)){
       ## inspect whether column j of R is suitable as b_i
       suitable <- TRUE
       for (ii in 1:ncol(hilf)){
-        hilfpaar <- A[,hilf[,ii]]
-        if (round(DoE.base::length3(cbind(hilfpaar, R[,j])),8)>0){
+        if (prime) decide <- rowSums(checkcoeff3s%*%intcoeffs[c(Acols[hilf[,ii]], Rcols[j]),]%%s==0) else
+          decide <- rowSums(gf_matmult(checkcoeff3s,
+                                       intcoeffs[c(Acols[hilf[,ii]], Rcols[j]),], gf, checks=FALSE)==0)
+        #if (round(DoE.base::length3(cbind(hilf, R[,j])),8)>0){
+        if (any(decide==k)){
+
+        ## hilfpaar <- A[,hilf[,ii]]
+        ## if (round(DoE.base::length3(cbind(hilfpaar, R[,j])),8)>0){
           suitable <- FALSE
           break
         }
