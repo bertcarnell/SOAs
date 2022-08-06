@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
       </span>
     </div>
 
@@ -50,27 +50,38 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">guide_SOAs</span><span class="op">(</span>s <span class="op">=</span> <span class="fl">2</span>, el <span class="op">=</span> <span class="fl">3</span>, m <span class="op">=</span> <span class="cn">NULL</span>, n <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">guide_SOAs</span><span class="op">(</span>s <span class="op">=</span> <span class="fl">2</span>, el <span class="op">=</span> <span class="fl">3</span>, m <span class="op">=</span> <span class="cn">NULL</span>, n <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>s</dt>
 <dd><p>required (default: 2); prime or prime power on which the SOA is based</p></dd>
+
+
 <dt>el</dt>
 <dd><p>required (default: 3); the power to which <code>s</code> is to be taken,
 i.e. the SOA will have columns with <code>s^el</code> levels</p></dd>
+
+
 <dt>m</dt>
 <dd><p>the number of columns needed (optional)</p></dd>
+
+
 <dt>n</dt>
 <dd><p>the maximum number of runs that are acceptable (optional);<br>
 should be a multiple of <code>s^el</code>; must not be smaller than <code>m+1</code>, if <code>m</code> is specified</p></dd>
+
+
 <dt>...</dt>
 <dd><p>currently unused</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns a data frame, each row of which contains a possibility; if no SOAs exist, the data.frame has zero rows.
+    
+
+<p>The function returns a data frame, each row of which contains a possibility; if no SOAs exist, the data.frame has zero rows.
 There is example code for constructing the SOA. Code details must be adjusted by the user
 (see the documentation of the respective functions).
 #'</p>
@@ -106,21 +117,21 @@ Zhou and Tang (2019)<br></p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## guide_SOAs</span></span>
-<span class="r-in"><span class="co">## There is a Zhou and Tang type SOA with 4-level columns in 8 runs</span></span>
-<span class="r-in"><span class="fu">guide_SOAs</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, n<span class="op">=</span><span class="fl">8</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## guide_SOAs</span></span></span>
+<span class="r-in"><span><span class="co">## There is a Zhou and Tang type SOA with 4-level columns in 8 runs</span></span></span>
+<span class="r-in"><span><span class="fu">guide_SOAs</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, n<span class="op">=</span><span class="fl">8</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          type strength n nlevels m mmax orthogonal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ZT2019 ZT2019       3- 8       4 3    3        yes</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                  code</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ZT2019 OSOAs_hadamard(m=3, n=8, el=2)</span>
-<span class="r-in"><span class="co">## There are no SOAs with 8-level columns in 8 runs</span></span>
-<span class="r-in"><span class="fu">guide_SOAs</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, n<span class="op">=</span><span class="fl">8</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## There are no SOAs with 8-level columns in 8 runs</span></span></span>
+<span class="r-in"><span><span class="fu">guide_SOAs</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, n<span class="op">=</span><span class="fl">8</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] type       strength   n          nlevels    m          mmax       orthogonal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [8] code      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;0 rows&gt; (or 0-length row.names)</span>
-<span class="r-in"><span class="co">## What SOAs based on s=2 in s^3 levels with 7 columns</span></span>
-<span class="r-in"><span class="co">## can be construct without providing an OA?</span></span>
-<span class="r-in"><span class="fu">guide_SOAs</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, m<span class="op">=</span><span class="fl">7</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## What SOAs based on s=2 in s^3 levels with 7 columns</span></span></span>
+<span class="r-in"><span><span class="co">## can be construct without providing an OA?</span></span></span>
+<span class="r-in"><span><span class="fu">guide_SOAs</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, m<span class="op">=</span><span class="fl">7</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            type strength  n nlevels m mmax orthogonal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ST_fam1 ST_fam1        3 32       8 7    9         no</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ST_fam3 ST_fam3       3+ 32       8 7    7        yes</span>
@@ -129,13 +140,13 @@ Zhou and Tang (2019)<br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ST_fam1     SOAs_8level(n=32, m=7, constr='ShiTang_alpha')</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ST_fam3 SOAs_8level(n=32, m=7, constr='ShiTang_alphabeta')</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LLY                        OSOAs_hadamard(m=7, n=24, el=3)</span>
-<span class="r-in"><span class="co">## pick the Shi and Tang family 3 design</span></span>
-<span class="r-in"><span class="va">myST_3plus</span> <span class="op">&lt;-</span> <span class="fu"><a href="SOAs_8level.html">SOAs_8level</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">32</span>, m<span class="op">=</span><span class="fl">7</span>, constr<span class="op">=</span><span class="st">'ShiTang_alphabeta'</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## pick the Shi and Tang family 3 design</span></span></span>
+<span class="r-in"><span><span class="va">myST_3plus</span> <span class="op">&lt;-</span> <span class="fu"><a href="SOAs_8level.html">SOAs_8level</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">32</span>, m<span class="op">=</span><span class="fl">7</span>, constr<span class="op">=</span><span class="st">'ShiTang_alphabeta'</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Optimization 1 of 1 started</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Optimization round 1 of 1 started</span>
-<span class="r-in"><span class="co">## Note that the design has orthogonal columns and strength 3+,</span></span>
-<span class="r-in"><span class="co">## i.e., very good balance properties.</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="co">## Note that the design has orthogonal columns and strength 3+,</span></span></span>
+<span class="r-in"><span><span class="co">## i.e., very good balance properties.</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -150,7 +161,7 @@ Zhou and Tang (2019)<br></p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

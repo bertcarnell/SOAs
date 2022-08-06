@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
       </span>
     </div>
 
@@ -50,46 +50,77 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">int2poly</span><span class="op">(</span><span class="va">x</span>, <span class="va">gf</span><span class="op">)</span>
-
-<span class="fu">poly2int</span><span class="op">(</span><span class="va">poly</span>, <span class="va">gf</span><span class="op">)</span>
-
-<span class="fu">gf_sum</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">gf</span><span class="op">)</span>
-
-<span class="fu">gf_prod</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">gf</span><span class="op">)</span>
-
-<span class="fu">gf_sum_list</span><span class="op">(</span><span class="va">ll</span>, <span class="va">gf</span>, checks <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="fu">gf_matmult</span><span class="op">(</span><span class="va">M1</span>, <span class="va">M2</span>, <span class="va">gf</span>, checks <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">int2poly</span><span class="op">(</span><span class="va">x</span>, <span class="va">gf</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">poly2int</span><span class="op">(</span><span class="va">poly</span>, <span class="va">gf</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">gf_sum</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">gf</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">gf_prod</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">gf</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">gf_sum_list</span><span class="op">(</span><span class="va">ll</span>, <span class="va">gf</span>, checks <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">gf_matmult</span><span class="op">(</span><span class="va">M1</span>, <span class="va">M2</span>, <span class="va">gf</span>, checks <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a vector of e elements in <code>0:(q-1)</code></p></dd>
+
+
 <dt>gf</dt>
 <dd><p>Galois field object with characteristic <code>q</code></p></dd>
+
+
 <dt>poly</dt>
 <dd><p>takes an e x n matrix of polygon rows or a
 length n vector for a single polygon (e=1)</p></dd>
+
+
 <dt>y</dt>
 <dd><p>a second vector of e elements in <code>0:(q-1)</code></p></dd>
+
+
 <dt>ll</dt>
 <dd><p>a list of integer vectors in <code>0:(q-1)</code></p></dd>
+
+
 <dt>checks</dt>
 <dd><p>logical: should checks be performed</p></dd>
+
+
 <dt>M1</dt>
 <dd><p>matrix 1 with elements in <code>0:(q-1)</code></p></dd>
+
+
 <dt>M2</dt>
 <dd><p>matrix 2 with elements in <code>0:(q-1)</code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>int2poly</code> returns an e x n matrix or a length n vector (if x is scalar)
-<code>poly2int</code> returns an e element vector of integers in <code>0:(q-1)</code><code>gf_sum</code> returns the sum (e elements in <code>0:(q-1)</code>)
-<code>gf_prod</code> returns the product (e elements in <code>0:(q-1)</code>)
-<code>gf_sum_list</code> returns the sum (an integer vector in <code>0:(q-1)</code>)
-<code>gf_matmult</code> returns the matrix product with elements from <code>0:(q-1)</code></p>
+    
+
+<p><code>int2poly</code> returns an e x n matrix or a length n vector (if x is scalar)</p>
+
+
+<p><code>poly2int</code> returns an e element vector of integers in <code>0:(q-1)</code></p>
+
+
+
+<p><code>gf_sum</code> returns the sum (e elements in <code>0:(q-1)</code>)</p>
+
+
+<p><code>gf_prod</code> returns the product (e elements in <code>0:(q-1)</code>)</p>
+
+
+<p><code>gf_sum_list</code> returns the sum (an integer vector in <code>0:(q-1)</code>)</p>
+
+
+<p><code>gf_matmult</code> returns the matrix product with elements from <code>0:(q-1)</code></p>
+
+
     </div>
 
   </div>
@@ -104,7 +135,7 @@ length n vector for a single polygon (e=1)</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

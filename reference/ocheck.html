@@ -19,7 +19,7 @@ the number of level pairs in 2D projections"><!-- mathjax --><script src="https:
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
       </span>
     </div>
 
@@ -54,17 +54,17 @@ the number of level pairs in 2D projections</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ocheck</span><span class="op">(</span><span class="va">D</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">ocheck3</span><span class="op">(</span><span class="va">D</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">count_npairs</span><span class="op">(</span><span class="va">D</span>, minn <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-
-<span class="fu">count_nallpairs</span><span class="op">(</span><span class="va">ns</span><span class="op">)</span>
-
-<span class="fu">soacheck2D</span><span class="op">(</span><span class="va">D</span>, s <span class="op">=</span> <span class="fl">3</span>, el <span class="op">=</span> <span class="fl">3</span>, t <span class="op">=</span> <span class="fl">3</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">soacheck3D</span><span class="op">(</span><span class="va">D</span>, s <span class="op">=</span> <span class="fl">3</span>, el <span class="op">=</span> <span class="fl">3</span>, t <span class="op">=</span> <span class="fl">3</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ocheck</span><span class="op">(</span><span class="va">D</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ocheck3</span><span class="op">(</span><span class="va">D</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">count_npairs</span><span class="op">(</span><span class="va">D</span>, minn <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">count_nallpairs</span><span class="op">(</span><span class="va">ns</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">soacheck2D</span><span class="op">(</span><span class="va">D</span>, s <span class="op">=</span> <span class="fl">3</span>, el <span class="op">=</span> <span class="fl">3</span>, t <span class="op">=</span> <span class="fl">3</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">soacheck3D</span><span class="op">(</span><span class="va">D</span>, s <span class="op">=</span> <span class="fl">3</span>, el <span class="op">=</span> <span class="fl">3</span>, t <span class="op">=</span> <span class="fl">3</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -72,18 +72,30 @@ the number of level pairs in 2D projections</p>
     <dl><dt>D</dt>
 <dd><p>a matrix with factor levels or an object of class <code>SOA</code>;<br>
 factor levels can start with 0 or with 1, and need to be consecutively numbered</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>logical; if <code>TRUE</code>, additional information is printed
 (confounded pair or triple projections with A2 or A3, respectively, or table of correlations)</p></dd>
+
+
 <dt>minn</dt>
 <dd><p>small integer number; the function counts pairs that are covered at least <code>minn</code> times</p></dd>
+
+
 <dt>ns</dt>
 <dd><p>vector of numbers of levels for each column</p></dd>
+
+
 <dt>s</dt>
 <dd><p>the prime or prime power according to which the array is checked</p></dd>
+
+
 <dt>el</dt>
 <dd><p>the exponent so that the number of levels of the array is <code>s^el</code>
 (if <code>s</code> is not NULL)</p></dd>
+
+
 <dt>t</dt>
 <dd><p>the strength for which to look (2, 3, or 4), equal to the sum of the
 exponents in the stratification dimensions; for example, <code>soacheck2D</code> considers <br>
@@ -92,11 +104,16 @@ s^2xs and sxs^2 projections with <code>t=3</code>, <br>
 and s^3xs, s^2xs^2 and sxs^3 projections with <code>t=4</code>.<br>
 If <code>t=4</code> and <code>el=2</code>, property gamma (s^3 x s and s x s^3) is obviously
 impossible and will not be part of the checks.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Functions whose names contain "<code>check</code>" return a logical.
-Functions <code>count_npairs</code> and <code>count_npairs</code> return a vector of
+    
+
+<p>Functions whose names contain "<code>check</code>" return a logical.</p>
+
+
+<p>Functions <code>count_npairs</code> and <code>count_npairs</code> return a vector of
 counts for level combinations in factor pairs (in the order of the columns of
 <code>DoE.base:::nchoosek(ncol(D),2)</code>), either for the array in D, or for
 designs with numbers of levels given in <code>ns</code>.</p>
@@ -131,40 +148,40 @@ Shi and Tang (2020)</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">nullcase</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">7</span>, nrow<span class="op">=</span><span class="fl">8</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">soacheck2D</span><span class="op">(</span><span class="va">nullcase</span>, s<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">nullcase</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">7</span>, nrow<span class="op">=</span><span class="fl">8</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">soacheck2D</span><span class="op">(</span><span class="va">nullcase</span>, s<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"><span class="fu">soacheck3D</span><span class="op">(</span><span class="va">nullcase</span>, s<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">soacheck3D</span><span class="op">(</span><span class="va">nullcase</span>, s<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Shi and Tang strength 3+ construction in 7 8-level factors for 32 runs</span></span>
-<span class="r-in"><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="SOAs_8level.html">SOAs_8level</a></span><span class="op">(</span><span class="fl">32</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## check for strength 3+ (default el=3 is OK)</span></span>
-<span class="r-in"><span class="co">## 2D check</span></span>
-<span class="r-in"><span class="fu">soacheck2D</span><span class="op">(</span><span class="va">D</span>, s<span class="op">=</span><span class="fl">2</span>, t<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Shi and Tang strength 3+ construction in 7 8-level factors for 32 runs</span></span></span>
+<span class="r-in"><span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="SOAs_8level.html">SOAs_8level</a></span><span class="op">(</span><span class="fl">32</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## check for strength 3+ (default el=3 is OK)</span></span></span>
+<span class="r-in"><span><span class="co">## 2D check</span></span></span>
+<span class="r-in"><span><span class="fu">soacheck2D</span><span class="op">(</span><span class="va">D</span>, s<span class="op">=</span><span class="fl">2</span>, t<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="co">## 3D check</span></span>
-<span class="r-in"><span class="fu">soacheck3D</span><span class="op">(</span><span class="va">D</span>, s<span class="op">=</span><span class="fl">2</span>, t<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## 3D check</span></span></span>
+<span class="r-in"><span><span class="fu">soacheck3D</span><span class="op">(</span><span class="va">D</span>, s<span class="op">=</span><span class="fl">2</span>, t<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="co">## not an OSOA</span></span>
-<span class="r-in"><span class="fu">ocheck</span><span class="op">(</span><span class="va">D</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## not an OSOA</span></span></span>
+<span class="r-in"><span><span class="fu">ocheck</span><span class="op">(</span><span class="va">D</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## an OSOA of strength 3 with 3-orthogonality</span></span>
-<span class="r-in"><span class="co">## 4 columns in 27 levels each</span></span>
-<span class="r-in"><span class="co">## second order model matrix</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">D_o</span> <span class="op">&lt;-</span> <span class="fu"><a href="OSOAs_LiuLiu.html">OSOAs_LiuLiu</a></span><span class="op">(</span><span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L81.3.10</a></span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ocheck3</span><span class="op">(</span><span class="va">D_o</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## an OSOA of strength 3 with 3-orthogonality</span></span></span>
+<span class="r-in"><span><span class="co">## 4 columns in 27 levels each</span></span></span>
+<span class="r-in"><span><span class="co">## second order model matrix</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">D_o</span> <span class="op">&lt;-</span> <span class="fu"><a href="OSOAs_LiuLiu.html">OSOAs_LiuLiu</a></span><span class="op">(</span><span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L81.3.10</a></span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ocheck3</span><span class="op">(</span><span class="va">D_o</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## benefit of 3-orthogonality for second order linear models</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">D_o</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"X"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">81</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mylm</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="op">(</span><span class="va">X1</span><span class="op">+</span><span class="va">X2</span><span class="op">+</span><span class="va">X3</span><span class="op">+</span><span class="va">X4</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">X1</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">X2</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">X3</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">X4</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>,</span>
-<span class="r-in">                   data<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">D_o</span>, scale<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/crossprod.html" class="external-link">crossprod</a></span><span class="op">(</span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="va">mylm</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## benefit of 3-orthogonality for second order linear models</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">D_o</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"X"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">81</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mylm</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="op">(</span><span class="va">X1</span><span class="op">+</span><span class="va">X2</span><span class="op">+</span><span class="va">X3</span><span class="op">+</span><span class="va">X4</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">X1</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">X2</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">X3</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">X4</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   data<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">D_o</span>, scale<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/crossprod.html" class="external-link">crossprod</a></span><span class="op">(</span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="va">mylm</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             (Intercept)   X1   X2   X3   X4 I(X1^2) I(X2^2) I(X3^2) I(X4^2)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)          81    0    0    0    0    4914    4914    4914    4914</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X1                    0 4914    0    0    0       0       0       0       0</span>
@@ -211,7 +228,7 @@ Shi and Tang (2020)</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

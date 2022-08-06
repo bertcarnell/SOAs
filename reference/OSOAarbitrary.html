@@ -19,7 +19,7 @@ using the Li et al. algorithm for arbitrary initial OA — OSOAarbitrary"><meta 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
       </span>
     </div>
 
@@ -53,25 +53,36 @@ using the Li et al. algorithm for arbitrary initial OA</h1>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">OSOAarbitrary</span><span class="op">(</span><span class="va">oa</span>, el <span class="op">=</span> <span class="fl">3</span>, m <span class="op">=</span> <span class="cn">NULL</span>, permlist <span class="op">=</span> <span class="cn">NULL</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">OSOAarbitrary</span><span class="op">(</span><span class="va">oa</span>, el <span class="op">=</span> <span class="fl">3</span>, m <span class="op">=</span> <span class="cn">NULL</span>, permlist <span class="op">=</span> <span class="cn">NULL</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>oa</dt>
 <dd><p>matrix (preferred) or data.frame</p></dd>
+
+
 <dt>el</dt>
 <dd><p>must be 2 or 3.  <code>el=3</code>: Li et al; <code>el=2</code>: Zhou and Tang</p></dd>
+
+
 <dt>m</dt>
 <dd><p>desired number of columns.  Defaults to the maximum possible.</p></dd>
+
+
 <dt>permlist</dt>
 <dd><p>a list of length m of lists of length 1 of permutations of the levels</p></dd>
+
+
 <dt>random</dt>
 <dd><p>a logical (a random draw of permutations is used if <code>permlist</code> is <code>NULL</code>)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>an orthogonal array</p>
+    
+
+<p>an orthogonal array</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -91,7 +102,7 @@ Zhou and Tang</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
       </span>
     </div>
 
@@ -50,31 +50,42 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">phi_optimize</span><span class="op">(</span>
-  <span class="va">D</span>,
-  noptim.rounds <span class="op">=</span> <span class="fl">1</span>,
-  noptim.repeats <span class="op">=</span> <span class="fl">1</span>,
-  dmethod <span class="op">=</span> <span class="st">"manhattan"</span>,
-  p <span class="op">=</span> <span class="fl">50</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">phi_optimize</span><span class="op">(</span></span>
+<span>  <span class="va">D</span>,</span>
+<span>  noptim.rounds <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  noptim.repeats <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  dmethod <span class="op">=</span> <span class="st">"manhattan"</span>,</span>
+<span>  p <span class="op">=</span> <span class="fl">50</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>D</dt>
 <dd><p>numeric matrix or data.frame with numeric columns, n x m. A symmetric array (e.g. an OA) with <code>nl</code> levels for each columns. Levels must be coded as 0 to <code>nl - 1</code> or as 1 to <code>nl</code>. levels from</p></dd>
+
+
 <dt>noptim.rounds</dt>
 <dd><p>number of rounds in the Weng algorithm</p></dd>
+
+
 <dt>noptim.repeats</dt>
 <dd><p>number of independent repeats of the Weng algorithm</p></dd>
+
+
 <dt>dmethod</dt>
 <dd><p>distance method for <code><a href="phi_p.html">phi_p</a></code>, "manhattan" (default) or "euclidean"</p></dd>
+
+
 <dt>p</dt>
 <dd><p>p for <code><a href="phi_p.html">phi_p</a></code> (the larger, the closer to maximin distance)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>an n x m matrix</p>
+    
+
+<p>an n x m matrix</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -98,12 +109,12 @@ a new round with one-neighbours is started with the current optimum. Otherwise, 
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">oa</span> <span class="op">&lt;-</span> <span class="fu">lhs</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lhs/man/createBoseBush.html" class="external-link">createBoseBush</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">16</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="phi_p.html">phi_p</a></span><span class="op">(</span><span class="va">oa</span>, dmethod<span class="op">=</span><span class="st">"manhattan"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05075218</span>
-<span class="r-in"><span class="va">oa_optimized</span> <span class="op">&lt;-</span> <span class="fu">phi_optimize</span><span class="op">(</span><span class="va">oa</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="phi_p.html">phi_p</a></span><span class="op">(</span><span class="va">oa_optimized</span>, dmethod<span class="op">=</span><span class="st">"manhattan"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04273078</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">oa</span> <span class="op">&lt;-</span> <span class="fu">lhs</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lhs/man/createBoseBush.html" class="external-link">createBoseBush</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">16</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="phi_p.html">phi_p</a></span><span class="op">(</span><span class="va">oa</span>, dmethod<span class="op">=</span><span class="st">"manhattan"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04782038</span>
+<span class="r-in"><span><span class="va">oa_optimized</span> <span class="op">&lt;-</span> <span class="fu">phi_optimize</span><span class="op">(</span><span class="va">oa</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="phi_p.html">phi_p</a></span><span class="op">(</span><span class="va">oa_optimized</span>, dmethod<span class="op">=</span><span class="st">"manhattan"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04203864</span>
 </code></pre></div>
     </div>
   </div>
@@ -118,7 +129,7 @@ a new round with one-neighbours is started with the current optimum. Otherwise, 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -18,7 +18,7 @@ phi_p calculates the discrepancy"><!-- mathjax --><script src="https://cdnjs.clo
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
       </span>
     </div>
 
@@ -52,26 +52,35 @@ phi_p calculates the discrepancy"><!-- mathjax --><script src="https://cdnjs.clo
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">phi_p</span><span class="op">(</span><span class="va">D</span>, dmethod <span class="op">=</span> <span class="st">"manhattan"</span>, p <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>
-
-<span class="fu">mindist</span><span class="op">(</span><span class="va">D</span>, dmethod <span class="op">=</span> <span class="st">"manhattan"</span><span class="op">)</span>
-
-<span class="fu">phi_p</span><span class="op">(</span><span class="va">D</span>, dmethod <span class="op">=</span> <span class="st">"manhattan"</span>, p <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">phi_p</span><span class="op">(</span><span class="va">D</span>, dmethod <span class="op">=</span> <span class="st">"manhattan"</span>, p <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mindist</span><span class="op">(</span><span class="va">D</span>, dmethod <span class="op">=</span> <span class="st">"manhattan"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">phi_p</span><span class="op">(</span><span class="va">D</span>, dmethod <span class="op">=</span> <span class="st">"manhattan"</span>, p <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>D</dt>
 <dd><p>an array or an object of class SOA or MDLE</p></dd>
+
+
 <dt>dmethod</dt>
 <dd><p>the distance to use, <code>"manhattan"</code> (default) or <code>"euclidean"</code></p></dd>
+
+
 <dt>p</dt>
 <dd><p>the value for p to use in the formula for phi_p</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>both functions return a number
-a number</p>
+    
+
+<p>both functions return a number</p>
+
+
+<p>a number</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -88,31 +97,31 @@ maximin distance criterion</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L25.5.6</a></span>  <span class="co">## levels 1:5 for each factor</span></span>
-<span class="r-in"><span class="fu">phi_p</span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L25.5.6</a></span>  <span class="co">## levels 1:5 for each factor</span></span></span>
+<span class="r-in"><span><span class="fu">phi_p</span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2056228</span>
-<span class="r-in"><span class="fu">mindist</span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="co"># 5</span></span>
+<span class="r-in"><span><span class="fu">mindist</span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="co"># 5</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
-<span class="r-in"><span class="va">A2</span> <span class="op">&lt;-</span> <span class="fu"><a href="phi_optimize.html">phi_optimize</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">phi_p</span><span class="op">(</span><span class="va">A2</span><span class="op">)</span>     <span class="co">## improved</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1745261</span>
-<span class="r-in"><span class="fu">mindist</span><span class="op">(</span><span class="va">A2</span><span class="op">)</span>   <span class="co">## 6, improved</span></span>
+<span class="r-in"><span><span class="va">A2</span> <span class="op">&lt;-</span> <span class="fu"><a href="phi_optimize.html">phi_optimize</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">phi_p</span><span class="op">(</span><span class="va">A2</span><span class="op">)</span>     <span class="co">## improved</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1767781</span>
+<span class="r-in"><span><span class="fu">mindist</span><span class="op">(</span><span class="va">A2</span><span class="op">)</span>   <span class="co">## 6, improved</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 6</span>
-<span class="r-in"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L16.4.5</a></span>  <span class="co">## levels 1:4 for each factor</span></span>
-<span class="r-in"><span class="fu">phi_p</span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L16.4.5</a></span>  <span class="co">## levels 1:4 for each factor</span></span></span>
+<span class="r-in"><span><span class="fu">phi_p</span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2612313</span>
-<span class="r-in"><span class="fu">phi_p</span><span class="op">(</span><span class="va">A</span>, dmethod<span class="op">=</span><span class="st">"euclidean"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">phi_p</span><span class="op">(</span><span class="va">A</span>, dmethod<span class="op">=</span><span class="st">"euclidean"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5224622</span>
-<span class="r-in"><span class="va">A2</span> <span class="op">&lt;-</span> <span class="va">A</span></span>
-<span class="r-in"><span class="va">A2</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span><span class="op">[</span><span class="va">A</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu">phi_p</span><span class="op">(</span><span class="va">A2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">A2</span> <span class="op">&lt;-</span> <span class="va">A</span></span></span>
+<span class="r-in"><span><span class="va">A2</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span><span class="op">[</span><span class="va">A</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu">phi_p</span><span class="op">(</span><span class="va">A2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.257029</span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="co">## A2 has fewer minimal distances</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">6</span><span class="op">)</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">40</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">6</span><span class="op">)</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">40</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co">## A2 has fewer minimal distances</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">6</span><span class="op">)</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">40</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">6</span><span class="op">)</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">40</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -127,7 +136,7 @@ maximin distance criterion</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

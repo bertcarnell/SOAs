@@ -18,7 +18,7 @@ the initialization of the XiaoXu optimization"><!-- mathjax --><script src="http
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
       </span>
     </div>
 
@@ -52,30 +52,41 @@ the initialization of the XiaoXu optimization</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">DcFromDp</span><span class="op">(</span>
-  <span class="va">Dp</span>,
-  <span class="va">s</span>,
-  <span class="va">ell</span>,
-  permlist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="op">(</span><span class="va">ell</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>, each <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">Dp</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">s</span> <span class="op">*</span> <span class="va">ell</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, <span class="va">s</span><span class="op">)</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">Dp</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">DcFromDp</span><span class="op">(</span></span>
+<span>  <span class="va">Dp</span>,</span>
+<span>  <span class="va">s</span>,</span>
+<span>  <span class="va">ell</span>,</span>
+<span>  permlist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="op">(</span><span class="va">ell</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>, each <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">Dp</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">s</span> <span class="op">*</span> <span class="va">ell</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, <span class="va">s</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">Dp</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>Dp</dt>
 <dd><p>an OA (ideally maximin optimized GMA OA)</p></dd>
+
+
 <dt>s</dt>
 <dd><p>the number of levels of each column in Dp</p></dd>
+
+
 <dt>ell</dt>
 <dd><p><code>ell*s</code> is the target number of levels of the outgoing Dc</p></dd>
+
+
 <dt>permlist</dt>
 <dd><p>a list of m lists of length s permutations of the elements
 of the replacement vector</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a matrix of the same size as <code>Dp</code></p>
+    
+
+<p>a matrix of the same size as <code>Dp</code></p>
+
+
     </div>
 
   </div>
@@ -90,7 +101,7 @@ of the replacement vector</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

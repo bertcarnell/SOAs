@@ -20,7 +20,7 @@ s^2 levels or m'=2*floor(m/2) columns in s^3 levels."><!-- mathjax --><script sr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
       </span>
     </div>
 
@@ -55,17 +55,17 @@ s^2 levels or m'=2*floor(m/2) columns in s^3 levels.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">OSOAs_regular</span><span class="op">(</span>
-  <span class="va">s</span>,
-  <span class="va">k</span>,
-  el <span class="op">=</span> <span class="fl">3</span>,
-  m <span class="op">=</span> <span class="cn">NULL</span>,
-  noptim.rounds <span class="op">=</span> <span class="fl">1</span>,
-  noptim.repeats <span class="op">=</span> <span class="fl">1</span>,
-  optimize <span class="op">=</span> <span class="cn">TRUE</span>,
-  dmethod <span class="op">=</span> <span class="st">"manhattan"</span>,
-  p <span class="op">=</span> <span class="fl">50</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">OSOAs_regular</span><span class="op">(</span></span>
+<span>  <span class="va">s</span>,</span>
+<span>  <span class="va">k</span>,</span>
+<span>  el <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  m <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  noptim.rounds <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  noptim.repeats <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  optimize <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  dmethod <span class="op">=</span> <span class="st">"manhattan"</span>,</span>
+<span>  p <span class="op">=</span> <span class="fl">50</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -73,31 +73,50 @@ s^2 levels or m'=2*floor(m/2) columns in s^3 levels.</p>
     <dl><dt>s</dt>
 <dd><p>the prime or prime power to use (do not use for s=2, because other
 method is better); the resulting array will have pairwise orthogonal columns in s^t levels</p></dd>
+
+
 <dt>k</dt>
 <dd><p>integer &gt;=3; determines the run size: the resulting array will have s^k runs</p></dd>
+
+
 <dt>el</dt>
 <dd><p>2 or 3; the exponent of the number of levels, <code>el=3</code> yields a
 strength 2* or 3 OSOA in s^3 levels, <code>el=2</code> a strength 2+ or 3- OSOA in s^2 levels</p></dd>
+
+
 <dt>m</dt>
 <dd><p>the desired number of columns of the resulting array; for
 <code>el=3</code>, odd values of <code>m</code> will be reduced by one, so specify the
 next largest even <code>m</code>, if you need an odd number of columns (the function
 will do so, if possible); if <code>m=NULL</code>, the maximum possible value is used.
 This is at most (s^(k-1)-1)/(s-1), or one less if this is odd and <code>el=3</code>.</p></dd>
+
+
 <dt>noptim.rounds</dt>
 <dd><p>the number of optimization rounds for each independent restart</p></dd>
+
+
 <dt>noptim.repeats</dt>
 <dd><p>the number of independent restarts of optimizations with <code>noptim.rounds</code> rounds each</p></dd>
+
+
 <dt>optimize</dt>
 <dd><p>logical: should space filling be optimized by level permutations?</p></dd>
+
+
 <dt>dmethod</dt>
 <dd><p>distance method for <code><a href="phi_p.html">phi_p</a></code>, "manhattan" (default) or "euclidean"</p></dd>
+
+
 <dt>p</dt>
 <dd><p>p for <code><a href="phi_p.html">phi_p</a></code> (the larger, the closer to maximin distance)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>matrix of class <code>SOA</code> with the attributes that are listed below. All attributes can be accessed using function <code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></code>, or individual attributes can be accessed using function <code><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></code>. These are the attributes:</p><dl><dt>type</dt>
+    
+
+<p>matrix of class <code>SOA</code> with the attributes that are listed below. All attributes can be accessed using function <code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></code>, or individual attributes can be accessed using function <code><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></code>. These are the attributes:</p><dl><dt>type</dt>
 <dd><p>the type of array (<code>SOA</code> or <code>OSOA</code>)</p></dd>
 
 <dt>strength</dt>
@@ -150,8 +169,8 @@ Zhou and Tang (2019)</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## 13 columns in 9 levels each</span></span>
-<span class="r-in"><span class="fu">OSOAs_regular</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, el<span class="op">=</span><span class="fl">2</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="co">## 13 columns, phi_p about 0.117</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## 13 columns in 9 levels each</span></span></span>
+<span class="r-in"><span><span class="fu">OSOAs_regular</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, el<span class="op">=</span><span class="fl">2</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="co">## 13 columns, phi_p about 0.117</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]    0    0    0    0    0    0    0    0    0     0     0     0     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]    4    4    4    4    4    4    4    4    0     0     0     0     4</span>
@@ -235,8 +254,8 @@ Zhou and Tang (2019)</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [80,]    6    1    5    1    5    6    5    6    6     1     5     5     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [81,]    1    5    6    5    6    1    6    1    6     1     5     5     5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> OSOA, strength 2+</span>
-<span class="r-in"><span class="co"># optimizing level permutations typically improves phi_p a lot</span></span>
-<span class="r-in"><span class="co"># OSOAs_regular(3, 4, el=2) ## 13 columns, phi_p typically below 0.055</span></span>
+<span class="r-in"><span><span class="co"># optimizing level permutations typically improves phi_p a lot</span></span></span>
+<span class="r-in"><span><span class="co"># OSOAs_regular(3, 4, el=2) ## 13 columns, phi_p typically below 0.055</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -251,7 +270,7 @@ Zhou and Tang (2019)</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

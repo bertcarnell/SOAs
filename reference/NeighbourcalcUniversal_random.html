@@ -19,7 +19,7 @@ without using a stored list of all permutations — NeighbourcalcUniversal_rando
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
       </span>
     </div>
 
@@ -53,37 +53,52 @@ without using a stored list of all permutations</h1>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">NeighbourcalcUniversal_random</span><span class="op">(</span>
-  <span class="va">funname</span>,
-  <span class="va">mperm</span>,
-  <span class="va">r</span>,
-  <span class="va">...</span>,
-  curperms <span class="op">=</span> <span class="cn">NULL</span>,
-  replacement <span class="op">=</span> <span class="cn">NULL</span>,
-  neighbordist <span class="op">=</span> <span class="fl">1</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">NeighbourcalcUniversal_random</span><span class="op">(</span></span>
+<span>  <span class="va">funname</span>,</span>
+<span>  <span class="va">mperm</span>,</span>
+<span>  <span class="va">r</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  curperms <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  replacement <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  neighbordist <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>funname</dt>
 <dd><p>function that creates the individual (O)SOAs</p></dd>
+
+
 <dt>mperm</dt>
 <dd><p>number of columns of <code>startperm</code></p></dd>
+
+
 <dt>r</dt>
 <dd><p>number of rows of <code>startperm</code></p></dd>
+
+
 <dt>...</dt>
 <dd><p>arguments for function <code>funname</code></p></dd>
+
+
 <dt>neighbordist</dt>
 <dd><p>1 or 2: one- or two-neighbors in Weng's algorithm</p></dd>
+
+
 <dt>startperm</dt>
 <dd><p>matrix with position numbers of level permutations (refers to <code>allpermlist</code>)</p></dd>
+
+
 <dt>allpermlist</dt>
 <dd><p>list of all permutations</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>list of arrays and corresponding permutations</p>
+    
+
+<p>list of arrays and corresponding permutations</p>
     </div>
 
   </div>
@@ -98,7 +113,7 @@ without using a stored list of all permutations</h1>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

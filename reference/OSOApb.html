@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
       </span>
     </div>
 
@@ -50,7 +50,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">OSOApb</span><span class="op">(</span>m <span class="op">=</span> <span class="cn">NULL</span>, n <span class="op">=</span> <span class="cn">NULL</span>, el <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">OSOApb</span><span class="op">(</span>m <span class="op">=</span> <span class="cn">NULL</span>, n <span class="op">=</span> <span class="cn">NULL</span>, el <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -58,16 +58,23 @@
     <dl><dt>m</dt>
 <dd><p>the number of columns to be created;
 if <code>n</code> is also given, <code>m</code> must be compatible with it</p></dd>
+
+
 <dt>n</dt>
 <dd><p>the number of runs to be created (must be a multiple of 8);
 if <code>m</code> is also given, <code>n</code> must be compatible with it</p></dd>
+
+
 <dt>el</dt>
 <dd><p>exponent for 2, can be 2 or 3: the OSOA will have columns with
 2^el (4 or 8) levels</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>an OSOA of strength 3- or 3 (matrix)</p>
+    
+
+<p>an OSOA of strength 3- or 3 (matrix)</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -90,16 +97,16 @@ Zhou and Tang (2019) strength 3- designs are created, for <code>el=3</code> stre
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">OSOApb</span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">)</span>  <span class="co">## 9 8-level factors in 24 runs</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">OSOApb</span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">)</span>  <span class="co">## 9 8-level factors in 24 runs</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 24  9</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">OSOApb</span><span class="op">(</span>n<span class="op">=</span><span class="fl">16</span><span class="op">)</span><span class="op">)</span> <span class="co">## 6 8-level factors in 16 runs</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">OSOApb</span><span class="op">(</span>n<span class="op">=</span><span class="fl">16</span><span class="op">)</span><span class="op">)</span> <span class="co">## 6 8-level factors in 16 runs</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Plackett-Burman designs in 8 runs coincide with regular fractional factorials. </span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>           For screening more than four factors, you may want to consider increasing the number of runs to 12. </span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>           Make sure to take the alias structure into account for interpretation!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 16  6</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">OSOApb</span><span class="op">(</span>m<span class="op">=</span><span class="fl">35</span><span class="op">)</span><span class="op">)</span> <span class="co">## 35 8-level factors in 80 runs</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">OSOApb</span><span class="op">(</span>m<span class="op">=</span><span class="fl">35</span><span class="op">)</span><span class="op">)</span> <span class="co">## 35 8-level factors in 80 runs</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 80 35</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -114,7 +121,7 @@ Zhou and Tang (2019) strength 3- designs are created, for <code>el=3</code> stre
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

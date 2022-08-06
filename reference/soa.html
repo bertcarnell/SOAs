@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
       </span>
     </div>
 
@@ -50,26 +50,37 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">soa</span><span class="op">(</span><span class="va">oa</span>, t <span class="op">=</span> <span class="fl">3</span>, m <span class="op">=</span> <span class="cn">NULL</span>, permlist <span class="op">=</span> <span class="cn">NULL</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">soa</span><span class="op">(</span><span class="va">oa</span>, t <span class="op">=</span> <span class="fl">3</span>, m <span class="op">=</span> <span class="cn">NULL</span>, permlist <span class="op">=</span> <span class="cn">NULL</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>oa</dt>
 <dd><p>matrix or data.frame that contains an ingoing symmetric OA. Levels must be denoted as 0 to s-1 or as 1 to s.</p></dd>
+
+
 <dt>t</dt>
 <dd><p>the strength the SOA should have, can be 2, 3, 4, or 5. Must not
 be larger than the strength of <code>oa</code>, but can be smaller. The resulting SOA will have s^t levels</p></dd>
+
+
 <dt>m</dt>
 <dd><p>the requested number of columns (see details for permitted numbers of columns)</p></dd>
+
+
 <dt>permlist</dt>
 <dd><p>list of lists of permutations</p></dd>
+
+
 <dt>random</dt>
 <dd><p>logical</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a matrix</p>
+    
+
+<p>a matrix</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -88,7 +99,7 @@ be larger than the strength of <code>oa</code>, but can be smaller. The resultin
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

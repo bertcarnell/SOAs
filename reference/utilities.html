@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
       </span>
     </div>
 
@@ -50,29 +50,42 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ff</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-
-<span class="fu">Yatesmat2</span><span class="op">(</span><span class="va">k</span><span class="op">)</span>
-
-<span class="fu">interleavecols</span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ff</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">Yatesmat2</span><span class="op">(</span><span class="va">k</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">interleavecols</span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>...</dt>
 <dd><p>list of integers or numeric vector with integers</p></dd>
+
+
 <dt>k</dt>
 <dd><p>determines dimension</p></dd>
+
+
 <dt>A</dt>
 <dd><p>n x m matrix A</p></dd>
+
+
 <dt>B</dt>
 <dd><p>n x m matrix B</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>ff returns a full factorial matrix
-Yatesmat2 returns a 2^k x (2^k - 1) matrix with 0/1 entries, Yates matrix
-interleavecols returns an n x (2m) matrix with columns <code>A[,1]</code>, <code>B[,1]</code>,
+    
+
+<p>ff returns a full factorial matrix</p>
+
+
+<p>Yatesmat2 returns a 2^k x (2^k - 1) matrix with 0/1 entries, Yates matrix</p>
+
+
+<p>interleavecols returns an n x (2m) matrix with columns <code>A[,1]</code>, <code>B[,1]</code>,
 <code>A[,2]</code>, <code>B[,2]</code>, ...</p>
     </div>
 
@@ -88,7 +101,7 @@ interleavecols returns an n x (2m) matrix with columns <code>A[,1]</code>, <code
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

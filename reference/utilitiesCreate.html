@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
       </span>
     </div>
 
@@ -50,37 +50,58 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">createAB</span><span class="op">(</span><span class="va">s</span>, k <span class="op">=</span> <span class="fl">3</span>, m <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="fu">BsFromB</span><span class="op">(</span><span class="va">B</span>, s <span class="op">=</span> <span class="cn">NULL</span>, r <span class="op">=</span> <span class="cn">NULL</span>, permlist <span class="op">=</span> <span class="cn">NULL</span>, oneonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="fu">BcolsFromBcolllist</span><span class="op">(</span><span class="va">Bcollist</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">createAB</span><span class="op">(</span><span class="va">s</span>, k <span class="op">=</span> <span class="fl">3</span>, m <span class="op">=</span> <span class="cn">NULL</span>, old <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">BsFromB</span><span class="op">(</span><span class="va">B</span>, s <span class="op">=</span> <span class="cn">NULL</span>, r <span class="op">=</span> <span class="cn">NULL</span>, permlist <span class="op">=</span> <span class="cn">NULL</span>, oneonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">BcolsFromBcolllist</span><span class="op">(</span><span class="va">Bcollist</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>s</dt>
 <dd><p>levels</p></dd>
+
+
 <dt>k</dt>
 <dd><p>integer; determines the run size: the resulting array will have s^k runs</p></dd>
+
+
 <dt>m</dt>
 <dd><p>the number of columns to be created</p></dd>
+
+
 <dt>B</dt>
 <dd><p>n x m matrix</p></dd>
+
+
 <dt>r</dt>
 <dd><p>number of copies</p></dd>
+
+
 <dt>permlist</dt>
 <dd><p>permutation list</p></dd>
+
+
 <dt>oneonly</dt>
 <dd><p>logical: permute all copies in the same way?</p></dd>
+
+
 <dt>Bcollist</dt>
 <dd><p>list of candidate columns for He et al. (2018) construction</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>createAB</code> returns a list of s^k times m matrices A, B and D for the He, Cheng and Tang (2018) construction
-<code>BsFromB</code> returns an rn x m matrix
-<code>BcolsFromBcolllist</code> returns column numbers selected for matrix B</p>
+    
+
+<p><code>createAB</code> returns a list of s^k times m matrices A, B and D for the He, Cheng and Tang (2018) construction</p>
+
+
+<p><code>BsFromB</code> returns an rn x m matrix</p>
+
+
+<p><code>BcolsFromBcolllist</code> returns column numbers selected for matrix B</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -103,7 +124,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

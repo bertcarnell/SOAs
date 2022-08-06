@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
       </span>
     </div>
 
@@ -50,44 +50,61 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">OSOAs</span><span class="op">(</span>
-  <span class="va">oa</span>,
-  el <span class="op">=</span> <span class="fl">3</span>,
-  m <span class="op">=</span> <span class="cn">NULL</span>,
-  noptim.rounds <span class="op">=</span> <span class="fl">1</span>,
-  noptim.repeats <span class="op">=</span> <span class="fl">1</span>,
-  optimize <span class="op">=</span> <span class="cn">TRUE</span>,
-  dmethod <span class="op">=</span> <span class="st">"manhattan"</span>,
-  p <span class="op">=</span> <span class="fl">50</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">OSOAs</span><span class="op">(</span></span>
+<span>  <span class="va">oa</span>,</span>
+<span>  el <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  m <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  noptim.rounds <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  noptim.repeats <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  optimize <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  dmethod <span class="op">=</span> <span class="st">"manhattan"</span>,</span>
+<span>  p <span class="op">=</span> <span class="fl">50</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>oa</dt>
 <dd><p>matrix or data.frame that contains an ingoing symmetric OA. Levels must be denoted as 0 to s-1 or as 1 to s.</p></dd>
+
+
 <dt>el</dt>
 <dd><p>the exponent of the number of levels, <code>el=3</code> yields a
 strength 2* OSOA in s^3 levels, <code>el=2</code> a strength 2+ OSOA in s^2 levels</p></dd>
+
+
 <dt>m</dt>
 <dd><p>the desired number of columns of the resulting array; odd values of
 m will be reduced by one, so specify the next largest even m, if you need an
 odd number of columns (the function will do so, if possible; if <code>m=NULL</code>,
 the maximum possible value is used.</p></dd>
+
+
 <dt>noptim.rounds</dt>
 <dd><p>the number of optimization rounds for each independent restart</p></dd>
+
+
 <dt>noptim.repeats</dt>
 <dd><p>the number of independent restarts of optimizations with <code>noptim.rounds</code> rounds each</p></dd>
+
+
 <dt>optimize</dt>
 <dd><p>logical: should space filling be optimized by level permutations?</p></dd>
+
+
 <dt>dmethod</dt>
 <dd><p>distance method for <code><a href="phi_p.html">phi_p</a></code>, "manhattan" (default) or "euclidean"</p></dd>
+
+
 <dt>p</dt>
 <dd><p>p for <code><a href="phi_p.html">phi_p</a></code> (the larger, the closer to maximin distance)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>matrix of class <code>SOA</code> with the attributes that are listed below. All attributes can be accessed using function <code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></code>, or individual attributes can be accessed using function <code><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></code>. These are the attributes:</p><dl><dt>type</dt>
+    
+
+<p>matrix of class <code>SOA</code> with the attributes that are listed below. All attributes can be accessed using function <code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></code>, or individual attributes can be accessed using function <code><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></code>. These are the attributes:</p><dl><dt>type</dt>
 <dd><p>the type of array (<code>SOA</code> or <code>OSOA</code>)</p></dd>
 
 <dt>strength</dt>
@@ -137,10 +154,10 @@ Zhou and Tang (2019)<br></p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## run with optimization for actual use!</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## 54 runs with seven 9-level columns</span></span>
-<span class="r-in"><span class="fu">OSOAs</span><span class="op">(</span><span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L18</a></span><span class="op">[</span>,<span class="fl">3</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span>, el<span class="op">=</span><span class="fl">2</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## run with optimization for actual use!</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## 54 runs with seven 9-level columns</span></span></span>
+<span class="r-in"><span><span class="fu">OSOAs</span><span class="op">(</span><span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L18</a></span><span class="op">[</span>,<span class="fl">3</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span>, el<span class="op">=</span><span class="fl">2</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4] [,5] [,6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]    0    0    0    0    0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]    4    4    4    4    4    4</span>
@@ -197,9 +214,9 @@ Zhou and Tang (2019)<br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [53,]    1    6    5    6    1    5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [54,]    5    1    6    1    5    6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> OSOA, strength 2+</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## 54 runs with six 27-level columns</span></span>
-<span class="r-in"><span class="fu">OSOAs</span><span class="op">(</span><span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L18</a></span><span class="op">[</span>,<span class="fl">3</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span>, el<span class="op">=</span><span class="fl">3</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## 54 runs with six 27-level columns</span></span></span>
+<span class="r-in"><span><span class="fu">OSOAs</span><span class="op">(</span><span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L18</a></span><span class="op">[</span>,<span class="fl">3</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span>, el<span class="op">=</span><span class="fl">3</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4] [,5] [,6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]    0    2    0    2    0    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]   13   13   13   13   13   13</span>
@@ -256,9 +273,9 @@ Zhou and Tang (2019)<br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [53,]    5   20   17   19    4   17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [54,]   15    4   18    3   17   19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> OSOA, strength 2*</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## 81 runs with four 9-level columns</span></span>
-<span class="r-in"><span class="fu">OSOAs</span><span class="op">(</span><span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L27.3.4</a></span>, el<span class="op">=</span><span class="fl">2</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## 81 runs with four 9-level columns</span></span></span>
+<span class="r-in"><span><span class="fu">OSOAs</span><span class="op">(</span><span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L27.3.4</a></span>, el<span class="op">=</span><span class="fl">2</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]    0    0    0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]    0    4    4    4</span>
@@ -342,15 +359,15 @@ Zhou and Tang (2019)<br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [80,]    5    1    5    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [81,]    5    5    6    5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> OSOA, strength 3-</span>
-<span class="r-in"><span class="co">## An OA with 9-level factors (L81.9.10)</span></span>
-<span class="r-in"><span class="co">## has complete balance in 2D,</span></span>
-<span class="r-in"><span class="co">## however does not achieve 3D projection for</span></span>
-<span class="r-in"><span class="co">## all four collapsed triples</span></span>
-<span class="r-in"><span class="co">## It is up to the user to decide what is more important.</span></span>
-<span class="r-in"><span class="co">## I would go for the OA.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## 81 runs with four 27-level columns</span></span>
-<span class="r-in"><span class="fu">OSOAs</span><span class="op">(</span><span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L27.3.4</a></span>, el<span class="op">=</span><span class="fl">3</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## An OA with 9-level factors (L81.9.10)</span></span></span>
+<span class="r-in"><span><span class="co">## has complete balance in 2D,</span></span></span>
+<span class="r-in"><span><span class="co">## however does not achieve 3D projection for</span></span></span>
+<span class="r-in"><span><span class="co">## all four collapsed triples</span></span></span>
+<span class="r-in"><span><span class="co">## It is up to the user to decide what is more important.</span></span></span>
+<span class="r-in"><span><span class="co">## I would go for the OA.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## 81 runs with four 27-level columns</span></span></span>
+<span class="r-in"><span><span class="fu">OSOAs</span><span class="op">(</span><span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L27.3.4</a></span>, el<span class="op">=</span><span class="fl">3</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]    0    2    0    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]    1   14   13   13</span>
@@ -448,7 +465,7 @@ Zhou and Tang (2019)<br></p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

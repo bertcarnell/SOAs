@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
       </span>
     </div>
 
@@ -50,16 +50,16 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">OSOAs_hadamard</span><span class="op">(</span>
-  m <span class="op">=</span> <span class="cn">NULL</span>,
-  n <span class="op">=</span> <span class="cn">NULL</span>,
-  el <span class="op">=</span> <span class="fl">3</span>,
-  noptim.rounds <span class="op">=</span> <span class="fl">1</span>,
-  noptim.repeats <span class="op">=</span> <span class="fl">1</span>,
-  optimize <span class="op">=</span> <span class="cn">TRUE</span>,
-  dmethod <span class="op">=</span> <span class="st">"manhattan"</span>,
-  p <span class="op">=</span> <span class="fl">50</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">OSOAs_hadamard</span><span class="op">(</span></span>
+<span>  m <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  n <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  el <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  noptim.rounds <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  noptim.repeats <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  optimize <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  dmethod <span class="op">=</span> <span class="st">"manhattan"</span>,</span>
+<span>  p <span class="op">=</span> <span class="fl">50</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -67,26 +67,43 @@
     <dl><dt>m</dt>
 <dd><p>the number of columns to be created;
 if <code>n</code> is also given, <code>m</code> must be compatible with it; at present, <code>m</code> can be at most 98.</p></dd>
+
+
 <dt>n</dt>
 <dd><p>the number of runs to be created; <code>n</code> must be a multiple of 8 and can (at present) be at most 200;
 if <code>m</code> is also given, <code>n</code> must be compatible with it.</p></dd>
+
+
 <dt>el</dt>
 <dd><p>exponent for 2, can be 2 or 3: the OSOA will have columns with
 2^<code>el</code> (4 or 8) levels</p></dd>
+
+
 <dt>noptim.rounds</dt>
 <dd><p>the number of optimization rounds for each independent restart</p></dd>
+
+
 <dt>noptim.repeats</dt>
 <dd><p>the number of independent restarts of optimizations with <code>noptim.rounds</code> rounds each</p></dd>
+
+
 <dt>optimize</dt>
 <dd><p>logical: should space filling be optimized by level permutations?</p></dd>
+
+
 <dt>dmethod</dt>
 <dd><p>distance method for <code><a href="phi_p.html">phi_p</a></code>, "manhattan" (default) or "euclidean"</p></dd>
+
+
 <dt>p</dt>
 <dd><p>p for <code><a href="phi_p.html">phi_p</a></code> (the larger, the closer to maximin distance)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>matrix of class <code>SOA</code> with the attributes that are listed below. All attributes can be accessed using function <code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></code>, or individual attributes can be accessed using function <code><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></code>. These are the attributes:</p><dl><dt>type</dt>
+    
+
+<p>matrix of class <code>SOA</code> with the attributes that are listed below. All attributes can be accessed using function <code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></code>, or individual attributes can be accessed using function <code><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></code>. These are the attributes:</p><dl><dt>type</dt>
 <dd><p>the type of array (<code>SOA</code> or <code>OSOA</code>)</p></dd>
 
 <dt>strength</dt>
@@ -133,11 +150,11 @@ Zhou and Tang (2019)</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">OSOAs_hadamard</span><span class="op">(</span><span class="fl">9</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>  <span class="co">## 9 8-level factors in 24 runs</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">OSOAs_hadamard</span><span class="op">(</span><span class="fl">9</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>  <span class="co">## 9 8-level factors in 24 runs</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 24  9</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">OSOAs_hadamard</span><span class="op">(</span>n<span class="op">=</span><span class="fl">16</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="co">## 6 8-level factors in 16 runs</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">OSOAs_hadamard</span><span class="op">(</span>n<span class="op">=</span><span class="fl">16</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="co">## 6 8-level factors in 16 runs</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 16  6</span>
-<span class="r-in"><span class="fu">OSOAs_hadamard</span><span class="op">(</span>n<span class="op">=</span><span class="fl">24</span>, m<span class="op">=</span><span class="fl">6</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="co">## 6 8-level factors in 24 runs</span></span>
+<span class="r-in"><span><span class="fu">OSOAs_hadamard</span><span class="op">(</span>n<span class="op">=</span><span class="fl">24</span>, m<span class="op">=</span><span class="fl">6</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="co">## 6 8-level factors in 24 runs</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4] [,5] [,6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]    7    6    1    7    7    6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]    1    7    6    0    7    6</span>
@@ -164,8 +181,8 @@ Zhou and Tang (2019)</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [23,]    3    5    2    3    3    5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [24,]    5    4    5    4    5    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> OSOA, strength 3</span>
-<span class="r-in">                                          <span class="co">## (though 10 would be possible)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">OSOAs_hadamard</span><span class="op">(</span>m<span class="op">=</span><span class="fl">35</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="co">## 35 8-level factors in 80 runs</span></span>
+<span class="r-in"><span>                                          <span class="co">## (though 10 would be possible)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">OSOAs_hadamard</span><span class="op">(</span>m<span class="op">=</span><span class="fl">35</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="co">## 35 8-level factors in 80 runs</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 80 35</span>
 </code></pre></div>
     </div>
@@ -181,7 +198,7 @@ Zhou and Tang (2019)</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
