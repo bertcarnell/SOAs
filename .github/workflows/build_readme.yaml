@@ -38,6 +38,4 @@ jobs:
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git add README.md
-          git commit -m 'Automatic build of README.md'
-          git push
+          git diff --exit-code -s README.md && (echo "README.md has not changed from last push") || (git add README.md && git commit -m 'Automatic build of README.md' && git push)
