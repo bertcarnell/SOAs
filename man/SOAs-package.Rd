@@ -29,7 +29,7 @@ Zhou and Tang (2019), Shi and Tang (2020, function \code{\link{SOAs_8level}}) an
 The constructions by Zhou and Tang (2019) and Li et al. (2021) are very close to each other and are both implemented
 in the three functions \code{\link{OSOAs}}, \code{\link{OSOAs_hadamard}} and \code{\link{OSOAs_regular}}.
 
-Within the package, available SOA constructions for specific situations can be queried using the
+Within the package, available SOA constructions for specific situations can be queried using
 the guide functions \code{\link{guide_SOAs}} and \code{\link{guide_SOAs_from_OA}}.
 
 Besides the construction functions, properties of the resulting array D can be checked using the aforementioned function
