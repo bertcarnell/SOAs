@@ -85,8 +85,8 @@ three functions <code>OSOAs</code>, <code>OSOAs\_hadamard</code> and
 <p>
 
 Within the package, available SOA constructions for specific situations
-can be queried using the the guide functions <code>guide\_SOAs</code>
-and <code>guide\_SOAs\_from\_OA</code>.
+can be queried using the guide functions <code>guide\_SOAs</code> and
+<code>guide\_SOAs\_from\_OA</code>.
 
 </p>
 
