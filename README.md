@@ -45,11 +45,16 @@ the type<br /> <code class="reqn">D = s^{el-1} A\_1 + … + s A\_{el-1} +
 A\_{el}</code>, or <br /> for <code class="reqn">s^2</code> levels,
 <code class="reqn">D = s A + B</code> and <br /> for
 <code class="reqn">s^3</code> levels, <code class="reqn">D = s^2 A + s B
-+ C</code>. <br /> The constructions differ in how they obtain the
-ingredient matrices, and what properties can be guaranteed for the
-resulting D. Where a construction function guarantees orthogonal columns
-for all matrices D it produces, its name starts with a OSOA, otherwise
-with SOA.<br />
++ C</code>.
+
+</p>
+
+<p>
+
+The constructions differ in how they obtain the ingredient matrices, and
+what properties can be guaranteed for the resulting D. Where a
+construction function guarantees orthogonal columns for all matrices D
+it produces, its name starts with a OSOA, otherwise with SOA.<br />
 
 </p>
 
