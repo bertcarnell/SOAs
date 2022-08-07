@@ -5,7 +5,9 @@ on:
     paths:
       - 'README.Rmd'
       - 'man/SOAs-package.Rd'
-    workflow_dispatch:
+    tags:
+      - none
+  workflow_dispatch:
 
 name: Build-README
 
