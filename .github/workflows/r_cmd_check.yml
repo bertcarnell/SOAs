@@ -7,7 +7,10 @@ on:
       - 'README.Rmd'
       - '_pkgdown.yml'
       - 'SOAs.Rproj'
+      - '.github/workflows/build_readme.yml'
+      - '.github/workflows/pkgdown.yaml'
     branches: [ main ]
+    tags: none
   pull_request:
     branches: [ main ]
   workflow_dispatch:

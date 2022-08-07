@@ -5,6 +5,7 @@ on:
     paths:
       - 'README.Rmd'
       - 'man/SOAs-package.Rd'
+    branches: [ main ]
     tags:
       - none
   workflow_dispatch:
@@ -12,7 +13,7 @@ on:
 name: Build-README
 
 jobs:
-  pkgdown:
+  readme:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
