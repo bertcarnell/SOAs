@@ -12,9 +12,9 @@ Creates stratum orthogonal arrays (also known as strong orthogonal arrays).
 \details{
 This package constructs arrays in \eqn{s^el} levels from orthogonal arrays in s levels.
 These are all based on equations of the type\cr
-\eqn{D = s^{el-1} A_1 + ... + s A_{el-1} + A_{el}}, or \cr
-for \eqn{s^2} levels, \eqn{D = s A + B} \cr
-and for \eqn{s^3} levels, \eqn{D = s^2 A + s B + C}.\cr
+\eqn{D = s^{el-1} A_1 + ... + s A_{el-1} + A_{el}}, \cr
+or for \eqn{s^2} levels, \deqn{D = s A + B}
+and for \eqn{s^3} levels, \deqn{D = s^2 A + s B + C}.
 The constructions differ in how they obtain the ingredient matrices, and what properties can be guaranteed for the resulting D.
 Where a construction function guarantees orthogonal columns for all matrices D it produces, its name starts with a OSOA, otherwise with SOA.\cr
 
