@@ -41,8 +41,19 @@ For the `arrangements` package:
 
 This package constructs arrays in <code class="reqn">s^el</code> levels
 from orthogonal arrays in s levels. These are all based on equations of
-the type<br /> <code class="reqn">D = s^{el-1} A\_1 + … + s A\_{el-1} +
-A\_{el}</code>, <br /> or for <code class="reqn">s^2</code> levels,
+the type
+
+</p>
+
+<p style="text-align: center;">
+
+<code class="reqn">D = s^{el-1} A\_1 + … + s A\_{el-1} + A\_{el},</code>
+
+</p>
+
+<p>
+
+or for <code class="reqn">s^2</code> levels,
 
 </p>
 
@@ -60,14 +71,14 @@ and for <code class="reqn">s^3</code> levels,
 
 <p style="text-align: center;">
 
-<code class="reqn">D = s^2 A + s B + C</code>
+<code class="reqn">D = s^2 A + s B + C.</code>
 
 </p>
 
 <p>
 
-. The constructions differ in how they obtain the ingredient matrices,
-and what properties can be guaranteed for the resulting D. Where a
+The constructions differ in how they obtain the ingredient matrices, and
+what properties can be guaranteed for the resulting D. Where a
 construction function guarantees orthogonal columns for all matrices D
 it produces, its name starts with a OSOA, otherwise with SOA.<br />
 
