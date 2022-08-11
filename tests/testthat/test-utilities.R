@@ -10,4 +10,11 @@ test_that("utilities", {
   expect_error(ff("a", "b"),
                regexp="ff takes only integers as arguments",
                fixed=TRUE)
+
+  expect_equal(dim(temp <- fun_coeff(3,2)), c(2,4))
+
+  expect_equal(dim(fun_coeff(4,3)), c(2,21))
+
+  expect_equal(max(temp), 2)
+
 })

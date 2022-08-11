@@ -38,10 +38,11 @@ Yatesmat2 <- function(k){
 #' of a saturated regular fractional factorial of strength 2.
 #'
 #' @keywords internal
-fun_coeff <- function(s, el, maxdim=NULL){
+fun_coeff <- function(s, el){
   ## is used in contr.Power
   ## could also to be used in createSaturated
   aus <- as.matrix(expand.grid(rep(list(0:(s-1)), el)))[-1,] ## skip allzeroes
+  ## keep only coefficient patterns whose first non-zero element is 1
   keep <- sapply(1:nrow(aus),
                  function(obj) aus[obj, min(which(aus[obj,]>0))]==1)
   dimnames(aus) <- NULL

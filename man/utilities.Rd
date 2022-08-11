@@ -11,7 +11,7 @@ ff(...)
 
 Yatesmat2(k)
 
-fun_coeff(s, el, maxdim = NULL)
+fun_coeff(s, el)
 
 interleavecols(A, B)
 }
