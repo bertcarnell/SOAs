@@ -10,7 +10,7 @@
 \alias{soacheck3D}
 \title{functions to evaluate low order projection properties of (O)SOAs}
 \usage{
-Spattern(D, s, maxwt = NULL, maxdim = NULL, detailed = FALSE, ...)
+Spattern(D, s, maxwt = 4, maxdim = 4, detailed = FALSE, ...)
 
 ocheck(D, verbose = FALSE)
 
@@ -30,12 +30,14 @@ factor levels can start with 0 or with 1, and need to be consecutively numbered}
 
 \item{s}{the prime or prime power according to which the array is checked}
 
-\item{maxwt}{maximum weight to be considered for the pattern (see Details)}
+\item{maxwt}{maximum weight to be considered for the pattern (default: 4; see Details)}
 
-\item{maxdim}{maximum dimension to be considered for the pattern (see Details)}
+\item{maxdim}{maximum dimension to be considered for the pattern (default: 4; see Details)}
 
 \item{detailed}{logical; if TRUE, detailed contribution information is provided
 in terms of attributes}
+
+\item{...}{currently not used}
 
 \item{verbose}{logical; if \code{TRUE}, additional information is printed
 (confounded pair or triple projections with A2 or A3, respectively, or table of correlations)}
@@ -86,9 +88,9 @@ individual column only. \code{j=2} can be obtained either for an
 \code{s^2} level version of an individual column or for the crossing of
 \code{s^1} level versions of two columns, and so forth.
 
-For \code{D} with a large number of columns, obtaining the entire S pattern
+Obtaining the entire S pattern
 can be computationally demanding. The arguments \code{maxwt} and
-\code{maxdim} limit the effort:\cr
+\code{maxdim} limit the effort (choose \code{NULL} for no limit):\cr
 \code{maxwt} gives an upper limit for the weight \code{j} of the previous paragraph.\cr
 \code{maxdim} limits the number of columns that are considered in combination.\cr
 When using \code{maxdim}, pattern entries for \code{j} larger than \code{maxdim} are smaller

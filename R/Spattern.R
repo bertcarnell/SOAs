@@ -1,9 +1,10 @@
 #' @rdname ocheck
 #'
-#' @param maxwt maximum weight to be considered for the pattern (see Details)
-#' @param maxdim maximum dimension to be considered for the pattern (see Details)
+#' @param maxwt maximum weight to be considered for the pattern (default: 4; see Details)
+#' @param maxdim maximum dimension to be considered for the pattern (default: 4; see Details)
 #' @param detailed logical; if TRUE, detailed contribution information is provided
 #'      in terms of attributes
+#' @param ... currently not used
 #'
 #' @return
 #' \code{Spattern} returns an object of class \code{Spattern}
@@ -23,9 +24,9 @@
 #' \code{s^2} level version of an individual column or for the crossing of
 #' \code{s^1} level versions of two columns, and so forth.
 #'
-#' For \code{D} with a large number of columns, obtaining the entire S pattern
+#' Obtaining the entire S pattern
 #' can be computationally demanding. The arguments \code{maxwt} and
-#' \code{maxdim} limit the effort:\cr
+#' \code{maxdim} limit the effort (choose \code{NULL} for no limit):\cr
 #' \code{maxwt} gives an upper limit for the weight \code{j} of the previous paragraph.\cr
 #' \code{maxdim} limits the number of columns that are considered in combination.\cr
 #' When using \code{maxdim}, pattern entries for \code{j} larger than \code{maxdim} are smaller
@@ -40,7 +41,7 @@
 #'
 #' @importFrom combinat combn
 #'
-Spattern <- function(D, s, maxwt=NULL, maxdim=NULL, detailed=FALSE, ...){
+Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   ## examples and references are given in utilitiesEvaluate.R
 
   ## uses contr.Power with s=s
@@ -127,6 +128,7 @@ Spattern <- function(D, s, maxwt=NULL, maxdim=NULL, detailed=FALSE, ...){
   combiweights <- lapply(combicols, function(obj)
      rowSums(matrix(uwt[obj], nrow=nrow(obj))))
   if (any(unlist(combiweights) > maxwt)){
+    skip <- integer(0)
     for (i in 1:length(combiweights)){
       ## loop over column combinations
       keep <- which(combiweights[[i]] <= maxwt)
@@ -134,10 +136,15 @@ Spattern <- function(D, s, maxwt=NULL, maxdim=NULL, detailed=FALSE, ...){
         combiweights[[i]] <- combiweights[[i]][keep]
         combicols[[i]] <- combicols[[i]][keep,, drop=FALSE]
       }else{
-        combiweights[[i]] <- NULL
-        combicols[[i]] <- NULL
+        ## keep these there, because
+        ## otherwise i has a moving reference
+        combiweights[[i]] <- "skip"
+        combicols[[i]] <- "skip"
+        skip <- c(skip, i)
       }
     }
+    combiweights[skip] <- NULL
+    combicols[skip] <- NULL
   }
   ##########################################################################
 
