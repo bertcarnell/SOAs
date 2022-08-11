@@ -122,7 +122,11 @@ Besides the construction functions, properties of the resulting array D
 can be checked using the aforementioned function <code>phi\_p</code> as
 well as check functions <code>ocheck</code>, <code>ocheck3</code> for
 orthogonality and <code>soacheck2D</code>, <code>soacheck3D</code> for
-(O)SOA stratification properties.
+(O)SOA stratification properties, and <code>Spattern</code> for the
+space-filling pattern proposed by Tian and Xu (2022); the implementation
+of the latter has not yet seen exhaustive testing, but it will
+presumably become more important the the 2D and 3D check functions
+eventually.
 
 </p>
 
@@ -163,7 +167,7 @@ Latin hypercubes for computer experiments. <em>Biometrika</em>
 
 <p>
 
-Li, W., Liu, M.-Q. and Yang, J.-F. (2021, in press). Construction of
+Li, W., Liu, M.-Q. and Yang, J.-F. (2021). Construction of
 column-orthogonal strong orthogonal arrays. <em>Statistical Papers</em>
 .
 
@@ -182,6 +186,14 @@ arrays and sliced strong orthogonal arrays. <em>Statistica Sinica</em>
 Shi, L. and Tang, B. (2020). Construction results for strong orthogonal
 arrays of strength three. <em>Bernoulli</em> <strong>26</strong>,
 418-431. 
+
+</p>
+
+<p>
+
+Tian, Y. and Xu, H. (2022). A minimum aberration-type criterion for
+selecting space-filling designs. <em>Biometrika</em>
+<strong>109</strong>, 489-501. doi10.1093/biomet/asab021
 
 </p>
 
