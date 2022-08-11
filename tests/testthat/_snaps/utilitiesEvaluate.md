@@ -91,3 +91,76 @@
         1     2     3 
     0.000 0.000 0.031 
 
+# Spattern
+
+    Code
+      Spattern(nullcase, s = 2)
+    Output
+       1  2  3  4 
+       0  6  0 12 
+      attr(,"call")
+      Spattern(nullcase, s = 2)
+
+---
+
+    Code
+      Spattern(nullcase, s = 8)
+    Message <simpleMessage>
+      s equals the number of column levels. Function GWLP from package DoE.base is used.
+    Output
+        1   2   3   4 
+        0  42 168 301 
+      attr(,"call")
+      Spattern(nullcase, s = 8)
+      attr(,"class")
+      [1] "Spaper"
+
+---
+
+    Code
+      Spattern(nullcase, s = 8, maxdim = 3, maxwt = 3)
+    Message <simpleMessage>
+      s equals the number of column levels. Function GWLP from package DoE.base is used.
+    Output
+        1   2   3 
+        0  42 168 
+      attr(,"call")
+      Spattern(nullcase, s = 8, maxdim = 3, maxwt = 3)
+      attr(,"class")
+      [1] "Spaper"
+
+---
+
+    1 2 3 4 
+    0 0 0 7 
+    attr(,"call")
+    Spattern(st1, s = 2, maxdim = 4, maxwt = 4)
+
+---
+
+    1 2 
+    0 0 
+    attr(,"call")
+    Spattern(st1, s = 2, maxdim = 3, maxwt = 2, detailed = TRUE)
+
+---
+
+     1  2  3  4  5  6 
+     0  6  0 12 24  0 
+    attr(,"call")
+    Spattern(nullcase4, s = 2, maxwt = NULL)
+
+---
+
+     1  2  3  4 
+     0  6  0 12 
+    attr(,"call")
+    Spattern(nullcase4, s = 2, maxdim = NULL)
+
+---
+
+     1  2  3  4  5  6 
+     0  6  0 12 24  0 
+    attr(,"call")
+    Spattern(nullcase4, s = 2, maxdim = NULL, maxwt = NULL)
+
