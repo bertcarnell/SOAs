@@ -33,7 +33,10 @@ the guide functions \code{\link{guide_SOAs}} and \code{\link{guide_SOAs_from_OA}
 
 Besides the construction functions, properties of the resulting array D can be checked using the aforementioned function
 \code{\link{phi_p}} as well as check functions \code{\link{ocheck}}, \code{\link{ocheck3}} for orthogonality and
-\code{\link{soacheck2D}}, \code{\link{soacheck3D}} for (O)SOA stratification properties.
+\code{\link{soacheck2D}}, \code{\link{soacheck3D}} for (O)SOA stratification properties, and
+\code{\link{Spattern}} for the space-filling pattern proposed by Tian and Xu (2022); the implementation
+of the latter has not yet seen exhaustive testing, but it will presumably become more important the the
+2D and 3D check functions eventually.
 
 There is one further construction, maximin distance level expansion (\code{\link{XiaoXuMDLE}}, \code{\link{MDLEs}}),
 that does not yield stratum (aka strong) orthogonal arrays and is available for comparison only (Xiao and Xu 2018).
@@ -45,11 +48,13 @@ He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of strength tw
 
 He, Y. and Tang, B. (2013). Strong orthogonal arrays and associated Latin hypercubes for computer experiments. \emph{Biometrika} \bold{100}, 254-260. \doi{10.1093/biomet/ass065}
 
-Li, W., Liu, M.-Q. and Yang, J.-F. (2021, in press). Construction of column-orthogonal strong orthogonal arrays. \emph{Statistical Papers} \doi{10.1007/s00362-021-01249-w}.
+Li, W., Liu, M.-Q. and Yang, J.-F. (2021). Construction of column-orthogonal strong orthogonal arrays. \emph{Statistical Papers} \doi{10.1007/s00362-021-01249-w}.
 
 Liu, H. and Liu, M.-Q. (2015). Column-orthogonal strong orthogonal arrays and sliced strong orthogonal arrays. \emph{Statistica Sinica} \strong{25}, 1713-1734. \doi{10.5705/ss.2014.106}
 
 Shi, L. and Tang, B. (2020). Construction results for strong orthogonal arrays of strength three. \emph{Bernoulli} \strong{26}, 418-431. \doi{10.3150/19-BEJ1130}
+
+Tian, Y. and Xu, H. (2022). A minimum aberration-type criterion for selecting space-filling designs. \emph{Biometrika} \strong{109}, 489-501. doi{10.1093/biomet/asab021}
 
 Weng, J. (2014). Maximin Strong Orthognal Arrays. \emph{Master's thesis} at Simon Fraser University under supervision of Boxin Tang and Jiguo Cao. \url{https://summit.sfu.ca/item/14433}
 
