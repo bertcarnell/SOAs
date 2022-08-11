@@ -35,7 +35,7 @@ contr.Power <- function (n, s=2, contrasts = TRUE){
   if (length(n) <= 1) {
     if (is.numeric(n) && length(n) == 1 && n > 1)
       levels <- 1:n
-    else stop("invalid choice for n in contr.blocks")
+    else stop("invalid choice for n in contr.Power")
   }
   else levels <- n
   lenglev <- length(levels)
