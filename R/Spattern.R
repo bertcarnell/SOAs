@@ -74,6 +74,17 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   el <- round(log(nlev, base=s))
   if (!nlev == s^el)
     stop("The number of levels must be a power of s.")
+  if (el==1){
+    if (identical(maxdim, maxwt)) {
+      message("s equals the number of column levels. Function GWLP from package DoE.base is used.")
+      aus <- GWLP(D, k=ifelse(is.null(maxdim), m, maxdim))[-1]
+    }
+    else stop("If the number of levels equals s, use function GWLP from package DoE.base")
+    attr(aus, "call") <- mycall
+    class(aus) <- "Spaper"
+    if (detailed) message("argument detailed was ignored, because s equals the number of levels")
+    return(aus)
+  }
 
   if (!is.null(maxdim)) {
     stopifnot(is.numeric(maxdim))
