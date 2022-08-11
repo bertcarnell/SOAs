@@ -67,7 +67,7 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   }
   n <- nrow(D)
   m <- ncol(D)
-  nlev <- SOAs:::levels.no(D)
+  nlev <- levels.no(D)
   if (!length(unique(nlev))==1)
     stop("All columns of D must have the same number of levels.")
   nlev <- nlev[1]

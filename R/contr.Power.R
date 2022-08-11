@@ -46,7 +46,7 @@ contr.Power <- function (n, s=2, contrasts = TRUE){
   if (prime)
      cont <- (cont%*%fun_coeff(s,el))%%s
   else
-     cont <- SOAs:::gf_matmult(cont, fun_coeff(s,el),
+     cont <- gf_matmult(cont, fun_coeff(s,el),
                                gf=lhs::create_galois_field(s))
   contdf <- as.data.frame(cont)
   for (i in 1:ncol(contdf)) contdf[[i]] <- factor(contdf[[i]])
