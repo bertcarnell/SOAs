@@ -3,12 +3,15 @@
 \name{ff}
 \alias{ff}
 \alias{Yatesmat2}
+\alias{fun_coeff}
 \alias{interleavecols}
 \title{Utility functions for SOAs}
 \usage{
 ff(...)
 
 Yatesmat2(k)
+
+fun_coeff(s, el, maxdim = NULL)
 
 interleavecols(A, B)
 }
@@ -17,6 +20,10 @@ interleavecols(A, B)
 
 \item{k}{determines dimension}
 
+\item{s}{the prime or prime power for which to obtain the coefficients}
+
+\item{el}{the power to which \code{s} is raised}
+
 \item{A}{n x m matrix A}
 
 \item{B}{n x m matrix B}
@@ -24,7 +31,10 @@ interleavecols(A, B)
 \value{
 ff returns a full factorial matrix
 
-Yatesmat2 returns a 2^k x (2^k - 1) matrix with 0/1 entries, Yates matrix
+\code{Yatesmat2} returns a 2^k x (2^k - 1) matrix with 0/1 entries, Yates matrix
+
+\code{fun_coeff} returns a matrix of coefficients for the creation
+of a saturated regular fractional factorial of strength 2.
 
 interleavecols returns an n x (2m) matrix with columns \code{A[,1]}, \code{B[,1]},
 \code{A[,2]}, \code{B[,2]}, ...

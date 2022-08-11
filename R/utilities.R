@@ -22,12 +22,30 @@ ff <- function (...)
 #'
 #' @param k determines dimension
 #'
-#' @return Yatesmat2 returns a 2^k x (2^k - 1) matrix with 0/1 entries, Yates matrix
+#' @return \code{Yatesmat2} returns a 2^k x (2^k - 1) matrix with 0/1 entries, Yates matrix
 #'
 #' @keywords internal
 Yatesmat2 <- function(k){
   hilf <- ff(rep(2,k))
   (hilf%*%t(hilf))[,-1]%%2
+}
+
+#' @rdname utilities
+#' @param s the prime or prime power for which to obtain the coefficients
+#' @param el the power to which \code{s} is raised
+#'
+#' @return \code{fun_coeff} returns a matrix of coefficients for the creation
+#' of a saturated regular fractional factorial of strength 2.
+#'
+#' @keywords internal
+fun_coeff <- function(s, el, maxdim=NULL){
+  ## is used in contr.Power
+  ## could also to be used in createSaturated
+  aus <- as.matrix(expand.grid(rep(list(0:(s-1)), el)))[-1,] ## skip allzeroes
+  keep <- sapply(1:nrow(aus),
+                 function(obj) aus[obj, min(which(aus[obj,]>0))]==1)
+  dimnames(aus) <- NULL
+  t(aus[keep,])
 }
 
 #' @rdname utilities

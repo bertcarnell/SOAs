@@ -1,0 +1,60 @@
+#' A contrast function based on regular factorials 
+#' for number of levels a prime or prime power 
+#' @rdname contr.Power
+#'
+#' @param s integer; prime or prime power
+#' @param n integer; number of levels of the factor for which contrasts are created. 
+#' \code{n} must be a power of \code{s}.
+#' @param contrasts logical; must be TRUE
+#'
+#' @return
+#' \code{contr.Power} yields a matrix of contrasts. It can be used in 
+#' function \code{model.matrix} or anywhere where factors with \code{n} levels are 
+#' used with contrasts.
+#' 
+#' @details
+#' The function is a generalization (with slowest first instead of fastest first) 
+#' of function \code{contr.FrF2} from package \pkg{DoE.base}. It is in this 
+#' package because it needs Galois field functionality from package \pkg{lhs} 
+#' for non-prime \code{s}. 
+#'
+#' @export
+#' 
+#' @examples
+#' ## the same n can yield different contrasts for different s
+#' contr.Power(16, 2)
+#' contr.Power(16, 4)
+
+contr.Power <- function (n, s=2, contrasts = TRUE){
+  if (!contrasts) 
+    stop("contr.Power not defined for contrasts=FALSE")
+  if (!s %in% c(2:5, 7, 9, 11, 13, 16, 17, 19, 23, 25, 27, 29)) 
+    stop("s must be a prime or a prime power")
+  prime <- FALSE
+  if (s %in% c(2,3,5,7,11,13,17,19,23,29)) prime <- TRUE
+  if (length(n) <= 1) {
+    if (is.numeric(n) && length(n) == 1 && n > 1) 
+      levels <- 1:n
+    else stop("invalid choice for n in contr.blocks")
+  }
+  else levels <- n
+  lenglev <- length(levels)
+  if (!s^round(log(lenglev, base=s)) == lenglev) 
+    stop("contr.Power requires that the number of levels is a power of s.")
+  p <- round(log(lenglev, base=s))
+  cont <- as.matrix(expand.grid(rep(list(0:(s-1)), p))[,p:1])
+  if (prime)
+     cont <- (cont%*%fun_coeff(s,p))%%s
+  else
+     cont <- SOAs:::gf_matmult(cont, fun_coeff(s,p), 
+                               gf=lhs::create_galois_field(s))
+  contdf <- as.data.frame(cont)
+  for (i in 1:ncol(contdf)) contdf[[i]] <- factor(contdf[[i]])
+  contrlist <- rep(list("contr.XuWuPoly"), (s^p-1)/(s-1))
+  names(contrlist) <- colnames(contdf)
+  cont <- model.matrix(~., contdf, contrasts.arg = contrlist)[,-1]
+  rownames(cont) <- levels
+  colnames(cont) <- 1:(s^p-1)
+  cont
+}
+
