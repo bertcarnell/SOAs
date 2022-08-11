@@ -4,9 +4,10 @@
 
 #' functions to evaluate low order projection properties of (O)SOAs
 #'
-#' soacheck2D and soacheck3D evaluate 2D and 3D projections, ocheck and ocheck3
-#' evaluate pairwise or 3-orthogonality of columns, and count_npairs evaluates
-#' the number of level pairs in 2D projections
+#' \code{soacheck2D} and \code{soacheck3D} evaluate 2D and 3D projections,
+#' \code{ocheck} and \code{ocheck3} evaluate pairwise or 3-orthogonality of columns,
+#' \code{count_npairs} evaluates the number of level pairs in 2D projections,
+#' and \code{Spattern} obtains the space-filling pattern by Tian and Xu (2022).
 #'
 #' @param D a matrix with factor levels or an object of class \code{SOA};\cr
 #' factor levels can start with 0 or with 1, and need to be consecutively numbered
@@ -26,7 +27,11 @@
 #' @param ns vector of numbers of levels for each column
 #'
 #' @details
-#' Functions \code{soacheck2D} and \code{soacheck3D} inspect 2D and 3D
+#' Functions \code{soacheck2D} and \code{soacheck3D} were available before
+#' function \code{Spattern}; many of their use cases can now be handled with \code{Spattern}
+#' instead. The functions are often fast to yield a \code{FALSE} outcome,
+#' but can be very slow to yield a \code{TRUE} outcome for larger designs.\cr
+#' The functions inspect 2D and 3D
 #' stratification, respectively. Each column must have \code{s^el} levels.
 #' \code{t} specifies the degree of balance the functions are asked to look for.
 #'
@@ -67,7 +72,8 @@
 #'
 #' Groemping (2022)\cr
 #' He and Tang (2013)\cr
-#' Shi and Tang (2020)
+#' Shi and Tang (2020)\cr
+#' Tian and Xu (2022)
 #'
 #' @importFrom stats lm rnorm model.matrix
 #' @importFrom stats cor
@@ -76,6 +82,14 @@
 #' nullcase <- matrix(0:7, nrow=8, ncol=4)
 #' soacheck2D(nullcase, s=2)
 #' soacheck3D(nullcase, s=2)
+#' Spattern(nullcase, s=2)
+#' Spattern(nullcase, s=2, maxdim=2)
+#'   ## the non-zero entry at position 2 indicates that
+#'   ## soacheck2D does not comply with t=2
+#' Spattern(nullcase, s=2, maxwt=4)
+#'   ## comparison to maxdim=2 indicates that
+#'   ## the contribution to S_4 from dimensions
+#'   ## larger than 2 is 1
 #'
 #' ## Shi and Tang strength 3+ construction in 7 8-level factors for 32 runs
 #' D <- SOAs_8level(32, optimize=FALSE)
@@ -85,7 +99,12 @@
 #' soacheck2D(D, s=2, t=4)
 #' ## 3D check
 #' soacheck3D(D, s=2, t=4)
-#' ## not an OSOA
+#' ## using Spattern (much faster for many columns)
+#'   ## does not have strength 4
+#'   Spattern(D, s=2, maxwt=4)
+#'   ## but complies with strength 4 for dim up to 3
+#'   Spattern(D, s=2, maxwt=4, maxdim=3)
+#' ## is an OSOA
 #' ocheck(D)
 #'
 #' ## an OSOA of strength 3 with 3-orthogonality
