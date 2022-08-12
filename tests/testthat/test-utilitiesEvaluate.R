@@ -78,10 +78,30 @@ test_that("soacheck3D", {
 
 
 test_that("Spattern", {
+  ## n not a power of s
   expect_error(Spattern(nullcase, s=4))
+
+  ## mixed level D
+  expect_error(Spattern(cbind(nullcase, rbind(nullcase4, nullcase4)), s=2))
 
   ## calculations correct ?
   temp <- Spattern(nullcase, s=2, maxdim=NULL, maxwt=NULL)
+  attributes(temp) <- NULL
+  expect_equal(temp, c(0, 6, 0, 13, 24, 36, 48, 128, 96, 96, 0, 64))
+
+  ## with maxdim and maxwt specified larger than possible
+  ##    is silently corrected
+  temp <- Spattern(nullcase, s=2, maxdim=5, maxwt=20)
+  attributes(temp) <- NULL
+  expect_equal(temp, c(0, 6, 0, 13, 24, 36, 48, 128, 96, 96, 0, 64))
+
+  ## same for data frame D
+  temp <- Spattern(as.data.frame(nullcase), s=2, maxdim=NULL, maxwt=NULL)
+  attributes(temp) <- NULL
+  expect_equal(temp, c(0, 6, 0, 13, 24, 36, 48, 128, 96, 96, 0, 64))
+
+  ## same for array starting with 1
+  temp <- Spattern(nullcase+1, s=2, maxdim=NULL, maxwt=NULL)
   attributes(temp) <- NULL
   expect_equal(temp, c(0, 6, 0, 13, 24, 36, 48, 128, 96, 96, 0, 64))
 
