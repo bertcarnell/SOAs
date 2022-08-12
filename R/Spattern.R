@@ -1,7 +1,10 @@
 #' @rdname ocheck
 #'
-#' @param maxwt maximum weight to be considered for the pattern (default: 4; see Details)
-#' @param maxdim maximum dimension to be considered for the pattern (default: 4; see Details)
+#' @param maxwt maximum weight to be considered for the pattern (default: 4; see Details);\cr
+#'      if the specified limit is larger than \code{maxdim*el},
+#'      it is reduced accordingly (where \code{el} is such that \code{s^el} is the number of levels)
+#' @param maxdim maximum dimension to be considered for the pattern (default: 4; see Details);\cr
+#'      if the specified limit is larger than \code{m=ncol(D)}, it is reduced to \code{m}
 #' @param detailed logical; if TRUE, detailed contribution information is provided
 #'      in terms of attributes
 #' @param ... currently not used
@@ -90,12 +93,18 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
     stopifnot(is.numeric(maxdim))
     stopifnot(maxdim%%1==0)
     stopifnot(maxdim>0)
+    ## reduce too large request to maximum possible
+    if (maxdim > m) maxdim <- m
   }else maxdim <- m
   if (!is.null(maxwt)) {
     stopifnot(is.numeric(maxwt))
     stopifnot(maxwt%%1==0)
     stopifnot(maxwt>0)
-  }else maxwt <- el*maxdim
+    ## reduce too large request to maximum possible
+    if (maxwt > el*maxdim) maxwt <- el*maxdim
+  }else {
+    maxwt <- el*maxdim
+  }
 
   ################################################################
   ## obtaining the model matrix
@@ -120,7 +129,7 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   ## switch factors on or off in interactions
   picks <- lapply(1:maxdim, function(obj) combn(1:m, obj))
   if (maxdim==m) picks[[length(picks)]] <-
-        matrix(picks[[length(picks)]], nrow=1)
+        matrix(picks[[length(picks)]], ncol=1)
         ### corrects stupid behavior of combinat::combn
   combicols <- unlist(lapply(picks, function(obj) {
     ## picks contains a row matrix of variable choices

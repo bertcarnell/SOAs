@@ -30,9 +30,12 @@ factor levels can start with 0 or with 1, and need to be consecutively numbered}
 
 \item{s}{the prime or prime power according to which the array is checked}
 
-\item{maxwt}{maximum weight to be considered for the pattern (default: 4; see Details)}
+\item{maxwt}{maximum weight to be considered for the pattern (default: 4; see Details);\cr
+if the specified limit is larger than \code{maxdim*el},
+it is reduced accordingly (where \code{el} is such that \code{s^el} is the number of levels)}
 
-\item{maxdim}{maximum dimension to be considered for the pattern (default: 4; see Details)}
+\item{maxdim}{maximum dimension to be considered for the pattern (default: 4; see Details);\cr
+if the specified limit is larger than \code{m=ncol(D)}, it is reduced to \code{m}}
 
 \item{detailed}{logical; if TRUE, detailed contribution information is provided
 in terms of attributes}
