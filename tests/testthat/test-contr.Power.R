@@ -6,12 +6,12 @@ test_that("contr.Power", {
 
   temp <- contr.Power(16, 2)
   expect_equal(dim(temp), c(16, 15))
-  expect_true(all(colSums(round(temp,8))==0))
+  expect_equal(unname(colSums(temp)), rep(0L, 15))
 
   ## a variant that uses a Galois field
   temp <- contr.Power(16, 4)
   expect_equal(dim(temp), c(16, 15))
-  expect_true(all(colSums(round(temp,8))==0))
+  expect_equal(unname(colSums(temp)), rep(0L, 15))
 
   ## invalid contrasts argument
   expect_error(contr.Power(4,2,contrasts=FALSE))
