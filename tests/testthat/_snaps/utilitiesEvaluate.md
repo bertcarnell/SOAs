@@ -94,16 +94,6 @@
 # Spattern
 
     Code
-      Spattern(nullcase, s = 2)
-    Output
-       1  2  3  4 
-       0  6  0 12 
-      attr(,"call")
-      Spattern(nullcase, s = 2)
-
----
-
-    Code
       Spattern(nullcase, s = 8)
     Message <simpleMessage>
       s equals the number of column levels. Function GWLP from package DoE.base is used.
@@ -145,22 +135,22 @@
 
 ---
 
-     1  2  3  4  5  6 
-     0  6  0 12 24  0 
+     1  2  3  4  5  6  7  8 
+     0  6  0 13 24 12  0  8 
     attr(,"call")
     Spattern(nullcase4, s = 2, maxwt = NULL)
 
 ---
 
      1  2  3  4 
-     0  6  0 12 
+     0  6  0 13 
     attr(,"call")
     Spattern(nullcase4, s = 2, maxdim = NULL)
 
 ---
 
-     1  2  3  4  5  6 
-     0  6  0 12 24  0 
+     1  2  3  4  5  6  7  8 
+     0  6  0 13 24 12  0  8 
     attr(,"call")
     Spattern(nullcase4, s = 2, maxdim = NULL, maxwt = NULL)
 

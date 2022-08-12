@@ -79,7 +79,39 @@ test_that("soacheck3D", {
 
 test_that("Spattern", {
   expect_error(Spattern(nullcase, s=4))
-  capture_output(expect_snapshot(Spattern(nullcase, s=2)))
+
+  ## calculations correct ?
+  temp <- Spattern(nullcase, s=2, maxdim=NULL, maxwt=NULL)
+  attributes(temp) <- NULL
+  expect_equal(temp, c(0, 6, 0, 13, 24, 36, 48, 128, 96, 96, 0, 64))
+
+  temp <- Spattern(nullcase, s=2, maxwt=NULL)
+  ## unchanged, because the default maxdim 4 equals m
+  attributes(temp) <- NULL
+  expect_equal(temp, c(0, 6, 0, 13, 24, 36, 48, 128, 96, 96, 0, 64))
+
+  temp <- Spattern(nullcase, s=2, maxdim=3, maxwt=NULL)
+  ## reduced, missing the last three and earlier ones are reduced
+  attributes(temp) <- NULL
+  expect_equal(temp, c(0, 6, 0, 12, 24, 24, 48, 96, 0))
+
+  temp <- Spattern(nullcase, s=2)
+  attributes(temp) <- NULL
+  expect_equal(temp, c(0, 6, 0, 13))
+
+  temp <- Spattern(nullcase, s=2, maxdim=3)
+  attributes(temp) <- NULL
+  expect_equal(temp, c(0, 6, 0, 12))
+
+  D1 <- cbind(c(18, 19, 11, 16, 20, 14,  4, 12, 10, 22,  2, 15,  1,  3, 23,  0,  8,  7,  9,  6, 24, 21, 13, 17,  5),
+              c(16,  9,  1, 20, 22,  7, 17, 12, 15, 14, 21, 11,  5, 10,  3, 13, 23,  8,  4, 19, 18,  6, 24,  0,  2),
+              c(14,  0,  2,  3, 12, 10,  1,  7, 24,  5, 22, 21,  4, 11,  8, 15,  6, 18, 13,  9, 19, 23, 17, 16, 20))
+
+  ## s=5
+  temp <- Spattern(D1, s=5, maxwt=NULL)
+  attributes(temp) <- NULL
+  expect_equal(temp[1:3], c(0, 0.64, 26.08))  ## Example 4 Tian and Xu
+  expect_equal(sum(temp), (5^(3*2)/25)-1)     ## Theorem 4 Tian and Xu
 
   ## s = number of levels: works but uses the GWLP
   capture_output(expect_snapshot(Spattern(nullcase, s=8)))
