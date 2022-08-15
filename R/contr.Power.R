@@ -28,7 +28,7 @@
 contr.Power <- function (n, s=2, contrasts = TRUE){
   if (!contrasts)
     stop("contr.Power not defined for contrasts=FALSE")
-  if (!s %in% c(2:5, 7, 9, 11, 13, 16, 17, 19, 23, 25, 27, 29))
+  if (!s %in% c(2:5, 7:9, 11, 13, 16, 17, 19, 23, 25, 27, 29))
     stop("s must be a prime or a prime power")
   prime <- FALSE
   if (s %in% c(2,3,5,7,11,13,17,19,23,29)) prime <- TRUE
