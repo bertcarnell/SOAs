@@ -19,8 +19,9 @@
 #' in matrix \code{combis}.
 #'
 #' @details
-#' Function \code{Spattern} calculates the space-filling pattern (briefly called S pattern here)
-#' as proposed in Tian and Xu (2022).\cr
+#' Function \code{Spattern} calculates the space-filling pattern
+#' as proposed in Tian and Xu (2022)
+#' (called stratification pattern or (briefly) S pattern here).\cr
 #' Position \code{j} in the S pattern shows the imbalance when considering \code{s^j}
 #' strata. \code{j} is also called the (total) weight. \code{j=1} can occur for an
 #' individual column only. \code{j=2} can be obtained either for an
@@ -77,17 +78,17 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   el <- round(log(nlev, base=s))
   if (!nlev == s^el)
     stop("The number of levels must be a power of s.")
-  if (el==1){
-    if (identical(maxdim, maxwt)) {
-      message("s equals the number of column levels. Function GWLP from package DoE.base is used.")
-      aus <- GWLP(D, k=ifelse(is.null(maxdim), m, maxdim))[-1]
-    }
-    else stop("If the number of levels equals s, use function GWLP from package DoE.base")
-    attr(aus, "call") <- mycall
-    class(aus) <- "Spaper"
-    if (detailed) message("argument detailed was ignored, because s equals the number of levels")
-    return(aus)
-  }
+#  if (el==1){
+#    if (identical(maxdim, maxwt)) {
+#      message("s equals the number of column levels. Function GWLP from package DoE.base is used.")
+#      aus <- GWLP(D, k=ifelse(is.null(maxdim), m, maxdim))[-1]
+#    }
+#    else stop("If the number of levels equals s, use function GWLP from package DoE.base")
+#    attr(aus, "call") <- mycall
+#    class(aus) <- "Spaper"
+#    if (detailed) message("argument detailed was ignored, because s equals the number of levels")
+#    return(aus)
+#  }
 
   if (!is.null(maxdim)) {
     stopifnot(is.numeric(maxdim))
