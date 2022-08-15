@@ -137,10 +137,6 @@ test_that("Spattern", {
   capture_output(expect_snapshot(Spattern(nullcase, s=8)))
   capture_output(expect_snapshot(Spattern(nullcase, s=8, maxdim=3, maxwt=3)))
 
-  ## s = number of levels: does not resort to GWLP
-  ##     because maxdim (3) and maxwt (default 4) are unequal
-  expect_error(Spattern(nullcase, s=8, maxdim=3))
-
   capture_output(expect_snapshot_output(Spattern(st1, s=2, maxdim=4, maxwt=4)))
   capture_output(expect_snapshot_output(Spattern(st1, s=2, maxdim=3, maxwt=2, detailed=TRUE)))
   capture_output(expect_snapshot_output(Spattern(nullcase4, s=2, maxwt=NULL)))

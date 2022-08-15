@@ -1,5 +1,9 @@
 Change log for package SOAs
 
+Version 1.2-1, under development
+
+* added functions contr.Power and Spattern (details of changes not documented here)
+
 Version 1.2, 05 August 2022
 
 * modified function createAB and documentation in SOAs2plus_regular:

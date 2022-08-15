@@ -23,4 +23,8 @@ test_that("contr.Power", {
   temp <- contr.Power(1:4,2)
   expect_equal(dim(temp), c(4, 3))
 
+  ## n=s
+  temp <- contr.Power(9,9)
+  expect_equal(dim(temp), c(9,8))
+
 })
