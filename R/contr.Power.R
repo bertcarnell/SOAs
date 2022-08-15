@@ -4,13 +4,13 @@
 #'
 #' @param s integer; prime or prime power
 #' @param n integer; number of levels of the factor for which contrasts are created.
-#' \code{n} must be a power of \code{s}.
+#' An integer \code{n} or the number of levels of the factor must be a power of \code{s}.
 #' @param contrasts logical; must be TRUE
 #'
 #' @return
 #' \code{contr.Power} yields a matrix of contrasts. It can be used in
-#' function \code{model.matrix} or anywhere where factors with \code{n} levels are
-#' used with contrasts.
+#' function \code{model.matrix} or anywhere where factors with the number of
+#' levels a power of $s$ are used with contrasts.
 #'
 #' @details
 #' The function is a generalization (with slowest first instead of fastest first)
@@ -42,6 +42,11 @@ contr.Power <- function (n, s=2, contrasts = TRUE){
   if (!s^round(log(lenglev, base=s)) == lenglev)
     stop("contr.Power requires that the number of levels is a power of s.")
   el <- round(log(lenglev, base=s))
+  if (el==1) {
+    aus <- contr.XuWuPoly(levels)
+    colnames(aus) <- 1:(lenglev-1)
+    return(aus)
+  }
   cont <- as.matrix(expand.grid(rep(list(0:(s-1)), el))[,el:1])
   if (prime)
      cont <- (cont%*%fun_coeff(s,el))%%s
