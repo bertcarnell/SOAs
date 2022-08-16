@@ -221,8 +221,16 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
 #' @param pat an object of class \code{Spattern} that has attributes \code{combis}
 #' and \code{contrib} (i.e., function \code{Spattern} was called with
 #' \code{detailed=TRUE} for producing $\code{pat}$)
+#' @param dimlim integer; limits the returned dimension rows to the
+#' rows from 1 up to \code{dimlim}; the bottom margin continues to include all
+#' dimensions that were used in calculating \code{pat}
+#' @param wtlim integer; limits the returned weight columns to the columns from
+#' 1 up to \code{wtlim}; the right margin continues to include all weights
+#' that were used in calculating \code{pat}
 #'
 #' @export
+#'
+#' @importFrom stats addmargins
 #'
 #' @return
 #' Function \code{dim_wt_tab} postprocesses an \code{Spattern} object with
@@ -232,7 +240,9 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
 #' and the weight of the effect column micro group (columns). The margin shows row and
 #' column sums (see Details section for caveats).
 #'
-dim_wt_tab <- function(pat, ...){
+dim_wt_tab <- function(pat, dimlim=NULL, wtlim=NULL, ...){
+  ## dimlim and wtlim allow to suppress printing,
+  ## even though everything was calculated
   stopifnot("Spattern" %in% class(pat))
   stopifnot("detailed" %in% names(attr(pat, "call")))
   stopifnot(attr(pat,"call")$detailed)
@@ -245,6 +255,12 @@ dim_wt_tab <- function(pat, ...){
     colSums(do.call(rbind, contribs[which(dims==obj)]), na.rm=TRUE)
   }))
   dimnames(aus) <- list(dim=sort(unique(dims)), weight=1:length(contribs[[1]]))
-  addmargins(round(aus, 8))
+  aus <- addmargins(round(aus, 8))
+  ## limit output (perhaps rather handle via a print method?)
+  if (!is.null(dimlim)) if (dimlim < nrow(aus)-1)
+    aus <- aus[c(1:dimlim, nrow(aus)),]
+  if (!is.null(wtlim)) if (wtlim < ncol(aus)-1)
+    aus <- aus[,c(1:wtlim, ncol(aus))]
+  aus
 }
 

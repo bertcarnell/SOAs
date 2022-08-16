@@ -13,7 +13,7 @@
 \usage{
 Spattern(D, s, maxwt = 4, maxdim = 4, detailed = FALSE, ...)
 
-dim_wt_tab(pat, ...)
+dim_wt_tab(pat, dimlim = NULL, wtlim = NULL, ...)
 
 ocheck(D, verbose = FALSE)
 
@@ -48,6 +48,14 @@ in terms of attributes}
 \item{pat}{an object of class \code{Spattern} that has attributes \code{combis}
 and \code{contrib} (i.e., function \code{Spattern} was called with
 \code{detailed=TRUE} for producing $\code{pat}$)}
+
+\item{dimlim}{integer; limits the returned dimension rows to the
+rows from 1 up to \code{dimlim}; the bottom margin continues to include all
+dimensions that were used in calculating \code{pat}}
+
+\item{wtlim}{integer; limits the returned weight columns to the columns from
+1 up to \code{wtlim}; the right margin continues to include all weights
+that were used in calculating \code{pat}}
 
 \item{verbose}{logical; if \code{TRUE}, additional information is printed
 (confounded pair or triple projections with A2 or A3, respectively, or table of correlations)}
