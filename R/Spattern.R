@@ -16,7 +16,13 @@
 #' (and thus documents, e.g., limits set on dimension and/or weight)\cr
 #' If \code{detailed=TRUE} was requested, the attribute \code{contribs} holds
 #' separate contributions from the column combinations contained
-#' in matrix \code{combis}.
+#' in matrix \code{combis}:\cr
+#' \code{contribs} is a list of 2^m-1 patterns that sum to the reported S pattern
+#' (fewer, 2^\code{maxdim}-1, if \code{maxdim} restricts dimensions),\cr
+#' and \code{combis} is a corresponding list of matrices whose rows hold
+#' column numbers in the main effects model matrix
+#' for the columns that were multiplied for the interactions that contributed
+#' to \code{contribs} element).
 #'
 #' @details
 #' Function \code{Spattern} calculates the space-filling pattern
@@ -40,6 +46,17 @@
 #' to \code{soacheck2D},\cr
 #' and analogously \code{Spattern} with \code{maxdim=2} and \code{maxwt=t} can be used as an alternative
 #' to \code{soacheck3D}.
+#'
+#' \code{Spattern} can be called with \code{detailed=TRUE}. In that case, the returned
+#' object can be post-processed with function \code{dim_wt_tab}. That function splits
+#' the S pattern into contributions from effect column groups of different dimensions,
+#' arranged with a row for each dimension and a column for each weight.
+#' If \code{Spattern} was called with \code{maxdim=NULL} and
+#' \code{maxwt=NULL}, the output object shows the GWLP in the right margin and the
+#' S pattern in the bottom margin. If \code{Spattern} was called with relevant restrictions
+#' on dimensions (\code{maxdim}, default 4) and/or weights (\code{maxwt}, default 4),
+#' sums in the margins can be smaller than they would be for unconstrained dimension and
+#' weights.
 #'
 #' @export
 #'
@@ -197,5 +214,37 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   class(aus) <- c("Spattern", class(aus))
   names(aus) <- 1:length(aus)
   aus
+}
+
+#' @rdname ocheck
+#'
+#' @param pat an object of class \code{Spattern} that has attributes \code{combis}
+#' and \code{contrib} (i.e., function \code{Spattern} was called with
+#' \code{detailed=TRUE} for producing $\code{pat}$)
+#'
+#' @export
+#'
+#' @return
+#' Function \code{dim_wt_tab} postprocesses an \code{Spattern} object with
+#' attributes \code{combis} and \code{contrib} (from a call with \code{detailed=TRUE})
+#' and produces a table that holds the S pattern entries
+#' separated by the dimension of the contributing effect column group (rows)
+#' and the weight of the effect column micro group (columns). The margin shows row and
+#' column sums (see Details section for caveats).
+#'
+dim_wt_tab <- function(pat, ...){
+  stopifnot("Spattern" %in% class(pat))
+  stopifnot("detailed" %in% names(attr(pat, "call")))
+  stopifnot(attr(pat,"call")$detailed)
+  combis <- attr(pat, "combis")
+  contribs <- attr(pat, "contrib")
+  ## 2^m-1 dimension entries (one for each effect column group)
+  dims <- sapply(combis, ncol)
+  ## sum over the patterns for a single dimension
+  aus <- t(sapply(sort(unique(dims)), function(obj){
+    colSums(do.call(rbind, contribs[which(dims==obj)]), na.rm=TRUE)
+  }))
+  dimnames(aus) <- list(dim=sort(unique(dims)), weight=1:length(contribs[[1]]))
+  addmargins(round(aus, 8))
 }
 

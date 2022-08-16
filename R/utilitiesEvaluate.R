@@ -101,9 +101,12 @@
 #' soacheck3D(D, s=2, t=4)
 #' ## using Spattern (much faster for many columns)
 #'   ## does not have strength 4
-#'   Spattern(D, s=2, maxwt=4)
+#'   Spattern(D, s=2)
 #'   ## but complies with strength 4 for dim up to 3
 #'   Spattern(D, s=2, maxwt=4, maxdim=3)
+#'   ## obtain more detail
+#'   Spat <- (Spattern(D, s = 2, maxwt=5, maxdim=5, detailed = TRUE))
+#'   dim_wt_tab(Spat)
 #' ## is an OSOA
 #' ocheck(D)
 #'
