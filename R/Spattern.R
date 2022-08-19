@@ -76,10 +76,23 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   mycall <- sys.call()
   stopifnot(is.matrix(D) || is.data.frame(D))
   stopifnot(s%%1==0)
+  if (is.data.frame(D)) nlev <- levels.no(D)
   if (is.matrix(D)) D.df <- as.data.frame(D) else{
     D.df <- D
-    D <- as.matrix(D)
+    isfac <- sapply(D.df, is.factor)
+    if (any(isfac)){
+      if(!(all(isfac))) stop("Columns of D must all be either factors or not factors")
+      ## all columns are factors
+      D <- as.matrix(sapply(D.df, as.numeric))
+    } else D <- as.matrix(D)
+    if (is.character(D)){
+      D <- matrix(as.numeric(D), nrow=nrow(D.df))
+      if (any(is.na(D))) stop("unsuitable D, non-numeric values")
+    }
   }
+
+  ## checks on valid D should be extended
+
   if (min(D)==1) {
     ## levels start at zero
     ## assuming that the first level is taken at least once
@@ -88,7 +101,7 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   }
   n <- nrow(D)
   m <- ncol(D)
-  nlev <- levels.no(D)
+  if (is.null(nlev)) nlev <- levels.no(D)
   if (!length(unique(nlev))==1)
     stop("All columns of D must have the same number of levels.")
   nlev <- nlev[1]

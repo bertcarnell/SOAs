@@ -157,6 +157,7 @@ levels.no <- function (xx){
   ## taken from DoE.base
   ff <- FALSE
   if (is.data.frame(xx)) {
+    xx <- undesign(xx)  ## use [ from data.frame, not design
     if (any(ff <- sapply(xx, is.factor)))
       nflevs <- sapply(xx[ff], nlevels)
   }
