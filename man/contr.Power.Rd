@@ -8,8 +8,10 @@ for number of levels a prime or prime power}
 contr.Power(n, s = 2, contrasts = TRUE)
 }
 \arguments{
-\item{n}{integer; number of levels of the factor for which contrasts are created.
-An integer \code{n} or the number of levels of the factor must be a power of \code{s}.}
+\item{n}{integer or vector; either an integer number of levels of the factor for
+which contrasts are created, which must be a a power of \code{s}; or a factor
+whose number of levels is a power of \code{s}; or a vector of levels whose
+number of elements is a power of \code{s}.}
 
 \item{s}{integer; prime or prime power}
 
@@ -18,7 +20,8 @@ An integer \code{n} or the number of levels of the factor must be a power of \co
 \value{
 \code{contr.Power} yields a matrix of contrasts. It can be used in
 function \code{model.matrix} or anywhere where factors with the number of
-levels a power of $s$ are used with contrasts.
+levels a power of $s$ are used with contrasts. The exponent for \code{x}
+is determined from the number of levels.
 }
 \description{
 A contrast function based on regular factorials

@@ -3,14 +3,17 @@
 #' @rdname contr.Power
 #'
 #' @param s integer; prime or prime power
-#' @param n integer; number of levels of the factor for which contrasts are created.
-#' An integer \code{n} or the number of levels of the factor must be a power of \code{s}.
+#' @param n integer or vector; either an integer number of levels of the factor for
+#' which contrasts are created, which must be a a power of \code{s}; or a factor
+#' whose number of levels is a power of \code{s}; or a vector of levels whose
+#' number of elements is a power of \code{s}.
 #' @param contrasts logical; must be TRUE
 #'
 #' @return
 #' \code{contr.Power} yields a matrix of contrasts. It can be used in
 #' function \code{model.matrix} or anywhere where factors with the number of
-#' levels a power of $s$ are used with contrasts.
+#' levels a power of $s$ are used with contrasts. The exponent for \code{x}
+#' is determined from the number of levels.
 #'
 #' @details
 #' The function is a generalization (with slowest first instead of fastest first)
@@ -37,7 +40,7 @@ contr.Power <- function (n, s=2, contrasts = TRUE){
       levels <- 1:n
     else stop("invalid choice for n in contr.Power")
   }
-  else levels <- n
+  else if (is.factor(n)) levels <- levels(n) else levels <- n
   lenglev <- length(levels)
   if (!s^round(log(lenglev, base=s)) == lenglev)
     stop("contr.Power requires that the number of levels is a power of s.")
