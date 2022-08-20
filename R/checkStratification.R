@@ -1,5 +1,21 @@
-#' @rdname ocheck
+### exported functions for checking stratification behavior
+
+#' functions to evaluate stratification properties of (O)SOAs and GSOAs
 #'
+#' \code{soacheck2D} and \code{soacheck3D} evaluate 2D and 3D projections,
+#' \code{Spattern} calculates the stratification pattern by Tian and Xu (2022),
+#' and \code{dim_wt_tab} post-processes detailed output from \code{Spattern}.
+#'
+#' @rdname Spattern
+#'
+#' @param D a matrix with factor levels or an object of class \code{SOA} or a
+#' data.frame object with numeric columns.\cr
+#' Functions \code{soacheck2D} and \code{soacheck3D} require levels
+#' that are consecutively numbered (starting with 0 or 1).\cr
+#' Function \code{Spattern} also works, if all columns of $\mathbf D$
+#' have the same number of unique numeric values; the function will code them using
+#' power contrasts.
+#' @param s the prime or prime power according to which the array is checked
 #' @param maxwt maximum weight to be considered for the pattern (default: 4; see Details);\cr
 #'      if the specified limit is larger than \code{maxdim*el},
 #'      it is reduced accordingly (where \code{el} is such that \code{s^el} is the number of levels)
@@ -7,6 +23,17 @@
 #'      if the specified limit is larger than \code{m=ncol(D)}, it is reduced to \code{m}
 #' @param detailed logical; if TRUE, detailed contribution information is provided
 #'      in terms of attributes
+#' @param el the exponent so that the number of levels of the array is \code{s^el}
+#' (if \code{s} is not NULL)
+#' @param t the strength for which to look (2, 3, or 4), equal to the sum of the
+#' exponents in the stratification dimensions; for example, \code{soacheck2D} considers \cr
+#' sxs 2D projections with \code{t=2}, \cr
+#' s^2xs and sxs^2 projections with \code{t=3}, \cr
+#' and s^3xs, s^2xs^2 and sxs^3 projections with \code{t=4}.\cr
+#' If \code{t=4} and \code{el=2}, property gamma (s^3 x s and s x s^3) is obviously
+#' impossible and will not be part of the checks.
+#' @param verbose logical; if \code{TRUE}, additional information is printed
+#' (confounded pair or triple projections with A2 or A3, respectively, or table of correlations)
 #' @param ... currently not used
 #'
 #' @return
@@ -25,9 +52,8 @@
 #' to \code{contribs} element).
 #'
 #' @details
-#' Function \code{Spattern} calculates the space-filling pattern
-#' as proposed in Tian and Xu (2022)
-#' (called stratification pattern or (briefly) S pattern here).\cr
+#' Function \code{Spattern} calculates the stratification pattern or S pattern
+#' as proposed in Tian and Xu (2022) (under the name space-filling pattern).\cr
 #' Position \code{j} in the S pattern shows the imbalance when considering \code{s^j}
 #' strata. \code{j} is also called the (total) weight. \code{j=1} can occur for an
 #' individual column only. \code{j=2} can be obtained either for an
@@ -58,10 +84,79 @@
 #' sums in the margins can be smaller than they would be for unconstrained dimension and
 #' weights.
 #'
+#' Functions \code{soacheck2D} and \code{soacheck3D} were available before
+#' function \code{Spattern}; many of their use cases can now be handled with \code{Spattern}
+#' instead. The functions are often fast to yield a \code{FALSE} outcome,
+#' but can be very slow to yield a \code{TRUE} outcome for larger designs.\cr
+#' The functions inspect 2D and 3D
+#' stratification, respectively. Each column must have \code{s^el} levels.
+#' \code{t} specifies the degree of balance the functions are asked to look for.
+#'
+#' Function \code{soacheck2D},
+#' \itemize{
+#'   \item with el=t=2, looks for strength 2 conditions (s^2 levels, sxs balance),
+#'   \item with el=2, t=3, looks for strength 2+ / 3- conditions (s^2 levels, s^2xs balance),
+#'   \item with el=t=3, looks for strength 2* / 3 conditions (s^3 levels, s^2xs balance).
+#'   \item with el=2, t=4, looks for the enhanced strength 2+ / 3-  property alpha (s^2 levels, s^2xs^2 balance).
+#'   \item and with el=3, t=4, looks for strength 3+ / 4 conditions (s^3 levels, s^3xs and s^2xs^2 balance).
+#' }
+#'
+#' Function \code{soacheck3D},
+#' \itemize{
+#'   \item with el=2, t=3, looks for strength 3- conditions (s^2 levels, sxsxs balance),
+#'   \item with el=t=3, looks for strength 3 conditions (s^3 levels, sxsxs balance),
+#'   \item and with el=3, t=4, looks for strength 3+ / 4 conditions (s^3 levels, s^2xsxs balance).
+#' }
+#'
+#' If \code{verbose=TRUE}, the functions print the pairs or triples that violate
+#' the projection requirements for 2D or 3D.
+#'
+#'
 #' @export
 #'
+#' @references
+#' For full detail, see \code{\link{SOAs-package}}.
+#'
+#' Groemping (2022)\cr
+#' He and Tang (2013)\cr
+#' Shi and Tang (2020)\cr
+#' Tian and Xu (2022)
+#'
+#' @importFrom stats lm rnorm model.matrix
 #' @importFrom combinat combn
 #'
+#' @examples
+#' nullcase <- matrix(0:7, nrow=8, ncol=4)
+#' soacheck2D(nullcase, s=2)
+#' soacheck3D(nullcase, s=2)
+#' Spattern(nullcase, s=2)
+#' Spattern(nullcase, s=2, maxdim=2)
+#'   ## the non-zero entry at position 2 indicates that
+#'   ## soacheck2D does not comply with t=2
+#' (Spat <- Spattern(nullcase, s=2, maxwt=4, detailed=TRUE))
+#'   ## comparison to maxdim=2 indicates that
+#'   ## the contribution to S_4 from dimensions
+#'   ## larger than 2 is 1
+#' ## postprocessing Spat
+#' dim_wt_tab(Spat)
+#'
+#' ## Shi and Tang strength 3+ construction in 7 8-level factors for 32 runs
+#' D <- SOAs_8level(32, optimize=FALSE)
+#'
+#' ## check for strength 3+ (default el=3 is OK)
+#' ## 2D check
+#' soacheck2D(D, s=2, t=4)
+#' ## 3D check
+#' soacheck3D(D, s=2, t=4)
+#' ## using Spattern (much faster for many columns)
+#'   ## does not have strength 4
+#'   Spattern(D, s=2)
+#'   ## but complies with strength 4 for dim up to 3
+#'   Spattern(D, s=2, maxwt=4, maxdim=3)
+#'   ## obtain more detail
+#'   Spat <- (Spattern(D, s = 2, maxwt=5, maxdim=5, detailed = TRUE))
+#'   dim_wt_tab(Spat)
+
 Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   ## examples and references are given in utilitiesEvaluate.R
 
@@ -76,23 +171,10 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   mycall <- sys.call()
   stopifnot(is.matrix(D) || is.data.frame(D))
   stopifnot(s%%1==0)
-  if (is.data.frame(D)) nlev <- levels.no(D)
   if (is.matrix(D)) D.df <- as.data.frame(D) else{
     D.df <- D
-    isfac <- sapply(D.df, is.factor)
-    if (any(isfac)){
-      if(!(all(isfac))) stop("Columns of D must all be either factors or not factors")
-      ## all columns are factors
-      D <- as.matrix(sapply(D.df, as.numeric))
-    } else D <- as.matrix(D)
-    if (is.character(D)){
-      D <- matrix(as.numeric(D), nrow=nrow(D.df))
-      if (any(is.na(D))) stop("unsuitable D, non-numeric values")
-    }
+    D <- as.matrix(D)
   }
-
-  ## checks on valid D should be extended
-
   if (min(D)==1) {
     ## levels start at zero
     ## assuming that the first level is taken at least once
@@ -101,7 +183,7 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   }
   n <- nrow(D)
   m <- ncol(D)
-  if (is.null(nlev)) nlev <- levels.no(D)
+  nlev <- levels.no(D)
   if (!length(unique(nlev))==1)
     stop("All columns of D must have the same number of levels.")
   nlev <- nlev[1]
@@ -229,11 +311,11 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   aus
 }
 
-#' @rdname ocheck
+#' @rdname Spattern
 #'
 #' @param pat an object of class \code{Spattern} that has attributes \code{combis}
 #' and \code{contrib} (i.e., function \code{Spattern} was called with
-#' \code{detailed=TRUE} for producing $\code{pat}$)
+#' \code{detailed=TRUE} for producing \code{pat})
 #' @param dimlim integer; limits the returned dimension rows to the
 #' rows from 1 up to \code{dimlim}; the bottom margin continues to include all
 #' dimensions that were used in calculating \code{pat}
@@ -277,3 +359,170 @@ dim_wt_tab <- function(pat, dimlim=NULL, wtlim=NULL, ...){
   aus
 }
 
+#' @rdname Spattern
+#' @export
+soacheck2D <- function(D, s=3, el=3, t=3, verbose=FALSE){
+  if (is.data.frame(D)) D <- as.matrix(D)
+  stopifnot(all(levels.no(D)==s^el))
+  if (el==2 && t==4) message("property gamma is not possible, ",
+                             "only property alpha is checked")
+  stopifnot(el >= t-2)
+  k <- el  ## renamed k to el, because el is the logical name, code has still k
+  ## guarantee integer levels
+  stopifnot(all(D%%1==0))
+  ## guarantee that the collapsing works properly
+  if (min(D)==1) D <- D-1
+  stopifnot(all(D %in% 0:(s^el-1)))
+
+  ## prevent invalid t
+  stopifnot(t %in% c(2,3,4))
+
+  paare <- nchoosek(ncol(D), 2)
+  aus <- TRUE
+  if (verbose) cat("pairs for which SOA property in 2D is violated:\n")
+  if (t==4){
+    ## t=4, el=3 checks all
+    ## t=4, el=2 checks only property alpha
+    for (i in 1:ncol(paare)){
+      ## might be faster to use length2 instead of GWLP ?
+      if (el>=t-1){
+        suppressWarnings(threeone <- DoE.base::GWLP(
+          cbind(D[,paare[1,i]]%/%(s^(k-3)), D[,paare[2,i]]%/%(s^(k-1))), kmax=2)[3])
+        suppressWarnings(onethree <- DoE.base::GWLP(
+          cbind(D[,paare[1,i]]%/%(s^(k-1)), D[,paare[2,i]]%/%(s^(k-3))), kmax=2)[3])
+      }
+      else threeone <- onethree <- 0  ## do not report gamma violations
+      suppressWarnings(twotwo <- DoE.base::GWLP(
+        cbind(D[,paare[1,i]]%/%(s^(k-2)), D[,paare[2,i]]%/%(s^(k-2))), kmax=2)[3])
+      if (round(threeone,8) > 0 || round(twotwo,8) > 0 || round(onethree,8) > 0){
+        if (!verbose) return(FALSE)
+        aus <- FALSE
+        print(paare[,i])
+        if (round(threeone,8)>0) {
+          print(paste0("3x1: A2 = ", round(threeone,8)))
+        }
+        if (round(twotwo,8)>0) {
+          print(paste0("2x2: A2 = ", round(twotwo,8)))
+        }
+        if (round(onethree,8)>0) {
+          print(paste0("1x3: A2 = ", round(onethree,8)))
+        }
+      }
+    }
+    return(aus)
+  }
+  if (t==3){
+    for (i in 1:ncol(paare)){
+      ## might be faster to use length2 instead of GWLP ?
+      suppressWarnings(twoone <- DoE.base::GWLP(
+        cbind(D[,paare[1,i]]%/%(s^(k-2)), D[,paare[2,i]]%/%(s^(k-1))), kmax=2)[3])
+      suppressWarnings(onetwo <- DoE.base::GWLP(
+        cbind(D[,paare[1,i]]%/%(s^(k-1)), D[,paare[2,i]]%/%(s^(k-2))), kmax=2)[3])
+      if (round(twoone,8) > 0 || round(onetwo,8) > 0){
+        if (!verbose) return(FALSE)
+        aus <- FALSE
+        print(paare[,i])
+        if (round(twoone,8)>0) {
+          print(paste0("2x1: A2 = ", round(twoone,8)))
+        }
+        if (round(onetwo,8)>0) {
+          print(paste0("1x2: A2 = ", round(onetwo,8)))
+        }
+      }
+    }
+  }else{
+    for (i in 1:ncol(paare)){
+      suppressWarnings(oneone <- DoE.base::GWLP(
+        cbind(D[,paare[1,i]]%/%(s^(k-1)), D[,paare[2,i]]%/%(s^(k-1))), kmax=2)[3])
+      if (round(oneone,8) > 0){
+        if (!verbose) return(FALSE)
+        aus <- FALSE
+        print(paare[,i])
+        print(paste0("1x1: A2 = ", round(oneone,8)))
+      }
+    }
+  }
+  return(aus)
+}
+
+################################################################################
+
+#' @rdname Spattern
+#' @export
+soacheck3D <- function(D, s=3, el=3, t=3, verbose=FALSE){
+  if (is.data.frame(D)) D <- as.matrix(D)
+  stopifnot(all(levels.no(D)==s^el))
+
+  k <- el  ## renamed k to el, because el is the logical name, code has still k
+
+  ## guarantee integer levels
+  stopifnot(all(D%%1==0))
+  ## guarantee that the collapsing works properly
+  if (min(D)==1) D <- D-1
+  stopifnot(all(D %in% 0:(s^el-1)))
+
+  ## prevent invalid t
+  stopifnot(t %in% c(3,4))
+
+  tripel <- nchoosek(ncol(D), 3)
+  aus <- TRUE
+  if (verbose)
+    cat("triples for which SOA property in 3D is violated:\n")
+  if (t==3)
+    for (i in 1:ncol(tripel)){
+      three <- DoE.base::GWLP(cbind(D[,tripel[1,i]]%/%(s^(k-1)),
+                                    D[,tripel[2,i]]%/%(s^(k-1)),
+                                    D[,tripel[3,i]]%/%(s^(k-1))),
+                              kmax=3)
+      if (any(round(three[-1],8) > 0)){
+        aus <- FALSE
+        if (!verbose) return(FALSE)
+        print(tripel[,i])
+        cat(paste0("1x1x1:\n"))
+        print(round(three,3)[-1])
+      }
+    }
+  else{
+    ## t=4
+    for (i in 1:ncol(tripel)){
+      three <- DoE.base::GWLP(
+        cbind(D[,tripel[1,i]]%/%(s^(k-2)),
+              D[,tripel[2,i]]%/%(s^(k-1)),
+              D[,tripel[3,i]]%/%(s^(k-1))),
+        kmax=3)
+      if (any(round(three[-1],8) > 0)){
+        aus <- FALSE
+        if (!verbose) return(FALSE)
+        print(tripel[,i])
+        cat(paste0("2x1x1:\n"))
+        print(round(three,3)[-1])
+      }
+      three <- DoE.base::GWLP(
+        cbind(D[,tripel[1,i]]%/%(s^(k-1)),
+              D[,tripel[2,i]]%/%(s^(k-2)),
+              D[,tripel[3,i]]%/%(s^(k-1))),
+        kmax=3)
+      if (any(round(three[-1],8) > 0)){
+        aus <- FALSE
+        if (!verbose) return(FALSE)
+        print(tripel[,i])
+        cat(paste0("1x2x1:\n"))
+        print(round(three,3)[-1])
+      }
+      three <- DoE.base::GWLP(
+        cbind(D[,tripel[1,i]]%/%(s^(k-1)),
+              D[,tripel[2,i]]%/%(s^(k-1)),
+              D[,tripel[3,i]]%/%(s^(k-2))),
+        kmax=3)
+      if (any(round(three[-1],8) > 0)){
+        aus <- FALSE
+        if (!verbose) return(FALSE)
+        print(tripel[,i])
+        cat(paste0("1x1x2:\n"))
+        print(round(three,3)[-1])
+      }
+    }
+
+  }
+  aus
+}
