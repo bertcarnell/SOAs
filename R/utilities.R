@@ -156,8 +156,9 @@ nchoosek <- function (n, k){
 levels.no <- function (xx){
   ## taken from DoE.base
   ff <- FALSE
-  if (is.data.frame(xx)) {
+  if ("design" %in% class(xx))
     xx <- undesign(xx)  ## use [ from data.frame, not design
+  if (is.data.frame(xx)) {
     if (any(ff <- sapply(xx, is.factor)))
       nflevs <- sapply(xx[ff], nlevels)
   }
