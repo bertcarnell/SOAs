@@ -12,7 +12,7 @@
 #' data.frame object with numeric columns.\cr
 #' Functions \code{soacheck2D} and \code{soacheck3D} require levels
 #' that are consecutively numbered (starting with 0 or 1).\cr
-#' Function \code{Spattern} also works, if all columns of $\mathbf D$
+#' Function \code{Spattern} also works, if all columns of \code{D}
 #' have the same number of unique numeric values; the function will code them using
 #' power contrasts.
 #' @param s the prime or prime power according to which the array is checked
@@ -208,14 +208,19 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
     stopifnot(maxdim>0)
     ## reduce too large request to maximum possible
     if (maxdim > m) maxdim <- m
-  }else maxdim <- m
+  }## non-null maxdim is now valid
   if (!is.null(maxwt)) {
     stopifnot(is.numeric(maxwt))
     stopifnot(maxwt%%1==0)
     stopifnot(maxwt>0)
     ## reduce too large request to maximum possible
-    if (maxwt > el*maxdim) maxwt <- el*maxdim
+    if (!is.null(maxdim)){
+      if (maxwt > el*maxdim) maxwt <- el*maxdim
+    }
+    else
+      maxdim <- min(m, maxwt)
   }else {
+    if (is.null(maxdim)) maxdim <- m
     maxwt <- el*maxdim
   }
 
@@ -244,20 +249,29 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   if (maxdim==m) picks[[length(picks)]] <-
         matrix(picks[[length(picks)]], ncol=1)
         ### corrects stupid behavior of combinat::combn
+
+## return only as many columns as needed for the required weights
   combicols <- unlist(lapply(picks, function(obj) {
     ## picks contains a row matrix of variable choices
     ## for each dimension from 1 to maxdim
     ## hence, obj is such a row matrix, and
     ##     the function has to be applied to all columns of obj
     dim_now <- nrow(obj)
+    ## if all other weights are 1, a single column can take at most weight maxwt + 1 - dimnow
+    ## and of course it can never take a higher weight than el
+    maxsinglewt <- min(maxwt + 1 - dim_now, el)
     lapply(1:ncol(obj), function(obj2){
        picked <- obj[,obj2]
-       colnums <- mapply(":", (picked-1)*(s^el-1)+1, picked*(s^el-1), SIMPLIFY = FALSE)
+       ## main effect model matrix columns for the selected array columns
+       ## with maximum possible single column weight
+       colnums <- mapply(":", (picked-1)*(s^el-1)+1, (picked-1)*(s^el-1)+s^maxsinglewt-1,
+                         SIMPLIFY = FALSE)
+          ## colnums is a list of lists
+       ## obtains all combinations
        as.matrix(expand.grid(rev(colnums)))[,dim_now:1, drop=FALSE]
     })
   }
   ), recursive = FALSE)
-  ## obtain combiweights from combicols
   combiweights <- lapply(combicols, function(obj)
      rowSums(matrix(uwt[obj], nrow=nrow(obj))))
   if (any(unlist(combiweights) > maxwt)){

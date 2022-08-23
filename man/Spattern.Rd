@@ -16,8 +16,13 @@ soacheck2D(D, s = 3, el = 3, t = 3, verbose = FALSE)
 soacheck3D(D, s = 3, el = 3, t = 3, verbose = FALSE)
 }
 \arguments{
-\item{D}{a matrix with factor levels or an object of class \code{SOA};\cr
-factor levels can start with 0 or with 1, and need to be consecutively numbered}
+\item{D}{a matrix with factor levels or an object of class \code{SOA} or a
+data.frame object with numeric columns.\cr
+Functions \code{soacheck2D} and \code{soacheck3D} require levels
+that are consecutively numbered (starting with 0 or 1).\cr
+Function \code{Spattern} also works, if all columns of \code{D}
+have the same number of unique numeric values; the function will code them using
+power contrasts.}
 
 \item{s}{the prime or prime power according to which the array is checked}
 
@@ -35,7 +40,7 @@ in terms of attributes}
 
 \item{pat}{an object of class \code{Spattern} that has attributes \code{combis}
 and \code{contrib} (i.e., function \code{Spattern} was called with
-\code{detailed=TRUE} for producing $\code{pat}$)}
+\code{detailed=TRUE} for producing \code{pat})}
 
 \item{dimlim}{integer; limits the returned dimension rows to the
 rows from 1 up to \code{dimlim}; the bottom margin continues to include all
@@ -87,9 +92,8 @@ column sums (see Details section for caveats).
 and \code{dim_wt_tab} post-processes detailed output from \code{Spattern}.
 }
 \details{
-Function \code{Spattern} calculates the space-filling pattern
-as proposed in Tian and Xu (2022)
-(called stratification pattern or (briefly) S pattern here).\cr
+Function \code{Spattern} calculates the stratification pattern or S pattern
+as proposed in Tian and Xu (2022) (under the name space-filling pattern).\cr
 Position \code{j} in the S pattern shows the imbalance when considering \code{s^j}
 strata. \code{j} is also called the (total) weight. \code{j=1} can occur for an
 individual column only. \code{j=2} can be obtained either for an
@@ -155,10 +159,12 @@ Spattern(nullcase, s=2)
 Spattern(nullcase, s=2, maxdim=2)
   ## the non-zero entry at position 2 indicates that
   ## soacheck2D does not comply with t=2
-Spattern(nullcase, s=2, maxwt=4)
+(Spat <- Spattern(nullcase, s=2, maxwt=4, detailed=TRUE))
   ## comparison to maxdim=2 indicates that
   ## the contribution to S_4 from dimensions
   ## larger than 2 is 1
+## postprocessing Spat
+dim_wt_tab(Spat)
 
 ## Shi and Tang strength 3+ construction in 7 8-level factors for 32 runs
 D <- SOAs_8level(32, optimize=FALSE)
