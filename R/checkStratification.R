@@ -12,7 +12,7 @@
 #' data.frame object with numeric columns.\cr
 #' Functions \code{soacheck2D} and \code{soacheck3D} require levels
 #' that are consecutively numbered (starting with 0 or 1).\cr
-#' Function \code{Spattern} also works, if all columns of $\mathbf D$
+#' Function \code{Spattern} also works, if all columns of \code{D}
 #' have the same number of unique numeric values; the function will code them using
 #' power contrasts.
 #' @param s the prime or prime power according to which the array is checked
