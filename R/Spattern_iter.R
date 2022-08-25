@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @importFrom iterators nextElem
-#' @importFrom itertools product ihasNext hasNext nextElem
+#' @importFrom itertools product ihasNext hasNext
 #' @importFrom stats lm rnorm model.matrix
 #' @importFrom combinat combn
 #'
