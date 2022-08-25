@@ -71,6 +71,7 @@ Spattern_iter <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
     ## reduce too large request to maximum possible
     if (!is.null(maxdim)){
       if (maxwt > el*maxdim) maxwt <- el*maxdim
+      if (maxdim > maxwt) maxdim <- maxwt
     }
     else
       maxdim <- min(m, maxwt)

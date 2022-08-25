@@ -205,6 +205,7 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
     ## reduce too large request to maximum possible
     if (!is.null(maxdim)){
       if (maxwt > el*maxdim) maxwt <- el*maxdim
+      if (maxdim > maxwt) maxdim <- maxwt
     }
     else
       maxdim <- min(m, maxwt)
@@ -262,8 +263,14 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   }
   ), recursive = FALSE)
 
-  combiweights <- lapply(combicols, function(obj)
-     rowSums(matrix(uwt[obj], nrow=nrow(obj))))
+  combiweights <- lapply(combicols, function(obj){
+ #   print(table(obj))
+#    print(length(uwt[obj]))
+#    print(obj)
+#    print(uwt[obj])
+     rowSums(matrix(uwt[obj], nrow=nrow(obj)))
+  }
+  )
   if (any(unlist(combiweights) > maxwt)){
     skip <- integer(0)
     for (i in 1:length(combiweights)){
