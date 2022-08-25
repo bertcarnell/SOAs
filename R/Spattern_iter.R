@@ -110,7 +110,9 @@ Spattern_iter <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   ## in an lapply call that returns a list of lists
   ##    with second level list elements combis and contribs
   ## ## initialize outputs
-  hilffun <- function(combicolumns=combicols, ncol=dim_now){
+  hilffun <- function(combicolumns, ncol){
+    ## combicolumns must be colnums (see below)
+    ## ncol must be dim_now (see below)
     combis <- matrix(NA, nrow=0, ncol=ncol)
     combiweights <- integer(0)
     pat <- rep(NA, maxwt)
