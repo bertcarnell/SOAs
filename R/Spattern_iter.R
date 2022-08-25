@@ -20,6 +20,7 @@
 #' @importFrom combinat combn
 #'
 #' @examples
+#' nullcase <- matrix(0:7, nrow=8, ncol=4)
 #' Spattern_iter(nullcase, s=2)
 
 Spattern_iter <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){

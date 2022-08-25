@@ -175,6 +175,7 @@ If \code{verbose=TRUE}, the functions print the pairs or triples that violate
 the projection requirements for 2D or 3D.
 }
 \examples{
+nullcase <- matrix(0:7, nrow=8, ncol=4)
 Spattern_iter(nullcase, s=2)
 nullcase <- matrix(0:7, nrow=8, ncol=4)
 soacheck2D(nullcase, s=2)
