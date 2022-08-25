@@ -1,163 +1,28 @@
-### exported functions for checking stratification behavior
+### iterative version of Spattern
+### slower but feasible for cases that otherwise fail for memory reasons
 
-#' functions to evaluate stratification properties of (O)SOAs and GSOAs
-#'
-#' \code{soacheck2D} and \code{soacheck3D} evaluate 2D and 3D projections,
-#' \code{Spattern} calculates the stratification pattern by Tian and Xu (2022),
-#' and \code{dim_wt_tab} post-processes detailed output from \code{Spattern}.
-#'
 #' @rdname Spattern
 #'
-#' @param D a matrix with factor levels or an object of class \code{SOA} or a
-#' data.frame object with numeric columns.\cr
-#' Functions \code{soacheck2D} and \code{soacheck3D} require levels
-#' that are consecutively numbered (starting with 0 or 1).\cr
-#' Function \code{Spattern} also works, if all columns of \code{D}
-#' have the same number of unique numeric values; the function will code them using
-#' power contrasts.
-#' @param s the prime or prime power according to which the array is checked
-#' @param maxwt maximum weight to be considered for the pattern (default: 4; see Details);\cr
-#'      if the specified limit is larger than \code{maxdim*el},
-#'      it is reduced accordingly (where \code{el} is such that \code{s^el} is the number of levels)
-#' @param maxdim maximum dimension to be considered for the pattern (default: 4; see Details);\cr
-#'      if the specified limit is larger than \code{m=ncol(D)}, it is reduced to \code{m}
-#' @param detailed logical; if TRUE, detailed contribution information is provided
-#'      in terms of attributes
-#' @param el the exponent so that the number of levels of the array is \code{s^el}
-#' (if \code{s} is not NULL)
-#' @param t the strength for which to look (2, 3, or 4), equal to the sum of the
-#' exponents in the stratification dimensions; for example, \code{soacheck2D} considers \cr
-#' sxs 2D projections with \code{t=2}, \cr
-#' s^2xs and sxs^2 projections with \code{t=3}, \cr
-#' and s^3xs, s^2xs^2 and sxs^3 projections with \code{t=4}.\cr
-#' If \code{t=4} and \code{el=2}, property gamma (s^3 x s and s x s^3) is obviously
-#' impossible and will not be part of the checks.
-#' @param verbose logical; if \code{TRUE}, additional information is printed
-#' (confounded pair or triple projections with A2 or A3, respectively, or table of correlations)
-#' @param ... currently not used
-#'
 #' @return
-#' \code{Spattern} returns an object of class \code{Spattern}
-#' that is a named vector with attributes:\cr
-#' The attribute \code{call} holds the function call
-#' (and thus documents, e.g., limits set on dimension and/or weight)\cr
-#' If \code{detailed=TRUE} was requested, the attribute \code{contribs} holds
-#' separate contributions from the column combinations contained
-#' in matrix \code{combis}:\cr
-#' \code{contribs} is a list of 2^m-1 patterns that sum to the reported S pattern
-#' (fewer, 2^\code{maxdim}-1, if \code{maxdim} restricts dimensions),\cr
-#' and \code{combis} is a corresponding list of matrices whose rows hold
-#' column numbers in the main effects model matrix
-#' for the columns that were multiplied for the interactions that contributed
-#' to \code{contribs} element).
+#' \code{Spattern_iter} currently returns an object of class \code{Spattern}
+#' similar to that returned by \code{Spattern}; the only difference is in the attributes.
+#' Objects created with \code{Spattern_iter} currently do not work with \code{dim_wt_tab}.
 #'
 #' @details
-#' Function \code{Spattern} calculates the stratification pattern or S pattern
-#' as proposed in Tian and Xu (2022) (under the name space-filling pattern).\cr
-#' Position \code{j} in the S pattern shows the imbalance when considering \code{s^j}
-#' strata. \code{j} is also called the (total) weight. \code{j=1} can occur for an
-#' individual column only. \code{j=2} can be obtained either for an
-#' \code{s^2} level version of an individual column or for the crossing of
-#' \code{s^1} level versions of two columns, and so forth.
-#'
-#' Obtaining the entire S pattern
-#' can be computationally demanding. The arguments \code{maxwt} and
-#' \code{maxdim} limit the effort (choose \code{NULL} for no limit):\cr
-#' \code{maxwt} gives an upper limit for the weight \code{j} of the previous paragraph.\cr
-#' \code{maxdim} limits the number of columns that are considered in combination.\cr
-#' When using \code{maxdim}, pattern entries for \code{j} larger than \code{maxdim} are smaller
-#' than if one would not have limited the dimension.
-#'
-#' \code{Spattern} with \code{maxdim=2} and \code{maxwt=t} can be used as an alternative
-#' to \code{soacheck2D},\cr
-#' and analogously \code{Spattern} with \code{maxdim=2} and \code{maxwt=t} can be used as an alternative
-#' to \code{soacheck3D}.
-#'
-#' \code{Spattern} can be called with \code{detailed=TRUE}. In that case, the returned
-#' object can be post-processed with function \code{dim_wt_tab}. That function splits
-#' the S pattern into contributions from effect column groups of different dimensions,
-#' arranged with a row for each dimension and a column for each weight.
-#' If \code{Spattern} was called with \code{maxdim=NULL} and
-#' \code{maxwt=NULL}, the output object shows the GWLP in the right margin and the
-#' S pattern in the bottom margin. If \code{Spattern} was called with relevant restrictions
-#' on dimensions (\code{maxdim}, default 4) and/or weights (\code{maxwt}, default 4),
-#' sums in the margins can be smaller than they would be for unconstrained dimension and
-#' weights.
-#'
-#' Functions \code{soacheck2D} and \code{soacheck3D} were available before
-#' function \code{Spattern}; many of their use cases can now be handled with \code{Spattern}
-#' instead. The functions are often fast to yield a \code{FALSE} outcome,
-#' but can be very slow to yield a \code{TRUE} outcome for larger designs.\cr
-#' The functions inspect 2D and 3D
-#' stratification, respectively. Each column must have \code{s^el} levels.
-#' \code{t} specifies the degree of balance the functions are asked to look for.
-#'
-#' Function \code{soacheck2D},
-#' \itemize{
-#'   \item with el=t=2, looks for strength 2 conditions (s^2 levels, sxs balance),
-#'   \item with el=2, t=3, looks for strength 2+ / 3- conditions (s^2 levels, s^2xs balance),
-#'   \item with el=t=3, looks for strength 2* / 3 conditions (s^3 levels, s^2xs balance).
-#'   \item with el=2, t=4, looks for the enhanced strength 2+ / 3-  property alpha (s^2 levels, s^2xs^2 balance).
-#'   \item and with el=3, t=4, looks for strength 3+ / 4 conditions (s^3 levels, s^3xs and s^2xs^2 balance).
-#' }
-#'
-#' Function \code{soacheck3D},
-#' \itemize{
-#'   \item with el=2, t=3, looks for strength 3- conditions (s^2 levels, sxsxs balance),
-#'   \item with el=t=3, looks for strength 3 conditions (s^3 levels, sxsxs balance),
-#'   \item and with el=3, t=4, looks for strength 3+ / 4 conditions (s^3 levels, s^2xsxs balance).
-#' }
-#'
-#' If \code{verbose=TRUE}, the functions print the pairs or triples that violate
-#' the projection requirements for 2D or 3D.
-#'
+#' Function \code{Spattern_iter} will eventually lead to a modification of
+#' \code{Spattern}.
 #'
 #' @export
 #'
-#' @references
-#' For full detail, see \code{\link{SOAs-package}}.
-#'
-#' Groemping (2022)\cr
-#' He and Tang (2013)\cr
-#' Shi and Tang (2020)\cr
-#' Tian and Xu (2022)
-#'
+#' @importFrom iterators nextElem
+#' @importFrom itertools product ihasNext hasNext
 #' @importFrom stats lm rnorm model.matrix
 #' @importFrom combinat combn
 #'
 #' @examples
-#' nullcase <- matrix(0:7, nrow=8, ncol=4)
-#' soacheck2D(nullcase, s=2)
-#' soacheck3D(nullcase, s=2)
-#' Spattern(nullcase, s=2)
-#' Spattern(nullcase, s=2, maxdim=2)
-#'   ## the non-zero entry at position 2 indicates that
-#'   ## soacheck2D does not comply with t=2
-#' (Spat <- Spattern(nullcase, s=2, maxwt=4, detailed=TRUE))
-#'   ## comparison to maxdim=2 indicates that
-#'   ## the contribution to S_4 from dimensions
-#'   ## larger than 2 is 1
-#' ## postprocessing Spat
-#' dim_wt_tab(Spat)
-#'
-#' ## Shi and Tang strength 3+ construction in 7 8-level factors for 32 runs
-#' D <- SOAs_8level(32, optimize=FALSE)
-#'
-#' ## check for strength 3+ (default el=3 is OK)
-#' ## 2D check
-#' soacheck2D(D, s=2, t=4)
-#' ## 3D check
-#' soacheck3D(D, s=2, t=4)
-#' ## using Spattern (much faster for many columns)
-#'   ## does not have strength 4
-#'   Spattern(D, s=2)
-#'   ## but complies with strength 4 for dim up to 3
-#'   Spattern(D, s=2, maxwt=4, maxdim=3)
-#'   ## obtain more detail
-#'   Spat <- (Spattern(D, s = 2, maxwt=5, maxdim=5, detailed = TRUE))
-#'   dim_wt_tab(Spat)
+#' Spattern_iter(nullcase, s=2)
 
-Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
+Spattern_iter <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   ## examples and references are given in utilitiesEvaluate.R
 
   ## uses contr.Power with s=s
@@ -239,8 +104,39 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
         matrix(picks[[length(picks)]], ncol=1)
         ### corrects stupid behavior of combinat::combn
 
-## return only as many columns as needed for the required weights
-  combicols <- unlist(lapply(picks, function(obj) {
+  ## replace expand.grid approach with itertools::product
+  ##       applied to the list colnums
+  ## using something like the commented code below
+  ## in an lapply call that returns a list of lists
+  ##    with second level list elements combis and contribs
+  ## ## initialize outputs
+  hilffun <- function(combicolumns=combicols, ncol=dim_now){
+    combis <- matrix(NA, nrow=0, ncol=ncol)
+    combiweights <- integer(0)
+    pat <- rep(NA, maxwt)
+    for (i in 1:length(combicolumns)){
+    it <- ihasNext(do.call(product, combicolumns[[i]]))
+    ## combicols is colnums, not expanded grid
+    while (hasNext(it)) {
+      cols <- unlist(nextElem(it))  ## contains column numbers
+      ## calculate weight
+      wt <- sum(uwt[cols])
+      if (wt > maxwt) next
+      combis <- rbind(combis, cols)
+      combiweights <- c(combiweights, wt)
+      contrib <- sum(apply(Hmat[,cols, drop=FALSE], 1, prod))^2
+      if (is.na(pat[wt])) pat[wt] <- contrib else
+        pat[wt] <- pat[wt] + contrib
+    }
+    }
+    ## combis returns column combinations (matrix)
+    ## combiweights returns the corresponding weights (vector)
+    ## contribs returns a (partial) pattern
+    list(combis=combis, combiweights=combiweights, contribs=pat)
+  }
+
+  ## return only as many columns as needed for the required weights
+  combicols <- lapply(picks, function(obj) {
     ## picks contains a row matrix of variable choices
     ## for each dimension from 1 to maxdim
     ## hence, obj is such a row matrix, and
@@ -249,7 +145,7 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
     ## if all other weights are 1, a single column can take at most weight maxwt + 1 - dimnow
     ## and of course it can never take a higher weight than el
     maxsinglewt <- min(maxwt + 1 - dim_now, el)
-    lapply(1:ncol(obj), function(obj2){
+    colnums <- lapply(1:ncol(obj), function(obj2){
        picked <- obj[,obj2]
        ## main effect model matrix columns for the selected array columns
        ## with maximum possible single column weight
@@ -257,58 +153,17 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
                          SIMPLIFY = FALSE)
           ## colnums is a list of lists
        ## obtains all combinations
-       as.matrix(expand.grid(rev(colnums)))[,dim_now:1, drop=FALSE]
+  #     as.matrix(expand.grid(rev(colnums)))[,dim_now:1, drop=FALSE]
     })
+    hilffun(colnums, dim_now)
   }
-  ), recursive = FALSE)
+  )
 
-  combiweights <- lapply(combicols, function(obj)
-     rowSums(matrix(uwt[obj], nrow=nrow(obj))))
-  if (any(unlist(combiweights) > maxwt)){
-    skip <- integer(0)
-    for (i in 1:length(combiweights)){
-      ## loop over column combinations
-      keep <- which(combiweights[[i]] <= maxwt)
-      if (length(keep) > 0){
-        combiweights[[i]] <- combiweights[[i]][keep]
-        combicols[[i]] <- combicols[[i]][keep,, drop=FALSE]
-      }else{
-        ## keep these there, because
-        ## otherwise i has a moving reference
-        combiweights[[i]] <- "skip"
-        combicols[[i]] <- "skip"
-        skip <- c(skip, i)
-      }
-    }
-    combiweights[skip] <- NULL
-    combicols[skip] <- NULL
-  }
-  ##########################################################################
-
-  ## calculate the contributions
-  ## a list element for each combination of columns of D
-  ## may have to become a loop for large m, but maybe maxdim is sufficient
-  contribs <- lapply(1:length(combicols),
-                     function(obj){
-                       cols <- combicols[[obj]]
-                       wts <- combiweights[[obj]]
-                       pat <- rep(NA, max(unlist(combiweights)))
-                       ## obj is the outer list position
-                       ## and determines the set
-                       ## (and thus the number) of variables involved
-                       for (i in 1:nrow(cols)){
-                         wt <- wts[i]
-                         contrib <- sum(apply(Hmat[,cols[i,], drop=FALSE], 1, prod))^2
-                         if (is.na(pat[wt])) pat[wt] <- contrib else
-                           pat[wt] <- pat[wt] + contrib
-                       }
-                       pat/n^2
-                     })
-  aus <- round(colSums(do.call(rbind, contribs), na.rm=TRUE), 8)
+  aus <- round(colSums(do.call(rbind, lapply(combicols, function(obj) obj$contribs)),
+                       na.rm=TRUE), 8)/n^2
   attr(aus, "call") <- mycall
   if (detailed) {
-    attr(aus, "contribs") <- contribs
-    attr(aus, "combis") <- combicols
+    attr(aus, "details") <- combicols
   }
   class(aus) <- c("Spattern", class(aus))
   names(aus) <- 1:length(aus)

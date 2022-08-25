@@ -2,7 +2,9 @@ Change log for package SOAs
 
 Version 1.2-1, under development
 
-* added functions contr.Power and Spattern (details of changes not documented here)
+* added functions contr.Power, Spattern and dim_wt_tab (details of changes not documented here)
+* added an interim function Spattern_iter for experimenting with an iterative
+implementation - slower but allows to handle cases that fail for memory reasons with the previous expand.grid solution
 
 Version 1.2, 05 August 2022
 
