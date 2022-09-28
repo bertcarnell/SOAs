@@ -358,10 +358,15 @@ dim_wt_tab <- function(pat, dimlim=NULL, wtlim=NULL, ...){
   dims <- sapply(combis, ncol)
   ## sum over the patterns for a single dimension
   aus <- t(sapply(sort(unique(dims)), function(obj){
-    colSums(do.call(rbind, contribs[which(dims==obj)]), na.rm=TRUE)
+    hilf <- do.call(rbind, contribs[which(dims==obj)])
+    hilf2 <- colSums(hilf, na.rm=TRUE)
+    hilf2[colSums(is.na(hilf))==nrow(hilf)] <- NA
+    hilf2
   }))
   dimnames(aus) <- list(dim=sort(unique(dims)), weight=1:length(contribs[[1]]))
-  aus <- addmargins(round(aus, 8))
+  aus <- round(aus,8)
+  aus <- cbind(aus, Sum=rowSums(aus, na.rm=TRUE))
+  aus <- rbind(aus, Sum=colSums(aus, na.rm=TRUE))
   ## limit output (perhaps rather handle via a print method?)
   if (!is.null(dimlim)) if (dimlim < nrow(aus)-1)
     aus <- aus[c(1:dimlim, nrow(aus)),]
