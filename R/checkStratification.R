@@ -4,7 +4,7 @@
 #'
 #' \code{soacheck2D} and \code{soacheck3D} evaluate 2D and 3D projections,
 #' \code{Spattern} calculates the stratification pattern by Tian and Xu (2022),
-#' and \code{dim_wt_tab} post-processes detailed output from \code{Spattern}.
+#' and \code{dim_wt_tab} extracts and formats the \code{dim_wt_tab} attribute of \code{Spattern}.
 #'
 #' @rdname Spattern
 #'
@@ -21,8 +21,6 @@
 #'      it is reduced accordingly (where \code{el} is such that \code{s^el} is the number of levels)
 #' @param maxdim maximum dimension to be considered for the pattern (default: 4; see Details);\cr
 #'      if the specified limit is larger than \code{m=ncol(D)}, it is reduced to \code{m}
-#' @param detailed logical; if TRUE, detailed contribution information is provided
-#'      in terms of attributes
 #' @param el the exponent so that the number of levels of the array is \code{s^el}
 #' (if \code{s} is not NULL)
 #' @param t the strength for which to look (2, 3, or 4), equal to the sum of the
@@ -40,16 +38,9 @@
 #' \code{Spattern} returns an object of class \code{Spattern}
 #' that is a named vector with attributes:\cr
 #' The attribute \code{call} holds the function call
-#' (and thus documents, e.g., limits set on dimension and/or weight)\cr
-#' If \code{detailed=TRUE} was requested, the attribute \code{contribs} holds
-#' separate contributions from the column combinations contained
-#' in matrix \code{combis}:\cr
-#' \code{contribs} is a list of 2^m-1 patterns that sum to the reported S pattern
-#' (fewer, 2^\code{maxdim}-1, if \code{maxdim} restricts dimensions),\cr
-#' and \code{combis} is a corresponding list of matrices whose rows hold
-#' column numbers in the main effects model matrix
-#' for the columns that were multiplied for the interactions that contributed
-#' to \code{contribs} element).
+#' (and thus documents, e.g., limits set on dimension and/or weight).\cr
+#' The attribute \code{dim_wt_tab} holds a table of contributions
+#' split out by dimension (rows) and weights (columns).
 #'
 #' @details
 #' Function \code{Spattern} calculates the stratification pattern or S pattern
@@ -73,7 +64,7 @@
 #' and analogously \code{Spattern} with \code{maxdim=2} and \code{maxwt=t} can be used as an alternative
 #' to \code{soacheck3D}.
 #'
-#' \code{Spattern} can be called with \code{detailed=TRUE}. In that case, the returned
+#' An \code{Spattern} object
 #' object can be post-processed with function \code{dim_wt_tab}. That function splits
 #' the S pattern into contributions from effect column groups of different dimensions,
 #' arranged with a row for each dimension and a column for each weight.
@@ -133,7 +124,7 @@
 #' Spattern(nullcase, s=2, maxdim=2)
 #'   ## the non-zero entry at position 2 indicates that
 #'   ## soacheck2D does not comply with t=2
-#' (Spat <- Spattern(nullcase, s=2, maxwt=4, detailed=TRUE))
+#' (Spat <- Spattern(nullcase, s=2, maxwt=4))
 #'   ## comparison to maxdim=2 indicates that
 #'   ## the contribution to S_4 from dimensions
 #'   ## larger than 2 is 1
@@ -153,11 +144,11 @@
 #'   Spattern(D, s=2)
 #'   ## but complies with strength 4 for dim up to 3
 #'   Spattern(D, s=2, maxwt=4, maxdim=3)
-#'   ## obtain more detail
-#'   Spat <- (Spattern(D, s = 2, maxwt=5, maxdim=5, detailed = TRUE))
+#'   ## inspect more detail
+#'   Spat <- (Spattern(D, s = 2, maxwt=5, maxdim=5))
 #'   dim_wt_tab(Spat)
 
-Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
+Spattern <- function(D, s, maxwt=4, maxdim=4, ...){
   ## examples and references are given in utilitiesEvaluate.R
 
   ## uses contr.Power with s=s
@@ -198,6 +189,7 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
     ## reduce too large request to maximum possible
     if (maxdim > m) maxdim <- m
   }## non-null maxdim is now valid
+
   if (!is.null(maxwt)) {
     stopifnot(is.numeric(maxwt))
     stopifnot(maxwt%%1==0)
@@ -240,83 +232,70 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
         matrix(picks[[length(picks)]], ncol=1)
         ### corrects stupid behavior of combinat::combn
 
-## return only as many columns as needed for the required weights
-  combicols <- unlist(lapply(picks, function(obj) {
-    ## picks contains a row matrix of variable choices
-    ## for each dimension from 1 to maxdim
-    ## hence, obj is such a row matrix, and
-    ##     the function has to be applied to all columns of obj
-    dim_now <- nrow(obj)
-    ## if all other weights are 1, a single column can take at most weight maxwt + 1 - dimnow
-    ## and of course it can never take a higher weight than el
+  ## obtain the invariant weights for each relevant dimension
+  combiweights <- lapply(1:maxdim,
+                         function(obj){
+                           picked <- picks[[obj]][,1]
+                           maxsinglewt <- min(maxwt + 1 - obj, el)
+                           colnums <- mapply(":", (picked-1)*(s^el-1)+1,
+                                                  (picked-1)*(s^el-1)+s^maxsinglewt-1,
+                                             SIMPLIFY = FALSE)
+                           ## colnums is a list with d vector-valued elements
+                           ## that need to be crossed with expand.grid
+                           ## (contains the usable columns of M1
+                           ## for all factors in the first dD projection)
+                           ## as weights are invariant to specific projections --> use these
+                           colnums <- as.matrix(expand.grid(rev(colnums)))[,obj:1, drop=FALSE]
+                           ## now, colnums is a matrix, the rows of which contain
+                           ## the column combinations from the first dD projection
+                           rowSums(matrix(uwt[colnums], nrow=nrow(colnums)))
+                         }
+                         )
+  ## combiweights is a list of weights with maxdim elements
+  ## when using only columns from M1 with weights up to maxsinglewt
+
+  combiweights_reduced <- lapply(combiweights, function(obj) obj[obj<=maxwt])
+
+  ## initialize dimension-specific contributions
+  ##      pat_dim is transient
+  hilf <- rep(NA, maxwt); names(hilf) <- 1:maxwt
+  contrib_list <- rep(list(hilf), maxdim)
+
+## obtain contributions from each dimension
+  for (dim_now in 1:maxdim){
+    picks_now <- picks[[dim_now]]
     maxsinglewt <- min(maxwt + 1 - dim_now, el)
-    lapply(1:ncol(obj), function(obj2){
-       picked <- obj[,obj2]
+    pat_dim <- rep(NA, maxwt); names(pat_dim) <- 1:maxwt
+    wt <- combiweights_reduced[[dim_now]]
+    for (j in 1:ncol(picks_now)){
+       picked <- picks_now[,j]
        ## main effect model matrix columns for the selected array columns
        ## with maximum possible single column weight
-       colnums <- mapply(":", (picked-1)*(s^el-1)+1, (picked-1)*(s^el-1)+s^maxsinglewt-1,
+       colnums <- mapply(":", (picked-1)*(s^el-1)+1,
+                         (picked-1)*(s^el-1)+s^maxsinglewt-1,
                          SIMPLIFY = FALSE)
-          ## colnums is a list of lists
+       ## colnums is a list with d vector-valued elements
+       ## that need to be crossed with expand.grid
+       ## (contains the usable columns of M1
+       ## for all factors in the first dD projection)
+       ## as weights are invariant to specific projections --> use these
        ## obtains all combinations
-       as.matrix(expand.grid(rev(colnums)))[,dim_now:1, drop=FALSE]
-    })
-  }
-  ), recursive = FALSE)
-
-  combiweights <- lapply(combicols, function(obj){
- #   print(table(obj))
-#    print(length(uwt[obj]))
-#    print(obj)
-#    print(uwt[obj])
-     rowSums(matrix(uwt[obj], nrow=nrow(obj)))
-  }
-  )
-  if (any(unlist(combiweights) > maxwt)){
-    skip <- integer(0)
-    for (i in 1:length(combiweights)){
-      ## loop over column combinations
-      keep <- which(combiweights[[i]] <= maxwt)
-      if (length(keep) > 0){
-        combiweights[[i]] <- combiweights[[i]][keep]
-        combicols[[i]] <- combicols[[i]][keep,, drop=FALSE]
-      }else{
-        ## keep these there, because
-        ## otherwise i has a moving reference
-        combiweights[[i]] <- "skip"
-        combicols[[i]] <- "skip"
-        skip <- c(skip, i)
-      }
+       colnums <- as.matrix(expand.grid(rev(colnums)))[,dim_now:1, drop=FALSE]
+       colnums <- colnums[which(combiweights[[dim_now]] <= maxwt),,drop=FALSE]
+       for (i in 1:nrow(colnums)){
+         contrib <- sum(apply(Hmat[,colnums[i,], drop=FALSE], 1, prod))^2
+         if (is.na(pat_dim[wt[i]])) pat_dim[wt[i]] <- contrib else
+           pat_dim[wt[i]] <- pat_dim[wt[i]] + contrib
+       }
     }
-    combiweights[skip] <- NULL
-    combicols[skip] <- NULL
+    contrib_list[[dim_now]] <- round(pat_dim/n^2, 8)
   }
-  ##########################################################################
 
-  ## calculate the contributions
-  ## a list element for each combination of columns of D
-  ## may have to become a loop for large m, but maybe maxdim is sufficient
-  contribs <- lapply(1:length(combicols),
-                     function(obj){
-                       cols <- combicols[[obj]]
-                       wts <- combiweights[[obj]]
-                       pat <- rep(NA, max(unlist(combiweights)))
-                       ## obj is the outer list position
-                       ## and determines the set
-                       ## (and thus the number) of variables involved
-                       for (i in 1:nrow(cols)){
-                         wt <- wts[i]
-                         contrib <- sum(apply(Hmat[,cols[i,], drop=FALSE], 1, prod))^2
-                         if (is.na(pat[wt])) pat[wt] <- contrib else
-                           pat[wt] <- pat[wt] + contrib
-                       }
-                       pat/n^2
-                     })
-  aus <- round(colSums(do.call(rbind, contribs), na.rm=TRUE), 8)
+  dim_wt_tab <- do.call(rbind, contrib_list)
+  dimnames(dim_wt_tab) <- list(dim=1:maxdim, wt=1:maxwt)
+  aus <- round(colSums(dim_wt_tab, na.rm=TRUE), 8)
   attr(aus, "call") <- mycall
-  if (detailed) {
-    attr(aus, "contribs") <- contribs
-    attr(aus, "combis") <- combicols
-  }
+  attr(aus, "dim_wt_tab") <- dim_wt_tab
   class(aus) <- c("Spattern", class(aus))
   names(aus) <- 1:length(aus)
   aus
@@ -324,9 +303,7 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
 
 #' @rdname Spattern
 #'
-#' @param pat an object of class \code{Spattern} that has attributes \code{combis}
-#' and \code{contrib} (i.e., function \code{Spattern} was called with
-#' \code{detailed=TRUE} for producing \code{pat})
+#' @param pat an object of class \code{Spattern}
 #' @param dimlim integer; limits the returned dimension rows to the
 #' rows from 1 up to \code{dimlim}; the bottom margin continues to include all
 #' dimensions that were used in calculating \code{pat}
@@ -339,8 +316,7 @@ Spattern <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
 #' @importFrom stats addmargins
 #'
 #' @return
-#' Function \code{dim_wt_tab} postprocesses an \code{Spattern} object with
-#' attributes \code{combis} and \code{contrib} (from a call with \code{detailed=TRUE})
+#' Function \code{dim_wt_tab} postprocesses an \code{Spattern} object
 #' and produces a table that holds the S pattern entries
 #' separated by the dimension of the contributing effect column group (rows)
 #' and the weight of the effect column micro group (columns). The margin shows row and
@@ -350,21 +326,8 @@ dim_wt_tab <- function(pat, dimlim=NULL, wtlim=NULL, ...){
   ## dimlim and wtlim allow to suppress printing,
   ## even though everything was calculated
   stopifnot("Spattern" %in% class(pat))
-  stopifnot("detailed" %in% names(attr(pat, "call")))
-  stopifnot(attr(pat,"call")$detailed)
-  combis <- attr(pat, "combis")
-  contribs <- attr(pat, "contrib")
-  ## 2^m-1 dimension entries (one for each effect column group)
-  dims <- sapply(combis, ncol)
-  ## sum over the patterns for a single dimension
-  aus <- t(sapply(sort(unique(dims)), function(obj){
-    hilf <- do.call(rbind, contribs[which(dims==obj)])
-    hilf2 <- colSums(hilf, na.rm=TRUE)
-    hilf2[colSums(is.na(hilf))==nrow(hilf)] <- NA
-    hilf2
-  }))
-  dimnames(aus) <- list(dim=sort(unique(dims)), weight=1:length(contribs[[1]]))
-  aus <- round(aus,8)
+  stopifnot("dim_wt_tab" %in% names(attributes(pat)))
+  aus <- attr(pat, "dim_wt_tab")
   aus <- cbind(aus, Sum=rowSums(aus, na.rm=TRUE))
   aus <- rbind(aus, Sum=colSums(aus, na.rm=TRUE))
   ## limit output (perhaps rather handle via a print method?)
@@ -372,6 +335,7 @@ dim_wt_tab <- function(pat, dimlim=NULL, wtlim=NULL, ...){
     aus <- aus[c(1:dimlim, nrow(aus)),]
   if (!is.null(wtlim)) if (wtlim < ncol(aus)-1)
     aus <- aus[,c(1:wtlim, ncol(aus))]
+  attr(aus, "Spattern-call") <- attr(pat, "call")
   aus
 }
 

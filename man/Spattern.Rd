@@ -16,7 +16,7 @@ soacheck2D(D, s = 3, el = 3, t = 3, verbose = FALSE)
 
 soacheck3D(D, s = 3, el = 3, t = 3, verbose = FALSE)
 
-Spattern(D, s, maxwt = 4, maxdim = 4, detailed = FALSE, ...)
+Spattern(D, s, maxwt = 4, maxdim = 4, ...)
 
 dim_wt_tab(pat, dimlim = NULL, wtlim = NULL, ...)
 
@@ -42,14 +42,9 @@ it is reduced accordingly (where \code{el} is such that \code{s^el} is the numbe
 \item{maxdim}{maximum dimension to be considered for the pattern (default: 4; see Details);\cr
 if the specified limit is larger than \code{m=ncol(D)}, it is reduced to \code{m}}
 
-\item{detailed}{logical; if TRUE, detailed contribution information is provided
-in terms of attributes}
-
 \item{...}{currently not used}
 
-\item{pat}{an object of class \code{Spattern} that has attributes \code{combis}
-and \code{contrib} (i.e., function \code{Spattern} was called with
-\code{detailed=TRUE} for producing \code{pat})}
+\item{pat}{an object of class \code{Spattern}}
 
 \item{dimlim}{integer; limits the returned dimension rows to the
 rows from 1 up to \code{dimlim}; the bottom margin continues to include all
@@ -88,19 +83,11 @@ column sums (see Details section for caveats).
 \code{Spattern} returns an object of class \code{Spattern}
 that is a named vector with attributes:\cr
 The attribute \code{call} holds the function call
-(and thus documents, e.g., limits set on dimension and/or weight)\cr
-If \code{detailed=TRUE} was requested, the attribute \code{contribs} holds
-separate contributions from the column combinations contained
-in matrix \code{combis}:\cr
-\code{contribs} is a list of 2^m-1 patterns that sum to the reported S pattern
-(fewer, 2^\code{maxdim}-1, if \code{maxdim} restricts dimensions),\cr
-and \code{combis} is a corresponding list of matrices whose rows hold
-column numbers in the main effects model matrix
-for the columns that were multiplied for the interactions that contributed
-to \code{contribs} element).
+(and thus documents, e.g., limits set on dimension and/or weight).\cr
+The attribute \code{dim_wt_tab} holds a table of contributions
+split out by dimension (rows) and weights (columns).
 
-Function \code{dim_wt_tab} postprocesses an \code{Spattern} object with
-attributes \code{combis} and \code{contrib} (from a call with \code{detailed=TRUE})
+Function \code{dim_wt_tab} postprocesses an \code{Spattern} object
 and produces a table that holds the S pattern entries
 separated by the dimension of the contributing effect column group (rows)
 and the weight of the effect column micro group (columns). The margin shows row and
@@ -109,7 +96,7 @@ column sums (see Details section for caveats).
 \description{
 \code{soacheck2D} and \code{soacheck3D} evaluate 2D and 3D projections,
 \code{Spattern} calculates the stratification pattern by Tian and Xu (2022),
-and \code{dim_wt_tab} post-processes detailed output from \code{Spattern}.
+and \code{dim_wt_tab} extracts and formats the \code{dim_wt_tab} attribute of \code{Spattern}.
 }
 \details{
 Function \code{Spattern_iter} will eventually lead to a modification of
@@ -136,7 +123,7 @@ to \code{soacheck2D},\cr
 and analogously \code{Spattern} with \code{maxdim=2} and \code{maxwt=t} can be used as an alternative
 to \code{soacheck3D}.
 
-\code{Spattern} can be called with \code{detailed=TRUE}. In that case, the returned
+An \code{Spattern} object
 object can be post-processed with function \code{dim_wt_tab}. That function splits
 the S pattern into contributions from effect column groups of different dimensions,
 arranged with a row for each dimension and a column for each weight.
@@ -184,7 +171,7 @@ Spattern(nullcase, s=2)
 Spattern(nullcase, s=2, maxdim=2)
   ## the non-zero entry at position 2 indicates that
   ## soacheck2D does not comply with t=2
-(Spat <- Spattern(nullcase, s=2, maxwt=4, detailed=TRUE))
+(Spat <- Spattern(nullcase, s=2, maxwt=4))
   ## comparison to maxdim=2 indicates that
   ## the contribution to S_4 from dimensions
   ## larger than 2 is 1
@@ -204,8 +191,8 @@ soacheck3D(D, s=2, t=4)
   Spattern(D, s=2)
   ## but complies with strength 4 for dim up to 3
   Spattern(D, s=2, maxwt=4, maxdim=3)
-  ## obtain more detail
-  Spat <- (Spattern(D, s = 2, maxwt=5, maxdim=5, detailed = TRUE))
+  ## inspect more detail
+  Spat <- (Spattern(D, s = 2, maxwt=5, maxdim=5))
   dim_wt_tab(Spat)
 }
 \references{

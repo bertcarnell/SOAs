@@ -118,7 +118,7 @@ test_that("Spattern", {
   capture_output(expect_snapshot(Spattern(nullcase, s=8, maxdim=3, maxwt=3)))
 
   capture_output(expect_snapshot_output(Spattern(st1, s=2, maxdim=4, maxwt=4)))
-  capture_output(expect_snapshot_output(Spattern(st1, s=2, maxdim=3, maxwt=2, detailed=TRUE)))
+  capture_output(expect_snapshot_output(dim_wt_tab(Spattern(st1, s=2))))
   capture_output(expect_snapshot_output(Spattern(nullcase4, s=2, maxwt=NULL)))
   capture_output(expect_snapshot_output(Spattern(nullcase4, s=2, maxdim=NULL)))
   capture_output(expect_snapshot_output(Spattern(nullcase4, s=2, maxdim=NULL, maxwt=NULL)))

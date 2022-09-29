@@ -84,10 +84,14 @@
 
 ---
 
-    1 2 
-    0 0 
-    attr(,"call")
-    Spattern(st1, s = 2, maxdim = 3, maxwt = 2, detailed = TRUE)
+         1  2  3  4 Sum
+    1    0  0  0 NA   0
+    2   NA  0  0  0   0
+    3   NA NA  0  0   0
+    4   NA NA NA  7   7
+    Sum  0  0  0  7   7
+    attr(,"Spattern-call")
+    Spattern(st1, s = 2)
 
 ---
 

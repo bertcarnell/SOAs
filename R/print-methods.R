@@ -45,13 +45,6 @@ print.MDLE <- function(x, ...){
 print.Spattern <- function(x, ...){
   objnam <- substitute(x)
   hilf <- x
-  attrs <- names(attributes(hilf))
-  msg <- ""
-  if ("contribs" %in% attrs){
-    attr(hilf, "contribs") <- NULL
-    attr(hilf, "combis") <- NULL
-    msg <- "Attributes contribs and combis can be accessed using function attr."
-  }
+  attr(hilf, "dim_wt_tab") <- NULL
   print(unclass(hilf), ...)
-  if (nchar(msg)>0) message(msg)
 }
