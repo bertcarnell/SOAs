@@ -19,7 +19,8 @@
 #' @param maxwt maximum weight to be considered for the pattern (default: 4; see Details);\cr
 #'      if the specified limit is larger than \code{maxdim*el},
 #'      it is reduced accordingly (where \code{el} is such that \code{s^el} is the number of levels)
-#' @param maxdim maximum dimension to be considered for the pattern (default: 4; see Details);\cr
+#' @param maxdim maximum dimension to be considered for the pattern (default: \code{NULL} implies that \code{maxdim}=\code{min(maxwt, ncol(D))};
+#' see also Details);\cr
 #'      if the specified limit is larger than \code{m=ncol(D)}, it is reduced to \code{m}
 #' @param el the exponent so that the number of levels of the array is \code{s^el}
 #' (if \code{s} is not NULL)
@@ -54,10 +55,12 @@
 #' Obtaining the entire S pattern
 #' can be computationally demanding. The arguments \code{maxwt} and
 #' \code{maxdim} limit the effort (choose \code{NULL} for no limit):\cr
-#' \code{maxwt} gives an upper limit for the weight \code{j} of the previous paragraph.\cr
+#' \code{maxwt} gives an upper limit for the weight \code{j} of the previous paragraph;
+#' if \code{NULL}, \code{maxwt} is set to \code{maxdim*el}.\cr
 #' \code{maxdim} limits the number of columns that are considered in combination.\cr
-#' When using \code{maxdim}, pattern entries for \code{j} larger than \code{maxdim} are smaller
-#' than if one would not have limited the dimension.
+#' When using a non-null \code{maxdim}, pattern entries for \code{j} larger than \code{maxdim} can be smaller
+#' than if one would not have limited the dimension. Otherwise, dimensionality is unlimited,
+#' which is equivalent to specifying \code{maxdim} as the minimum of \code{maxwt} and \code{ncol(D)}.
 #'
 #' \code{Spattern} with \code{maxdim=2} and \code{maxwt=t} can be used as an alternative
 #' to \code{soacheck2D},\cr
@@ -145,10 +148,10 @@
 #'   ## but complies with strength 4 for dim up to 3
 #'   Spattern(D, s=2, maxwt=4, maxdim=3)
 #'   ## inspect more detail
-#'   Spat <- (Spattern(D, s = 2, maxwt=5, maxdim=5))
+#'   Spat <- (Spattern(D, s = 2, maxwt=5))
 #'   dim_wt_tab(Spat)
 
-Spattern <- function(D, s, maxwt=4, maxdim=4, ...){
+Spattern <- function(D, s, maxwt=4, maxdim=NULL, ...){
   ## examples and references are given in utilitiesEvaluate.R
 
   ## uses contr.Power with s=s
