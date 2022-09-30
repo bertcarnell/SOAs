@@ -8,7 +8,7 @@
 \alias{Spattern}
 \title{functions to evaluate stratification properties of (O)SOAs and GSOAs}
 \usage{
-Spattern_iter(D, s, maxwt = 4, maxdim = 4, detailed = FALSE, ...)
+Spattern_iter(D, s, maxwt = 4, maxdim = 4, ...)
 
 dim_wt_tab(pat, dimlim = NULL, wtlim = NULL, ...)
 
@@ -162,8 +162,8 @@ If \code{verbose=TRUE}, the functions print the pairs or triples that violate
 the projection requirements for 2D or 3D.
 }
 \examples{
-nullcase <- matrix(0:7, nrow=8, ncol=4)
-Spattern_iter(nullcase, s=2)
+# nullcase <- matrix(0:7, nrow=8, ncol=4)
+# Spattern_iter(nullcase, s=2)
 nullcase <- matrix(0:7, nrow=8, ncol=4)
 soacheck2D(nullcase, s=2)
 soacheck3D(nullcase, s=2)

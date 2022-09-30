@@ -12,18 +12,16 @@
 #' Function \code{Spattern_iter} will eventually lead to a modification of
 #' \code{Spattern}.
 #'
-#' @export
-#'
 #' @importFrom iterators nextElem
 #' @importFrom itertools product ihasNext hasNext
 #' @importFrom stats lm rnorm model.matrix
 #' @importFrom combinat combn
 #'
 #' @examples
-#' nullcase <- matrix(0:7, nrow=8, ncol=4)
-#' Spattern_iter(nullcase, s=2)
+#' # nullcase <- matrix(0:7, nrow=8, ncol=4)
+#' # Spattern_iter(nullcase, s=2)
 
-Spattern_iter <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
+Spattern_iter <- function(D, s, maxwt=4, maxdim=4, ...){
   ## examples and references are given in utilitiesEvaluate.R
 
   ## uses contr.Power with s=s
@@ -106,6 +104,31 @@ Spattern_iter <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
         matrix(picks[[length(picks)]], ncol=1)
         ### corrects stupid behavior of combinat::combn
 
+  ## obtain the invariant weights for each relevant dimension
+  combiweights <- lapply(1:maxdim,
+                         function(obj){
+                           picked <- picks[[obj]][,1]
+                           maxsinglewt <- min(maxwt + 1 - obj, el)
+                           colnums <- mapply(":", (picked-1)*(s^el-1)+1,
+                                             (picked-1)*(s^el-1)+s^maxsinglewt-1,
+                                             SIMPLIFY = FALSE)
+                           ## colnums is a list with d vector-valued elements
+                           ## that need to be crossed with expand.grid
+                           ## (contains the usable columns of M1
+                           ## for all factors in the first dD projection)
+                           ## as weights are invariant to specific projections --> use these
+                           colnums <- as.matrix(expand.grid(rev(colnums)))[,obj:1, drop=FALSE]
+                           ## now, colnums is a matrix, the rows of which contain
+                           ## the column combinations from the first dD projection
+                           rowSums(matrix(uwt[colnums], nrow=nrow(colnums)))
+                         }
+  )
+  ## combiweights is a list of weights with maxdim elements
+  ## when using only columns from M1 with weights up to maxsinglewt
+
+  combiweights_reduced <- lapply(combiweights, function(obj) obj[obj<=maxwt])
+
+
   ## replace expand.grid approach with itertools::product
   ##       applied to the list colnums
   ## using something like the commented code below
@@ -166,9 +189,6 @@ Spattern_iter <- function(D, s, maxwt=4, maxdim=4, detailed=FALSE, ...){
   aus <- round(colSums(do.call(rbind, lapply(combicols, function(obj) obj$contribs)),
                        na.rm=TRUE), 8)/n^2
   attr(aus, "call") <- mycall
-  if (detailed) {
-    attr(aus, "details") <- combicols
-  }
   class(aus) <- c("Spattern", class(aus))
   names(aus) <- 1:length(aus)
   aus
