@@ -338,7 +338,7 @@ dim_wt_tab <- function(pat, dimlim=NULL, wtlim=NULL, ...){
     aus <- aus[c(1:dimlim, nrow(aus)),]
   if (!is.null(wtlim)) if (wtlim < ncol(aus)-1)
     aus <- aus[,c(1:wtlim, ncol(aus))]
-  attr(aus, "Spattern-call") <- attr(pat, "call")
+  attr(aus, "Spattern-call") <- deparse(attr(pat, "call"))
   class(aus) <- "dim_wt_tab"
   aus
 }
