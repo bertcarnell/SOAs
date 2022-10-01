@@ -13,7 +13,9 @@
 #' myOSOA <- OSOAs_regular(s=3, k=3, optimize=FALSE)
 #' myOSOA
 #' str(myOSOA)  ## structure for comparison
-#' Spat <- Spattern(myOSOA, s=3, detailed=TRUE)
+#' Spat <- Spattern(myOSOA, s=3)
+#' dim_wt_tab(Spat)
+#' print(dim_wt_tab(Spat), na.print=" ")
 print.SOA <- function(x, ...){
   hilf <- x
   dx <- dim(x)
@@ -43,8 +45,18 @@ print.MDLE <- function(x, ...){
 #' @method print Spattern
 #' @export
 print.Spattern <- function(x, ...){
-  objnam <- substitute(x)
   hilf <- x
   attr(hilf, "dim_wt_tab") <- NULL
   print(unclass(hilf), ...)
+}
+
+#' @rdname printsoa
+#' @method print dim_wt_tab
+#' @export
+print.dim_wt_tab <- function(x, ...){
+  dots <- match.call(expand.dots = FALSE)$`...`
+  if ("na.print" %in% names(dots))
+    print(unclass(x), ...)
+  else
+    print(unclass(x), na.print=".", ...)
 }
