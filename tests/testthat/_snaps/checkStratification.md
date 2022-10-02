@@ -90,8 +90,6 @@
     3   . . 0 0   0
     4   . . . 7   7
     Sum 0 0 0 7   7
-    attr(,"Spattern-call")
-    Spattern(st1, s = 2)
 
 ---
 
