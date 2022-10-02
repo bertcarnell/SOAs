@@ -295,6 +295,7 @@ Spattern <- function(D, s, maxwt=4, maxdim=NULL, ...){
   }
 
   dim_wt_tab <- do.call(rbind, contrib_list)
+  attr(dim_wt_tab, "Spattern-call") <- mycall
   dimnames(dim_wt_tab) <- list(dim=1:maxdim, wt=1:maxwt)
   aus <- round(colSums(dim_wt_tab, na.rm=TRUE), 8)
   attr(aus, "call") <- mycall
@@ -338,7 +339,6 @@ dim_wt_tab <- function(pat, dimlim=NULL, wtlim=NULL, ...){
     aus <- aus[c(1:dimlim, nrow(aus)),]
   if (!is.null(wtlim)) if (wtlim < ncol(aus)-1)
     aus <- aus[,c(1:wtlim, ncol(aus))]
-  attr(aus, "Spattern-call") <- deparse(attr(pat, "call"))
   class(aus) <- "dim_wt_tab"
   aus
 }
