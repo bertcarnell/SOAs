@@ -61,12 +61,16 @@ impossible and will not be part of the checks.}
 (confounded pair or triple projections with A2 or A3, respectively, or table of correlations)}
 }
 \value{
-\code{Spattern} returns an object of class \code{Spattern}
+Function \code{Spattern} returns an object of class \code{Spattern}
 that is a named vector with attributes:\cr
 The attribute \code{call} holds the function call
 (and thus documents, e.g., limits set on dimension and/or weight).\cr
 The attribute \code{dim_wt_tab} holds a table of contributions
-split out by dimension (rows) and weights (columns).
+split out by dimension (rows) and weights (columns), which has class
+\code{dim_wt_tab} and the further attribute \code{Spattern-class}.\cr
+Function \code{dim_wt_tab} returns the \code{dim_wt_tab} attribute of
+an object of class \code{Spattern}; note that the object contains NA values
+for combinations of dimension and weight that cannot occur.
 
 Function \code{dim_wt_tab} postprocesses an \code{Spattern} object
 and produces a table that holds the S pattern entries
@@ -81,7 +85,9 @@ and \code{dim_wt_tab} extracts and formats the \code{dim_wt_tab} attribute of \c
 }
 \details{
 Function \code{Spattern} calculates the stratification pattern or S pattern
-as proposed in Tian and Xu (2022) (under the name space-filling pattern).\cr
+as proposed in Tian and Xu (2022) (under the name space-filling pattern);
+the details and the implementation in this function are also described in
+Groemping (2022b).\cr
 Position \code{j} in the S pattern shows the imbalance when considering \code{s^j}
 strata. \code{j} is also called the (total) weight. \code{j=1} can occur for an
 individual column only. \code{j=2} can be obtained either for an
@@ -176,7 +182,8 @@ soacheck3D(D, s=2, t=4)
 \references{
 For full detail, see \code{\link{SOAs-package}}.
 
-Groemping (2022)\cr
+Groemping (2022a)\cr
+Groemping (2022b)\cr
 He and Tang (2013)\cr
 Shi and Tang (2020)\cr
 Tian and Xu (2022)

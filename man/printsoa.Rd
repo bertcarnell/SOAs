@@ -31,6 +31,6 @@ myOSOA <- OSOAs_regular(s=3, k=3, optimize=FALSE)
 myOSOA
 str(myOSOA)  ## structure for comparison
 Spat <- Spattern(myOSOA, s=3)
-dim_wt_tab(Spat)
+dim_wt_tab(Spat)   ## print method prints NAs as .
 print(dim_wt_tab(Spat), na.print=" ")
 }
