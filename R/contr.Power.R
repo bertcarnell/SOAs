@@ -27,6 +27,9 @@
 #' ## the same n can yield different contrasts for different s
 #' contr.Power(16, 2)
 #' contr.Power(16, 4)
+#'
+#' @references
+#' Groemping (2022b)
 
 contr.Power <- function (n, s=2, contrasts = TRUE){
   if (!contrasts)

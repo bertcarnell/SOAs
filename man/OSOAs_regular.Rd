@@ -62,7 +62,7 @@ s^2 levels or m'=2*floor(m/2) columns in s^3 levels.
 \details{
 The function implements the algorithms proposed by Zhou and Tang 2018
 (s^2 levels) or Li, Liu and Yang 2021 (s^3 levels), enhanced with the
-modification for matrix A by Groemping (2022). Level permutations are optimized
+modification for matrix A by Groemping (2022a). Level permutations are optimized
 using an adaptation of the algorithm by Weng (2014).
 
 If \code{m} is specified, the function uses the last \code{m} columns of
@@ -81,7 +81,7 @@ OSOAs_regular(3, 4, el=2, optimize=FALSE) ## 13 columns, phi_p about 0.117
 }
 \references{
 For full detail, see \code{\link{SOAs-package}}.
-Groemping (2022)\cr
+Groemping (2022a)\cr
 Li, Liu and Yang (2021)\cr
 Weng (2014)\cr
 Zhou and Tang (2019)

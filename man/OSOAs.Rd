@@ -87,7 +87,7 @@ OSOAs(DoE.base::L27.3.4, el=3, optimize=FALSE)
 \references{
 For full detail, see \code{\link{SOAs-package}}.
 
-Groemping (2022)\cr
+Groemping (2022a)\cr
 Li, Liu and Yang (2021)\cr
 Weng (2014)\cr
 Zhou and Tang (2019)\cr

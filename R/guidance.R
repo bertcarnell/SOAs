@@ -26,7 +26,7 @@
 #' @references
 #' For full detail, see \code{\link{SOAs-package}}.
 #'
-#' Groemping (2022)\cr
+#' Groemping (2022a)\cr
 #' He, Cheng and Tang (2018)\cr
 #' Li, Liu and Yang (2021)\cr
 #' Shi and Tang (2020)\cr
@@ -310,7 +310,7 @@ guide_SOAs <- function(s=2, el=3, m=NULL, n=NULL, ...){
 #' @references
 #' For full detail, see \code{\link{SOAs-package}}.
 #'
-#' Groemping (2022)\cr
+#' Groemping (2022a)\cr
 #' He and Tang (2013)\cr
 #' He, Cheng and Tang (2018)\cr
 #' Liu and Liu (2015)\cr

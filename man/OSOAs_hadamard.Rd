@@ -68,7 +68,7 @@ dim(OSOAs_hadamard(m=35, optimize=FALSE)) ## 35 8-level factors in 80 runs
 \references{
 For full detail, see \code{\link{SOAs-package}}.
 
-Groemping (2022)\cr
+Groemping (2022a)\cr
 Li, Liu and Yang (2021)\cr
 Weng (2014)\cr
 Zhou and Tang (2019)

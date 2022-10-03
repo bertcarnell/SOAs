@@ -56,7 +56,7 @@ myST_3plus <- SOAs_8level(n=32, m=7, constr='ShiTang_alphabeta')
 \references{
 For full detail, see \code{\link{SOAs-package}}.
 
-Groemping (2022)\cr
+Groemping (2022a)\cr
 He, Cheng and Tang (2018)\cr
 Li, Liu and Yang (2021)\cr
 Shi and Tang (2020)\cr
