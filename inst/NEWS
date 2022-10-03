@@ -1,10 +1,12 @@
 Change log for package SOAs
 
-Version 1.2-1, under development
+Version 1.3, 03 October 2022
 
-* added functions contr.Power, Spattern and dim_wt_tab (details of changes not documented here)
-* added an interim function Spattern_iter for experimenting with an iterative
-implementation - slower but allows to handle cases that fail for memory reasons with the previous expand.grid solution
+* implemented the stratification pattern that was proposed by Tian and Xu (2022)
+  and whose implementation is described in Groemping (2022b)
+  (important functions: Spattern and dim_wt_tab;
+  important supporting function: contr.Power yields contrasts for factors with
+  s^el levels)
 
 Version 1.2, 05 August 2022
 
