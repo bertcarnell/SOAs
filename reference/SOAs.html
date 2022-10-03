@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3</span>
       </span>
     </div>
 
@@ -150,9 +150,9 @@ Weng (2014)</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">aus</span> <span class="op">&lt;-</span> <span class="fu">SOAs</span><span class="op">(</span><span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L27.3.4</a></span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>  <span class="co">## t=3 is the default</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">aus</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 27  3</span>
-<span class="r-in"><span><span class="fu"><a href="ocheck.html">soacheck2D</a></span><span class="op">(</span><span class="va">aus</span>, s<span class="op">=</span><span class="fl">3</span>, el<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="co">## check for 2*</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Spattern.html">soacheck2D</a></span><span class="op">(</span><span class="va">aus</span>, s<span class="op">=</span><span class="fl">3</span>, el<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="co">## check for 2*</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span><span class="fu"><a href="ocheck.html">soacheck3D</a></span><span class="op">(</span><span class="va">aus</span>, s<span class="op">=</span><span class="fl">3</span>, el<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="co">## check for 3</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Spattern.html">soacheck3D</a></span><span class="op">(</span><span class="va">aus</span>, s<span class="op">=</span><span class="fl">3</span>, el<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="co">## check for 3</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">aus2</span> <span class="op">&lt;-</span> <span class="fu">SOAs</span><span class="op">(</span><span class="fu">DoE.base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/DoE.base/man/arrays.html" class="external-link">L27.3.4</a></span>, t<span class="op">=</span><span class="fl">2</span>, optimize<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
@@ -160,9 +160,9 @@ Weng (2014)</p>
 <span class="r-in"><span><span class="co">##     --&gt; more columns with fewer levels each</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">aus2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 27  4</span>
-<span class="r-in"><span><span class="fu"><a href="ocheck.html">soacheck2D</a></span><span class="op">(</span><span class="va">aus2</span>, s<span class="op">=</span><span class="fl">3</span>, el<span class="op">=</span><span class="fl">2</span>, t<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="co"># check for 2</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Spattern.html">soacheck2D</a></span><span class="op">(</span><span class="va">aus2</span>, s<span class="op">=</span><span class="fl">3</span>, el<span class="op">=</span><span class="fl">2</span>, t<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="co"># check for 2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span><span class="fu"><a href="ocheck.html">soacheck3D</a></span><span class="op">(</span><span class="va">aus2</span>, s<span class="op">=</span><span class="fl">3</span>, el<span class="op">=</span><span class="fl">2</span><span class="op">)</span>      <span class="co"># t=3 is the default (check for 3-)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Spattern.html">soacheck3D</a></span><span class="op">(</span><span class="va">aus2</span>, s<span class="op">=</span><span class="fl">3</span>, el<span class="op">=</span><span class="fl">2</span><span class="op">)</span>      <span class="co"># t=3 is the default (check for 3-)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 </code></pre></div>
     </div>

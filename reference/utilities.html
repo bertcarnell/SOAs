@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3</span>
       </span>
     </div>
 
@@ -54,6 +54,8 @@
 <span></span>
 <span><span class="fu">Yatesmat2</span><span class="op">(</span><span class="va">k</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">fun_coeff</span><span class="op">(</span><span class="va">s</span>, <span class="va">el</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">interleavecols</span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -65,6 +67,14 @@
 
 <dt>k</dt>
 <dd><p>determines dimension</p></dd>
+
+
+<dt>s</dt>
+<dd><p>the prime or prime power for which to obtain the coefficients</p></dd>
+
+
+<dt>el</dt>
+<dd><p>the power to which <code>s</code> is raised</p></dd>
 
 
 <dt>A</dt>
@@ -82,7 +92,11 @@
 <p>ff returns a full factorial matrix</p>
 
 
-<p>Yatesmat2 returns a 2^k x (2^k - 1) matrix with 0/1 entries, Yates matrix</p>
+<p><code>Yatesmat2</code> returns a 2^k x (2^k - 1) matrix with 0/1 entries, Yates matrix</p>
+
+
+<p><code>fun_coeff</code> returns a matrix of coefficients for the creation
+of a saturated regular fractional factorial of strength 2.</p>
 
 
 <p>interleavecols returns an n x (2m) matrix with columns <code>A[,1]</code>, <code>B[,1]</code>,
