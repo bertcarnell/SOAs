@@ -47,14 +47,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgmp3-dev libcurl4-openssl-dev
-
-      - name: MacOS System dependencies and source gmp
-        # from the arrangements package github actions script
-        if: runner.os == 'macOS'
-        run: |
-          brew install gmp
-          Rscript -e "install.packages('gmp', type = 'source')"
+          sudo apt-get install -y libcurl4-openssl-dev
 
       - name: Install R build Dependencies
         run: |

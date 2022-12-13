@@ -1,5 +1,3 @@
-### Eliminate the dependence on arrangements, look at random permutations
-
 ### Algorithm from Xiao and Xu
 ### Starting point is a Dp obtained by permutation optimization of an OA
 #Algorithm 1 Pseudo code for threshold accepting (TA) algorithm
