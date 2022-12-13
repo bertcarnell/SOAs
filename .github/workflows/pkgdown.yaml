@@ -1,4 +1,6 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# and
+# https://github.com/r-lib/actions/blob/20307d099c364c4a5107b681d37e49e62c790fb8/examples/pkgdown.yaml#L30
 
 on:
   push:
@@ -23,8 +25,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: |
-            pkgdown
+          extra-packages: any::pkgdown, local::.
           needs: website
 
       - name: Deploy package

@@ -57,6 +57,4 @@ phi_p(A2)
 }
 \author{
 Ulrike Groemping
-
-Ulrike Groemping
 }
