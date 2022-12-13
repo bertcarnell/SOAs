@@ -28,13 +28,6 @@ if (!require(devtools)) install.packages("devtools")
 devtools::install_github("bertcarnell/SOAs")
 ```
 
-### System Dependencies
-
-For the `arrangements` package:
-
-- Ubuntu: `apt-get update; apt-get install libgmp3-dev -y`
-- MacOS: `brew install gmp`
-
 ## Details
 
 <p>
