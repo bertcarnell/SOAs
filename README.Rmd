@@ -1,7 +1,6 @@
 ---
 output: 
-  md_document:
-    variant: gfm
+  github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -98,9 +97,46 @@ devtools::install_github("bertcarnell/SOAs")
 ## Details
 
 ```{r details, results = "asis"}
-# change <i> into $
 temp <- rd_html_get(rd_html, "Details", "Author") 
-temp <- gsub("[<][/]*i[>]", "$", temp)
+
+# change equations back to $ for eqn and $$ for deqn
+#   Find <code class=\"reqn\"> and then the very next </code>
+
+start_token <- '<code class="reqn">'
+end_token <- '</code>'
+deqn_start_token <- '<p style="text-align: center;"><code class="reqn">'
+p_token <- '<p>'
+p_end_token <- '</p>'
+p_align_token <- '<p style="text-align: center;">'
+
+ind_start <- grep(start_token, temp)
+ind_deqn_start <- grep(deqn_start_token, temp)
+
+for (i in 1:length(temp))
+{
+  ## /deqn
+  if (i %in% ind_deqn_start)
+  {
+    temp[i] <- gsub(start_token, "\n$$", temp[i])
+    if (!grepl(end_token, temp[i]))
+      stop("closing </code> tag is not on the same line as the start for an equation")
+    temp[i] <- gsub(end_token, "$$\n", temp[i])
+  }
+  ## /eqn
+  if (i %in% setdiff(ind_start, ind_deqn_start))
+  {
+    temp[i] <- gsub(start_token, "$", temp[i])
+    if (!grepl(end_token, temp[i]))
+      stop("closing </code> tag is not on the same line as the start for an equation")
+    temp[i] <- gsub(end_token, "$", temp[i])
+  }
+}
+
+## <p> tags
+temp <- gsub(p_token, "\n", temp)
+temp <- gsub(p_end_token, "\n", temp)
+temp <- gsub(p_align_token, "\n", temp)
+
 cat(temp)
 ```
 

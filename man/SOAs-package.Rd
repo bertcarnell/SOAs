@@ -10,7 +10,7 @@
 Creates stratum orthogonal arrays (also known as strong orthogonal arrays).
 }
 \details{
-This package constructs arrays in \eqn{s^el} levels from orthogonal arrays in s levels.
+This package constructs arrays in \eqn{s^{el}} levels from orthogonal arrays in s levels.
 These are all based on equations of the type
 \deqn{D = s^{el-1} A_1 + ... + s A_{el-1} + A_{el},}
 or for \eqn{s^2} levels, \deqn{D = s A + B}
