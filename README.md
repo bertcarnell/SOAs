@@ -1,3 +1,4 @@
+
 <!--- DO NOT EDIT:  AUTOMATICALLY GENERATED from README.Rmd -->
 
 # SOAs
@@ -30,40 +31,30 @@ devtools::install_github("bertcarnell/SOAs")
 
 ## Details
 
-<p>
-This package constructs arrays in <code class="reqn">s^el</code> levels
-from orthogonal arrays in s levels. These are all based on equations of
-the type
-</p>
-<p style="text-align: center;">
-<code class="reqn">D = s^{el-1} A_1 + … + s A\_{el-1} + A\_{el},</code>
-</p>
-<p>
-or for <code class="reqn">s^2</code> levels,
-</p>
-<p style="text-align: center;">
-<code class="reqn">D = s A + B</code>
-</p>
-<p>
-and for <code class="reqn">s^3</code> levels,
-</p>
-<p style="text-align: center;">
-<code class="reqn">D = s^2 A + s B + C.</code>
-</p>
-<p>
+This package constructs arrays in $s^{el}$ levels from orthogonal arrays
+in s levels. These are all based on equations of the type
+
+$$D = s^{el-1} A_1 + ... + s A_{el-1} + A_{el},$$
+
+or for $s^2$ levels,
+
+$$D = s A + B$$
+
+and for $s^3$ levels,
+
+$$D = s^2 A + s B + C.$$
+
 The constructions differ in how they obtain the ingredient matrices, and
 what properties can be guaranteed for the resulting D. Where a
 construction function guarantees orthogonal columns for all matrices D
 it produces, its name starts with a OSOA, otherwise with SOA.<br />
-</p>
-<p>
+
 If optimization is requested (default TRUE), space filling properties of
 D are improved using a level permutation algorithm by Weng (2014). This
 algorithm is applied for improving the <code>phi_p</code> criterion,
 which is often a reasonable surrogate for increasing the minimum
 distance.
-</p>
-<p>
+
 Groemping (2022a) describes the constructions by He and Tang (2013,
 function <code>SOAs</code>), Liu and Liu (2015, function
 <code>OSOAs_LiuLiu</code>), He, Cheng and Tang (2018, function
@@ -73,13 +64,11 @@ unified notation. The constructions by Zhou and Tang (2019) and Li et
 al. (2021) are very close to each other and are both implemented in the
 three functions <code>OSOAs</code>, <code>OSOAs_hadamard</code> and
 <code>OSOAs_regular</code>.
-</p>
-<p>
+
 Within the package, available SOA constructions for specific situations
 can be queried using the guide functions <code>guide_SOAs</code> and
 <code>guide_SOAs_from_OA</code>.
-</p>
-<p>
+
 Besides the construction functions, properties of the resulting array D
 can be checked using the aforementioned function <code>phi_p</code> as
 well as check functions <code>ocheck</code>, <code>ocheck3</code> for
@@ -88,13 +77,11 @@ orthogonality and <code>soacheck2D</code>, <code>soacheck3D</code> for
 space-filling pattern proposed by Tian and Xu (2022); the implementation
 of the latter will presumably become more important than the 2D and 3D
 check functions eventually.
-</p>
-<p>
+
 There is one further construction, maximin distance level expansion
 (<code>XiaoXuMDLE</code>, <code>MDLEs</code>), that does not yield
 stratum (aka strong) orthogonal arrays and is available for comparison
 only (Xiao and Xu 2018).
-</p>
 
 ## References
 
