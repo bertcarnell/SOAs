@@ -61,7 +61,7 @@ SOAs(L81.3.10, t=3)
 \references{
 For full detail, see \code{\link{SOAs-package}}.
 
-Groemping (2022a)\cr
+Groemping (2023)\cr
 He and Tang (2013)\cr
 He, Cheng and Tang (2018)\cr
 Liu and Liu (2015)\cr

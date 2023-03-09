@@ -20,7 +20,7 @@ number of elements is a power of \code{s}.}
 \value{
 \code{contr.Power} yields a matrix of contrasts. It can be used in
 function \code{model.matrix} or anywhere where factors with the number of
-levels a power of $s$ are used with contrasts. The exponent for \code{x}
+levels a power of $s$ are used with contrasts. The exponent for \code{s}
 is determined from the number of levels.
 }
 \description{
@@ -31,7 +31,10 @@ for number of levels a prime or prime power
 The function is a generalization (with slowest first instead of fastest first)
 of function \code{contr.FrF2} from package \pkg{DoE.base}. It is in this
 package because it needs Galois field functionality from package \pkg{lhs}
-for non-prime \code{s}.
+for non-prime \code{s}. Its purpose is (was) the calculation of the
+stratification (or space-filling) pattern by Tian and Xu (2022), see also
+Groemping (2022). The package now calculates the pattern with function
+\code{\link{contr.TianXu}}.
 }
 \examples{
 ## the same n can yield different contrasts for different s
@@ -40,5 +43,6 @@ contr.Power(16, 4)
 
 }
 \references{
-Groemping (2022b)
+Groemping (2022)
+Tian and Xu (2022)
 }

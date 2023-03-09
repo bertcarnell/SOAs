@@ -12,14 +12,17 @@
 #' @return
 #' \code{contr.Power} yields a matrix of contrasts. It can be used in
 #' function \code{model.matrix} or anywhere where factors with the number of
-#' levels a power of $s$ are used with contrasts. The exponent for \code{x}
+#' levels a power of $s$ are used with contrasts. The exponent for \code{s}
 #' is determined from the number of levels.
 #'
 #' @details
 #' The function is a generalization (with slowest first instead of fastest first)
 #' of function \code{contr.FrF2} from package \pkg{DoE.base}. It is in this
 #' package because it needs Galois field functionality from package \pkg{lhs}
-#' for non-prime \code{s}.
+#' for non-prime \code{s}. Its purpose is (was) the calculation of the
+#' stratification (or space-filling) pattern by Tian and Xu (2022), see also
+#' Groemping (2022). The package now calculates the pattern with function
+#' \code{\link{contr.TianXu}}.
 #'
 #' @export
 #'
@@ -29,7 +32,8 @@
 #' contr.Power(16, 4)
 #'
 #' @references
-#' Groemping (2022b)
+#' Groemping (2022)
+#' Tian and Xu (2022)
 
 contr.Power <- function (n, s=2, contrasts = TRUE){
   if (!contrasts)
