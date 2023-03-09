@@ -87,7 +87,8 @@ and \code{dim_wt_tab} extracts and formats the \code{dim_wt_tab} attribute of \c
 Function \code{Spattern} calculates the stratification pattern or S pattern
 as proposed in Tian and Xu (2022) (under the name space-filling pattern);
 the details and the implementation in this function are also described in
-Groemping (2022b).\cr
+Groemping (2022b), except that the contrasts used are now the complex-valued
+contrasts that are implemented in function \code{\link{contr.TianXu}}.\cr
 Position \code{j} in the S pattern shows the imbalance when considering \code{s^j}
 strata. \code{j} is also called the (total) weight. \code{j=1} can occur for an
 individual column only. \code{j=2} can be obtained either for an

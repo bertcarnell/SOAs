@@ -51,7 +51,8 @@
 #' Function \code{Spattern} calculates the stratification pattern or S pattern
 #' as proposed in Tian and Xu (2022) (under the name space-filling pattern);
 #' the details and the implementation in this function are also described in
-#' Groemping (2022b).\cr
+#' Groemping (2022b), except that the contrasts used are now the complex-valued
+#' contrasts that are implemented in function \code{\link{contr.TianXu}}.\cr
 #' Position \code{j} in the S pattern shows the imbalance when considering \code{s^j}
 #' strata. \code{j} is also called the (total) weight. \code{j=1} can occur for an
 #' individual column only. \code{j=2} can be obtained either for an
@@ -159,11 +160,9 @@
 #'   dim_wt_tab(Spat)
 
 Spattern <- function(D, s, maxwt=4, maxdim=NULL, ...){
-  ## examples and references are given in utilitiesEvaluate.R
+  ## examples and references are given in checkStratification.R
 
-  ## uses contr.Power with s=s
-  ## creates coding columns sorted such that
-  ##      earlier columns mean coarser strata
+  ## uses contr.TianXu with s=s
   ## coarsest: weight(u)=1 (i.e. u=1,...,s-1 (0 is omitted))
   ## second coarsest: weight(u)=2 (i.e. u=s to s^2-1)
   ## third coarsest: weight(u)=3 (i.e. u=s^2 to s^3-1)
@@ -218,13 +217,12 @@ Spattern <- function(D, s, maxwt=4, maxdim=NULL, ...){
 
   ################################################################
   ## obtaining the model matrix
-  for (i in 1:m)
-    D.df[[i]] <- factor(D.df[[i]])
-  contr <- contr.Power(n=nlev, s=s, contrasts=TRUE)
-  contrargs <- rep(list(contr), m)
-  names(contrargs) <- colnames(D.df)
+  contr <- contr.TianXu(n=nlev, s=s, contrasts=TRUE)
   ### main effects columns of the Hmat
-  Hmat <- model.matrix(~., D.df, contrasts.arg = contrargs)[,-1]
+  Hmat <- matrix(NA, n, m*(s^el-1))
+  for (i in 1:n)
+    for (j in 1:m)
+    {Hmat[i,((j-1)*(s^el-1)+1):(j*(s^el-1))] <- contr[D.df[i,j]+1,]}
   ### sorted in the order u <- 1 to s^el-1 for each factor
 
   ################################################################
@@ -239,8 +237,8 @@ Spattern <- function(D, s, maxwt=4, maxdim=NULL, ...){
   ## switch factors on or off in interactions
   picks <- lapply(1:maxdim, function(obj) combn(1:m, obj))
   if (maxdim==m) picks[[length(picks)]] <-
-        matrix(picks[[length(picks)]], ncol=1)
-        ### corrects stupid behavior of combinat::combn
+    matrix(picks[[length(picks)]], ncol=1)
+  ### corrects stupid behavior of combinat::combn
 
   ## obtain the invariant weights for each relevant dimension
   combiweights <- lapply(1:maxdim,
@@ -248,7 +246,7 @@ Spattern <- function(D, s, maxwt=4, maxdim=NULL, ...){
                            picked <- picks[[obj]][,1]
                            maxsinglewt <- min(maxwt + 1 - obj, el)
                            colnums <- mapply(":", (picked-1)*(s^el-1)+1,
-                                                  (picked-1)*(s^el-1)+s^maxsinglewt-1,
+                                             (picked-1)*(s^el-1)+s^maxsinglewt-1,
                                              SIMPLIFY = FALSE)
                            ## colnums is a list with d vector-valued elements
                            ## that need to be crossed with expand.grid
@@ -260,7 +258,7 @@ Spattern <- function(D, s, maxwt=4, maxdim=NULL, ...){
                            ## the column combinations from the first dD projection
                            rowSums(matrix(uwt[colnums], nrow=nrow(colnums)))
                          }
-                         )
+  )
   ## combiweights is a list of weights with maxdim elements
   ## when using only columns from M1 with weights up to maxsinglewt
 
@@ -271,32 +269,33 @@ Spattern <- function(D, s, maxwt=4, maxdim=NULL, ...){
   hilf <- rep(NA, maxwt); names(hilf) <- 1:maxwt
   contrib_list <- rep(list(hilf), maxdim)
 
-## obtain contributions from each dimension
+  ## obtain contributions from each dimension
   for (dim_now in 1:maxdim){
     picks_now <- picks[[dim_now]]
     maxsinglewt <- min(maxwt + 1 - dim_now, el)
     pat_dim <- rep(NA, maxwt); names(pat_dim) <- 1:maxwt
     wt <- combiweights_reduced[[dim_now]]
     for (j in 1:ncol(picks_now)){
-       picked <- picks_now[,j]
-       ## main effect model matrix columns for the selected array columns
-       ## with maximum possible single column weight
-       colnums <- mapply(":", (picked-1)*(s^el-1)+1,
-                         (picked-1)*(s^el-1)+s^maxsinglewt-1,
-                         SIMPLIFY = FALSE)
-       ## colnums is a list with d vector-valued elements
-       ## that need to be crossed with expand.grid
-       ## (contains the usable columns of M1
-       ## for all factors in the first dD projection)
-       ## as weights are invariant to specific projections --> use these
-       ## obtains all combinations
-       colnums <- as.matrix(expand.grid(rev(colnums)))[,dim_now:1, drop=FALSE]
-       colnums <- colnums[which(combiweights[[dim_now]] <= maxwt),,drop=FALSE]
-       for (i in 1:nrow(colnums)){
-         contrib <- sum(apply(Hmat[,colnums[i,], drop=FALSE], 1, prod))^2
-         if (is.na(pat_dim[wt[i]])) pat_dim[wt[i]] <- contrib else
-           pat_dim[wt[i]] <- pat_dim[wt[i]] + contrib
-       }
+      picked <- picks_now[,j]
+      ## main effect model matrix columns for the selected array columns
+      ## with maximum possible single column weight
+      colnums <- mapply(":", (picked-1)*(s^el-1)+1,
+                        (picked-1)*(s^el-1)+s^maxsinglewt-1,
+                        SIMPLIFY = FALSE)
+      ## colnums is a list with d vector-valued elements
+      ## that need to be crossed with expand.grid
+      ## (contains the usable columns of M1
+      ## for all factors in the first dD projection)
+      ## as weights are invariant to specific projections --> use these
+      ## obtains all combinations
+      colnums <- as.matrix(expand.grid(rev(colnums)))[,dim_now:1, drop=FALSE]
+      colnums <- colnums[which(combiweights[[dim_now]] <= maxwt),,drop=FALSE]
+      for (i in 1:nrow(colnums)){
+        contrib <- sum(apply(Hmat[,colnums[i,], drop=FALSE], 1, prod))
+        contrib <- Conj(contrib)*contrib
+        if (is.na(pat_dim[wt[i]])) pat_dim[wt[i]] <- contrib else
+          pat_dim[wt[i]] <- pat_dim[wt[i]] + contrib
+      }
     }
     contrib_list[[dim_now]] <- round(pat_dim/n^2, 8)
   }
@@ -304,13 +303,14 @@ Spattern <- function(D, s, maxwt=4, maxdim=NULL, ...){
   dim_wt_tab <- do.call(rbind, contrib_list)
   attr(dim_wt_tab, "Spattern-call") <- mycall
   dimnames(dim_wt_tab) <- list(dim=1:maxdim, wt=1:maxwt)
-  aus <- round(colSums(dim_wt_tab, na.rm=TRUE), 8)
+  aus <- Re(round(colSums(dim_wt_tab, na.rm=TRUE), 8))
   attr(aus, "call") <- mycall
-  attr(aus, "dim_wt_tab") <- dim_wt_tab
+  attr(aus, "dim_wt_tab") <- Re(dim_wt_tab)
   class(aus) <- c("Spattern", class(aus))
   names(aus) <- 1:length(aus)
   aus
 }
+
 
 #' @rdname Spattern
 #'
