@@ -58,13 +58,11 @@ Spattern_FFsym2 <- function(D, s, maxwt=4, maxdim=NULL, ...){
 
   ################################################################
   ## obtaining the model matrix
-  for (i in 1:m)
-    D.df[[i]] <- factor(D.df[[i]])
   contr <- contr.FFsym2(n=nlev, s=s, contrasts=TRUE)
-  contrargs <- rep(list(contr), m)
-  names(contrargs) <- colnames(D.df)
-  ### main effects columns of the Hmat
-  Hmat <- model.matrix(~., D.df, contrasts.arg = contrargs)[,-1]
+  Hmat <- matrix(NA, n, m*(s^el-1))
+  for (i in 1:n)
+    for (j in 1:m)
+    {Hmat[i,((j-1)*(s^el-1)+1):(j*(s^el-1))] <- contr[D.df[i,j]+1,]}
   ### sorted in the order u <- 1 to s^el-1 for each factor
 
   ################################################################
