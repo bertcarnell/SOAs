@@ -1,4 +1,4 @@
-#' A complex-valued contrast function based on powers of the s-th
+#' A complex-valued contrast function for s^el levels based on powers of the s-th
 #' root of the unity
 #' @rdname contr.TianXu
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/contr.TianXu.R
 \name{contr.TianXu}
 \alias{contr.TianXu}
-\title{A complex-valued contrast function based on powers of the s-th
+\title{A complex-valued contrast function for s^el levels based on powers of the s-th
 root of the unity}
 \usage{
 contr.TianXu(n, s = 2, contrasts = TRUE)
@@ -23,7 +23,7 @@ It can therefore NOT be used in function \code{model.matrix}
 or in statistical modeling functions.
 }
 \description{
-A complex-valued contrast function based on powers of the s-th
+A complex-valued contrast function for s^el levels based on powers of the s-th
 root of the unity
 }
 \details{
