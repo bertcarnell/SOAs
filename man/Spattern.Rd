@@ -7,7 +7,7 @@
 \alias{soacheck3D}
 \title{functions to evaluate stratification properties of (O)SOAs and GSOAs}
 \usage{
-Spattern(D, s, maxwt = 4, maxdim = NULL, ...)
+Spattern(D, s, maxwt = 4, maxdim = NULL, verbose = FALSE, ...)
 
 dim_wt_tab(pat, dimlim = NULL, wtlim = NULL, ...)
 
@@ -34,6 +34,9 @@ it is reduced accordingly (where \code{el} is such that \code{s^el} is the numbe
 see also Details);\cr
 if the specified limit is larger than \code{m=ncol(D)}, it is reduced to \code{m}}
 
+\item{verbose}{logical; if \code{TRUE}, additional information is printed
+(for \code{Spattern}, status information during run time; for the \code{SOAcheck...} functions, confounded pair or triple projections with A2 or A3, respectively, or table of correlations)}
+
 \item{...}{currently not used}
 
 \item{pat}{an object of class \code{Spattern}}
@@ -56,9 +59,6 @@ s^2xs and sxs^2 projections with \code{t=3}, \cr
 and s^3xs, s^2xs^2 and sxs^3 projections with \code{t=4}.\cr
 If \code{t=4} and \code{el=2}, property gamma (s^3 x s and s x s^3) is obviously
 impossible and will not be part of the checks.}
-
-\item{verbose}{logical; if \code{TRUE}, additional information is printed
-(confounded pair or triple projections with A2 or A3, respectively, or table of correlations)}
 }
 \value{
 Function \code{Spattern} returns an object of class \code{Spattern}
