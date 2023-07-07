@@ -74,8 +74,7 @@ Spattern_FFsym <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
   f <- rep(1:m, each=s^el-1)  ## factor referred to by column
   u <- rep(1:(s^el-1),m)  ## factor specific column number
   ## individual u weights
-  uwt <- ceiling(log(u+1, base=s))  ## factor specific weights
-
+  uwt <- rep(rep(1:el, times=s^(1:el)-s^(1:el-1)), m)  ## factor specific weights
   ## switch factors on or off in interactions
   picks <- lapply(1:maxdim, function(obj) combn(1:m, obj))
   if (maxdim==m) picks[[length(picks)]] <-
@@ -110,7 +109,6 @@ Spattern_FFsym <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
   }
   ## combiweights is a list of weights with maxdim elements
   ## when using only column combinations from M1 with combined weights up to maxwt
-
   ## initialize dimension-specific contributions
   ##      pat_dim is transient
   hilf <- rep(NA, maxwt); names(hilf) <- 1:maxwt
