@@ -234,7 +234,7 @@ Spattern <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
   f <- rep(1:m, each=s^el-1)  ## factor referred to by column
   u <- rep(1:(s^el-1),m)  ## factor specific column number
   ## individual u weights
-  uwt <- ceiling(log(u+1, base=s))  ## factor specific weights
+  uwt <- rep(rep(1:el, times=s^(1:el)-s^(1:el-1)), m)  ## factor specific weights
 
   ## switch factors on or off in interactions
   picks <- lapply(1:maxdim, function(obj) combn(1:m, obj))
