@@ -245,6 +245,25 @@ Spattern <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
   ## obtain the invariant weights for each relevant dimension
   cs <- lapply(1:maxdim, function(obj) compositions(maxwt, obj, include.zero=FALSE))
   cs <- lapply(cs, function(obj) pmin(obj, el))
+  ## remove duplicates
+  cs[-1] <- lapply(cs[-1], function(obj) obj[,!duplicated(t(as.matrix(obj))), drop=FALSE])
+  ## remove dominated variants
+      behalten <- function(M){
+        ## identifies variants that are not dominated
+        hilf <- matrix(NA, ncol(M), ncol(M))
+        for (cc in 2:ncol(M)){
+          for (ccc in 1:(cc-1))
+          {hilf[ccc,cc] <- all(M[,ccc]<=M[,cc])
+          hilf[cc,ccc] <- all(M[,cc] <=M[,ccc])
+          }
+        }
+        which(rowSums(hilf, na.rm=TRUE)==0)
+      }
+  cs[-1] <- lapply(cs[-1], function(obj){
+    ## eliminate dominated columns
+    obj[,behalten(obj), drop=FALSE]
+  })
+
   ## numbers of rows in colnums (upper bound, may contain duplicates)
   ncs <- sapply(cs, function(obj) sum(apply(s^obj-1,2,prod)))
 
