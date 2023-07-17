@@ -90,6 +90,7 @@ Spattern_FFsym2 <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
   ## remove dominated variants
   behalten <- function(M){
     ## identifies variants that are not dominated
+    if (ncol(M)==1) return(M)
     hilf <- matrix(NA, ncol(M), ncol(M))
     for (cc in 2:ncol(M)){
       for (ccc in 1:(cc-1))
