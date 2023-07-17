@@ -44,7 +44,7 @@ that does not yield stratum (aka strong) orthogonal arrays and is available for 
 \references{
 Groemping, U. (2022). Implementation of the stratification pattern by Tian and Xu via power coding. Report 2022/03, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule fuer Technik. \url{http://www1.bht-berlin.de/FB_II/reports/Report-2022-003.pdf}
 
-Groemping, U. (2023). A unifying implementation of stratum (aka strong) orthogonal arrays. To appear in \emph{Computational Statistics and Data Analysis}. \doi{10.1016/j.csda.2023.107739}
+Groemping, U. (2023). A unifying implementation of stratum (aka strong) orthogonal arrays. \emph{Computational Statistics and Data Analysis} \bold{183}, 1-28. \doi{10.1016/j.csda.2023.107739}
 
 He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of strength two plus. \emph{The Annals of Statistics} \bold{46}, 457-468. \doi{10.1214/17-AOS1555}
 
