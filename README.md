@@ -93,8 +93,8 @@ Physics and Chemistry, Berliner Hochschule fuer Technik.
 </p>
 <p>
 Groemping, U. (2023). A unifying implementation of stratum (aka strong)
-orthogonal arrays. <em>Computational Statistics and Data Analysis</em>
-<b>183</b>, 1-28.
+orthogonal arrays. To appear in <em>Computational Statistics and Data
+Analysis</em>.
 </p>
 <p>
 He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of
