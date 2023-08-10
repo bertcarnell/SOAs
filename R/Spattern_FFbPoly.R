@@ -1,7 +1,9 @@
-Spattern_FFsym <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
-  ## examples and references are given in utilitiesEvaluate.R
+Spattern_FFbPoly <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
+  ## results are identical to those of Spattern
+  ##   examples and references in ?Spattern apply
+  ##   use SOAs:::Spattern_FFbPoly
 
-  ## uses contr.FFsym with s=s
+  ## uses contr.FFbPoly with s=s
   ## creates coding columns sorted such that
   ##      earlier columns mean coarser strata
   ## coarsest: weight(u)=1 (i.e. u=1,...,s-1 (0 is omitted))
@@ -60,7 +62,7 @@ Spattern_FFsym <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
   ################################################################
   ## obtaining the model matrix
   ### main effects columns of the Hmat
-  contr <- contr.FFsym(n=nlev, s=s, contrasts=TRUE)
+  contr <- contr.FFbPoly(n=nlev, s=s, contrasts=TRUE)
   Hmat <- matrix(NA, n, m*dfm)
   for (i in 1:n)
     for (j in 1:m)
