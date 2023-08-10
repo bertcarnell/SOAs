@@ -19,7 +19,7 @@ and dim_wt_tab extracts and formats the dim_wt_tab attribute of Spattern."><!-- 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4</span>
       </span>
     </div>
 
@@ -54,7 +54,7 @@ and <code>dim_wt_tab</code> extracts and formats the <code>dim_wt_tab</code> att
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Spattern</span><span class="op">(</span><span class="va">D</span>, <span class="va">s</span>, maxwt <span class="op">=</span> <span class="fl">4</span>, maxdim <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Spattern</span><span class="op">(</span><span class="va">D</span>, <span class="va">s</span>, maxwt <span class="op">=</span> <span class="fl">4</span>, maxdim <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dim_wt_tab</span><span class="op">(</span><span class="va">pat</span>, dimlim <span class="op">=</span> <span class="cn">NULL</span>, wtlim <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -91,6 +91,11 @@ see also Details);<br>
 if the specified limit is larger than <code>m=ncol(D)</code>, it is reduced to <code>m</code></p></dd>
 
 
+<dt>verbose</dt>
+<dd><p>logical; if <code>TRUE</code>, additional information is printed
+(for <code>Spattern</code>, status information during run time; for the <code>SOAcheck...</code> functions, confounded pair or triple projections with A2 or A3, respectively, or table of correlations)</p></dd>
+
+
 <dt>...</dt>
 <dd><p>currently not used</p></dd>
 
@@ -124,11 +129,6 @@ s^2xs and sxs^2 projections with <code>t=3</code>, <br>
 and s^3xs, s^2xs^2 and sxs^3 projections with <code>t=4</code>.<br>
 If <code>t=4</code> and <code>el=2</code>, property gamma (s^3 x s and s x s^3) is obviously
 impossible and will not be part of the checks.</p></dd>
-
-
-<dt>verbose</dt>
-<dd><p>logical; if <code>TRUE</code>, additional information is printed
-(confounded pair or triple projections with A2 or A3, respectively, or table of correlations)</p></dd>
 
 </dl></div>
     <div id="value">
@@ -165,8 +165,8 @@ column sums (see Details section for caveats).</p>
     <h2>Details</h2>
     <p>Function <code>Spattern</code> calculates the stratification pattern or S pattern
 as proposed in Tian and Xu (2022) (under the name space-filling pattern);
-the details and the implementation in this function are also described in
-Groemping (2022b).<br>
+the details and the implementation in this function are described in
+Groemping (2023b); the function uses the full-factorial-based Helmert contrasts.<br>
 Position <code>j</code> in the S pattern shows the imbalance when considering <code>s^j</code>
 strata. <code>j</code> is also called the (total) weight. <code>j=1</code> can occur for an
 individual column only. <code>j=2</code> can be obtained either for an
@@ -214,8 +214,8 @@ the projection requirements for 2D or 3D.</p>
     <div id="references">
     <h2>References</h2>
     <p>For full detail, see <code><a href="SOAs-package.html">SOAs-package</a></code>.</p>
-<p>Groemping (2022a)<br>
-Groemping (2022b)<br>
+<p>Groemping (2023a)<br>
+Groemping (2023b)<br>
 He and Tang (2013)<br>
 Shi and Tang (2020)<br>
 Tian and Xu (2022)</p>
@@ -304,7 +304,7 @@ Tian and Xu (2022)</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

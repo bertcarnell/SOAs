@@ -20,7 +20,7 @@ for number of levels a prime or prime power"><!-- mathjax --><script src="https:
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@ number of elements is a power of <code>s</code>.</p></dd>
 
 <p><code>contr.Power</code> yields a matrix of contrasts. It can be used in
 function <code>model.matrix</code> or anywhere where factors with the number of
-levels a power of $s$ are used with contrasts. The exponent for <code>x</code></p>
+levels a power of $s$ are used with contrasts. The exponent for <code>s</code></p>
 
 
 <p>is determined from the number of levels.</p>
@@ -91,11 +91,15 @@ levels a power of $s$ are used with contrasts. The exponent for <code>x</code></
     <p>The function is a generalization (with slowest first instead of fastest first)
 of function <code>contr.FrF2</code> from package <span class="pkg">DoE.base</span>. It is in this
 package because it needs Galois field functionality from package <span class="pkg">lhs</span>
-for non-prime <code>s</code>.</p>
+for non-prime <code>s</code>. Its purpose is (was) the calculation of the
+stratification (or space-filling) pattern by Tian and Xu (2022), see also
+Groemping (2022). The package now calculates the pattern with function
+<code><a href="contr.TianXu.html">contr.TianXu</a></code>.</p>
     </div>
     <div id="references">
     <h2>References</h2>
-    <p>Groemping (2022b)</p>
+    <p>Groemping (2022)
+Tian and Xu (2022)</p>
     </div>
 
     <div id="ref-examples">
@@ -169,7 +173,7 @@ for non-prime <code>s</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

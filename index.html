@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">SOAs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4</span>
       </span>
     </div>
 
@@ -113,7 +113,7 @@
 <p><span class="math display"><em>D</em> = <em>s</em><sup>2</sup><em>A</em> + <em>s</em><em>B</em> + <em>C</em>.</span></p>
 <p>The constructions differ in how they obtain the ingredient matrices, and what properties can be guaranteed for the resulting D. Where a construction function guarantees orthogonal columns for all matrices D it produces, its name starts with a OSOA, otherwise with SOA.<br></p>
 <p>If optimization is requested (default TRUE), space filling properties of D are improved using a level permutation algorithm by Weng (2014). This algorithm is applied for improving the <code>phi_p</code> criterion, which is often a reasonable surrogate for increasing the minimum distance.</p>
-<p>Groemping (2022a) describes the constructions by He and Tang (2013, function <code>SOAs</code>), Liu and Liu (2015, function <code>OSOAs_LiuLiu</code>), He, Cheng and Tang (2018, function <code>SOAs2plus_regular</code>), Zhou and Tang (2019), Shi and Tang (2020, function <code>SOAs_8level</code>) and Li, Liu and Yang (2021) in unified notation. The constructions by Zhou and Tang (2019) and Li et al. (2021) are very close to each other and are both implemented in the three functions <code>OSOAs</code>, <code>OSOAs_hadamard</code> and <code>OSOAs_regular</code>.</p>
+<p>Groemping (2023a) describes the constructions by He and Tang (2013, function <code>SOAs</code>), Liu and Liu (2015, function <code>OSOAs_LiuLiu</code>), He, Cheng and Tang (2018, function <code>SOAs2plus_regular</code>), Zhou and Tang (2019), Shi and Tang (2020, function <code>SOAs_8level</code>) and Li, Liu and Yang (2021) in unified notation. The constructions by Zhou and Tang (2019) and Li et al. (2021) are very close to each other and are both implemented in the three functions <code>OSOAs</code>, <code>OSOAs_hadamard</code> and <code>OSOAs_regular</code>.</p>
 <p>Within the package, available SOA constructions for specific situations can be queried using the guide functions <code>guide_SOAs</code> and <code>guide_SOAs_from_OA</code>.</p>
 <p>Besides the construction functions, properties of the resulting array D can be checked using the aforementioned function <code>phi_p</code> as well as check functions <code>ocheck</code>, <code>ocheck3</code> for orthogonality and <code>soacheck2D</code>, <code>soacheck3D</code> for (O)SOA stratification properties, and <code>Spattern</code> for the space-filling pattern proposed by Tian and Xu (2022); the implementation of the latter will presumably become more important than the 2D and 3D check functions eventually.</p>
 <p>There is one further construction, maximin distance level expansion (<code>XiaoXuMDLE</code>, <code>MDLEs</code>), that does not yield stratum (aka strong) orthogonal arrays and is available for comparison only (Xiao and Xu 2018).</p>
@@ -122,10 +122,13 @@
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <p>
-Groemping, U. (2022a). A unifying implementation of stratum (aka strong) orthogonal arrays. Report 2022/02, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. <a href="http://www1.bht-berlin.de/FB_II/reports/Report-2022-002.pdf" class="external-link"><code>http://www1.bht-berlin.de/FB_II/reports/Report-2022-002.pdf</code></a>
+Groemping, U. (2022). Implementation of the stratification pattern by Tian and Xu via power coding. Report 2022/03, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule fuer Technik. <a href="http://www1.bht-berlin.de/FB_II/reports/Report-2022-003.pdf" class="external-link"><code>http://www1.bht-berlin.de/FB_II/reports/Report-2022-003.pdf</code></a>
 </p>
 <p>
-Groemping, U. (2022b). Implementation of the stratification pattern by Tian and Xu via power coding. Report 2022/03, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule für Technik. <a href="http://www1.bht-berlin.de/FB_II/reports/Report-2022-003.pdf" class="external-link"><code>http://www1.bht-berlin.de/FB_II/reports/Report-2022-003.pdf</code></a>
+Groemping, U. (2023a). A unifying implementation of stratum (aka strong) orthogonal arrays. <em>Computational Statistics and Data Analysis</em> <b>183</b>, 1-28.
+</p>
+<p>
+Groemping, U. (2023b). Implementating the stratification pattern for space-filling, with dimension by weight tables. Report 2023/01, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule fuer Technik. <a href="http://www1.bht-berlin.de/FB_II/reports/Report-2023-001.pdf" class="external-link"><code>http://www1.bht-berlin.de/FB_II/reports/Report-2023-001.pdf</code></a>
 </p>
 <p>
 He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of strength two plus. <em>The Annals of Statistics</em> <b>46</b>, 457-468.
@@ -205,7 +208,7 @@ Zhou, Y.D. and Tang, B. (2019). Column-orthogonal strong orthogonal arrays of st
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
