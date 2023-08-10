@@ -40,7 +40,7 @@
 #' @references
 #' For full detail, see \code{\link{SOAs-package}}.
 #'
-#' Groemping (2023)\cr
+#' Groemping (2023a)\cr
 #' Li, Liu and Yang (2021)\cr
 #' Weng (2014)\cr
 #' Zhou and Tang (2019)\cr

@@ -1,9 +1,7 @@
-Spattern_FFsym2 <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
+Spattern_TianXu <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
   ## examples and references are given in utilitiesEvaluate.R
 
-  ## uses contr.FFsym2 with s=s
-  ## creates coding columns sorted such that
-  ##      earlier columns mean coarser strata
+  ## uses contr.TianXu with s=s
   ## coarsest: weight(u)=1 (i.e. u=1,...,s-1 (0 is omitted))
   ## second coarsest: weight(u)=2 (i.e. u=s to s^2-1)
   ## third coarsest: weight(u)=3 (i.e. u=s^2 to s^3-1)
@@ -28,7 +26,7 @@ Spattern_FFsym2 <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
   if (!length(unique(nlev))==1)
     stop("All columns of D must have the same number of levels.")
   nlev <- nlev[1]
-  dfm <- nlev - 1
+  dfm <- nlev-1
   el <- round(log(nlev, base=s))
   if (!nlev == s^el)
     stop("The number of levels must be a power of s.")
@@ -59,13 +57,13 @@ Spattern_FFsym2 <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
 
   ################################################################
   ## obtaining the model matrix
+  contr <- contr.TianXu(n=nlev, s=s, contrasts=TRUE)
   ### main effects columns of the Hmat
-  contr <- contr.FFsym2(n=nlev, s=s, contrasts=TRUE)
-  Hmat <- matrix(NA, n, m*dfm)
+  Hmat <- matrix(NA, n, m*(s^el-1))
   for (i in 1:n)
     for (j in 1:m)
-    {Hmat[i,((j-1)*dfm+1):(j*dfm)] <- contr[D.df[i,j]+1,]}
-  ### sorted in the order u <- 1 to dfm for each factor
+    {Hmat[i,((j-1)*(s^el-1)+1):(j*(s^el-1))] <- contr[D.df[i,j]+1,]}
+  ### sorted in the order u <- 1 to s^el-1 for each factor
 
   ################################################################
   ## preparations that do not depend on the actual design
@@ -112,24 +110,24 @@ Spattern_FFsym2 <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
   for (obj in 1:maxdim){
     if (verbose)
       cat(paste("start preparations for", obj, "dimensions, \nup to", ncs[obj], "combinations\n"))
-        picked <- picks[[obj]][,1]
-        cs_now <- cs[[obj]]
-        ## pick the adequate colnums based on the weights in cs_now
-        (colnums <- lapply(1:ncol(cs_now), function(obj2)
-          mapply(":", (picked-1)*dfm+1,
-                 (picked-1)*dfm + s^cs_now[,obj2] - 1,
-                 SIMPLIFY=FALSE)))
-        colnums <- do.call(rbind, lapply(colnums, expand.grid))
-        colnums <- as.matrix(colnums[!duplicated(colnums),])
-        ## colnums is the matrix of all d-column number combinations
-        ## such that the combined weight is at most maxwt
-        ## (contains the usable columns of M1
-        ## for all factors in the first dD projection)
-        ## as weights are invariant to specific projections --> use these
-        combiweights[[obj]] <- rowSums(matrix(uwt[colnums], nrow=nrow(colnums)))
+    picked <- picks[[obj]][,1]
+    cs_now <- cs[[obj]]
+    ## pick the adequate colnums based on the weights in cs_now
+    (colnums <- lapply(1:ncol(cs_now), function(obj2)
+      mapply(":", (picked-1)*dfm+1,
+             (picked-1)*dfm + s^cs_now[,obj2] - 1,
+             SIMPLIFY=FALSE)))
+    colnums <- do.call(rbind, lapply(colnums, expand.grid))
+    colnums <- as.matrix(colnums[!duplicated(colnums),])
+    ## colnums is the matrix of all d-column number combinations
+    ## such that the combined weight is at most maxwt
+    ## (contains the usable columns of M1
+    ## for all factors in the first dD projection)
+    ## as weights are invariant to specific projections --> use these
+    combiweights[[obj]] <- rowSums(matrix(uwt[colnums], nrow=nrow(colnums)))
   }
   ## combiweights is a list of weights with maxdim elements
-  ## when using only columns from M1 with combined weights up to maxwt
+  ## when using only columns from M1 with weights up to maxsinglewt
 
   ## initialize dimension-specific contributions
   ##      pat_dim is transient
@@ -150,7 +148,7 @@ Spattern_FFsym2 <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
       ## with maximum possible combined weight
       ## pick the adequate colnums based on the weights in cs_now
       (colnums <- lapply(1:ncol(cs_now), function(obj)
-        mapply(":", (picked-1)*dfm + 1,
+        mapply(":", (picked-1)*dfm+1,
                (picked-1)*dfm + s^cs_now[,obj] - 1,
                SIMPLIFY=FALSE)))
       colnums <- do.call(rbind, lapply(colnums, expand.grid))
@@ -162,7 +160,8 @@ Spattern_FFsym2 <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
       ## as weights are invariant to specific projections --> use weights
       ## from first 1:d, as calculated before
       for (i in 1:nrow(colnums)){
-        contrib <- sum(apply(Hmat[,colnums[i,], drop=FALSE], 1, prod))^2
+        contrib <- sum(apply(Hmat[,colnums[i,], drop=FALSE], 1, prod))
+        contrib <- Conj(contrib)*contrib
         if (is.na(pat_dim[wt[i]])) pat_dim[wt[i]] <- contrib else
           pat_dim[wt[i]] <- pat_dim[wt[i]] + contrib
       }
@@ -173,9 +172,9 @@ Spattern_FFsym2 <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
   dim_wt_tab <- do.call(rbind, contrib_list)
   attr(dim_wt_tab, "Spattern-call") <- mycall
   dimnames(dim_wt_tab) <- list(dim=1:maxdim, wt=1:maxwt)
-  aus <- round(colSums(dim_wt_tab, na.rm=TRUE), 8)
+  aus <- Re(round(colSums(dim_wt_tab, na.rm=TRUE), 8))
   attr(aus, "call") <- mycall
-  attr(aus, "dim_wt_tab") <- dim_wt_tab
+  attr(aus, "dim_wt_tab") <- Re(dim_wt_tab)
   class(aus) <- c("Spattern", class(aus))
   names(aus) <- 1:length(aus)
   aus

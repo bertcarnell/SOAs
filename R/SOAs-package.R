@@ -12,7 +12,7 @@
 #' by Weng (2014). This algorithm is applied for improving the \code{\link{phi_p}}
 #' criterion, which is often a reasonable surrogate for increasing the minimum distance.
 #'
-#' Groemping (2023) describes the constructions by He and Tang (2013, function \code{\link{SOAs}}),
+#' Groemping (2023a) describes the constructions by He and Tang (2013, function \code{\link{SOAs}}),
 #' Liu and Liu (2015, function \code{\link{OSOAs_LiuLiu}}), He, Cheng and Tang (2018, function \code{\link{SOAs2plus_regular}}),
 #' Zhou and Tang (2019), Shi and Tang (2020, function \code{\link{SOAs_8level}}) and Li, Liu and Yang (2021) in unified notation.
 #' The constructions by Zhou and Tang (2019) and Li et al. (2021) are very close to each other and are both implemented
@@ -36,7 +36,9 @@
 #' @references
 #' Groemping, U. (2022). Implementation of the stratification pattern by Tian and Xu via power coding. Report 2022/03, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule fuer Technik. \url{http://www1.bht-berlin.de/FB_II/reports/Report-2022-003.pdf}
 #'
-#' Groemping, U. (2023). A unifying implementation of stratum (aka strong) orthogonal arrays. \emph{Computational Statistics and Data Analysis} \bold{183}, 1-28. \doi{10.1016/j.csda.2023.107739}
+#' Groemping, U. (2023a). A unifying implementation of stratum (aka strong) orthogonal arrays. \emph{Computational Statistics and Data Analysis} \bold{183}, 1-28. \doi{10.1016/j.csda.2023.107739}
+#'
+#' Groemping, U. (2023b). Implementating the stratification pattern for space-filling, with dimension by weight tables. Report 2023/01, Reports in Mathematics, Physics and Chemistry, Berliner Hochschule fuer Technik. \url{http://www1.bht-berlin.de/FB_II/reports/Report-2023-001.pdf}
 #'
 #' He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of strength two plus. \emph{The Annals of Statistics} \bold{46}, 457-468. \doi{10.1214/17-AOS1555}
 #'
