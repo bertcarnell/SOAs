@@ -55,7 +55,7 @@ algorithm is applied for improving the <code>phi_p</code> criterion,
 which is often a reasonable surrogate for increasing the minimum
 distance.
 
-Groemping (2023) describes the constructions by He and Tang (2013,
+Groemping (2023a) describes the constructions by He and Tang (2013,
 function <code>SOAs</code>), Liu and Liu (2015, function
 <code>OSOAs_LiuLiu</code>), He, Cheng and Tang (2018, function
 <code>SOAs2plus_regular</code>), Zhou and Tang (2019), Shi and Tang
@@ -92,9 +92,15 @@ Physics and Chemistry, Berliner Hochschule fuer Technik.
 <a href="http://www1.bht-berlin.de/FB_II/reports/Report-2022-003.pdf">`http://www1.bht-berlin.de/FB_II/reports/Report-2022-003.pdf`</a>
 </p>
 <p>
-Groemping, U. (2023). A unifying implementation of stratum (aka strong)
+Groemping, U. (2023a). A unifying implementation of stratum (aka strong)
 orthogonal arrays. <em>Computational Statistics and Data Analysis</em>
 <b>183</b>, 1-28.
+</p>
+<p>
+Groemping, U. (2023b). Implementating the stratification pattern for
+space-filling, with dimension by weight tables. Report 2023/01, Reports
+in Mathematics, Physics and Chemistry, Berliner Hochschule fuer Technik.
+<a href="http://www1.bht-berlin.de/FB_II/reports/Report-2023-001.pdf">`http://www1.bht-berlin.de/FB_II/reports/Report-2023-001.pdf`</a>
 </p>
 <p>
 He, Y., Cheng, C.S. and Tang, B. (2018). Strong orthogonal arrays of
