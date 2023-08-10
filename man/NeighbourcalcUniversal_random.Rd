@@ -24,11 +24,11 @@ NeighbourcalcUniversal_random(
 
 \item{...}{arguments for function \code{funname}}
 
+\item{curperms}{an rxm matrix of lists of current permutation vectors, or NULL}
+
+\item{replacement}{a vector of replacements}
+
 \item{neighbordist}{1 or 2: one- or two-neighbors in Weng's algorithm}
-
-\item{startperm}{matrix with position numbers of level permutations (refers to \code{allpermlist})}
-
-\item{allpermlist}{list of all permutations}
 }
 \value{
 list of arrays and corresponding permutations

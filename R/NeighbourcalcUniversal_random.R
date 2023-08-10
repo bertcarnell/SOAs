@@ -7,8 +7,8 @@
 #' @param mperm number of columns of \code{startperm}
 #' @param r number of rows of \code{startperm}
 #' @param ... arguments for function \code{funname}
-#' @param startperm matrix with position numbers of level permutations (refers to \code{allpermlist})
-#' @param allpermlist list of all permutations
+#' @param curperms an rxm matrix of lists of current permutation vectors, or NULL
+#' @param replacement a vector of replacements
 #' @param neighbordist 1 or 2: one- or two-neighbors in Weng's algorithm
 #'
 #' @return list of arrays and corresponding permutations
