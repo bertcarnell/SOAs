@@ -18,9 +18,18 @@
 #' The function implements the complex-valued contrasts from
 #' Tian and Xu (2022). Its sole use is the calculation of the
 #' stratification pattern (also called space-filling pattern).
+#' However, note that it is not used in function \code{\link{Spattern}},
+#' but only in the internal function \code{Spattern_TianXu},
+#' which yields exactly the same results as function \code{Spattern}.\cr
 #' The \code{contrasts} argument has been kept in order to be
 #' prepared in case the \code{model.matrix} function gains the
 #' ability to handle complex-valued contrasts.
+#'
+#' The Tian and Xu contrasts are full-factorial-based contrasts
+#' in the sense of Groemping (2023b). Function \code{\link{Spattern}}
+#' uses a different type of full-factorial-based contrasts,
+#' the full-factorial-based Helmert contrasts provided in function
+#' \code{\link{contr.FFbHelmert}}.
 #'
 #' @export
 #'
@@ -33,6 +42,7 @@
 #' round(contr.TianXu(16, 16), 4)
 #'
 #' @references
+#' Groemping (2023b)
 #' Tian and Xu (2022)
 
 contr.TianXu <- function (n, s=2, contrasts = TRUE){
