@@ -149,12 +149,17 @@ nchoosek <- function (n, k){
   return(res)
 }
 
-#' @rdname FromDoE.base
+#' @noRd
 #' @param xx matrix or data.frame
 #' @return \code{levels.no} returns a vector of numbers of levels for the columns of \code{xx}
 #' @keywords internal
-levels.no <- function (xx){
+#'
+levels.no <- function (x)
+{
   ## taken from DoE.base
+  if ("no" %in% class(x))
+    stop("DoE.base:::levels.no is not a method for the generic base::levels")
+  xx <- x
   ff <- FALSE
   if ("design" %in% class(xx))
     xx <- undesign(xx)  ## use [ from data.frame, not design
