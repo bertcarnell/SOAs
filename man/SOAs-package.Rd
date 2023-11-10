@@ -60,6 +60,8 @@ Shi, L. and Tang, B. (2020). Construction results for strong orthogonal arrays o
 
 Tian, Y. and Xu, H. (2022). A minimum aberration-type criterion for selecting space-filling designs. \emph{Biometrika} \strong{109}, 489-501. \doi{10.1093/biomet/asab021}
 
+Tian, Y. and Xu, H. (2023+). Stratification Pattern Enumerator and its Applications. To appear in \emph{J. Roy. Statist. Soc.} Series \strong{B}.
+
 Weng, J. (2014). Maximin Strong Orthognal Arrays. \emph{Master's thesis} at Simon Fraser University under supervision of Boxin Tang and Jiguo Cao. \url{https://summit.sfu.ca/item/14433}
 
 Xiao, Q. and Xu, H.  (2018). Construction of Maximin Distance Designs via Level Permutation and Expansion. \emph{Statistica Sinica} \bold{28},

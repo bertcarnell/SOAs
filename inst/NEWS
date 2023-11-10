@@ -1,5 +1,11 @@
 Change log for package SOAs
 
+Version 1.4-1, 10 November 2023
+
+* include fastSP and fastSP.K functions based on code from Tian and Xu 2023+,
+  with substantial modifications to fastSP (eventually remove unnecessary helper
+  functions and possibly also fastSP.K entirely)
+
 Version 1.4, 10 August 2023
 
 * modified Spattern calculations to use full factorial based coding instead
