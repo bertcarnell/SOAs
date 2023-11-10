@@ -132,6 +132,11 @@ selecting space-filling designs. <em>Biometrika</em>
 <strong>109</strong>, 489-501.
 </p>
 <p>
+Tian, Y. and Xu, H. (2023+). Stratification Pattern Enumerator and its
+Applications. To appear in <em>J. Roy. Statist. Soc.</em> Series
+<strong>B</strong>.
+</p>
+<p>
 Weng, J. (2014). Maximin Strong Orthognal Arrays. <em>Master’s
 thesis</em> at Simon Fraser University under supervision of Boxin Tang
 and Jiguo Cao.
