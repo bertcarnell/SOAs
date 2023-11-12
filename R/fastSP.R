@@ -28,12 +28,11 @@
 #'
 #' @param D design with number of levels a power of \code{s}
 #' @param s prime or prime power on which \code{D} is based
-#' @param maxwt maximum weight for which the pattern is to be calculated
+#' @param maxwt integer number; maximum weight for which the pattern is to be calculated
 #' @param y0 small number that drives accuracy. Tian and Xu (2023+) proposed
 #' \code{y0}=0.1 for the approximation of \code{fastSP.K}, and generally choices
 #' between 0.001 and 0.1. As \code{y0}=0.1 appears to improve
 #' performance also for \code{fastSP}, it is introduced here also for that function.
-#' \code{maxwt} and a formula by Tian and Xu (2023+) that depends on
 #' @param K integer number of summands in Theorems 3 and 4 of Tian and Xu (2023+) for
 #' approximate calculation of the first few elements of the stratification pattern.
 #' Larger \code{K} provide better accuracy. Default (\code{NULL}) is the maximum of
@@ -69,12 +68,25 @@
 #' \code{K=NULL} yields an error, because the default formula for \code{K}
 #' does not work for \code{y0=1}.
 #'
-#' @returns \code{fastSP} returns a stratification pattern or the first
+#' @returns an object of class \code{fastSP}, with attributes \code{call},
+#' \code{K}, \code{y0}, and possibly \code{message}.
+#' The object itself is a stratification pattern or the first
 #' \code{maxwt} elements of the stratification pattern (default: all elements).\cr
 #' If \code{K} is less than the maximum length of the stratification pattern
-#' (number of columns of
-#' \code{D} times exponent of \code{s} that yields the number of levels)
+#' (\code{Kmax} element of attribute \code{K})
 #' the returned values are approximations (more accurate for larger \code{K}).
+#' If the object has a \code{message} attribute, this attribute indicates
+#' which positions of the pattern must be considered as problematic because
+#' the imaginary part was non-zero.
+#'
+#' @note Even the exact pattern (obtained with maximum \code{K}) must be considered
+#' with caution because of potential numerical problems. Often, the creation process
+#' of a GSOA implies that the first few elements are zeroes. If this is the case, the
+#' degree of inaccuracy may be assessed from these elements. Furthermore, warnings of
+#' non-zero imaginary parts indicate similar problems. If unsure about the accuracy, it
+#' may also be an option to use function \code{\link{Spattern}} with a small \code{maxwt}
+#' argument (for resource reasons) in order to obtain exact values for the first very few
+#' entries of the stratification pattern.
 #'
 #' @references
 #' For full detail, see \code{\link{SOAs-package}}.
@@ -112,6 +124,7 @@ fastSP <- function(D, s, maxwt=NULL, K=NULL, y0=0.1, tol=0.00001){
   # s is the base and el is the length
   # maxwt is the number of components of SPattern to be computed
   # when el=1, it returns the usual GWLP as in Xu and Wu (2001)
+   mycall <- sys.call()
    x <- as.matrix(D) # treat a vector or data.frame as a matrix
    m <- ncol(x)
    el <- round(log(max(x)+1, base=s))
@@ -143,14 +156,22 @@ fastSP <- function(D, s, maxwt=NULL, K=NULL, y0=0.1, tol=0.00001){
        ij <- (i*(1:K)) %% K
        bz[i] <- sum(z[K-ij] * Ez)/K/exp(i*log(y0))
    }
+   msg <- NULL
    if (max(abs(Im(bz))) > tol){
        ## obtain minimum position for which deviation is larger than tol
        poscrit <- min(which(abs(Im(bz)) > tol))
-       if (poscrit <= maxwt)
-       message("Im(bz) exceeds tolerance for position >=", poscrit)
+       if (poscrit <= maxwt){
+         msg <- paste("Im(bz) exceeds tolerance for position >=", poscrit)
+       message(msg)
+       }
        }
    aus <- Re(bz)[1:maxwt]  # Im(bz) should be zero
    names(aus) <- 1:maxwt
+   attr(aus, "call") <- mycall
+   attr(aus, "K") <- c(K=K, Kmax=m*el)
+   attr(aus, "y0") <- y0
+   attr(aus, "message") <- msg
+   class(aus) <- "fastSP"
    aus
 }
 
@@ -167,7 +188,7 @@ fastSP.K <- function(D, s, maxwt=NULL, y0=0.1, K=NULL, tol=0.00001){
   # maxwt is the number of components of SPattern computed
   # K is the number of components as in Theorem 4 of Tian and Xu (2023)
   # when el=1, it returns the usual GWLP as in Xu and Wu (2001)
-
+   mycall <- sys.call()
    x <- as.matrix(D) # treat a vector as a matrix
    m <- ncol(x);
    el <- round(log(max(D)+1, base=s))
@@ -188,12 +209,20 @@ fastSP.K <- function(D, s, maxwt=NULL, y0=0.1, K=NULL, tol=0.00001){
        bz[i] <- sum(z[K-ij] * Ez)/K/exp(i*log(y0)) # bz[i]=sum_{j=1}^K (omega^(-i*j)*Ez[j])/K/y0^i
    }
 ## changed to 10^-5 UG Oct 27 2023
+   msg <- NULL
    if (max(abs(Im(bz)), na.rm=TRUE) > tol){
      poscrit <- min(which(abs(Im(bz)) > tol))
-     if (poscrit <= maxwt)
-       message("Im(bz) exceeds tolerance for position >=", poscrit)
+     if (poscrit <= maxwt){
+       msg <- paste("Im(bz) exceeds tolerance for position >=", poscrit)
+       message(msg)
+     }
    }
    aus <- Re(bz)[1:maxwt]  # Im(bz) should be zero
    names(aus) <- 1:maxwt
+   attr(aus, "call") <- mycall
+   attr(aus, "K") <- c(K=K, Kmax=m*el)
+   attr(aus, "y0") <- y0
+   attr(aus, "message") <- msg
+   class(aus) <- "fastSP"
    aus
 }

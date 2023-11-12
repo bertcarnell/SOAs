@@ -15,7 +15,7 @@ fastSP.K(D, s, maxwt = NULL, y0 = 0.1, K = NULL, tol = 1e-05)
 
 \item{s}{prime or prime power on which \code{D} is based}
 
-\item{maxwt}{maximum weight for which the pattern is to be calculated}
+\item{maxwt}{integer number; maximum weight for which the pattern is to be calculated}
 
 \item{K}{integer number of summands in Theorems 3 and 4 of Tian and Xu (2023+) for
 approximate calculation of the first few elements of the stratification pattern.
@@ -31,18 +31,21 @@ Tian and Xu (2023+), \code{K="max"} can be specified.}
 \item{y0}{small number that drives accuracy. Tian and Xu (2023+) proposed
 \code{y0}=0.1 for the approximation of \code{fastSP.K}, and generally choices
 between 0.001 and 0.1. As \code{y0}=0.1 appears to improve
-performance also for \code{fastSP}, it is introduced here also for that function.
-\code{maxwt} and a formula by Tian and Xu (2023+) that depends on}
+performance also for \code{fastSP}, it is introduced here also for that function.}
 
 \item{tol}{tolerance for checking whether the imaginary part is zero}
 }
 \value{
-\code{fastSP} returns a stratification pattern or the first
+an object of class \code{fastSP}, with attributes \code{call},
+\code{K}, \code{y0}, and possibly \code{message}.
+The object itself is a stratification pattern or the first
 \code{maxwt} elements of the stratification pattern (default: all elements).\cr
 If \code{K} is less than the maximum length of the stratification pattern
-(number of columns of
-\code{D} times exponent of \code{s} that yields the number of levels)
+(\code{Kmax} element of attribute \code{K})
 the returned values are approximations (more accurate for larger \code{K}).
+If the object has a \code{message} attribute, this attribute indicates
+which positions of the pattern must be considered as problematic because
+the imaginary part was non-zero.
 }
 \description{
 Functions for fast calculation of stratification pattern
@@ -70,6 +73,16 @@ of their Theorem 3 (not desirable for larger situations),
 choose \code{y0=1} and \code{K="max"}. Note that \code{y0=1} with
 \code{K=NULL} yields an error, because the default formula for \code{K}
 does not work for \code{y0=1}.
+}
+\note{
+Even the exact pattern (obtained with maximum \code{K}) must be considered
+with caution because of potential numerical problems. Often, the creation process
+of a GSOA implies that the first few elements are zeroes. If this is the case, the
+degree of inaccuracy may be assessed from these elements. Furthermore, warnings of
+non-zero imaginary parts indicate similar problems. If unsure about the accuracy, it
+may also be an option to use function \code{\link{Spattern}} with a small \code{maxwt}
+argument (for resource reasons) in order to obtain exact values for the first very few
+entries of the stratification pattern.
 }
 \examples{
 ## SOA(32,9,8,3) from Shi and Tang (2020)
