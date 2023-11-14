@@ -69,5 +69,5 @@ Tian and Xu (2023).
 \references{
 For full detail, see \code{\link{SOAs-package}}.
 
-Tian, Y. and Xu, H. (2023)
+Tian, Y. and Xu, H. (2023+)
 }

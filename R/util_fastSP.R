@@ -16,7 +16,7 @@
 ## uses ff (instead of full.fd)
 ##
 ## Date original: Feb/10/2023
-## Date modified: Oct/27/2023
+## Date modified: Oct/27/2023 ff
 
 #' unexported functions to support fast calculation of the
 #' stratification pattern with fastSP and fastSP.k
@@ -43,7 +43,7 @@
 #' @references
 #' For full detail, see \code{\link{SOAs-package}}.
 #'
-#' Tian, Y. and Xu, H. (2023)
+#' Tian, Y. and Xu, H. (2023+)
 #'
 ## define NRT weight and distance
 ## define nrt.wt and nrt distance 2/28/21
@@ -227,4 +227,3 @@ EDz <- function(D, s, y=.01){
   # D is a GSOA with s^el levels, y could be complex
   EDy(D, s, y, kernel=Rd.kernel)
 }
-

@@ -2,13 +2,10 @@
 % Please edit documentation in R/fastSP.R
 \name{fastSP}
 \alias{fastSP}
-\alias{fastSP.K}
 \title{Functions for fast calculation of stratification pattern
 according to Tian and Xu 2023}
 \usage{
-fastSP(D, s, maxwt = NULL, K = NULL, y0 = 0.1, tol = 1e-05)
-
-fastSP.K(D, s, maxwt = NULL, y0 = 0.1, K = NULL, tol = 1e-05)
+fastSP(D, s, maxwt = NULL, K = NULL, y0 = NULL, tol = 1e-05)
 }
 \arguments{
 \item{D}{design with number of levels a power of \code{s}}
@@ -17,21 +14,18 @@ fastSP.K(D, s, maxwt = NULL, y0 = 0.1, K = NULL, tol = 1e-05)
 
 \item{maxwt}{integer number; maximum weight for which the pattern is to be calculated}
 
-\item{K}{integer number of summands in Theorems 3 and 4 of Tian and Xu (2023+) for
-approximate calculation of the first few elements of the stratification pattern.
-Larger \code{K} provide better accuracy. Default (\code{NULL}) is the maximum of
-\code{maxwt} (if specified) and a default based on \code{y0} according to a formula
-by Tian and Xu (2023+) (yields smaller \code{K} for smaller \code{y0}).\cr
-\code{K} should not divide \code{m*el}, according to Tian and Xu (2023+).
-??? in the example, 9 works well, though it divides 9*3
-sent a question to Hongquan regarding the rationale behind this.\cr
-In function \code{fastSP}, for obtaining all summands of Theorem 3 of
-Tian and Xu (2023+), \code{K="max"} can be specified.}
+\item{K}{integer number of summands. Can also be \code{"max"} for indicating that
+all summands are requested (Theorem 3 of Tian and Xu 2023+). In Theorem 4 of
+Tian and Xu (2023+), larger \code{K} provide better accuracy.
+If \code{maxwt=NULL}, the default (\code{NULL}) is that all summands
+are requested (i.e., Theorem 3 of Tian and Xu 2023+). Otherwise,
+the default is the maximum of \code{maxwt} and a default based
+on \code{y0} according to a formula
+by Tian and Xu (2023+) (yields smaller \code{K} for smaller \code{y0}).}
 
-\item{y0}{small number that drives accuracy. Tian and Xu (2023+) proposed
-\code{y0}=0.1 for the approximation of \code{fastSP.K}, and generally choices
-between 0.001 and 0.1. As \code{y0}=0.1 appears to improve
-performance also for \code{fastSP}, it is introduced here also for that function.}
+\item{y0}{small number that drives accuracy. The default (\code{NULL}) uses 1/\code{s}
+for maximum \code{K} and \code{y0}=0.1 for smaller values of \code{K}.
+See the Details section for a discussion of this parameter.}
 
 \item{tol}{tolerance for checking whether the imaginary part is zero}
 }
@@ -52,27 +46,42 @@ Functions for fast calculation of stratification pattern
 according to Tian and Xu 2023
 }
 \details{
-The functions were modified from the code provided with
+The function was modified from the code provided with
 Tian and Xu (2023+).
 
-Function \code{fastSP} implements the formula of Theorem 3 of
-Tian and Xu (2023+), but with yj replaced with yj*y0^j, as this appears to
-yield more accurate results (as evidenced by the fact that it worked for the
-20-column SOA for which the original version failed to yield accurate results).\cr
-Per default (\code{maxwt=NULL} and \code{K=NULL}),
+Per default (\code{maxwt=NULL} and \code{K=NULL}), or when the user chooses
+\code{K="max"} in spite of specifying a value for \code{maxwt},
 \code{fastSP} calculates the entire stratification pattern and uses all summands
-of Tian and Xu's Equation (4).\cr
+of Tian and Xu's (2023+) Equation (4) of their Theorem 3,\cr
+with one important modification: y_j is not chosen as the j-th power of
+the m*el-th complex rooth of the unity but as that complex number divided
+by \code{s}, as this appears to yield numerically stabler results.
+(It neutralizes the large powers of \code{s} that arise by multiplying
+the weighted similarities of Lemma 1 for obtaining the summands in E(D,y)
+in formula (3)).
+Limited experimentation with different values of \code{s} showed
+that this approach did indeed yield reasonably stable results, for example
+for the SOA(64,20,8,3) for which the version with unmodified powers of
+roots of the unity ran into problems.\cr
+It is straightforward to verify that Theorem 3 remains valid for
+this modified choice of y_j.
+
 It is possible and often advisable to calculate only a smaller number of
 entries, for saving resources and also because the later entries are less
-interesting and less accurate. If the argument \code{maxwt} is specified,
-the default for the argument \code{K} (\code{K=NULL}) is the maximum of
-Tian and Xu's (2023+) proposed default for their approximation formula (6)
-(depending on \code{y0}) and the requested \code{maxwt}.\cr
+interesting and less accurate. If the argument \code{maxwt} is specified
+and \code{K} is left unspecified (\code{K=NULL}), \code{K} is calculated as
+the maximum of Tian and Xu's (2023+) proposed default for their
+approximation formula (6), depending on \code{y0}, which is set to 0.1,
+if also unspecified. Tian and Xu (2023+) recommended to use \code{y0} values
+between 0.001 and 0.1, when using formula (6) of Theorem 4.
+
 For obtaining the original behavior of Tian and Xu's (2023+) implementation
 of their Theorem 3 (not desirable for larger situations),
-choose \code{y0=1} and \code{K="max"}. Note that \code{y0=1} with
+choose \code{y0=1}. Note that \code{y0=1} with a specified \code{maxwt} and
 \code{K=NULL} yields an error, because the default formula for \code{K}
 does not work for \code{y0=1}.
+
+Also consider the Note section regarding numerical considerations.
 }
 \note{
 Even the exact pattern (obtained with maximum \code{K}) must be considered
@@ -82,7 +91,7 @@ degree of inaccuracy may be assessed from these elements. Furthermore, warnings 
 non-zero imaginary parts indicate similar problems. If unsure about the accuracy, it
 may also be an option to use function \code{\link{Spattern}} with a small \code{maxwt}
 argument (for resource reasons) in order to obtain exact values for the first very few
-entries of the stratification pattern.
+entries of the stratification pattern.aus
 }
 \examples{
 ## SOA(32,9,8,3) from Shi and Tang (2020)
@@ -97,13 +106,18 @@ soa32x9 <- t(matrix(c(7,3,6,2,7,3,6,2,4,0,5,1,4,0,5,1,5,1,4,0,5,1,4,0,6,2,7,3,6,
                   7,1,4,2,3,5,0,6,2,4,1,7,6,0,5,3,3,5,0,6,7,1,4,2,6,0,5,3,2,4,1,7
 ), nrow=9, byrow = TRUE))
 
+## complete pattern according to theorem 3
+## (y0=1/2 or y0=1 does not make a difference for this small example)
 a <- fastSP(soa32x9, 2); round(a,7)
+a <- fastSP(soa32x9, 2, y0=1); round(a,7)
 
-## el=3 is calculated in the function
-a <- fastSP.K(soa32x9, 2, maxwt=5); round(a,7)
-## will be more accurate
-a <- fastSP.K(soa32x9, 2, maxwt=5, y=0.01); round(a,7)
-a <- fastSP.K(soa32x9, 2, maxwt=5, y=0.01, K=9); round(a,7)
+## only the first five positions (K=9 calculated and used based on y0=0.1)
+## not very accurate
+a <- fastSP(soa32x9, 2, maxwt=5); round(a,7)
+## more accurate (K=5 used, based on y0=0.01)
+a <- fastSP(soa32x9, 2, maxwt=5, y=0.01); round(a,7)
+## even more accurate (K=9 used with y0=0.01)
+a <- fastSP(soa32x9, 2, maxwt=5, y=0.01, K=9); round(a,7)
 
 # example code
 
