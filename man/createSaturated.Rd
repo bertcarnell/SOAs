@@ -23,7 +23,7 @@ for direct use in experimentation, because they heavily confound main effects wi
 If not all columns are needed, using the last m columns may yield better results
 than using the first m columns.\cr
 If possible, stronger OAs from other sources can be used,
-e.g. from package \pkg{\link{FrF2}} for 2-level factors or from package \pkg{\link{DoE.base}} for
+e.g. from package \pkg{\link[FrF2]{FrF2}} for 2-level factors or from package \pkg{\link[DoE.base]{DoE.base}} for
 factors with more than 2 levels.
 }
 \examples{
