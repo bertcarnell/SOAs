@@ -140,10 +140,9 @@ soa.kernel <- function(s, el, y){
 #' @aliases EDy
 #' @rdname util_fastSP
 #'
-EDy <- function(D, s, y=.01, kernel=soa.kernel){
+EDy <- function(D, s, y=.01, kernel=Rd.kernel){
   # Stratification Pattern Enumerator
-  # called by fastSP, using soa.kernel()
-  # indirectly called by fastSP.K, using Rd.kernel
+  # called by fastSP, using Rd.kernel()
   # D: N x m design with s^el levels, y can be a complex number
   x <- as.matrix(D)
   N <- nrow(x); m <- ncol(x);
@@ -152,23 +151,9 @@ EDy <- function(D, s, y=.01, kernel=soa.kernel){
   el <- round(log(max(x), base=q))
   k <- el
   Ky <- kernel(q, k, y)
-  # CM <- soa.contr(q, k)   ## experimental
   res <- 0
-  # omega <- as.complex(exp(1i*2*pi/(m*el)))  # omega is a (m*el)th root of 1,
-  # omega^(m*el)=1  ## or would s-th root be needed here?
   for(a in 1:N)
     for(b in a:N){
-      ## experimental replacement of previous numerically problematic code
-      # expo_omega <- 0  ## experimental
-      # expo_y <- 0      ## experimental
-      # for (j in 1:m)
-      #    expo_omega <- expo_omega + sum(CM$inner.prod[x[a,j],]-CM$inner.prod[x[b,j],])
-      # expo_y <- expo_y + sum(CM$wt[x[a,]])/2 + sum(CM$wt[x[b,]])/2
-      # expo_omega <- expo_omega%%(m*el)
-      # pk <- omega^expo_omega*y^expo_y
-      # if (Re(pk)<.Machine$double.eps) pk <- 0i
-      ## end of experimental replacement of previous code
-      ## so far does not work
       pk <- 1
       for(j in 1:m)
         pk <- pk * Ky[x[a,j], x[b,j]]
@@ -207,8 +192,12 @@ Rd.kernel <- function(s, el, y){
   # return an s^el x s^el matrix K(x,y)
   # the condition of the returned matrix becomes poorer and poorer with decreasing y
   # difference to soa.kernel: soa.kernel yields complex values
-  Rd  <- function(d) (1-y)*(1-(s*y)^(el-d+1))/(1-s*y) +
-                      ifelse(d==0, s^el*y^(el+1), 0)
+  ## modified as proposed by Hongquan,
+  ## so that it handles y=1/s (which was a removable discontinuity)
+  Rd  <- function(d){
+    if (s*y == 1) (1-y)*(el-d+1) + ifelse(d==0, y, 0)
+    else (1-y)*(1-(s*y)^(el-d+1))/(1-s*y) + ifelse(d==0, s^el*y^(el+1), 0)
+  }
   Rd.y <- rep(0, el+1)
   for(d in 0:el) Rd.y[d+1] <- Rd(d)
   d.nrt <- nrt.kernel(s, el) # distance matrix
@@ -217,13 +206,4 @@ Rd.kernel <- function(s, el, y){
     for(v in 1:u)
       Ker[u,v] <- Ker[v,u] <- Rd.y[d.nrt[u,v] + 1]
   Ker
-}
-
-#' @aliases EDz
-#' @rdname util_fastSP
-#'
-EDz <- function(D, s, y=.01){
-  # called by fastSP.K, using Rd.kernel(), which is equivalent to EDy
-  # D is a GSOA with s^el levels, y could be complex
-  EDy(D, s, y, kernel=Rd.kernel)
 }

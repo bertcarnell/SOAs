@@ -2,7 +2,7 @@
 % Please edit documentation in R/fastSP.R
 \name{fastSP}
 \alias{fastSP}
-\title{Functions for fast calculation of stratification pattern
+\title{Function for fast calculation of stratification pattern
 according to Tian and Xu 2023}
 \usage{
 fastSP(D, s, maxwt = NULL, K = NULL, y0 = NULL, tol = 1e-05)
@@ -42,7 +42,7 @@ which positions of the pattern must be considered as problematic because
 the imaginary part was non-zero.
 }
 \description{
-Functions for fast calculation of stratification pattern
+Function for fast calculation of stratification pattern
 according to Tian and Xu 2023
 }
 \details{
@@ -51,20 +51,31 @@ Tian and Xu (2023+).
 
 Per default (\code{maxwt=NULL} and \code{K=NULL}), or when the user chooses
 \code{K="max"} in spite of specifying a value for \code{maxwt},
-\code{fastSP} calculates the entire stratification pattern and uses all summands
-of Tian and Xu's (2023+) Equation (4) of their Theorem 3,\cr
-with one important modification: y_j is not chosen as the j-th power of
-the m*el-th complex rooth of the unity but as that complex number divided
-by \code{s}, as this appears to yield numerically stabler results.
-(It neutralizes the large powers of \code{s} that arise by multiplying
-the weighted similarities of Lemma 1 for obtaining the summands in E(D,y)
-in formula (3)).
-Limited experimentation with different values of \code{s} showed
-that this approach did indeed yield reasonably stable results, for example
-for the SOA(64,20,8,3) for which the version with unmodified powers of
-roots of the unity ran into problems.\cr
-It is straightforward to verify that Theorem 3 remains valid for
-this modified choice of y_j.
+\code{fastSP} calculates the entire stratification pattern \eqn{(S_1(D),...,S_{m\ell}(D))}
+of the design \eqn{D} with \eqn{m} columns in \eqn{s^\ell} levels
+based on solving the system of \eqn{m\ell} equations
+\deqn{E(D;y_i) - 1 = \sum_{j=1}^{m\ell}y_i^{j}S_j(D)}{%
+E(D;y_i) - 1 = sum_i=1 to (m \ell) y_i^j S_j(D)
+}
+with \eqn{E(D;y_i)} as defined in Tian and Xu's (2023+) equation (3)
+and \eqn{y_i=1/s\cdot \tilde\omega_i} with \eqn{\tilde\omega_i} the \eqn{m\ell}th
+complex root of the unity. This system arises from Tian and Xu's (2023+) Theorem 1,
+and its solution is stated in their equation (4) in Theorem 3 for a numerically less
+fortunate choice of \eqn{y_i} values. (Theorem 3 of Tian and Xu 2023+
+uses \eqn{\tilde\omega_i} instead of the above \eqn{y_i} values;
+\eqn{y_i=\tilde\omega_i/s} improves
+the numerical stability by neutralizing large powers of
+\code{s} that otherwise arise in the summands of \eqn{E(D;y_i)};
+Example 6 of the paper that had numerical problems for Theorem 3
+worked well for the entire pattern with this implementation.)
+The implementation for \code{K="all"} can also be considered
+a special case of Tian and Xu's (2023+) Theorem 4 with \eqn{z=1/s} and
+\eqn{K=m\ell}.
+(For obtaining the original behavior of Tian and Xu's (2023+)
+implementation of their Theorem 3 (not desirable for larger situations),
+choose \code{y0=1}. Note that \code{y0=1} with a specified \code{maxwt} and
+\code{K=NULL} yields an error, because the default formula for \code{K}
+does not work for \code{y0=1}.)
 
 It is possible and often advisable to calculate only a smaller number of
 entries, for saving resources and also because the later entries are less
@@ -75,23 +86,18 @@ approximation formula (6), depending on \code{y0}, which is set to 0.1,
 if also unspecified. Tian and Xu (2023+) recommended to use \code{y0} values
 between 0.001 and 0.1, when using formula (6) of Theorem 4.
 
-For obtaining the original behavior of Tian and Xu's (2023+) implementation
-of their Theorem 3 (not desirable for larger situations),
-choose \code{y0=1}. Note that \code{y0=1} with a specified \code{maxwt} and
-\code{K=NULL} yields an error, because the default formula for \code{K}
-does not work for \code{y0=1}.
-
-Also consider the Note section regarding numerical considerations.
+Consider also the Note section regarding recommendations for accuracy checks.
 }
 \note{
-Even the exact pattern (obtained with maximum \code{K}) must be considered
+Even the exact pattern (obtained with maximum \code{K})
+must be considered
 with caution because of potential numerical problems. Often, the creation process
 of a GSOA implies that the first few elements are zeroes. If this is the case, the
 degree of inaccuracy may be assessed from these elements. Furthermore, warnings of
 non-zero imaginary parts indicate similar problems. If unsure about the accuracy, it
 may also be an option to use function \code{\link{Spattern}} with a small \code{maxwt}
 argument (for resource reasons) in order to obtain exact values for the first very few
-entries of the stratification pattern.aus
+entries of the stratification pattern.
 }
 \examples{
 ## SOA(32,9,8,3) from Shi and Tang (2020)
@@ -106,24 +112,28 @@ soa32x9 <- t(matrix(c(7,3,6,2,7,3,6,2,4,0,5,1,4,0,5,1,5,1,4,0,5,1,4,0,6,2,7,3,6,
                   7,1,4,2,3,5,0,6,2,4,1,7,6,0,5,3,3,5,0,6,7,1,4,2,6,0,5,3,2,4,1,7
 ), nrow=9, byrow = TRUE))
 
-## complete pattern according to theorem 3
-## (y0=1/2 or y0=1 does not make a difference for this small example)
+## complete pattern
 a <- fastSP(soa32x9, 2); round(a,7)
-a <- fastSP(soa32x9, 2, y0=1); round(a,7)
 
-## only the first five positions (K=9 calculated and used based on y0=0.1)
-## not very accurate
+## only the first five positions
+##      (K=9 calculated and used based on default y0=0.1)
+##      not very accurate
 a <- fastSP(soa32x9, 2, maxwt=5); round(a,7)
-## more accurate (K=5 used, based on y0=0.01)
+##      (K=5 calculated and used, based on y0=0.01)
+##      more accurate
 a <- fastSP(soa32x9, 2, maxwt=5, y=0.01); round(a,7)
-## even more accurate (K=9 used with y0=0.01)
+##      (K=9 specified with y0=0.01)
+##      even more accurate
 a <- fastSP(soa32x9, 2, maxwt=5, y=0.01, K=9); round(a,7)
-
-# example code
 
 }
 \references{
 For full detail, see \code{\link{SOAs-package}}.
 
 Tian, Y. and Xu, H. (2023+)
+}
+\seealso{
+\code{\link[=Spattern]{Spattern()}} for exact calculations of the first few elements of
+the stratification pattern for small to moderate situations.
+That function additionally provides a dimension by weight table.
 }

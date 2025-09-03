@@ -13,7 +13,6 @@
 \alias{EDy}
 \alias{nrt.kernel}
 \alias{Rd.kernel}
-\alias{EDz}
 \title{unexported functions to support fast calculation of the
 stratification pattern with fastSP and fastSP.k}
 \usage{
@@ -29,13 +28,11 @@ soa.contr(s, el = 1)
 
 soa.kernel(s, el, y)
 
-EDy(D, s, y = 0.01, kernel = soa.kernel)
+EDy(D, s, y = 0.01, kernel = Rd.kernel)
 
 nrt.kernel(s, el)
 
 Rd.kernel(s, el, y)
-
-EDz(D, s, y = 0.01)
 }
 \arguments{
 \item{v}{row vector of a full factorial}

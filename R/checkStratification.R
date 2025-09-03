@@ -363,6 +363,11 @@ Spattern <- function(D, s, maxwt=4, maxdim=NULL, verbose=FALSE, ...){
 #' and the weight of the effect column micro group (columns). The margin shows row and
 #' column sums (see Details section for caveats).
 #'
+#' @seealso [fastSP()] for obtaining (part of) the stratification pattern
+#' for designs for which function \code{Spattern}
+#' is too slow or needs too much memory. That function cannot provide a
+#' dimension by weight table.
+#'
 dim_wt_tab <- function(pat, dimlim=NULL, wtlim=NULL, ...){
   ## dimlim and wtlim allow to suppress printing,
   ## even though everything was calculated
