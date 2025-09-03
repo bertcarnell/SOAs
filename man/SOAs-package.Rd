@@ -3,7 +3,6 @@
 \docType{package}
 \name{SOAs-package}
 \alias{SOAs-package}
-\alias{_PACKAGE}
 \alias{'SOAs-package'}
 \title{Creation of Stratum (aka Strong) Orthogonal Arrays}
 \description{

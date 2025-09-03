@@ -188,3 +188,9 @@ He and Tang (2013)\cr
 Shi and Tang (2020)\cr
 Tian and Xu (2022)
 }
+\seealso{
+\code{\link[=fastSP]{fastSP()}} for obtaining (part of) the stratification pattern
+for designs for which function \code{Spattern}
+is too slow or needs too much memory. That function cannot provide a
+dimension by weight table.
+}
